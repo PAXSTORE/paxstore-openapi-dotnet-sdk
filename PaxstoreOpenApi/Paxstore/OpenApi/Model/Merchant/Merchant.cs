@@ -6,7 +6,7 @@ namespace Paxstore.OpenApi.Model
 {
     public class Merchant: PagedMerchant
     {
-        Dictionary<string, string> entityAttributeValues{get; set;}
-	    List<MerchantCategory> MerchantCategory {get; set;}
+        public Dictionary<string, string> EntityAttributeValues{get; set;}
+	    public List<MerchantCategory> MerchantCategory {get; set;}
     }
 }

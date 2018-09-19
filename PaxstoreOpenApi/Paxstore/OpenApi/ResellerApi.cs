@@ -4,14 +4,14 @@ using RestSharp;
 using Newtonsoft.Json;
 using Paxstore.OpenApi.Model;
 using Paxstore.OpenApi.Base;
-using FluentValidation;
-using FluentValidation.Results;
 using Paxstore.OpenApi.Validator.Reseller;
+using log4net;
 
 namespace Paxstore.OpenApi
 {
     public class ResellerApi : BaseApi
     {
+        private static ILog _logger = LogManager.GetLogger(typeof(ResellerApi));
 
         private const string SEARCH_RESELLER_URL = "/v1/3rdsys/resellers";
         private const string GET_RESELLER_URL = "/v1/3rdsys/resellers/{resellerId}";
@@ -66,8 +66,9 @@ namespace Paxstore.OpenApi
                 return new Result<Reseller>(validationErrs);
             }
             RestRequest request = new RestRequest(CREATE_RESELLER_URL, Method.POST);
-            var resellerJson = request.JsonSerializer.Serialize(resellerCreateRequest);
-            request.AddParameter("application/json; charset=utf-8", resellerJson, ParameterType.RequestBody);
+            var resellerJson = JsonConvert.SerializeObject(resellerCreateRequest);
+
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, resellerJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             ResellerResponse resellerResponse = JsonConvert.DeserializeObject<ResellerResponse>(responseContent);
             Result<Reseller> result = new Result<Reseller>(resellerResponse);
@@ -82,8 +83,8 @@ namespace Paxstore.OpenApi
                 return new Result<Reseller>(validationErrs);
             }
             RestRequest request = new RestRequest(UPDATE_RESELLER_URL, Method.PUT);
-            var resellerJson = request.JsonSerializer.Serialize(resellerUpdateRequest);
-            request.AddParameter("application/json; charset=utf-8", resellerJson, ParameterType.RequestBody);
+            var resellerJson = JsonConvert.SerializeObject(resellerUpdateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, resellerJson, ParameterType.RequestBody);
             request.AddUrlSegment("resellerId",resellerId);
             var responseContent = Execute(request);
             ResellerResponse resellerResponse = JsonConvert.DeserializeObject<ResellerResponse>(responseContent);
@@ -122,7 +123,7 @@ namespace Paxstore.OpenApi
             if (validationErrs.Count > 0){
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(DISABLE_RESELLER_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_RESELLER_URL, Method.DELETE);
             request.AddUrlSegment("resellerId",resellerId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);

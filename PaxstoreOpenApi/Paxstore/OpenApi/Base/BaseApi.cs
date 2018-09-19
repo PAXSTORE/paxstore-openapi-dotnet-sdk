@@ -11,19 +11,20 @@ using FluentValidation;
 using FluentValidation.Results;
 using Paxstore.OpenApi.Base.Dto;
 using Paxstore.OpenApi.Validator;
+using log4net;
 
 namespace Paxstore.OpenApi.Base
 {
     public class BaseApi
     {
-        // private static ILog log = LogManager.GetLogger(typeof(BaseApi));
+        private static ILog _logger = LogManager.GetLogger(typeof(BaseApi));
         public string BaseUrl { get; set; }
         public string ApiKey { get; set; }
         public string ApiSecret { get; set; }
 
         protected RestClient Client;
 
-        public string strClutrue { get; set; }
+        public string StrClutrue { get; set; }
 
         public BaseApi(string baseUrl, string apiKey, string apiSecret)
         {
@@ -31,29 +32,47 @@ namespace Paxstore.OpenApi.Base
             ApiKey = apiKey;
             ApiSecret = apiSecret;
             Client = new RestClient(BaseUrl);
+
+            if (string.IsNullOrEmpty(StrClutrue))
+            {
+                StrClutrue = "en";
+            }
+            CultureInfo currentClutrue = new CultureInfo(StrClutrue);
+            Thread.CurrentThread.CurrentCulture = currentClutrue;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
         }
 
         protected string Execute(RestRequest request)
         {
-            if (string.IsNullOrEmpty(strClutrue))
-            {
-                strClutrue = "en";
+            _logger.DebugFormat("RestRequest={0}", request.ToString());
+            _logger.DebugFormat("RestRequest URL\t\t={0}", request.Resource);
+            _logger.DebugFormat("RestRequest Method\t\t={0}", request.Method);
+            _logger.Debug("Request Parameters\t\t=");
+            if (_logger.IsDebugEnabled) {
+                for (int i = 0; i < request.Parameters.Count; i++) {
+                    _logger.Debug(JsonConvert.SerializeObject(request.Parameters[i]));
+                }
             }
-            CultureInfo currentClutrue = new CultureInfo(strClutrue);
+            if (string.IsNullOrEmpty(StrClutrue))
+            {
+                StrClutrue = "en";
+            }
+            CultureInfo currentClutrue = new CultureInfo(StrClutrue);
             Thread.CurrentThread.CurrentCulture = currentClutrue;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(strClutrue);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
 
             request.AddParameter(Constants.PARAM_NAME_SYSKEY, ApiKey, ParameterType.QueryString);
             string querystr = GetQueryString(Client, request);
             string signature = Utils.GenSignature(ApiSecret, querystr);
             request.AddHeader(Constants.HEADER_NAME_SIGNATURE, signature);
             IRestResponse response = Client.Execute(request);
+            _logger.DebugFormat("Response StatusCode\t\t={0}", response.StatusCode);
+            _logger.DebugFormat("Response Content=\n{0}", response.Content);
             HttpStatusCode responseStatus = response.StatusCode;
-            if ((HttpStatusCode.OK.Equals(responseStatus) || HttpStatusCode.Created.Equals(responseStatus) ||
-                HttpStatusCode.NoContent.Equals(responseStatus) || HttpStatusCode.BadRequest.Equals(responseStatus) ||
-                    HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) && !string.IsNullOrWhiteSpace(response.Content))
+            if (((HttpStatusCode.OK.Equals(responseStatus) || HttpStatusCode.Created.Equals(responseStatus) ||
+                 HttpStatusCode.BadRequest.Equals(responseStatus) ||
+                    HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) && !string.IsNullOrWhiteSpace(response.Content)) || HttpStatusCode.NoContent.Equals(responseStatus))
             {
-                Console.WriteLine(response.Content);
                 return response.Content;
             }
             else
@@ -67,16 +86,21 @@ namespace Paxstore.OpenApi.Base
             HttpStatusCode responseStatus = response.StatusCode;
             if (HttpStatusCode.NotFound.Equals(responseStatus))
             {
-                return GenSdkRequestErrorJson(16111, "File Not Found");
+                if (!string.IsNullOrEmpty(response.Content) && response.Content.Contains("businessCode")) {
+                    return response.Content;
+                }
+                else {
+                    return GenSdkRequestErrorJson(16111, GetMsgByKey("msg_16111"));
+                }
+                
             }
             else if (HttpStatusCode.RequestTimeout.Equals(responseStatus))
             {
-                return GenSdkRequestErrorJson(16104, "Connection timeout");
+                return GenSdkRequestErrorJson(16104, GetMsgByKey("msg_16104"));
             }
             else
             {
-                Console.WriteLine(responseStatus);
-                return GenSdkRequestErrorJson(16000, string.IsNullOrWhiteSpace(response.ErrorMessage) ? "SDK request error" : response.ErrorMessage);
+                return GenSdkRequestErrorJson(16000, string.IsNullOrWhiteSpace(response.ErrorMessage) ? GetMsgByKey("msg_16000") : response.ErrorMessage);
             }
         }
 
@@ -101,7 +125,7 @@ namespace Paxstore.OpenApi.Base
         protected List<string> ValidateId(long id, string errorMsgKey)
         {
             List<string> validationErrs = new List<string>();
-            if (id < 0L)
+            if (id <= 0L)
             {
                 validationErrs.Add(GetMsgByKey(errorMsgKey));
             }
@@ -145,7 +169,6 @@ namespace Paxstore.OpenApi.Base
 
         protected List<string> ValidateUpdate<T>(long id, T updateReq, IValidator validator, string idInvalidMsg, string objNullMsg){
             List<string> validationErrs = ValidateId(id, idInvalidMsg);
-            
             if(updateReq== null) {
                 validationErrs.Add(GetMsgByKey(objNullMsg));
                 return validationErrs;
@@ -169,12 +192,13 @@ namespace Paxstore.OpenApi.Base
             string strValue = string.Empty;
             try
             {
-                ResourceManager resManager = new ResourceManager("paxstore-openapi-sdk.Resources.ValidationMessages", Assembly.GetExecutingAssembly());
+                ResourceManager resManager = new ResourceManager("Paxstore.OpenApi.Properties.ValidationMessages", Assembly.GetExecutingAssembly());
                 strValue = resManager.GetString(key, Thread.CurrentThread.CurrentCulture);
             }
             catch
             {
-                strValue = "No id:" + key + "please add";
+                strValue = key;
+                _logger.WarnFormat("No value for key {0} is defined in resource file, please add.", key);
             }
             return strValue;
         }

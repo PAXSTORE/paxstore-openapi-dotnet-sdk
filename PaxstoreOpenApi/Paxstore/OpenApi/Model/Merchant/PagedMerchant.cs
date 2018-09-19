@@ -4,16 +4,16 @@ namespace Paxstore.OpenApi.Model
 {
     public class PagedMerchant
     {
-        long id{get; set;}
-	    string name{get; set;}
-	    SimpleReseller reseller{get; set;}
-	    string country{get; set;}
-	    string postcode{get; set;}
-	    string address{get; set;}
-	    string contact{get; set;}
-	    string email{get; set;}
-	    string phone{get; set;}
-	    string status{get; set;}
-        string description{get; set;}
+        public long ID{get; set;}
+        public string Name {get; set;}
+        public SimpleReseller Reseller {get; set;}
+        public string Country {get; set;}
+        public string Postcode {get; set;}
+        public string Address {get; set;}
+        public string Contact {get; set;}
+        public string Email {get; set;}
+        public string Phone {get; set;}
+        public string Status {get; set;}
+        public string Description {get; set;}
     }
 }

@@ -60,8 +60,8 @@ namespace Paxstore.OpenApi
                 return new Result<Terminal>(validationErrs);
             }
             RestRequest request = new RestRequest(CREATE_TERMINAL_URL, Method.POST);
-            var terminalJson = request.JsonSerializer.Serialize(terminalCreateRequest);
-            request.AddParameter("application/json; charset=utf-8", terminalJson, ParameterType.RequestBody);
+            var terminalJson = JsonConvert.SerializeObject(terminalCreateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);
             Result<Terminal> result = new Result<Terminal>(terminalResponse);
@@ -74,8 +74,8 @@ namespace Paxstore.OpenApi
                 return new Result<Terminal>(validationErrs);
             }
             RestRequest request = new RestRequest(UPDATE_TERMINAL_URL, Method.PUT);
-            var terminalJson = request.JsonSerializer.Serialize(terminalUpdateRequest);
-            request.AddParameter("application/json; charset=utf-8", terminalJson, ParameterType.RequestBody);
+            var terminalJson = JsonConvert.SerializeObject(terminalUpdateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalJson, ParameterType.RequestBody);
             request.AddUrlSegment("terminalId",terminalId);
             var responseContent = Execute(request);
             TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);

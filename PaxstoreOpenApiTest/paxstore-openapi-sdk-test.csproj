@@ -1,21 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-<!--    <OutputType>Exe</OutputType>-->
+    <OutputType>Exe</OutputType>
     <!--<TargetFramework>netcoreapp2.1</TargetFramework>-->
-    <!-- <TargetFrameworks>net452;netcoreapp2.1</TargetFrameworks>
-    <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
+    <!-- <TargetFrameworks>net452;netcoreapp2.1</TargetFrameworks> -->
     <TargetFrameworks>net452</TargetFrameworks>
-    -->    
-
-    <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>Com.Pax.OpenApi</PackageId>
+    <PackageId>Com.Pax.OpenApi.Test</PackageId>
     <Version>1.0.0</Version>
-	<RootNamespace>Paxstore.OpenApi</RootNamespace>
-    <AssemblyName>PaxstoreOpenApi</AssemblyName>
+	<RootNamespace>Paxstore.Test</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
-    <Product>openapi.pax.com</Product>
+
     <Description>Official release of PAXSTORE OpenAPI .Net SDK</Description>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageTags>PAXSTORE OpenAPI .Net SDK</PackageTags>
@@ -25,15 +20,17 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
-    <DefineConstants>TRACE</DefineConstants>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.0.100" />
-    <PackageReference Include="log4net" Version="2.0.8" />
     <!-- <PackageReference Include="log4net" Version="2.0.7" /> -->
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <!-- <PackageReference Include="RestSharp" Version="105.2.2" /> -->
     <!-- <PackageReference Include="RestSharp.DotNetCore" Version="105.2.4" /> -->
     <PackageReference Include="RestSharp" Version="106.3.1" />
@@ -41,16 +38,14 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Properties\ValidationMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ValidationMessages.resx</DependentUpon>
-    </Compile>
+    <ProjectReference Include="..\PaxstoreOpenApi\paxstore-openapi-sdk.csproj">
+      <Project>{9A19103F-16F7-4668-BE54-9A1E7A4F7556}</Project>
+      <Name>PaxstoreOpenApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\ValidationMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@ namespace Paxstore.OpenApi
         public Result<List<MerchantCategory>> GetMerchantCategories(string name) {
             RestRequest request = new RestRequest(GET_CATEGORIES_URL, Method.GET);
             request.AddParameter("name", name);
-             var responseContent = Execute(request);
+            var responseContent = Execute(request);
             MerchantCategoryListResponse categoryList = JsonConvert.DeserializeObject<MerchantCategoryListResponse>(responseContent);
             Result<List<MerchantCategory>> result = new Result<List<MerchantCategory>>(categoryList);
             return result;
@@ -36,8 +36,8 @@ namespace Paxstore.OpenApi
                 return new Result<MerchantCategory>(validationErrs);
             }
             RestRequest request = new RestRequest(CREATE_CATEGORY_URL, Method.POST);
-            var merchantCategoryJson = request.JsonSerializer.Serialize(merchantCategoryCreateRequest);
-            request.AddParameter("application/json; charset=utf-8", merchantCategoryJson, ParameterType.RequestBody);
+            var merchantCategoryJson = JsonConvert.SerializeObject(merchantCategoryCreateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantCategoryJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             MerchantCategoryResponse merchantCategoryResponse = JsonConvert.DeserializeObject<MerchantCategoryResponse>(responseContent);
             Result<MerchantCategory> result = new Result<MerchantCategory>(merchantCategoryResponse);
@@ -50,8 +50,8 @@ namespace Paxstore.OpenApi
                 return new Result<MerchantCategory>(validationErrs);
             }
             RestRequest request = new RestRequest(UPDATE_CATEGORY_URL, Method.PUT);
-            var merchantCategoryJson = request.JsonSerializer.Serialize(merchantCategoryUpdateRequest);
-            request.AddParameter("application/json; charset=utf-8", merchantCategoryJson, ParameterType.RequestBody);
+            var merchantCategoryJson = JsonConvert.SerializeObject(merchantCategoryUpdateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantCategoryJson, ParameterType.RequestBody);
             request.AddUrlSegment("merchantCategoryId",merchantCategoryId);
             var responseContent = Execute(request);
             MerchantCategoryResponse merchantCategoryResponse = JsonConvert.DeserializeObject<MerchantCategoryResponse>(responseContent);
@@ -88,12 +88,12 @@ namespace Paxstore.OpenApi
         private List<string> ValidateBatchCreate(List<MerchantCategoryCreateRequest> merchantCategoryBatchCreateRequest){
             List<string> validationErrs = new List<string>();
             if(merchantCategoryBatchCreateRequest == null || merchantCategoryBatchCreateRequest.Count == 0) {
-                validationErrs.Add(GetMsgByKey("parameter.merchantCategoryBatchCreateRequest.invalid"));
+                validationErrs.Add(GetMsgByKey("merchantCategoryBatchCreateRequestInvalid"));
             }else {
                 for(int i=0;i<merchantCategoryBatchCreateRequest.Count;i++) {
                     MerchantCategoryCreateRequest category = merchantCategoryBatchCreateRequest[i];
                     if(category.Name == null || "".Equals(category.Name.Trim())){
-                        validationErrs.Add(GetMsgByKey("merchantCategory.name.null"));
+                        validationErrs.Add(GetMsgByKey("merchantCategoryNameEmpty"));
                         break;
                     }
                 }
@@ -101,14 +101,14 @@ namespace Paxstore.OpenApi
                 for(int i=0;i<merchantCategoryBatchCreateRequest.Count;i++) {
                     MerchantCategoryCreateRequest category = merchantCategoryBatchCreateRequest[i];
                     if(category.Name!=null && category.Name.Length>MAX_LENGTH_CATEGORY_NAME) {
-                        validationErrs.Add(GetMsgByKey("merchanteCategory.name.too.long").Replace("\\[NAME\\]", category.Name));
+                        validationErrs.Add(GetMsgByKey("merchanteCategoryNameTooLong").Replace("\\[NAME\\]", category.Name));
                     }
                 }
                 
                 for(int i=0;i<merchantCategoryBatchCreateRequest.Count;i++) {
                     MerchantCategoryCreateRequest category = merchantCategoryBatchCreateRequest[i];
                     if(category.Remarks!=null && category.Remarks.Length>MAX_LENGTH_CATEGORY_REMARKS) {
-                        validationErrs.Add(GetMsgByKey("merchanteCategory.remarks.too.long").Replace("\\[REMARKS\\]", category.Remarks));
+                        validationErrs.Add(GetMsgByKey("merchanteCategoryRemarksTooLong").Replace("\\[REMARKS\\]", category.Remarks));
                     }
                 }
             }

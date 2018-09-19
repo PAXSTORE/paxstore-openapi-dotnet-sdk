@@ -35,7 +35,7 @@ namespace Paxstore.OpenApi.Model{
             pageInfo.Limit = response.Limit;
             pageInfo.OrderBy = response.OrderBy;
             pageInfo.PageNo = response.PageNo;
-            pageInfo.TotalCount = response.TotaoCount;
+            pageInfo.TotalCount = response.TotalCount;
             PageInfo = pageInfo;
         }
         

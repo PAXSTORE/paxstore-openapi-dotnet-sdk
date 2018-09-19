@@ -29,8 +29,8 @@ namespace Paxstore.OpenApi {
 
             RestRequest request = new RestRequest(CREATE_TERMINAL_APK_URL, Method.POST);
 
-            var terminalApkJson = request.JsonSerializer.Serialize(createTerminalApkRequest);
-            request.AddParameter("application/json; charset=utf-8", terminalApkJson, ParameterType.RequestBody);
+            var terminalApkJson = JsonConvert.SerializeObject(createTerminalApkRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalApkJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
@@ -57,7 +57,7 @@ namespace Paxstore.OpenApi {
                     validationErrs.Add(GetMsgByKey("parameter.createTerminalApkRequest.sn.tid.empty"));
                 }
                 if(!string.IsNullOrEmpty(createTerminalApkRequest.TemplateName)) {
-                    if(createTerminalApkRequest.TemplateName.Split("\\"+TEMPLATE_NAME_DELIMITER).Length>MAX_TEMPLATE_SIZE) {
+                    if(createTerminalApkRequest.TemplateName.Split(new char[1] { '|'}).Length>MAX_TEMPLATE_SIZE) {
                         validationErrs.Add(GetMsgByKey("parameter.createTerminalApkRequest.template.name.toolong"));
                     }
                 }

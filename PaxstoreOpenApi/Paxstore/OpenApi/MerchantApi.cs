@@ -60,9 +60,8 @@ namespace Paxstore.OpenApi
                 return new Result<Merchant>(validationErrs);
             }
             RestRequest request = new RestRequest(CREATE_MERCHANT_URL, Method.POST);
-
-            var merchantJson = request.JsonSerializer.Serialize(merchantCreateRequest);
-            request.AddParameter("application/json; charset=utf-8", merchantJson, ParameterType.RequestBody);
+            var merchantJson = JsonConvert.SerializeObject(merchantCreateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             MerchantResponse merchantResponse = JsonConvert.DeserializeObject<MerchantResponse>(responseContent);
             Result<Merchant> result = new Result<Merchant>(merchantResponse);
@@ -75,8 +74,8 @@ namespace Paxstore.OpenApi
                 return new Result<Merchant>(validationErrs);
             }
             RestRequest request = new RestRequest(UPDATE_MERCHANT_URL, Method.PUT);
-            var merchantJson = request.JsonSerializer.Serialize(merchantUpdateRequest);
-            request.AddParameter("application/json; charset=utf-8", merchantJson, ParameterType.RequestBody);
+            var merchantJson = JsonConvert.SerializeObject(merchantUpdateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantJson, ParameterType.RequestBody);
             request.AddUrlSegment("merchantId",merchantId);
             var responseContent = Execute(request);
             MerchantResponse merchantResponse = JsonConvert.DeserializeObject<MerchantResponse>(responseContent);

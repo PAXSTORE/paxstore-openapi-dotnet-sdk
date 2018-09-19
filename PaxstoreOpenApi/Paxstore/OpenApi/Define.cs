@@ -14,6 +14,8 @@ namespace Paxstore.OpenApi{
 
         public const int MAX_PAGE_SIZE = 1000;
 
+        public const string CONTENT_TYPE_JSON = "application/json; charset=utf-8";
+
     }
 
     public class Utils{

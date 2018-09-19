@@ -11,7 +11,7 @@ namespace Paxstore.OpenApi.Validator.Merchant
             RuleFor(x => x.ResellerName).NotEmpty().MaximumLength(64);
             RuleFor(x => x.Contact).NotEmpty().MaximumLength(64);
             RuleFor(x => x.Country).NotEmpty().MaximumLength(64);
-            RuleFor(x => x.Phone).MaximumLength(32);
+            RuleFor(x => x.Phone).NotEmpty().MaximumLength(32);
             RuleFor(x => x.Postcode).MaximumLength(16);
             RuleFor(x => x.Address).MaximumLength(255);
             RuleFor(x => x.Description).MaximumLength(3000);
