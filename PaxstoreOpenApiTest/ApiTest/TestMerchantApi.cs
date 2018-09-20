@@ -71,6 +71,12 @@ namespace Paxstore.Test
         }
 
         [Test]
+        public void TestActivateMerchant() {
+            long merchantId = 1000000134;
+            API.ActivateMerchant(merchantId);
+        }
+
+        [Test]
         public void TestCreateUpdateActiveDisableDelete() {
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
             merchantCreateRequest.Name = "好人民间";
