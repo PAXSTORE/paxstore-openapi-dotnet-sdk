@@ -110,8 +110,8 @@ namespace Paxstore.OpenApi.Base
         {
             var result = new
             {
-                businessCode = businessCode,
-                message = message
+                businessCode,
+                message
             };
             string resultJson = JsonConvert.SerializeObject(result);
             return resultJson;
@@ -194,6 +194,10 @@ namespace Paxstore.OpenApi.Base
             {
                 ResourceManager resManager = new ResourceManager("Paxstore.OpenApi.Properties.ValidationMessages", Assembly.GetExecutingAssembly());
                 strValue = resManager.GetString(key, Thread.CurrentThread.CurrentCulture);
+                if (string.IsNullOrEmpty(strValue)) {
+                    strValue = key;
+                    _logger.WarnFormat("No value for key {0} is defined in resource file, please add.", key);
+                }
             }
             catch
             {

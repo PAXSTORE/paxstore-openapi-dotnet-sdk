@@ -79,6 +79,9 @@ namespace Paxstore.OpenApi
             }
             RestRequest request = new RestRequest(BATCH_CREATE_CATEGORY_URL, Method.POST);
             request.AddParameter("skipExist",skipExist, ParameterType.QueryString);
+
+            var merchantCategoryJson = JsonConvert.SerializeObject(merchantCategoryBatchCreateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantCategoryJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             MerchantCategoryListResponse categoryList = JsonConvert.DeserializeObject<MerchantCategoryListResponse>(responseContent);
             Result<List<MerchantCategory>> result = new Result<List<MerchantCategory>>(categoryList);
@@ -92,7 +95,7 @@ namespace Paxstore.OpenApi
             }else {
                 for(int i=0;i<merchantCategoryBatchCreateRequest.Count;i++) {
                     MerchantCategoryCreateRequest category = merchantCategoryBatchCreateRequest[i];
-                    if(category.Name == null || "".Equals(category.Name.Trim())){
+                    if(string.IsNullOrEmpty(category.Name)){
                         validationErrs.Add(GetMsgByKey("merchantCategoryNameEmpty"));
                         break;
                     }

@@ -174,4 +174,13 @@
   <data name="terminalUpdateRequestIsNull" xml:space="preserve">
     <value>Parameter terminalUpdateRequest cannot be null!</value>
   </data>
+  <data name="parameterCreateTerminalApkRequestNull" xml:space="preserve">
+    <value>Parameter createTerminalApkRequest cannot be null!</value>
+  </data>
+  <data name="parameterCreateTerminalApkRequestSnTidEmpty" xml:space="preserve">
+    <value>The property serialNo and tid in createTerminalApkRequest cannot be blank at same time!</value>
+  </data>
+  <data name="parameterCreateTerminalApkRequestTemplateNameTooLong" xml:space="preserve">
+    <value>The max size of template names is 10!</value>
+  </data>
 </root>

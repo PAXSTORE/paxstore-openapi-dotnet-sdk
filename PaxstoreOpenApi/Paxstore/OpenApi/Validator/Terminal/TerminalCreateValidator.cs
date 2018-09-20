@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 using Paxstore.OpenApi.Model;
 
@@ -13,6 +14,19 @@ namespace Paxstore.OpenApi.Validator.Terminal
             RuleFor(x => x.ResellerName).NotEmpty().MaximumLength(64);
             RuleFor(x => x.ModelName).NotEmpty().MaximumLength(64);
             RuleFor(x => x.Location).MaximumLength(32);
+            RuleFor(x => x.Status).Must(BeValidStatus).WithMessage("'Status' must be 'A' or 'P'.");
+        }
+
+        private bool BeValidStatus(string status)
+        {
+            if ("A".Equals(status) || "P".Equals(status))
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+
         }
     }
 }

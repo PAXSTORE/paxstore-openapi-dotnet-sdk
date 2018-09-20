@@ -10,7 +10,7 @@ using Paxstore.OpenApi.Validator.TerminalApk;
 using RestSharp;
 
 namespace Paxstore.OpenApi {
-    class TerminalApkApi: BaseApi { 
+    public class TerminalApkApi: BaseApi { 
         private const string CREATE_TERMINAL_APK_URL = "/v1/3rdsys/terminalApks";
 	    private const string TEMPLATE_NAME_DELIMITER = "|";
 	    private const int MAX_TEMPLATE_SIZE = 10;
@@ -40,7 +40,7 @@ namespace Paxstore.OpenApi {
         private List<string> ValidateCreateTerminalApk(CreateTerminalApkRequest createTerminalApkRequest) {
             List<string> validationErrs = new List<string>();
             if(createTerminalApkRequest == null) {
-                validationErrs.Add(GetMsgByKey("parameter.createTerminalApkRequest.null"));
+                validationErrs.Add(GetMsgByKey("parameterCreateTerminalApkRequestNull"));
             }else {
                 IValidator validator = new TerminalApkCreateValidator();
 
@@ -54,11 +54,11 @@ namespace Paxstore.OpenApi {
                     }
                 }
                 if(string.IsNullOrEmpty(createTerminalApkRequest.SerialNo) && string.IsNullOrEmpty(createTerminalApkRequest.TID)) {
-                    validationErrs.Add(GetMsgByKey("parameter.createTerminalApkRequest.sn.tid.empty"));
+                    validationErrs.Add(GetMsgByKey("parameterCreateTerminalApkRequestSnTidEmpty"));
                 }
                 if(!string.IsNullOrEmpty(createTerminalApkRequest.TemplateName)) {
                     if(createTerminalApkRequest.TemplateName.Split(new char[1] { '|'}).Length>MAX_TEMPLATE_SIZE) {
-                        validationErrs.Add(GetMsgByKey("parameter.createTerminalApkRequest.template.name.toolong"));
+                        validationErrs.Add(GetMsgByKey("parameterCreateTerminalApkRequestTemplateNameTooLong"));
                     }
                 }
             }
