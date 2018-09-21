@@ -33,7 +33,6 @@ namespace Paxstore.OpenApi.Model{
             pageInfo.DataSet = response.Dataset;
             pageInfo.HasNext = response.HasNext;
             pageInfo.Limit = response.Limit;
-            pageInfo.OrderBy = response.OrderBy;
             pageInfo.PageNo = response.PageNo;
             pageInfo.TotalCount = response.TotalCount;
             PageInfo = pageInfo;

@@ -1,18 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-<!--    <OutputType>Exe</OutputType>-->
-    <!--<TargetFramework>netcoreapp2.1</TargetFramework>-->
-    <!-- <TargetFrameworks>net452;netcoreapp2.1</TargetFrameworks>
     <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
-    <TargetFrameworks>net452</TargetFrameworks>
-    -->    
 
-    <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Com.Pax.OpenApi</PackageId>
     <Version>1.0.0</Version>
 	<RootNamespace>Paxstore.OpenApi</RootNamespace>
-    <AssemblyName>PaxstoreOpenApi</AssemblyName>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
     <Product>openapi.pax.com</Product>
@@ -32,13 +24,8 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.0.100" />
     <PackageReference Include="log4net" Version="2.0.8" />
-    <!-- <PackageReference Include="log4net" Version="2.0.7" /> -->
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <!-- <PackageReference Include="RestSharp" Version="105.2.2" /> -->
-    <!-- <PackageReference Include="RestSharp.DotNetCore" Version="105.2.4" /> -->
     <PackageReference Include="RestSharp" Version="106.3.1" />
-    <!-- <PackageReference Include="log4net" Version="2.0.8" /> -->
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\ValidationMessages.Designer.cs">

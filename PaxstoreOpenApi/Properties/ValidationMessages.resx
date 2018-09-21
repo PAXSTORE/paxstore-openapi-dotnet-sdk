@@ -145,7 +145,7 @@
     <value>Parameter merchantUpdateRequest cannot be null!</value>
   </data>
   <data name="msg_16000" xml:space="preserve">
-    <value>SDK request error!</value>
+    <value>Unknow SDK request error!</value>
   </data>
   <data name="msg_16104" xml:space="preserve">
     <value>Connection timeout!</value>
