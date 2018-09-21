@@ -89,7 +89,11 @@ createTerminalApkRequest.setParameters(parameters);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 

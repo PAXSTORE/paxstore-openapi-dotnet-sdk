@@ -50,7 +50,10 @@ Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.N
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["'Page No' must be greater than '0'."]
+	"Message": null,
+	"ValidationErrors": ["'Page No' must be greater than '0'."],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -59,23 +62,29 @@ Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.N
 ```
 {
 	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
 	"PageInfo": {
 		"PageNo": 1,
 		"Limit": 10,
 		"TotalCount": 1,
 		"HasNext": false,
 		"DataSet": [{
-			"ID": 72590,
-			"Name": "merchant_20180704_2fecc",
+			"ID": 1000000134,
+			"Name": "KFC",
 			"Reseller": {
-				"ID": 4151,
-				"Name": "New York"
+				"ID": 1000000225,
+				"Name": "reseller_002"
 			},
 			"Country": "CN",
-			"Contact": "Sam",
-			"Email": "sam@pax.com",
-			"Phone": "444888",
-			"Status": "A"
+			"Postcode": null,
+			"Address": null,
+			"Contact": "tan",
+			"Email": "abc@163.com",
+			"Phone": "23231515",
+			"Status": "A",
+			"Description": "Merchant KFC"
 		}]
 	}
 }
@@ -138,7 +147,10 @@ Result<Merchant> result = api.GetMerchant(72590);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"]
+	"Message": null,
+	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -147,7 +159,10 @@ Result<Merchant> result = api.GetMerchant(72590);
 ```
 {
 	"BusinessCode": 1720,
-	"Message": "Merchant doesn't exist"
+	"Message": "Merchant doesn't exist",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -156,27 +171,27 @@ Result<Merchant> result = api.GetMerchant(72590);
 ```
 {
 	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
 	"Data": {
-		"EntityAttributeValues": {
-			"456": "tan2"
-		},
-		"MerchantCategory": [{
-			"ID": 1,
-			"Name": "FastFood",
-            "Remarks": "test category"
-		}],
-		"Id": 72590,
-		"Name": "merchant_20180704_2fecc",
+		"EntityAttributeValues": null,
+		"MerchantCategory": [],
+		"ID": 1000000134,
+		"Name": "KFC",
 		"Reseller": {
-			"ID": 4151,
-			"Name": "New York"
+			"ID": 1000000225,
+			"Name": "reseller_002"
 		},
 		"Country": "CN",
-		"Contact": "tanjie",
-		"Email": "tanjie2456@pax.com",
-		"Phone": "444888",
-		"Status": "A"
-	}
+		"Postcode": null,
+		"Address": null,
+		"Contact": "tan",
+		"Email": "abc@163.com",
+		"Phone": "23231515",
+		"Status": "A",
+		"Description": "Merchant KFC"
+	},
+	"PageInfo": null
 }
 ```
 
@@ -363,58 +378,57 @@ Update merchant API allows the thirdparty system update a exist merchant.
 **API**
 
 ```
-public Result<MerchantDTO>  updateMerchant(Long merchantId, MerchantUpdateRequest merchantUpdateRequest)
+public Result<Merchant>  UpdateMerchant(long merchantId, MerchantUpdateRequest merchantUpdateRequest)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|merchantId|Long|false|The id of merchant.|
+|merchantId|long|false|The id of merchant.|
 |merchantUpdateRequest|MerchantUpdateRequest|false|The update request object. The structure shows below.|
 
 Structure of class MerchantUpdateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|name|String|false|Merchant name, max length is 64.|
-|email|String|false|Email of merchant, max length is 255.|
-|resellerName|String|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
-|contact|String|false|Contact of merchant, max length is 64.|
-|country|String|false|Country code of merchant, max length is 64. Please refer to country codes table.|
-|phone|String|false|Phone number of merchant, max length is 32.|
-|postcode|String|true|Postcode of merchant, max length is 16.|
-|address|String|true|Address of merchant, max length is 255.|
-|description|String|true|Description of merchant, max length is 3000.|
-|merchantCategoryNames|List&lt;String&gt;|true|Merchant categories. Make sure the categories are available.|
-|entityAttributeValues|LinkedHashMap&lt;String, String&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
+|Name|string|false|Merchant name, max length is 64.|
+|Email|string|false|Email of merchant, max length is 255.|
+|ResellerName|string|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
+|Contact|string|false|Contact of merchant, max length is 64.|
+|Country|string|false|Country code of merchant, max length is 64. Please refer to country codes table.|
+|Phone|string|false|Phone number of merchant, max length is 32.|
+|Postcode|string|true|Postcode of merchant, max length is 16.|
+|Address|string|true|Address of merchant, max length is 255.|
+|Description|string|true|Description of merchant, max length is 3000.|
+|MerchantCategoryNames|List&lt;string&gt;|true|Merchant categories. Make sure the categories are available.|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
 
 
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-MerchantUpdateRequest request = new MerchantUpdateRequest();
-request.setName("KFC Suzhou");
-request.setResellerName("New York");
-request.setCountry("CN");
-request.setContact("Jack");
-request.setEmail("jack@kfc.com.cn");
-request.setPhone("86869999");
-String[] categoryNames = {"Fast Food"};
-request.setMerchantCategoryNames(Arrays.asList(categoryNames));
-LinkedHashMap<String,String> attrs = new LinkedHashMap<String,String>();
-attrs.put("tag", "suzh");
-request.setEntityAttributeValues(attrs);
-Result<MerchantDTO> result = merchantApi.updateMerchant(72594L, request);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
+merchantUpdateRequest.Name = "好人民间";
+merchantUpdateRequest.Email = "haoren2@163.com";
+merchantUpdateRequest.ResellerName = "Pine Labs";
+merchantUpdateRequest.Contact = "haoren2";
+merchantUpdateRequest.Country = "CN";
+merchantUpdateRequest.Description = "商户好人民间";
+merchantUpdateRequest.Phone = "0512-88889999";
+Result<Merchant> updateResult = api.UpdateMerchant(1000000155, merchantUpdateRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["country:may not be empty"]
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["'Reseller Name' should not be empty.", "'Contact' should not be empty.", "'Country' should not be empty.", "'Phone' should not be empty."],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -422,8 +436,11 @@ Result<MerchantDTO> result = merchantApi.updateMerchant(72594L, request);
 
 ```
 {
-	"businessCode": 1112,
-	"message": "Phone No. is invalid"
+	"BusinessCode": 1720,
+	"Message": "Merchant doesn't exist",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -431,27 +448,28 @@ Result<MerchantDTO> result = merchantApi.updateMerchant(72594L, request);
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"entityAttributeValues": {
-			"tag": "suzh"
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": {
+		"EntityAttributeValues": null,
+		"MerchantCategory": [],
+		"ID": 1000000155,
+		"Name": "hrmj2",
+		"Reseller": {
+			"ID": 1000000211,
+			"Name": "Pine Labs"
 		},
-		"merchantCategory": [{
-			"id": 1,
-			"name": "Fast Food"
-		}],
-		"id": 72594,
-		"name": "KFC Suzhou",
-		"reseller": {
-			"id": 4151,
-			"name": "New York"
-		},
-		"country": "CN",
-		"contact": "Jack",
-		"email": "jack@kfc.com.cn",
-		"phone": "86869999",
-		"status": "P"
-	}
+		"Country": "CN",
+		"Postcode": null,
+		"Address": null,
+		"Contact": "haoren2",
+		"Email": "haoren2@163.com",
+		"Phone": "0512-88889999",
+		"Status": "P",
+		"Description": "merchant hrmj2"
+	},
+	"PageInfo": null
 }
 ```
 
@@ -520,7 +538,7 @@ If activate successfully there's no response content from remote server.
 **API**
 
 ```
-public Result<String> activateMerchant(Long merchantId)
+public Result<string> ActivateMerchant(long merchantId)
 ```
 
 **Input parameter(s) description**
@@ -532,16 +550,19 @@ public Result<String> activateMerchant(Long merchantId)
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = merchantApi.activateMerchant(72590L);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<string> result = api.ActivateMerchant(72590);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -549,8 +570,11 @@ Result<String> result = merchantApi.activateMerchant(72590L);
 
 ```
 {
-	"businessCode": 1892,
-	"message": "The merchant has already been activated!"
+	"BusinessCode": 1892,
+	"Message": "The merchant has already been activated!",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -559,7 +583,11 @@ Result<String> result = merchantApi.activateMerchant(72590L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -586,7 +614,7 @@ If disable successfully there's not response content from remote server.
 **API**
 
 ```
-public Result<String> disableMerchant(Long merchantId)
+public Result<string> DisableMerchant(long merchantId)
 ```
 
 **Input parameter(s) description**
@@ -599,16 +627,19 @@ public Result<String> disableMerchant(Long merchantId)
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = merchantApi.disableMerchant(72594L);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<string> result = api.DisableMerchant(72594);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -616,8 +647,11 @@ Result<String> result = merchantApi.disableMerchant(72594L);
 
 ```
 {
-	"businessCode": 1887,
-	"message": "The merchant is not active,unable to disable!"
+	"BusinessCode": 1887,
+	"Message": "The merchant is not active,unable to disable!",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -625,7 +659,11 @@ Result<String> result = merchantApi.disableMerchant(72594L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -654,7 +692,7 @@ If delete successfully there's no response content from remote server.
 **API**
 
 ```
-public Result<String> deleteMerchant(Long merchantId)
+public Result<string> DeleteMerchant(long merchantId)
 ```
 
 **Input parameter(s) description**
@@ -667,16 +705,19 @@ public Result<String> deleteMerchant(Long merchantId)
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = merchantApi.deleteMerchant(72593L);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<string> result = api.DeleteMerchant(72593);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -684,8 +725,11 @@ Result<String> result = merchantApi.deleteMerchant(72593L);
 
 ```
 {
-	"businessCode": 1720,
-	"message": "Merchant doesn't exist"
+	"BusinessCode": 1720,
+	"Message": "Merchant doesn't exist",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -693,7 +737,11 @@ Result<String> result = merchantApi.deleteMerchant(72593L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 

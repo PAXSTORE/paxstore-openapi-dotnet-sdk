@@ -57,8 +57,12 @@ Result<PagedReseller> result = api.SearchReseller(1, 10, ResellerSearchOrderBy.N
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["'Page No' must be greater than '0'."]
+	"Message": null,
+	"ValidationErrors": ["'Page No' must be greater than '0'."],
+	"Data": null,
+	"PageInfo": null
 }
+
 ```
 
 **Successful sample result(JSON formatted)**
@@ -153,7 +157,10 @@ Result<Reseller> result = api.GetReseller(1000000211);
 ```
 {
 	"BusinessCode": -1,
+	"Message": null,
 	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -162,8 +169,11 @@ Result<Reseller> result = api.GetReseller(1000000211);
 
 ```
 {
-	"BusinessCode": 1760,
-	"Message": "Reseller name already exists"
+	"BusinessCode": -1760,
+	"Message": "Reseller name already exists",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -172,6 +182,8 @@ Result<Reseller> result = api.GetReseller(1000000211);
 ```
 {
 	"BusinessCode": 0,
+    "Message": null,
+	"ValidationErrors": null,
 	"Data": {
 		"EntityAttributeValues": {
 			"111": "hello"
@@ -187,7 +199,8 @@ Result<Reseller> result = api.GetReseller(1000000211);
 		"Contact": "FFF",
 		"Email": "sum@gmail.com",
 		"Status": "S"
-	}
+	}, 
+    "PageInfo": null
 }
 ```
 
@@ -275,7 +288,10 @@ Result<Reseller> result = api.CreateReseller(request);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."]
+    "Message": null,
+	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."],
+    "Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -284,7 +300,10 @@ Result<Reseller> result = api.CreateReseller(request);
 ```
 {
 	"BusinessCode": 1760,
-	"Message": "Reseller name already exists"
+	"Message": "Reseller name already exists",
+    "ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -293,6 +312,8 @@ Result<Reseller> result = api.CreateReseller(request);
 ```
 {
 	"BusinessCode": 0,
+    "Message": null,
+    "ValidationErrors": null,
 	"Data": {
 		"DntityAttributeValues": {
 			"111": "tan2"
@@ -308,8 +329,10 @@ Result<Reseller> result = api.CreateReseller(request);
 		"Contact": "Sam",
 		"Email": "sam@gmail.com",
 		"Status": "P"
-	}
+	},
+    "PageInfo": null
 }
+
 ```
 
 Type of data is Reseller, same as the API get reseller.
@@ -409,7 +432,10 @@ Result<Reseller> updateResult = api.UpdateReseller(resellerId, updateRequest);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."]
+    "Message": null,
+	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."],
+    "Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -418,7 +444,10 @@ Result<Reseller> updateResult = api.UpdateReseller(resellerId, updateRequest);
 ```
 {
 	"BusinessCode": 12000,
-	"Message": "code is mandatory"
+	"Message": "code is mandatory",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -430,6 +459,8 @@ Note: the code in message is the dynamic attribute for the above failed sample r
 ```
 {
 	"BusinessCode": 0,
+    "Message": "code is mandatory",
+    "ValidationErrors": null,
 	"Data": {
 		"EntityAttributeValues": {
 			"code": "XY"
@@ -445,7 +476,8 @@ Note: the code in message is the dynamic attribute for the above failed sample r
 		"Contact": "FFF",
 		"Email": "FF@1234.COM",
 		"Status": "S"
-	}
+	},
+    "PageInfo": null
 }
 ```
 
@@ -549,7 +581,11 @@ Result<string> result = api.ActivateReseller(51739L);
 
 ```
 {
-	"BusinessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -615,7 +651,11 @@ Result<string> result = api.DisableReseller(51739L);
 
 ```
 {
-	"BusinessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -683,7 +723,11 @@ Result<string> result = api.DeleteReseller(51739L);
 
 ```
 {
-	"BusinessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 

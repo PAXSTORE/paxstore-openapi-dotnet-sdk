@@ -52,8 +52,11 @@ Result<TerminalDTO> result = terminalApi.searchTerminal(1, 10, null, TerminalSta
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["pageSize:must be greater than or equal to 1", "pageNo:must be greater than or equal to 1"]
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["'Page No' must be greater than '0'."],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -98,9 +101,9 @@ Structure of class TerminalDTO
 
 **Possible validation errors**
 
-> <font color=red>pageSize:must be greater than or equal to 1</font>   
-> <font color=red>pageNo:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be less than or equal to 1000</font>  
+> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page No' must be greater than '0'.</font><br>
+> <font color="red">'Page Size' must be greater than '0'.</font>
 
 
 ### Get a terminal
@@ -477,7 +480,11 @@ Result<String> result = terminalApi.activateTerminal(907560L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -545,7 +552,11 @@ Result<String> result = terminalApi.disableTerminal(907560L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -609,7 +620,11 @@ Result<String> result = terminalApi.deleteTerminal(907560L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 

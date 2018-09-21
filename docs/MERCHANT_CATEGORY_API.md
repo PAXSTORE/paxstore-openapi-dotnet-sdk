@@ -305,7 +305,11 @@ Result<String> result = merchantCategoryApi.deleteMerchantCategory(12L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
