@@ -1,23 +1,22 @@
 ## Merchant APIs
 
-The merchant APIs allow thirdparty system search resellers, get a reseller, create/update a reseller, activate/disable a reseller and delete a exist reseller.
-All the merchant APIs are in the class *com.pax.market.api.sdk.java.api.reseller.ResellerApi*.   
+The merchant APIs allow thirdparty system search merchants, get a merchant, create/update a merchant, activate/disable a merchant and delete a exist merchant.
+All the merchant APIs are in the class *Paxstore.OpenApi.MerchantApi*.    
 
-**Constructors of ResellerAPI**
+**Constructors of MerchantAPI**
 
 ```
-public MerchantApi(String baseUrl, String apiKey, String apiSecret);
-public MerchantApi(String baseUrl, String apiKey, String apiSecret, Locale locale);
+public MerchantApi(string baseUrl, string apiKey, string apiSecret)
 ```
 
 Constructor parameters description   
 
 |Name|Type|Description|
 |:--|:--|:--|
-|baseUrl|String|the base url of REST API|
-|apiKey|String|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
-|apiSecret|String|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
-|locale|Locale|the locale, the default locale is Locale.ENGLISH, the language of message and errors in return object depend on locale|
+|baseUrl|string|the base url of REST API|
+|apiKey|string|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
+|apiSecret|string|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
+
 
 ### Search merchants
 
@@ -26,7 +25,7 @@ The search merchants API allows thirdparty system to search merchants by page.
 **API**
 
 ```
-public Result<MerchantPageDTO>  searchMerchant(int pageNo, int pageSize, MerchantSearchOrderBy orderBy, String name, MerchantStatus status)
+public Result<PagedMerchant>  SearchMerchant(int pageNo, int pageSize, MerchantSearchOrderBy orderBy, String name, MerchantStatus status)
 ```
 
 **Input parameter(s) description**
@@ -35,23 +34,23 @@ public Result<MerchantPageDTO>  searchMerchant(int pageNo, int pageSize, Merchan
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|MerchantSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of MerchantSearchOrderBy.Name, MerchantSearchOrderBy.Phone and MerchantSearchOrderBy.Contact.|
-|name|String|true|search by name|
-|status|MerchantStatus|true|the reseller status<br/> the value can be MerchantStatus.Active, MerchantStatus.Inactive, MerchantStatus.Suspend|
+|orderBy|MerchantSearchOrderBy|false|the field name sort order by. The value of this parameter can be one of MerchantSearchOrderBy.Name, MerchantSearchOrderBy.Phone and MerchantSearchOrderBy.Contact.|
+|name|string|true|search filter by merchant name|
+|status|MerchantStatus|true|the reseller status<br/> the value can be MerchantStatus.All, MerchantStatus.Active, MerchantStatus.Inactive, MerchantStatus.Suspend. If the value is MerchantStatus.All it will return merchant of all status|
 
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<MerchantPageDTO> result = merchantApi.searchMerchant(1, 10, null, "2fecc", MerchantStatus.Active);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.Name, null, MerchantStatus.All);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["pageNo:must be greater than or equal to 1"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["'Page No' must be greater than '0'."]
 }
 ```
 
@@ -59,55 +58,55 @@ Result<MerchantPageDTO> result = merchantApi.searchMerchant(1, 10, null, "2fecc"
 
 ```
 {
-	"businessCode": 0,
-	"pageInfo": {
-		"pageNo": 1,
-		"limit": 10,
-		"totalCount": 1,
-		"hasNext": false,
-		"dataSet": [{
-			"id": 72590,
-			"name": "merchant_20180704_2fecc",
-			"reseller": {
-				"id": 4151,
-				"name": "New York"
+	"BusinessCode": 0,
+	"PageInfo": {
+		"PageNo": 1,
+		"Limit": 10,
+		"TotalCount": 1,
+		"HasNext": false,
+		"DataSet": [{
+			"ID": 72590,
+			"Name": "merchant_20180704_2fecc",
+			"Reseller": {
+				"ID": 4151,
+				"Name": "New York"
 			},
-			"country": "CN",
-			"contact": "Sam",
-			"email": "sam@pax.com",
-			"phone": "444888",
-			"status": "A"
+			"Country": "CN",
+			"Contact": "Sam",
+			"Email": "sam@pax.com",
+			"Phone": "444888",
+			"Status": "A"
 		}]
 	}
 }
 ```
 
-The type in dataSet is MerchantPageDTO. And the structure like below.
+The type in dataSet is PagedMerchant. And the structure like below.
 
 |Property Name|Type|Description|
 |:--|:--|:--|
-|id|Long|The id of merchant.|
-|name|String|The name of merchant.|
-|reseller|SimpleResellerDTO|The reseller of the merchant belongs to.|
-|country|String|Country code of merchant.|
-|contact|String|Contact of merchant.|
-|email|String|Email of merchant.|
-|phone|String|Phone number of merchant.|
-|status|String|Status of merchant. Value can be one of A(Active), P(Pendding) and S(Suspend)|
+|ID|long|The id of merchant.|
+|Name|string|The name of merchant.|
+|Reseller|SimpleReseller|The reseller of the merchant belongs to.|
+|Country|string|Country code of merchant.|
+|Contact|string|Contact of merchant.|
+|Email|string|Email of merchant.|
+|Phone|string|Phone number of merchant.|
+|Status|string|Status of merchant. Value can be one of A(Active), P(Pendding) and S(Suspend)|
 
-The structure of class SimpleResellerDTO
+The structure of class SimpleReseller
 
 |Property Name|Type|Description|
 |:--|:--|:--|
-|id|Long|The id of reseller.|
-|name|String|The name of reseller.|
+|ID|long|The id of reseller.|
+|Name|string|The name of reseller.|
 
 
 **Possible client validation errors**  
 
-> <font color=red>pageSize:must be greater than or equal to 1</font>   
-> <font color=red>pageNo:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be less than or equal to 1000</font>  
+> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page No' must be greater than '0'.</font><br>
+> <font color="red">'Page Size' must be greater than '0'.</font>
 
 
 ### Get a merchant
@@ -118,28 +117,28 @@ If the merchant does not exist the data field in result is null.
 **API**
 
 ```
-public Result<MerchantDTO>  getMerchant(Long merchantId)
+public Result<Merchant>  GetMerchant(long merchantId)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|merchantId|Long|false|The merchant id.|
+|merchantId|long|false|The merchant id.|
 
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<MerchantDTO> result = merchantApi.getMerchant(72590L);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<Merchant> result = api.GetMerchant(72590);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -147,8 +146,8 @@ Result<MerchantDTO> result = merchantApi.getMerchant(72590L);
 
 ```
 {
-	"businessCode": 1720,
-	"message": "Merchant doesn't exist"
+	"BusinessCode": 1720,
+	"Message": "Merchant doesn't exist"
 }
 ```
 
@@ -156,46 +155,47 @@ Result<MerchantDTO> result = merchantApi.getMerchant(72590L);
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"entityAttributeValues": {
+	"BusinessCode": 0,
+	"Data": {
+		"EntityAttributeValues": {
 			"456": "tan2"
 		},
-		"merchantCategory": [{
-			"id": 1,
-			"name": "1111"
+		"MerchantCategory": [{
+			"ID": 1,
+			"Name": "FastFood",
+            "Remarks": "test category"
 		}],
-		"id": 72590,
-		"name": "merchant_20180704_2fecc",
-		"reseller": {
-			"id": 4151,
-			"name": "New York"
+		"Id": 72590,
+		"Name": "merchant_20180704_2fecc",
+		"Reseller": {
+			"ID": 4151,
+			"Name": "New York"
 		},
-		"country": "CN",
-		"contact": "tanjie",
-		"email": "tanjie2456@pax.com",
-		"phone": "444888",
-		"status": "A"
+		"Country": "CN",
+		"Contact": "tanjie",
+		"Email": "tanjie2456@pax.com",
+		"Phone": "444888",
+		"Status": "A"
 	}
 }
 ```
 
-The type of data in result is MerchantDTO, and the structure shows below.
+The type of data in result is Merchant, and the structure shows below.
 
 |Property Name|Type|Description|
 |:--|:--|:--|
-|id|Long|The id of merchant.|
-|name|String|The name of merchant.|
-|reseller|SimpleResellerDTO|The reseller of the merchant belongs to.|
-|country|String|Country code of merchant.|
-|contact|String|Contact of merchant.|
-|email|String|Email of merchant.|
-|phone|String|Phone number of merchant.|
-|status|String|Status of merchant. Value can be one of A(Active), P(Pendding) and S(Suspend)|
-|entityAttributeValues|LinkedHashMap&lt;String, String&gt;|Dynamic attributes of merchant.|
-|merchantCategory|List&lt;MerchantCategoryDTO&gt;|Categories of merchant belongs to.|
+|ID|long|The id of merchant.|
+|Name|string|The name of merchant.|
+|Reseller|SimpleReseller|The reseller of the merchant belongs to.|
+|Country|string|Country code of merchant.|
+|Contact|string|Contact of merchant.|
+|Email|string|Email of merchant.|
+|Phone|string|Phone number of merchant.|
+|Status|string|Status of merchant. Value can be one of A(Active), P(Pendding) and S(Suspend)|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|Dynamic attributes of merchant.|
+|MerchantCategory|List&lt;MerchantCategory&gt;|Categories of merchant belongs to.|
 
-The structure of SimpleResellerDTO already described in Search Merchants chapter.
+The structure of SimpleReseller already described in Search Merchants chapter.
 
 **Possible client validation errors**
 
@@ -215,7 +215,7 @@ Create merchant API allows thirdparty system create a merchant. If create succes
 **API**
 
 ```
-public Result<MerchantDTO>  createMerchant(MerchantCreateRequest merchantCreateRequest) 
+public Result<Merchant>  CreateMerchant(MerchantCreateRequest merchantCreateRequest)
 ```
 
 **Input parameter(s) description**
@@ -228,44 +228,43 @@ Structure of class MerchantCreateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|name|String|false|Merchant name, max length is 64.|
-|email|String|false|Email of merchant, max length is 255.|
-|resellerName|String|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
-|contact|String|false|Contact of merchant, max length is 64.|
-|country|String|false|Country code of merchant, max length is 64. Please refer to country codes table.|
-|phone|String|false|Phone number of merchant, max length is 32.|
-|postcode|String|true|Postcode of merchant, max length is 16.|
-|address|String|true|Address of merchant, max length is 255.|
-|description|String|true|Description of merchant, max length is 3000.|
-|merchantCategoryNames|List&lt;String&gt;|true|Merchant categories. Make sure the categories are available.|
-|entityAttributeValues|LinkedHashMap&lt;String, String&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
+|Name|string|false|Merchant name, max length is 64.|
+|Email|string|false|Email of merchant, max length is 255.|
+|ResellerName|string|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
+|Contact|string|false|Contact of merchant, max length is 64.|
+|Country|string|false|Country code of merchant, max length is 64. Please refer to country codes table.|
+|Phone|string|false|Phone number of merchant, max length is 32.|
+|Postcode|string|true|Postcode of merchant, max length is 16.|
+|Address|string|true|Address of merchant, max length is 255.|
+|Description|string|true|Description of merchant, max length is 3000.|
+|MerchantCategoryNames|List&lt;string&gt;|true|Merchant categories. Make sure the categories are available.|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
 
 
 **Sample codes**
 
 ```
-MerchantApi merchantApi = new  MerchantApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-MerchantCreateRequest request = new MerchantCreateRequest();
-request.setName("KFC Suzhou");
-request.setResellerName("New York");
-request.setCountry("CN");
-request.setContact("sam");
-request.setEmail("sam@pax.com");
-request.setPhone("444888");
-LinkedHashMap<String,String> attrs = new LinkedHashMap<String,String>();
-attrs.put("tag", "suzh");
-request.setEntityAttributeValues(attrs);
-String[] categoryNames = {"Fast Food"};
-request.setMerchantCategoryNames(Arrays.asList(categoryNames));
-Result<MerchantDTO> result = merchantApi.createMerchant(request);
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
+merchantCreateRequest.Name = "hrmj";
+merchantCreateRequest.Email = "haoren@163.com";
+merchantCreateRequest.ResellerName = "Pine Labs";
+merchantCreateRequest.Contact = "haoren";
+merchantCreateRequest.Country = "CN";
+merchantCreateRequest.Description = "merchant hrmj";
+merchantCreateRequest.Phone = "0512-59564515";
+Result<Merchant> result = API.CreateMerchant(merchantCreateRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["name:may not be empty", "country:may not be empty", "email:may not be empty", "resellerName:may not be empty", "contact:may not be empty"]
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["'Name' should not be empty.", "'Email' should not be empty.", "'Reseller Name' should not be empty.", "'Contact' should not be empty.", "'Country' should not be empty.", "'Phone' should not be empty."],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -273,8 +272,11 @@ Result<MerchantDTO> result = merchantApi.createMerchant(request);
 
 ```
 {
-	"businessCode": 1721,
-	"message": "Merchant name already exists"
+	"BusinessCode": 1721,
+	"Message": "Merchant name already exists",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -282,27 +284,28 @@ Result<MerchantDTO> result = merchantApi.createMerchant(request);
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"entityAttributeValues": {
-			"tag": "suzh"
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": {
+		"EntityAttributeValues": null,
+		"MerchantCategory": [],
+		"ID": 1000000155,
+		"Name": "hrmj",
+		"Reseller": {
+			"ID": 1000000211,
+			"Name": "Pine Labs"
 		},
-		"merchantCategory": [{
-			"id": 1,
-			"name": "Fast Food"
-		}],
-		"id": 72594,
-		"name": "KFC Suzhou",
-		"reseller": {
-			"id": 4151,
-			"name": "New York"
-		},
-		"country": "CN",
-		"contact": "sam",
-		"email": "sam@pax.com",
-		"phone": "444888",
-		"status": "P"
-	}
+		"Country": "CN",
+		"Postcode": null,
+		"Address": null,
+		"Contact": "haoren",
+		"Email": "haoren@163.com",
+		"Phone": "0512-59564515",
+		"Status": "P",
+		"Description": "merchant hrmj"
+	},
+	"PageInfo": null
 }
 ```
 
