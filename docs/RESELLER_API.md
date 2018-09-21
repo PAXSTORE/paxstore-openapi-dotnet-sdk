@@ -1,22 +1,21 @@
 ## Manage resellers
 
-All the reseller related APIs are encapsulated in the class *com.pax.market.api.sdk.java.api.reseller.ResellerApi*.
+All the reseller related APIs are encapsulated in the class *Paxstore.OpenApi.ResellerApi*.
 
 **Constructors of ResellerAPI**
 
 ```
-public ResellerApi(String baseUrl, String apiKey, String apiSecret);
-public ResellerApi(String baseUrl, String apiKey, String apiSecret, Locale locale);
+public ResellerApi(string baseUrl, string apiKey, string apiSecret)
 ```
 
 **Constructor parameters description**
 
 |Name|Type|Description|
 |:--|:--|:--|
-|baseUrl|String|the base url of REST API|
-|apiKey|String|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
-|apiSecret|String|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
-|locale|Locale|the locale, the default locale is Locale.ENGLISH, the language of message and errors in return object depend on locale|
+|baseUrl|string|the base url of REST API|
+|apiKey|string|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
+|apiSecret|string|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
+
 
 <br>
 
@@ -25,7 +24,7 @@ public ResellerApi(String baseUrl, String apiKey, String apiSecret, Locale local
 **API**
 
 ```
-public Result<ResellerPageDTO>  searchReseller(int pageNo, int pageSize, ResellerSearchOrderBy orderBy, String name, ResellerStatus status)
+public Result<PagedReseller> SearchReseller(int pageNo, int pageSize, ResellerSearchOrderBy orderBy, string name, ResellerStatus status)
 ```
 
 <br>
@@ -37,9 +36,9 @@ public Result<ResellerPageDTO>  searchReseller(int pageNo, int pageSize, Reselle
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|ResellerSearchOrderBy|true|the sort order by field name, if it is null the search result will sort by id by default, and the value of thie parameter can be one of ResellerSearchOrderBy.Name, ResellerSearchOrderBy.Phone and ResellerSearchOrderBy.Contact|
-|name|String|true|search by name|
-|status|ResellerStatus|true|the reseller status<br/> the value can be ResellerStatus.Active, ResellerStatus.Inactive, ResellerStatus.Suspend|
+|orderBy|ResellerSearchOrderBy|false|the field name of sort order by. The value of the parameter can be one of ResellerSearchOrderBy.Name, ResellerSearchOrderBy.Phone and ResellerSearchOrderBy.Contact|
+|name|string|true|search filter by reseller name|
+|status|ResellerStatus|false|the reseller status<br/> the value can be ResellerStatus.All, ResellerStatus.Active, ResellerStatus.Inactive, ResellerStatus.Suspend. If the value is ResellerStatus.All it will return the resellers of all status|
 
 <br/>
 
@@ -47,8 +46,8 @@ public Result<ResellerPageDTO>  searchReseller(int pageNo, int pageSize, Reselle
 
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<ResellerPageDTO> result = resellerApi.searchReseller(1, 10, null, "super", ResellerStatus.Suspend);
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<PagedReseller> result = api.SearchReseller(1, 10, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
 ```    
 
 
@@ -57,8 +56,8 @@ Result<ResellerPageDTO> result = resellerApi.searchReseller(1, 10, null, "super"
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["pageSize:must be greater than or equal to 1"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["'Page No' must be greater than '0'."]
 }
 ```
 
@@ -66,29 +65,37 @@ Result<ResellerPageDTO> result = resellerApi.searchReseller(1, 10, null, "super"
 
 ```
 {
-	"businessCode": 0,
-	"pageInfo": {
-		"pageNo": 1,
-		"limit": 10,
-		"totalCount": 2,
-		"hasNext": false,
-		"dataSet": [{
-			"id": 17850,
-			"name": "FVFFF",
-			"phone": "87879696",
-			"country": "CN",
-			"contact": "FFF",
-			"email": "FF@1234.COM",
-			"status": "S"
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": {
+		"PageNo": 1,
+		"Limit": 10,
+		"TotalCount": 2,
+		"HasNext": false,
+		"DataSet": [{
+			"ID": 1000000211,
+			"Name": "Pine Labs",
+			"Phone": "",
+			"Country": "",
+			"Postcode": "",
+			"Address": "",
+			"Company": "",
+			"Contact": "",
+			"Email": "chenlb@paxsz.com",
+			"Status": "A"
 		}, {
-			"id": 8736,
-			"name": "Max",
-			"phone": "123",
-			"country": "CN",
-			"postcode": "123",
-			"contact": "Max",
-			"email": "zhihao_w@qq.com",
-			"status": "S"
+			"ID": 1000000225,
+			"Name": "reseller_002",
+			"Phone": "89894545",
+			"Country": "CN",
+			"Postcode": "8954",
+			"Address": "JiangSu Suzhou city xinghujie 203#",
+			"Company": "pax",
+			"Contact": "sam",
+			"Email": "sam2@gmail.com",
+			"Status": "A"
 		}]
 	}
 }
@@ -96,24 +103,24 @@ Result<ResellerPageDTO> result = resellerApi.searchReseller(1, 10, null, "super"
 
 <br>
 
-The type in dataSet of is ResellerPageDTO. And the structure shows like below.
+The type in dataSet of is PagedReseller. And the structure shows like below.
 
 |Property Name|Type|Description|
 |:--|:--|:--|
-|id|Long|the id of reseller|
-|name|String|the name of reseller|
-|phone|String|the phone number of reseller|
-|country|String|the country code|
-|postcode|String|the postcode of reseller|
-|email|String|the email of reseller|
-|status|String|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
+|ID|long|the id of reseller|
+|Name|string|the name of reseller|
+|Phone|string|the phone number of reseller|
+|Country|string|the country code|
+|Postcode|string|the postcode of reseller|
+|Email|string|the email of reseller|
+|Status|string|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
 <br>
 
 **Possible client validation errors**
 
-> <font color="red">pageSize:must be greater than or equal to 1</font><br>
-> <font color="red">pageNo:must be greater than or equal to 1</font><br>
-> <font color="red">pageSize:must be less than or equal to 1000</font>
+> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page No' must be greater than '0'.</font><br>
+> <font color="red">'Page Size' must be greater than '0'.</font>
 
 
 
@@ -125,28 +132,28 @@ Get reseller by reseller id.
 **API**
 
 ```
-public Result<ResellerDTO>  getReseller(Long resellerId)
+public Result<Reseller> GetReseller(long resellerId)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|resellerId|Long|false|the id of reseller|
+|resellerId|long|false|the id of reseller|
 
 **Sample codes**
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<ResellerDTO> result = resellerApi.getReseller(17850L);
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<Reseller> result = api.GetReseller(1000000211);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["email:not a well-formed email address", "contact:may not be empty", "country:may not be empty"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -155,8 +162,8 @@ Result<ResellerDTO> result = resellerApi.getReseller(17850L);
 
 ```
 {
-	"businessCode": 1760,
-	"message": "Reseller name already exists"
+	"BusinessCode": 1760,
+	"Message": "Reseller name already exists"
 }
 ```
 
@@ -164,47 +171,47 @@ Result<ResellerDTO> result = resellerApi.getReseller(17850L);
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"entityAttributeValues": {
+	"BusinessCode": 0,
+	"Data": {
+		"EntityAttributeValues": {
 			"111": "hello"
 		},
-		"parent": {
-			"id": 4151,
-			"name": "New York"
+		"Parent": {
+			"ID": 4151,
+			"Name": "New York"
 		},
-		"id": 17850,
-		"name": "FVFFF",
-		"phone": "87879696",
-		"country": "CN",
-		"contact": "FFF",
-		"email": "sum@gmail.com",
-		"status": "S"
+		"ID": 1000000211,
+		"Name": "FVFFF",
+		"Phone": "87879696",
+		"Country": "CN",
+		"Contact": "FFF",
+		"Email": "sum@gmail.com",
+		"Status": "S"
 	}
 }
 ```
 
 <br>
-The type of data is ResellerDTO, and the structure shows below.
+The type of data is Reseller, and the structure shows below.
 
 |Name|Type|Description|
 |:--|:--|:--|
-|id|Long|the id of reseller|
-|name|String|the name of reseller|
-|phone|String|the phone number of reseller|
-|country|String|the country code|
-|postcode|String|the postcode of reseller|
-|email|String|the email of reseller|
-|status|String|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
-|parent|SimpleResellerDTO|reseller's parent|
-|entityAttributeValues|LinkedHashMap&lt;String, String&gt;|dynamic attributes|
+|ID|long|the id of reseller|
+|Name|string|the name of reseller|
+|Phone|string|the phone number of reseller|
+|Country|string|the country code|
+|Postcode|string|the postcode of reseller|
+|Email|string|the email of reseller|
+|Status|string|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
+|Parent|SimpleReseller|reseller's parent|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|dynamic attributes|
 <br>
-Structure of SimpleResellerDTO
+Structure of SimpleReseller
 
 |Name|Type|Description|
 |:--|:--|:--|
-|id|Long|the id of reseller|
-|name|String|the name of reseller|
+|ID|long|the id of reseller|
+|Name|string|the name of reseller|
 
 
 
@@ -225,7 +232,7 @@ Structure of SimpleResellerDTO
 **API**
 
 ```
-public Result<ResellerDTO>  createReseller(ResellerCreateRequest resellerCreateRequest) 
+public Result<Reseller> CreateReseller(ResellerCreateRequest resellerCreateRequest)
 ```
 
 **Input parameter(s) description**
@@ -238,40 +245,37 @@ Structure of class ResellerCreateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|name|String|false|Name of reseller, max length is 64.|
-|email|String|false|Email of reseller, max length is 255.|
-|country|String|false|Country code of reseller, max length is 64.|
-|contact|String|false|contact of reseller, max length is 64.|
-|phone|String|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
-|postcode|String|true|Post code, max length is 32. Sample value 510250.|
-|address|String|true|Address of reseller, max length is 255.|
-|company|String|true|Company of reseller, max length is 255.|
-|parentResellerName|String|true|Parent reseller name, if it is empty will set the root reseller of current marketplace as the parent reseller|
-|entityAttributeValues|LinkedHashMap&lt;String, String&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
+|Name|string|false|Name of reseller, max length is 64.|
+|Email|string|false|Email of reseller, max length is 255.|
+|Country|string|false|Country code of reseller, max length is 64.|
+|Contact|string|false|contact of reseller, max length is 64.|
+|Phone|string|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
+|Postcode|string|true|Post code, max length is 32. Sample value 510250.|
+|Address|string|true|Address of reseller, max length is 255.|
+|Company|string|true|Company of reseller, max length is 255.|
+|ParentResellerName|string|true|Parent reseller name, if it is empty will set the root reseller of current marketplace as the parent reseller|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
 
 **Sample codes**
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
 ResellerCreateRequest request = new ResellerCreateRequest();
-request.setName("reseller_abc");
-request.setContact("Sam");
-request.setCountry("CN");
-request.setEmail("sam@gmail.com");
-request.setPhone("87879696");
-request.setParentResellerName("New York");
-LinkedHashMap<String,String> attrs = new LinkedHashMap<String,String>();
-attrs.put("code", "ABC");
-request.setEntityAttributeValues(attrs);
-Result<ResellerDTO> result = resellerApi.createReseller(request);
+request.Name = "Reseller For Test";
+request.Address = "suzhou";
+request.Email = "zhangsan@163.com";
+request.Country = "CN";
+request.Contact = "ZhangSan";
+request.Phone = "88889999";
+Result<Reseller> result = api.CreateReseller(request);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["email:may not be empty", "country:may not be empty"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."]
 }
 ```
 
@@ -279,8 +283,8 @@ Result<ResellerDTO> result = resellerApi.createReseller(request);
 
 ```
 {
-	"businessCode": 1760,
-	"message": "Reseller name already exists"
+	"BusinessCode": 1760,
+	"Message": "Reseller name already exists"
 }
 ```
 
@@ -288,46 +292,47 @@ Result<ResellerDTO> result = resellerApi.createReseller(request);
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"entityAttributeValues": {
+	"BusinessCode": 0,
+	"Data": {
+		"DntityAttributeValues": {
 			"111": "tan2"
 		},
-		"parent": {
-			"id": 4151,
-			"name": "New York"
+		"Parent": {
+			"ID": 4151,
+			"Name": "New York"
 		},
-		"id": 51741,
-		"name": "reseller_abc",
-		"phone": "87879696",
-		"country": "CN",
-		"contact": "Sam",
-		"email": "sam@gmail.com",
-		"status": "P"
+		"ID": 51741,
+		"Name": "reseller_abc",
+		"Phone": "87879696",
+		"Country": "CN",
+		"Contact": "Sam",
+		"Email": "sam@gmail.com",
+		"Status": "P"
 	}
 }
 ```
 
-Type of data is ResellerDTO, same as the API get reseller.
+Type of data is Reseller, same as the API get reseller.
 
 **Possible client validation errors**
 
+
 > <font color="red">Parameter resellerCreateRequest cannot be null!</font><br/>
-> <font color="red">contact:may not be empty</font><br/>
-> <font color="red">email:may not be empty</font><br/>
-> <font color="red">name:may not be empty</font><br/>
-> <font color="red">country:may not be empty</font><br/>
-> <font color="red">name:length must be between 0 and 64</font><br/>
-> <font color="red">email:length must be between 0 and 255</font><br/>
-> <font color="red">country:length must be between 0 and 64</font><br/>
-> <font color="red">contact:length must be between 0 and 64</font><br/>
-> <font color="red">phone:may not be empty</font><br/>
-> <font color="red">phone:length must be between 0 and 32</font><br/>
-> <font color="red">postcode:length must be between 0 and 16</font><br/>
-> <font color="red">address:length must be between 0 and 255</font><br/>
-> <font color="red">company:length must be between 0 and 255</font><br/>
-> <font color="red">parentResellerName:length must be between 0 and 64</font><br/>
-> <font color="red">email:not a well-formed email address</font>
+> <font color="red">'Name' should not be empty.</font><br/>
+> <font color="red">'Email' should not be empty.</font><br/>
+> <font color="red">'Country' should not be empty.</font><br/>
+> <font color="red">'Contact' should not be empty.</font><br/>
+> <font color="red">'Phone' should not be empty.</font><br/>
+> <font color="red">'Email' is not a valid email address.</font><br/>
+> <font color="red">The length of 'Name' must be 64 characters or fewer. You entered 100 characters.</font><br/>
+> <font color="red">The length of 'Email' must be 255 characters or fewer. You entered 256 characters.</font><br/>
+> <font color="red">The length of 'Country' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Contact' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Phone' must be 32 characters or fewer. You entered 60 characters.</font><br/>
+> <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
+> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Company' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Parent Reseller Name' must be 64 characters or fewer. You entered 70 characters.</font><br/>
 
 
 **Possible business codes**
@@ -359,55 +364,52 @@ Type of data is ResellerDTO, same as the API get reseller.
 **API**
 
 ```
-public Result<ResellerDTO>  updateReseller(Long resellerId, ResellerUpdateRequest resellerUpdateRequest)
+public Result<Reseller> UpdateReseller(long resellerId, ResellerUpdateRequest resellerUpdateRequest)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|resellerId|Long|false|Reseller's id.|
+|resellerId|long|false|Reseller's id.|
 |resellerUpdateRequest|ResellerUpdateRequest|false|The update request object, the structure like below|
 
 Structure of class ResellerUpdateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|name|String|false|Name of reseller, max length is 64.|
-|email|String|false|Email of reseller, max length is 255.|
-|country|String|false|Country code of reseller, max length is 64.|
-|contact|String|false|contact of reseller, max length is 64.|
-|phone|String|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
-|postcode|String|true|Post code, max length is 32. Sample value 510250.|
-|address|String|true|Address of reseller, max length is 255.|
-|company|String|true|Company of reseller, max length is 255.|
-|parentResellerName|String|true|Parent reseller name, if it is empty will set the root reseller of current marketplace as the parent reseller. If the status of the updated reseller is active or suspend the parent cannot be changed.|
-|entityAttributeValues|LinkedHashMap&lt;String, String&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|  
+|Name|string|false|Name of reseller, max length is 64.|
+|Email|string|false|Email of reseller, max length is 255.|
+|Country|string|false|Country code of reseller, max length is 64.|
+|Contact|string|false|contact of reseller, max length is 64.|
+|Phone|string|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
+|Postcode|string|true|Post code, max length is 32. Sample value 510250.|
+|Address|string|true|Address of reseller, max length is 255.|
+|Company|string|true|Company of reseller, max length is 255.|
+|ParentResellerName|string|true|Parent reseller name, if it is empty will set the root reseller of current marketplace as the parent reseller. If the status of the updated reseller is active or suspend the parent cannot be changed.|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|  
 
 
 **Sample codes**
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-ResellerUpdateRequest request = new ResellerUpdateRequest();
-request.setName("FVFFF");
-request.setContact("FFF");
-request.setCountry("CN");
-request.setEmail("FF@1234.COM");
-request.setPhone("87879696");
-request.setParentResellerName("New York");
-LinkedHashMap<String,String> attrs = new LinkedHashMap<String,String>();
-attrs.put("code", "XY");
-request.setEntityAttributeValues(attrs);
-Result<ResellerDTO> result = resellerApi.updateReseller(17850L, request);
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerUpdateRequest updateRequest = new ResellerUpdateRequest();
+updateRequest.Name = "Reseller For Test";
+updateRequest.Address = "suzhou2";
+updateRequest.Email = "zhangsan@163.com";
+updateRequest.Country = "CN";
+updateRequest.Contact = "ZhangSan2";
+updateRequest.Phone = "44445555";
+Result<Reseller> updateResult = api.UpdateReseller(resellerId, updateRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["email:may not be empty", "country:may not be empty", "contact:may not be empty", "name:may not be empty"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."]
 }
 ```
 
@@ -415,8 +417,8 @@ Result<ResellerDTO> result = resellerApi.updateReseller(17850L, request);
 
 ```
 {
-	"businessCode": 12000,
-	"message": "code is mandatory"
+	"BusinessCode": 12000,
+	"Message": "code is mandatory"
 }
 ```
 
@@ -427,47 +429,50 @@ Note: the code in message is the dynamic attribute for the above failed sample r
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"entityAttributeValues": {
+	"BusinessCode": 0,
+	"Data": {
+		"EntityAttributeValues": {
 			"code": "XY"
 		},
-		"parent": {
-			"id": 4151,
-			"name": "New York"
+		"Parent": {
+			"ID": 4151,
+			"Name": "New York"
 		},
-		"id": 17850,
-		"name": "FVFFF",
-		"phone": "87879696",
-		"country": "CN",
-		"contact": "FFF",
-		"email": "FF@1234.COM",
-		"status": "S"
+		"ID": 17850,
+		"Name": "FVFFF",
+		"Phone": "87879696",
+		"Country": "CN",
+		"Contact": "FFF",
+		"Email": "FF@1234.COM",
+		"Status": "S"
 	}
 }
 ```
 
-Type of data is ResellerDTO, same as the API get reseller.
+Type of data is Reseller, same as the API get reseller.
 
 **Possible client validation errors**  
 
 > <font color="red">Parameter resellerId cannot be null and cannot be less than 1!</font><br/>
 > <font color="red">Parameter resellerUpdateRequest cannot be null!</font><br/>
-> <font color="red">contact:may not be empty</font><br/>
-> <font color="red">email:may not be empty</font><br/>
-> <font color="red">name:may not be empty</font><br/>
-> <font color="red">country:may not be empty</font><br/>
-> <font color="red">name:length must be between 0 and 64</font><br/>
-> <font color="red">email:length must be between 0 and 255</font><br/>
-> <font color="red">country:length must be between 0 and 64</font><br/>
-> <font color="red">contact:length must be between 0 and 64</font><br/>
-> <font color="red">phone:may not be empty</font><br/>
-> <font color="red">phone:length must be between 0 and 32</font><br/>
-> <font color="red">postcode:length must be between 0 and 16</font><br/>
-> <font color="red">address:length must be between 0 and 255</font><br/>
-> <font color="red">company:length must be between 0 and 255</font><br/>
-> <font color="red">parentResellerName:length must be between 0 and 64</font><br/>
-> <font color="red">email:not a well-formed email address</font>
+> <font color="red">'Name' should not be empty.</font><br/>
+> <font color="red">'Email' should not be empty.</font><br/>
+> <font color="red">'Country' should not be empty.</font><br/>
+> <font color="red">'Contact' should not be empty.</font><br/>
+> <font color="red">'Phone' should not be empty.</font><br/>
+> <font color="red">'Email' is not a valid email address.</font><br/>
+> <font color="red">The length of 'Name' must be 64 characters or fewer. You entered 100 characters.</font><br/>
+> <font color="red">The length of 'Email' must be 255 characters or fewer. You entered 256 characters.</font><br/>
+> <font color="red">The length of 'Country' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Contact' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Phone' must be 32 characters or fewer. You entered 60 characters.</font><br/>
+> <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
+> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Company' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Parent Reseller Name' must be 64 characters or fewer. You entered 70 characters.</font>
+
+
+
 
 <br>
 
@@ -506,28 +511,28 @@ Type of data is ResellerDTO, same as the API get reseller.
 If activate reseller successfully there's not response content from remote server. So the data field in result is null whether activate sucessfully not not.
 
 ```
-public Result<String> activateReseller(Long resellerId)
+public Result<string> ActivateReseller(long resellerId)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|resellerId|Long|false|The reseller's id.|
+|resellerId|long|false|The reseller's id.|
 
 **Sample codes**
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = resellerApi.activateReseller(51739L);
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<string> result = api.ActivateReseller(51739L);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -535,8 +540,8 @@ Result<String> result = resellerApi.activateReseller(51739L);
 
 ```
 {
-	"businessCode": 1891,
-	"message": "The reseller has already been activated!"
+	"BusinessCode": 1891,
+	"Message": "The reseller has already been activated!"
 }
 ```
 
@@ -544,7 +549,7 @@ Result<String> result = resellerApi.activateReseller(51739L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
@@ -572,28 +577,28 @@ Result<String> result = resellerApi.activateReseller(51739L);
 If disable successfully there's no response content from remote server. So the data field in result is null whether disable successfully or not.
 
 ```
-public Result<String> disableReseller(Long resellerId)
+public Result<string> DisableReseller(long resellerId)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|resellerId|Long|false|The reseller's id.|
+|resellerId|long|false|The reseller's id.|
 
 **Sample codes**
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = resellerApi.disableReseller(51739L);
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<string> result = api.DisableReseller(51739L);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -601,8 +606,8 @@ Result<String> result = resellerApi.disableReseller(51739L);
 
 ```
 {
-	"businessCode": 1886,
-	"message": "The reseller is not active,unable to disable!"
+	"BusinessCode": 1886,
+	"Message": "The reseller is not active,unable to disable!"
 }
 ```
 
@@ -610,7 +615,7 @@ Result<String> result = resellerApi.disableReseller(51739L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
@@ -640,28 +645,28 @@ Result<String> result = resellerApi.disableReseller(51739L);
 If delete reseller successfully there's not response content from remote server. And the data field in result is always null.
 
 ```
-public Result<String> deleteReseller(Long resellerId)
+public Result<string> DeleteReseller(long resellerId)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|resellerId|Long|false|The reseller's id.|
+|resellerId|long|false|The reseller's id.|
 
 **Sample codes**
 
 ```
-ResellerApi resellerApi = new  ResellerApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = resellerApi.deleteReseller(51739L);
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+Result<string> result = api.DeleteReseller(51739L);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -669,8 +674,8 @@ Result<String> result = resellerApi.deleteReseller(51739L);
 
 ```
 {
-	"businessCode": 1759,
-	"message": "Reseller doesn't exist"
+	"BusinessCode": 1759,
+	"Message": "Reseller doesn't exist"
 }
 ```
 
@@ -678,7 +683,7 @@ Result<String> result = resellerApi.deleteReseller(51739L);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
