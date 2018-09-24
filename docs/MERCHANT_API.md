@@ -41,7 +41,7 @@ public Result<PagedMerchant>  SearchMerchant(int pageNo, int pageSize, MerchantS
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.Name, null, MerchantStatus.All);
 ```
 
@@ -138,7 +138,7 @@ public Result<Merchant>  GetMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<Merchant> result = api.GetMerchant(72590);
 ```
 
@@ -259,7 +259,7 @@ Structure of class MerchantCreateRequest
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
 merchantCreateRequest.Name = "hrmj";
 merchantCreateRequest.Email = "haoren@163.com";
@@ -327,23 +327,28 @@ Result<Merchant> result = API.CreateMerchant(merchantCreateRequest);
 The type of data in result is same as the get reseller API.
 
 **Possible client validation errors**
-> <font color=red>Parameter merchantCreateRequest cannot be null!</font>  
-> <font color=red>name:may not be empty</font>  
-> <font color=red>country:may not be empty</font>  
-> <font color=red>email:may not be empty</font>  
-> <font color=red>resellerName:may not be empty</font>  
-> <font color=red>contact:may not be empty</font>  
-> <font color=red>name:length must be between 0 and 64</font>  
-> <font color=red>email:length must be between 0 and 255</font>  
-> <font color=red>resellerName:length must be between 0 and 64</font>  
-> <font color=red>contact:length must be between 0 and 64</font>  
-> <font color=red>country:length must be between 0 and 64</font>  
-> <font color=red>phone:may not be empty</font>  
-> <font color=red>phone:length must be between 0 and 32</font>  
-> <font color=red>postcode:length must be between 0 and 16</font>  
-> <font color=red>address:length must be between 0 and 255</font>  
-> <font color=red>email:not a well-formed email address</font>  
-> <font color=red>description:length must be between 0 and 3000</font>  
+
+
+> <font color="red">Parameter merchantCreateRequest cannot be null!</font><br/>
+> <font color="red">'Name' should not be empty.</font><br/>
+> <font color="red">'Email' should not be empty.</font><br/>
+> <font color="red">'Reseller Name' should not be empty.</font><br/>
+> <font color="red">'Country' should not be empty.</font><br/>
+> <font color="red">'Contact' should not be empty.</font><br/>
+> <font color="red">'Phone' should not be empty.</font><br/>
+> <font color="red">'Email' is not a valid email address.</font><br/>
+> <font color="red">The length of 'Name' must be 64 characters or fewer. You entered 100 characters.</font><br/>
+> <font color="red">The length of 'Reseller Name' must be 64 characters or fewer. You entered 100 characters.</font><br/>
+> <font color="red">The length of 'Email' must be 255 characters or fewer. You entered 256 characters.</font><br/>
+> <font color="red">The length of 'Country' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Contact' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Phone' must be 32 characters or fewer. You entered 60 characters.</font><br/>
+> <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
+> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Description' must be 3000 characters or fewer. You entered 3008 characters.</font><br/>
+
+
+
 
 **Possible business codes**
 
@@ -408,7 +413,7 @@ Structure of class MerchantUpdateRequest
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
 merchantUpdateRequest.Name = "好人民间";
 merchantUpdateRequest.Email = "haoren2@163.com";
@@ -479,23 +484,24 @@ The data type in result is same as get merchant API.
 
 **Possible client validation errors**
 
-> <font color=red>Parameter merchantCreateRequest cannot be null!</font>  
-> <font color=red>name:may not be empty</font>  
-> <font color=red>country:may not be empty</font>  
-> <font color=red>email:may not be empty</font>  
-> <font color=red>resellerName:may not be empty</font>  
-> <font color=red>contact:may not be empty</font>  
-> <font color=red>name:length must be between 0 and 64</font>  
-> <font color=red>email:length must be between 0 and 255</font>  
-> <font color=red>resellerName:length must be between 0 and 64</font>  
-> <font color=red>contact:length must be between 0 and 64</font>  
-> <font color=red>country:length must be between 0 and 64</font>  
-> <font color=red>phone:may not be empty</font>  
-> <font color=red>phone:length must be between 0 and 32</font>  
-> <font color=red>postcode:length must be between 0 and 16</font>  
-> <font color=red>address:length must be between 0 and 255</font>  
-> <font color=red>email:not a well-formed email address</font>  
-> <font color=red>description:length must be between 0 and 3000</font>  
+> <font color="red">Parameter merchantId cannot be null and cannot be less than 1!</font><br/>
+> <font color="red">Parameter merchantUpdateRequest cannot be null!</font><br/>
+> <font color="red">'Name' should not be empty.</font><br/>
+> <font color="red">'Email' should not be empty.</font><br/>
+> <font color="red">'Reseller Name' should not be empty.</font><br/>
+> <font color="red">'Country' should not be empty.</font><br/>
+> <font color="red">'Contact' should not be empty.</font><br/>
+> <font color="red">'Phone' should not be empty.</font><br/>
+> <font color="red">'Email' is not a valid email address.</font><br/>
+> <font color="red">The length of 'Name' must be 64 characters or fewer. You entered 100 characters.</font><br/>
+> <font color="red">The length of 'Reseller Name' must be 64 characters or fewer. You entered 100 characters.</font><br/>
+> <font color="red">The length of 'Email' must be 255 characters or fewer. You entered 256 characters.</font><br/>
+> <font color="red">The length of 'Country' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Contact' must be 64 characters or fewer. You entered 70 characters.</font><br/>
+> <font color="red">The length of 'Phone' must be 32 characters or fewer. You entered 60 characters.</font><br/>
+> <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
+> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Description' must be 3000 characters or fewer. You entered 3008 characters.</font><br/>
 
 
 **Possible business codes**
@@ -550,7 +556,7 @@ public Result<string> ActivateMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<string> result = api.ActivateMerchant(72590);
 ```
 
@@ -627,7 +633,7 @@ public Result<string> DisableMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<string> result = api.DisableMerchant(72594);
 ```
 
@@ -705,7 +711,7 @@ public Result<string> DeleteMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<string> result = api.DeleteMerchant(72593);
 ```
 

@@ -46,7 +46,7 @@ public Result<PagedReseller> SearchReseller(int pageNo, int pageSize, ResellerSe
 
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<PagedReseller> result = api.SearchReseller(1, 10, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
 ```    
 
@@ -148,7 +148,7 @@ public Result<Reseller> GetReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<Reseller> result = api.GetReseller(1000000211);
 ```
 
@@ -272,7 +272,7 @@ Structure of class ResellerCreateRequest
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 ResellerCreateRequest request = new ResellerCreateRequest();
 request.Name = "Reseller For Test";
 request.Address = "suzhou";
@@ -416,7 +416,7 @@ Structure of class ResellerUpdateRequest
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 ResellerUpdateRequest updateRequest = new ResellerUpdateRequest();
 updateRequest.Name = "Reseller For Test";
 updateRequest.Address = "suzhou2";
@@ -555,7 +555,7 @@ public Result<string> ActivateReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<string> result = api.ActivateReseller(51739L);
 ```
 
@@ -564,7 +564,10 @@ Result<string> result = api.ActivateReseller(51739L);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"Message": null,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -573,7 +576,10 @@ Result<string> result = api.ActivateReseller(51739L);
 ```
 {
 	"BusinessCode": 1891,
-	"Message": "The reseller has already been activated!"
+	"Message": "The reseller has already been activated!",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -625,7 +631,7 @@ public Result<string> DisableReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<string> result = api.DisableReseller(51739L);
 ```
 
@@ -633,8 +639,11 @@ Result<string> result = api.DisableReseller(51739L);
 
 ```
 {
-	"BusinessCode": -1,
-	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"BusinessCode": 01,
+	"Message": null,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -643,7 +652,10 @@ Result<string> result = api.DisableReseller(51739L);
 ```
 {
 	"BusinessCode": 1886,
-	"Message": "The reseller is not active,unable to disable!"
+	"Message": "The reseller is not active,unable to disable!",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -697,7 +709,7 @@ public Result<string> DeleteReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
 Result<string> result = api.DeleteReseller(51739L);
 ```
 
@@ -706,7 +718,10 @@ Result<string> result = api.DeleteReseller(51739L);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"Message": null,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -715,7 +730,10 @@ Result<string> result = api.DeleteReseller(51739L);
 ```
 {
 	"BusinessCode": 1759,
-	"Message": "Reseller doesn't exist"
+	"Message": "Reseller doesn't exist",
+    "ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
