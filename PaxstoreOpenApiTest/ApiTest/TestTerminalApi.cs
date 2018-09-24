@@ -15,7 +15,7 @@ namespace Paxstore.Test
     class TestTerminalApi
     {
         private static ILog _logger = LogManager.GetLogger(typeof(TestTerminalApi));
-        public static TerminalApi API = new TerminalApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+        public static TerminalApi API = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
 
         [Test]
