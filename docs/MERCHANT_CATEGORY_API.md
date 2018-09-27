@@ -456,9 +456,9 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 Note: [NAME] and [REMARKS] will be replaced by name and remarks of merchant category in batch create list.
  
 
-**Possible business codes**    
+**Possible business codes**  
 
-|:--|:--|:--|  
+|:--|:--|:--|
 |Business Code|Message|Description|
 |16005|Batch create merchant category list is empty|&nbsp;|
 |16006|All the names in batch create list cannot be empty|&nbsp;|
