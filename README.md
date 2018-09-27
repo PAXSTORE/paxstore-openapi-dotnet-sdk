@@ -1,19 +1,5 @@
 # PAXSTORE Open API .Net SDK  [![NuGet](https://img.shields.io/nuget/v/Paxstore.OpenApi.svg)](https://nuget.org/packages/Paxstore.OpenApi) 
 
-<br>
-
-
-
-## Download Packages  
-
-[https://www.nuget.org/packages/Paxstore.OpenApi/](https://www.nuget.org/packages/Paxstore.OpenApi/)
-
-## Target Frameworks  
-
-.NET Framework 4.5.2  
-Netstandard 2.0, based on the NetCore framework
-
-
 
 <br/>
 
