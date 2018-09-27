@@ -96,7 +96,7 @@ namespace Paxstore.OpenApi
             return result;
         }
         
-        public Result<string> disableTerminal(long terminalId) {
+        public Result<string> DisableTerminal(long terminalId) {
             IList<string> validationErrs = ValidateId(terminalId, "terminalIdInvalid");
             if (validationErrs.Count > 0){
                 return new Result<string>(validationErrs);

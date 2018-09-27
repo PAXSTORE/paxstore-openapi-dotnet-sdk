@@ -104,14 +104,14 @@ namespace Paxstore.OpenApi
                 for(int i=0;i<merchantCategoryBatchCreateRequest.Count;i++) {
                     MerchantCategoryCreateRequest category = merchantCategoryBatchCreateRequest[i];
                     if(category.Name!=null && category.Name.Length>MAX_LENGTH_CATEGORY_NAME) {
-                        validationErrs.Add(GetMsgByKey("merchanteCategoryNameTooLong").Replace("\\[NAME\\]", category.Name));
+                        validationErrs.Add(GetMsgByKey("merchanteCategoryNameTooLong").Replace("[NAME]", category.Name));
                     }
                 }
                 
                 for(int i=0;i<merchantCategoryBatchCreateRequest.Count;i++) {
                     MerchantCategoryCreateRequest category = merchantCategoryBatchCreateRequest[i];
                     if(category.Remarks!=null && category.Remarks.Length>MAX_LENGTH_CATEGORY_REMARKS) {
-                        validationErrs.Add(GetMsgByKey("merchanteCategoryRemarksTooLong").Replace("\\[REMARKS\\]", category.Remarks));
+                        validationErrs.Add(GetMsgByKey("merchanteCategoryRemarksTooLong").Replace("[REMARKS]", category.Remarks));
                     }
                 }
             }

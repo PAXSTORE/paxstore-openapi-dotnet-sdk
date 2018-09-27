@@ -34,7 +34,7 @@ public Result<PagedMerchant>  SearchMerchant(int pageNo, int pageSize, MerchantS
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|MerchantSearchOrderBy|false|the field name sort order by. The value of this parameter can be one of MerchantSearchOrderBy.Name, MerchantSearchOrderBy.Phone and MerchantSearchOrderBy.Contact.|
+|orderBy|MerchantSearchOrderBy|false|the field name of sort order by. The value of this parameter can be one of MerchantSearchOrderBy.Name, MerchantSearchOrderBy.Phone and MerchantSearchOrderBy.Contact.|
 |name|string|true|search filter by merchant name|
 |status|MerchantStatus|true|the reseller status<br/> the value can be MerchantStatus.All, MerchantStatus.Active, MerchantStatus.Inactive, MerchantStatus.Suspend. If the value is MerchantStatus.All it will return merchant of all status|
 

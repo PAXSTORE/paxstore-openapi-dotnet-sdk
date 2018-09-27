@@ -19,7 +19,7 @@ namespace Paxstore.OpenApi.Validator.Terminal
 
         private bool BeValidStatus(string status)
         {
-            if ("A".Equals(status) || "P".Equals(status))
+            if ("A".Equals(status) || "P".Equals(status) || status == null)
             {
                 return true;
             }
