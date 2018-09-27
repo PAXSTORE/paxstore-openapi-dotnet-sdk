@@ -3,14 +3,15 @@
     <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
 
     <PackageId>Paxstore.OpenApi</PackageId>
-    <Version>1.0.0</Version>
-	<RootNamespace>Paxstore.OpenApi</RootNamespace>
+    <Version>6.0</Version>
+	  <RootNamespace>Paxstore.OpenApi</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
     <Product>Paxstore.OpenApi.NET</Product>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageTags>PAXSTORE OpenAPI .Net SDK</PackageTags>
     <RepositoryUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</RepositoryUrl>
+    <Description>This is official release of PAXSTORE OpenApi SDK for .Net</Description>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
