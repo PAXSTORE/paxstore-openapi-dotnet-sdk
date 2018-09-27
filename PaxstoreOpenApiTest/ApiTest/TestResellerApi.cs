@@ -28,7 +28,7 @@ namespace Paxstore.Test
 
         [Test()]
         public void TestSearchReseller(){
-            Result<PagedReseller> result = API.SearchReseller(1, 3, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
+            Result<PagedReseller> result = API.SearchReseller(1, 10, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.IsTrue(result.BusinessCode == 0);
             Assert.IsTrue(result.PageInfo.TotalCount > 0);
@@ -68,13 +68,10 @@ namespace Paxstore.Test
         [Test]
         public void TestCreateInvalidReseller() {
 
-            CultureInfo currentClutrue = new CultureInfo("zh-CN");
-            Thread.CurrentThread.CurrentCulture = currentClutrue;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
-
             ResellerCreateRequest request = new ResellerCreateRequest();
             request.Name = "TestReseller";
             request.Address = "suzhou";
+            request.Email = "suzhou";
             Result<Reseller> result = API.CreateReseller(request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);

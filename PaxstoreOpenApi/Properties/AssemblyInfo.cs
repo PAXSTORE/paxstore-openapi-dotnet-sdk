@@ -5,5 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-//[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", ConfigFileExtension = "config", Watch = true)]
-//[assembly: AssemblyCulture("en")]
+
+[assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyFileVersion("1.0.0")]

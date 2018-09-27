@@ -120,5 +120,20 @@ namespace Paxstore.Test
             Assert.AreEqual(deleteResult.BusinessCode, 0);
         }
 
+        [Test]
+        public void TestUpdateMerchantInvalid() {
+            MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
+            merchantUpdateRequest.Name = "好人民间";
+            merchantUpdateRequest.Email = "haoren2@163.com";
+            merchantUpdateRequest.ResellerName = "Pine Labs";
+            merchantUpdateRequest.Contact = "haoren2";
+            merchantUpdateRequest.Country = "CN";
+            merchantUpdateRequest.Description = "商户好人民间";
+            merchantUpdateRequest.Phone = "0512-88889999";
+            Result<Merchant> updateResult = API.UpdateMerchant(1000000, merchantUpdateRequest);
+            _logger.DebugFormat("Update Merchant Result=\n{0}", JsonConvert.SerializeObject(updateResult));
+            Assert.AreEqual(updateResult.BusinessCode, -1);
+        }
+
     }
 }
