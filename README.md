@@ -1,4 +1,4 @@
-# PAXSTORE Open API .Net SDK 
+# PAXSTORE Open API .Net SDK  [![NuGet](https://img.shields.io/nuget/v/Paxstore.OpenApi.svg)](https://nuget.org/packages/Paxstore.OpenApi) 
 
 <br>
 
