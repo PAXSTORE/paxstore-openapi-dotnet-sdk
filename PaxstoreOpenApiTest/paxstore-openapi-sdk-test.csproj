@@ -24,6 +24,8 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <AssemblyVersion>6.0</AssemblyVersion>
+    <FileVersion>6.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.0.100" />
