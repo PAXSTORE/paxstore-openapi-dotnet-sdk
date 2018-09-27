@@ -182,7 +182,7 @@ Result<Reseller> result = api.GetReseller(1000000211);
 ```
 {
 	"BusinessCode": 0,
-    "Message": null,
+	"Message": null,
 	"ValidationErrors": null,
 	"Data": {
 		"EntityAttributeValues": {
@@ -200,7 +200,7 @@ Result<Reseller> result = api.GetReseller(1000000211);
 		"Email": "sum@gmail.com",
 		"Status": "S"
 	}, 
-    "PageInfo": null
+	"PageInfo": null
 }
 ```
 
@@ -288,9 +288,9 @@ Result<Reseller> result = api.CreateReseller(request);
 ```
 {
 	"BusinessCode": -1,
-    "Message": null,
+	"Message": null,
 	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."],
-    "Data": null,
+	"Data": null,
 	"PageInfo": null
 }
 ```
@@ -301,7 +301,7 @@ Result<Reseller> result = api.CreateReseller(request);
 {
 	"BusinessCode": 1760,
 	"Message": "Reseller name already exists",
-    "ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"]
+	"ValidationErrors": null,
 	"Data": null,
 	"PageInfo": null
 }
@@ -312,8 +312,8 @@ Result<Reseller> result = api.CreateReseller(request);
 ```
 {
 	"BusinessCode": 0,
-    "Message": null,
-    "ValidationErrors": null,
+	"Message": null,
+	"ValidationErrors": null,
 	"Data": {
 		"DntityAttributeValues": {
 			"111": "tan2"
@@ -330,7 +330,7 @@ Result<Reseller> result = api.CreateReseller(request);
 		"Email": "sam@gmail.com",
 		"Status": "P"
 	},
-    "PageInfo": null
+	"PageInfo": null
 }
 
 ```
@@ -432,9 +432,9 @@ Result<Reseller> updateResult = api.UpdateReseller(resellerId, updateRequest);
 ```
 {
 	"BusinessCode": -1,
-    "Message": null,
+	"Message": null,
 	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."],
-    "Data": null,
+	"Data": null,
 	"PageInfo": null
 }
 ```
@@ -459,8 +459,8 @@ Note: the code in message is the dynamic attribute for the above failed sample r
 ```
 {
 	"BusinessCode": 0,
-    "Message": "code is mandatory",
-    "ValidationErrors": null,
+	"Message": "code is mandatory",
+	"ValidationErrors": null,
 	"Data": {
 		"EntityAttributeValues": {
 			"code": "XY"
@@ -477,7 +477,7 @@ Note: the code in message is the dynamic attribute for the above failed sample r
 		"Email": "FF@1234.COM",
 		"Status": "S"
 	},
-    "PageInfo": null
+	"PageInfo": null
 }
 ```
 
@@ -499,7 +499,7 @@ Type of data is Reseller, same as the API get reseller.
 > <font color="red">The length of 'Contact' must be 64 characters or fewer. You entered 70 characters.</font><br/>
 > <font color="red">The length of 'Phone' must be 32 characters or fewer. You entered 60 characters.</font><br/>
 > <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
-> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/
 > <font color="red">The length of 'Company' must be 255 characters or fewer. You entered 300 characters.</font><br/>
 > <font color="red">The length of 'Parent Reseller Name' must be 64 characters or fewer. You entered 70 characters.</font>
 
@@ -731,7 +731,7 @@ Result<string> result = api.DeleteReseller(51739L);
 {
 	"BusinessCode": 1759,
 	"Message": "Reseller doesn't exist",
-    "ValidationErrors": null,
+	"ValidationErrors": null,
 	"Data": null,
 	"PageInfo": null
 }
