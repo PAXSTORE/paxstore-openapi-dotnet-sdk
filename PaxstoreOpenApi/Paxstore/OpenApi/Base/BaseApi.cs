@@ -33,13 +33,13 @@ namespace Paxstore.OpenApi.Base
             ApiSecret = apiSecret;
             Client = new RestClient(BaseUrl);
 
-            if (string.IsNullOrEmpty(StrClutrue))
-            {
-                StrClutrue = "en";
-            }
-            CultureInfo currentClutrue = new CultureInfo(StrClutrue);
-            Thread.CurrentThread.CurrentCulture = currentClutrue;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
+            //if (string.IsNullOrEmpty(StrClutrue))
+            //{
+            //    StrClutrue = "en";
+            //}
+            //CultureInfo currentClutrue = new CultureInfo(StrClutrue);
+            //Thread.CurrentThread.CurrentCulture = currentClutrue;
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
         }
 
         protected string Execute(RestRequest request)
@@ -53,13 +53,13 @@ namespace Paxstore.OpenApi.Base
                     _logger.Debug(JsonConvert.SerializeObject(request.Parameters[i]));
                 }
             }
-            if (string.IsNullOrEmpty(StrClutrue))
-            {
-                StrClutrue = "en";
-            }
-            CultureInfo currentClutrue = new CultureInfo(StrClutrue);
-            Thread.CurrentThread.CurrentCulture = currentClutrue;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
+            //if (string.IsNullOrEmpty(StrClutrue))
+            //{
+            //    StrClutrue = "en";
+            //}
+            //CultureInfo currentClutrue = new CultureInfo(StrClutrue);
+            //Thread.CurrentThread.CurrentCulture = currentClutrue;
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
 
             request.AddParameter(Constants.PARAM_NAME_SYSKEY, ApiKey, ParameterType.QueryString);
             string querystr = GetQueryString(Client, request);
