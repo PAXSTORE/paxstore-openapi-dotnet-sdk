@@ -2,7 +2,7 @@
 
 All the reseller related APIs are encapsulated in the class *Paxstore.OpenApi.ResellerApi*.
 
-**Constructors of ResellerAPI**
+**Constructors of ResellerApi**
 
 ```
 public ResellerApi(string baseUrl, string apiKey, string apiSecret)
@@ -46,7 +46,7 @@ public Result<PagedReseller> SearchReseller(int pageNo, int pageSize, ResellerSe
 
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 Result<PagedReseller> result = api.SearchReseller(1, 10, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
 ```    
 
@@ -148,7 +148,7 @@ public Result<Reseller> GetReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 Result<Reseller> result = api.GetReseller(1000000211);
 ```
 
@@ -272,7 +272,7 @@ Structure of class ResellerCreateRequest
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 ResellerCreateRequest request = new ResellerCreateRequest();
 request.Name = "Reseller For Test";
 request.Address = "suzhou";
@@ -416,7 +416,7 @@ Structure of class ResellerUpdateRequest
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 ResellerUpdateRequest updateRequest = new ResellerUpdateRequest();
 updateRequest.Name = "Reseller For Test";
 updateRequest.Address = "suzhou2";
@@ -555,7 +555,7 @@ public Result<string> ActivateReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = api.ActivateReseller(51739L);
 ```
 
@@ -631,7 +631,7 @@ public Result<string> DisableReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = api.DisableReseller(51739L);
 ```
 
@@ -709,7 +709,7 @@ public Result<string> DeleteReseller(long resellerId)
 **Sample codes**
 
 ```
-ResellerApi api = new ResellerApi ("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = api.DeleteReseller(51739L);
 ```
 

@@ -415,12 +415,12 @@ Structure of class MerchantUpdateRequest
 ```
 MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
-merchantUpdateRequest.Name = "好人民间";
+merchantUpdateRequest.Name = "hrmj2";
 merchantUpdateRequest.Email = "haoren2@163.com";
 merchantUpdateRequest.ResellerName = "Pine Labs";
 merchantUpdateRequest.Contact = "haoren2";
 merchantUpdateRequest.Country = "CN";
-merchantUpdateRequest.Description = "商户好人民间";
+merchantUpdateRequest.Description = "merchant hrmj2";
 merchantUpdateRequest.Phone = "0512-88889999";
 Result<Merchant> updateResult = api.UpdateMerchant(1000000155, merchantUpdateRequest);
 ```
