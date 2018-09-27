@@ -428,6 +428,7 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
     "BusinessCode": 0,
     "Message": null,
     "ValidationErrors": null,
+<<<<<<< .mine
     "Data": [{
         "ID": 1,
         "Name": "restaurant",
@@ -441,6 +442,21 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
         "Name": "Retail",
         "Remarks": "Retail"
     }],
+=======
+    "Data": [{
+        "ID": 1,
+        "Name": "restaurant",
+        "Remarks": "restaurant"
+    }, {
+        "ID": 2,
+        "Name": "Fast Foods",
+        "Remarks": "Fast Food remarks"
+    }, {
+	    "ID": 3,
+	    "Name": "Retail",
+	    "Remarks": "Retail"
+    }],
+>>>>>>> .theirs
     "PageInfo": null
 }
 ```
