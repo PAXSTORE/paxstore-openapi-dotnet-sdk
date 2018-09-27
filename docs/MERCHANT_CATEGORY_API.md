@@ -40,7 +40,7 @@ public Result<List<MerchantCategory>> GetMerchantCategories(string name)
 **Sample codes**
 
 ```
-MerchantCategoryApi api = new MerchantCategoryApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+MerchantCategoryApi api = new MerchantCategoryApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<List<MerchantCategory>> result = API.GetMerchantCategories("Fast food");
 ```
 
@@ -62,7 +62,7 @@ Result<List<MerchantCategory>> result = API.GetMerchantCategories("Fast food");
 }
 ```
 
-The structure of the class MerchantCategoryDTO like below.
+The structure of the class MerchantCategory like below.
 
 
 |Property Name|Type|Description|
@@ -106,7 +106,7 @@ Structure of class MerchantCategoryCreateRequest
 **Sample codes**
 
 ```
-MerchantCategoryApi api = new MerchantCategoryApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+MerchantCategoryApi api = new MerchantCategoryApi(API_BASE_URL, API_KEY, API_SECRET);
 MerchantCategoryCreateRequest createRequest = new MerchantCategoryCreateRequest();
 createRequest.Name = "test";
 createRequest.Remarks = "testdesc";
@@ -193,15 +193,15 @@ Structure of class MerchantCategoryUpdateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|Name|String|false|Merchant category name, max length is 128.|
-|Remarks|String|true|Remarks of merchant category, max length is 255.|
+|Name|string|false|Merchant category name, max length is 128.|
+|Remarks|string|true|Remarks of merchant category, max length is 255.|
 
 
 
 **Sample codes**
 
 ```
-MerchantCategoryApi api = new MerchantCategoryApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+MerchantCategoryApi api = new MerchantCategoryApi(API_BASE_URL, API_KEY, API_SECRET);
 MerchantCategoryUpdateRequest updateRequest = new MerchantCategoryUpdateRequest();
 updateRequest.Name = "test2";
 updateRequest.Remarks = "test2desc";
@@ -239,10 +239,10 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
     "BusinessCode": 0,
 	"Message": null,
 	"ValidationErrors": null,
-	"data": {
-		"id": 2,
-		"name": "Retail",
-		"remarks": "This is a retail category"
+	"Data": {
+		"ID": 2,
+		"Name": "Retail",
+		"Remarks": "This is a retail category"
 	},
 	"PageInfo": null
 }
@@ -300,7 +300,7 @@ public Result<string> DeleteMerchantCategory(long merchantCategoryId)
 **Sample codes**
 
 ```
-MerchantCategoryApi api = new MerchantCategoryApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+MerchantCategoryApi api = new MerchantCategoryApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> deleteResult = api.DeleteMerchantCategory(2597);
 ```
 
@@ -336,7 +336,7 @@ Result<string> deleteResult = api.DeleteMerchantCategory(2597);
 	"Message": null,
 	"ValidationErrors": null,
 	"Data": null,
-	"PageInfo": null
+    "PageInfo": null
 }
 ```
 
@@ -379,7 +379,7 @@ public Result<List<MerchantCategory>> BatchCreateMerchantCategory(List<MerchantC
 **Sample codes**
 
 ```
-MerchantCategoryApi api = new MerchantCategoryApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+MerchantCategoryApi api = new MerchantCategoryApi(API_BASE_URL, API_KEY, API_SECRET);
 List<MerchantCategoryCreateRequest> createList = new List<MerchantCategoryCreateRequest>();
 MerchantCategoryCreateRequest createRequest1 = new MerchantCategoryCreateRequest();
 createRequest1.Name = "test_1";
@@ -401,10 +401,10 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 ```
 {
     "BusinessCode": -1,
-	"Message": null,
-	"ValidationErrors": ["All the category names in the list cannot be blank!"],
-	"Data": null,
-	"PageInfo": null
+    "Message": null,
+    "ValidationErrors": ["All the category names in the list cannot be blank!"],
+    "Data": null,
+    "PageInfo": null
 }
 ```
 
@@ -413,10 +413,10 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 ```
 {
     "BusinessCode": 16009,
-	"Message": "Merchant name(s) Retail in create list already exists in system",
-	"ValidationErrors": null,
-	"Data": null,
-	"PageInfo": null
+    "Message": "Merchant name(s) Retail in create list already exists in system",
+    "ValidationErrors": null,
+    "Data": null,
+    "PageInfo": null
 }
 ```
 
@@ -425,7 +425,7 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 
 ```
 {
-	"BusinessCode": 0,
+    "BusinessCode": 0,
     "Message": null,
     "ValidationErrors": null,
 	"Data": [{
