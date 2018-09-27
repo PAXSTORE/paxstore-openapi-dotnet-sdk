@@ -19,7 +19,7 @@ public TerminalApkApi(string baseUrl, string apiKey, string apiSecret)
 
 ### Create terminalApk
 
-Create terminalApk API allow the thirdparty system create a terminalApk.
+Create terminalApk API allow the thirdparty system create a terminalApk (create a push apk task for the specified terminal).
 
 
 **API**
@@ -40,20 +40,20 @@ Structure of class TerminalCreateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|TID|string|true|The tid of terminal|
+|TID|string|true|The TID of terminal|
 |SerialNo|string|true|The serial number of terminal|
 |PackageName|string|false|The package name which indicate the application you want to push to the terminal|
-|Version|string|true|The version name of application which you want to push, if it is blank API will push the latest version|
+|Version|string|true|The version name of application which you want to push, if it is blank API will use the latest version|
 |TemplateName|string|true|The template name of paramter. If user want to push more than one template the please use &#124; to concact the different template names like tempate1&#124;template2&#124;template3, the max size of template names is 10.|
 |Parameters|Dictionary&lt;string, string&gt;|false|The parameter key and value, the key the the PID in template|
 
-Note: tid and serialNo cannot be empty at same time.
+Note: TID and serialNo cannot be empty at same time.
 
 
 **Sample codes**
 
 ```
-TerminalApkApi api = new TerminalApkApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApkApi api = new TerminalApkApi(API_BASE_URL, API_KEY, API_SECRET);
 CreateTerminalApkRequest createTerminalApkRequest = new CreateTerminalApkRequest();
 createTerminalApkRequest.TID = "ABC09098989";
 createTerminalApkRequest.PackageName = "com.baidu.map";
@@ -71,7 +71,7 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 {
     "BusinessCode": -1,
 	"Message": null,
-	"ValidationErrors": ["The property serialNo and tid in createTerminalApkRequest cannot be blank at same time!"],
+	"ValidationErrors": ["The property SerialNo and TID in createTerminalApkRequest cannot be blank at same time!"],
 	"Data": null,
 	"PageInfo": null
 }
