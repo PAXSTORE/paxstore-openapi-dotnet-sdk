@@ -4,7 +4,7 @@ Terminal APIs allow thirdparty system search terminals, get a terminal, create a
 
 All the terminal APIs are in the class *Paxstore.OpenApi.TerminalApi*.   
 
-**Constructors of ResellerAPI**
+**Constructors of TerminalApi**
 
 ```
 public TerminalApi(string baseUrl, string apiKey, string apiSecret)
@@ -38,12 +38,12 @@ public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchO
 |pageSize|int|false|the record number per page, range is 1 to 1000|
 |orderBy|TerminalSearchOrderBy|false|the field name of sort order by. Value can be one of TerminalSearchOrderBy.Name, TerminalSearchOrderBy.TID and TerminalSearchOrderBy.SerialNo.|
 |status|TerminalStatus|false|the terminal status<br/> the value can be TerminalStatus.Active, TerminalStatus.Inactive, TerminalStatus.Suspend and TerminalStatus.All. If the value is TerminalStatus.All it will return terminals of all status|
-|snNameTID|String|true|search filter by serial number,name or TID|
+|snNameTID|string|true|search filter by serial number,name or TID|
 
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, TerminalStatus.All, null);
 ```
 
@@ -57,6 +57,7 @@ Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.Serial
 	"Data": null,
 	"PageInfo": null
 }
+```
 
 **Succssful sample result(JSON formatted)**
 
