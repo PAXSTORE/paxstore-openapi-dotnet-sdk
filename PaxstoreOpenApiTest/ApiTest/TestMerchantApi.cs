@@ -15,7 +15,7 @@ namespace Paxstore.Test
     class TestMerchantApi
     {
         private static ILog _logger = LogManager.GetLogger(typeof(TestMerchantApi));
-        public static MerchantApi API = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPO", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9");
+        public static MerchantApi API = new MerchantApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
         [Test]
         public void TestSearchMerchantAll() {
