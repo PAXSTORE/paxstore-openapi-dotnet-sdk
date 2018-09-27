@@ -69,11 +69,11 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 
 ```
 {
-    "BusinessCode": -1,
-    "Message": null,
-    "ValidationErrors": ["The property SerialNo and TID in createTerminalApkRequest cannot be blank at same time!"],
-    "Data": null,
-    "PageInfo": null
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["The property SerialNo and TID in createTerminalApkRequest cannot be blank at same time!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -81,11 +81,11 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 
 ```
 {
-    "BusinessCode": 2028,
-    "Message": "TerminalApk not found",
-    "ValidationErrors": null,
-    "Data": null,
-    "PageInfo": null
+	"BusinessCode": 2028,
+	"Message": "TerminalApk not found",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -93,11 +93,11 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 
 ```
 {
-    "BusinessCode": 0,
-    "Message": null,
-    "ValidationErrors": null,
-    "Data": null,
-    "PageInfo": null
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 

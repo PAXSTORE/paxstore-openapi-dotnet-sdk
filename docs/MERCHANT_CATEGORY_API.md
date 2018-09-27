@@ -50,15 +50,15 @@ Result<List<MerchantCategory>> result = API.GetMerchantCategories("Fast food");
 
 ```
 {
-    "BusinessCode": 0,
-    "Message": null,
-    "ValidationErrors": null,
-    "Data": [{
-        "ID": 2555,
-        "Name": "Fast food",
-        "Remarks": "fast food category"
-    }],
-    "PageInfo": null
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": [{
+		"ID": 2555,
+		"Name": "Fast food",
+		"Remarks": "fast food category"
+	}],
+	"PageInfo": null
 }
 ```
 
@@ -277,8 +277,6 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
 
 
 
-
-
 ### Delete a merchant category
 
 Delete merchant category API allows the thirdparty system delete a exist merchant category by id.
@@ -400,11 +398,11 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 
 ```
 {
-    "BusinessCode": -1,
-    "Message": null,
-    "ValidationErrors": ["All the category names in the list cannot be blank!"],
-    "Data": null,
-    "PageInfo": null
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["All the category names in the list cannot be blank!"],
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -412,11 +410,11 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 
 ```
 {
-    "BusinessCode": 16009,
-    "Message": "Merchant name(s) Retail in create list already exists in system",
-    "ValidationErrors": null,
-    "Data": null,
-    "PageInfo": null
+	"BusinessCode": 16009,
+	"Message": "Merchant name(s) Retail in create list already exists in system",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
 }
 ```
 
@@ -425,23 +423,23 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
 
 ```
 {
-    "BusinessCode": 0,
-    "Message": null,
-    "ValidationErrors": null,
-    "Data": [{
-        "ID": 1,
-        "Name": "restaurant",
-        "Remarks": "restaurant"
-    }, {
-        "ID": 2,
-        "Name": "Fast Foods",
-        "Remarks": "Fast Food remarks"
-    }, {
-        "ID": 3,
-        "Name": "Retail",
-        "Remarks": "Retail"
-    }],
-    "PageInfo": null
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": [{
+		"ID": 1,
+		"Name": "restaurant",
+	"Remarks": "restaurant"
+	}, {
+		"ID": 2,
+		"Name": "Fast Foods",
+		"Remarks": "Fast Food remarks"
+	}, {
+		"ID": 3,
+		"Name": "Retail",
+		"Remarks": "Retail"
+	}],
+	"PageInfo": null
 }
 ```
 
@@ -465,21 +463,6 @@ Note: [NAME] and [REMARKS] will be replaced by name and remarks of merchant cate
 |16007|Merchant category names {0} in create list is too long|Note: {0} in message will be replaced by category name(s)|
 |16008|Merchant category remarks {0} in create list is too longg|Note: {0} in message will be replaced by category remarks(s)|
 |16009|Merchant category name(s) {0} in create list already exists in system|Note: {0} in the message will be replaced by merchante category name in the create list which is already exist in system.|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
