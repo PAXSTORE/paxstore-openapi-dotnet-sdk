@@ -37,12 +37,15 @@ namespace Paxstore.Test
         [Test]
         public void TestCreateTerminalApkTerminalNotFound()
         {
-            CreateTerminalApkRequest createRequest = new CreateTerminalApkRequest();
-            string templateName = "a|b|c|d|ee|f|g|hh|gg|ll";
-            createRequest.TemplateName = templateName;
-            createRequest.PackageName = "baidu.ai";
-            createRequest.TID = "12345678";
-            Result<string> result = API.CreateTerminalApk(createRequest);
+            CreateTerminalApkRequest createTerminalApkRequest = new CreateTerminalApkRequest();
+            createTerminalApkRequest.TID = "ABC09098989";
+            createTerminalApkRequest.PackageName = "com.baidu.map";
+            createTerminalApkRequest.TemplateName = "template_map";
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("PID.locationCode", "cn_js_sz");
+            parameters.Add("PID.showtraffic", "true");
+            createTerminalApkRequest.Parameters = parameters;
+            Result<string> result = API.CreateTerminalApk(createTerminalApkRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 2028);
         }

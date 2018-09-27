@@ -20,7 +20,7 @@ namespace Paxstore.Test
 
         [Test]
         public void TestSearchTerminal() {
-            Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, TerminalStatus.All, "");
+            Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, TerminalStatus.All, null);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
@@ -50,6 +50,8 @@ namespace Paxstore.Test
         public void TestCreateTerminalInvalid()
         {
             TerminalCreateRequest createRequest = new TerminalCreateRequest();
+            createRequest.Name = "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+            createRequest.TID = "4578";
             Result<Terminal> result = API.CreateTerminal(createRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
@@ -119,7 +121,7 @@ namespace Paxstore.Test
             _logger.DebugFormat("Activate Result=\n{0}", JsonConvert.SerializeObject(activateResult));
             Assert.AreEqual(updateResult.BusinessCode, 0);
 
-            Result<string> disableResult = API.disableTerminal(terminalId);
+            Result<string> disableResult = API.DisableTerminal(terminalId);
             _logger.DebugFormat("Disable Result=\n{0}", JsonConvert.SerializeObject(disableResult));
             Assert.AreEqual(disableResult.BusinessCode, 0);
 

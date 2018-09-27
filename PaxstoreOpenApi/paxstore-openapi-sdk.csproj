@@ -2,13 +2,12 @@
   <PropertyGroup>
     <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
 
-    <PackageId>Com.Pax.OpenApi</PackageId>
+    <PackageId>Paxstore.OpenApi</PackageId>
     <Version>1.0.0</Version>
 	<RootNamespace>Paxstore.OpenApi</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
-    <Product>openapi.pax.com</Product>
-    <Description>Official release of PAXSTORE OpenAPI .Net SDK</Description>
+    <Product>Paxstore.OpenApi.NET</Product>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageTags>PAXSTORE OpenAPI .Net SDK</PackageTags>
     <RepositoryUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</RepositoryUrl>
@@ -16,11 +15,12 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
+    <!--<OldToolsVersion>2.0</OldToolsVersion>-->
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <FileVersion>1.0.0</FileVersion>
+    <PackageProjectUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>

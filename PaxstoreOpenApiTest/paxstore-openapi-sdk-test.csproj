@@ -11,9 +11,9 @@
     <Authors>Pax</Authors>
     <Company>Pax</Company>
 
-    <Description>Official release of PAXSTORE OpenAPI .Net SDK</Description>
+    <Description>Official release of PAXSTORE OpenAPI .Net SDK Test</Description>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-    <PackageTags>PAXSTORE OpenAPI .Net SDK</PackageTags>
+    <PackageTags>PAXSTORE OpenAPI .Net SDK Test</PackageTags>
     <RepositoryUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</RepositoryUrl>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
