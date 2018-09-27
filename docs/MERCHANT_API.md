@@ -3,7 +3,7 @@
 The merchant APIs allow thirdparty system search merchants, get a merchant, create/update a merchant, activate/disable a merchant and delete a exist merchant.
 All the merchant APIs are in the class *Paxstore.OpenApi.MerchantApi*.    
 
-**Constructors of MerchantAPI**
+**Constructors of MerchantApi**
 
 ```
 public MerchantApi(string baseUrl, string apiKey, string apiSecret)
@@ -36,12 +36,12 @@ public Result<PagedMerchant>  SearchMerchant(int pageNo, int pageSize, MerchantS
 |pageSize|int|false|the record number per page, range is 1 to 1000|
 |orderBy|MerchantSearchOrderBy|false|the field name of sort order by. The value of this parameter can be one of MerchantSearchOrderBy.Name, MerchantSearchOrderBy.Phone and MerchantSearchOrderBy.Contact.|
 |name|string|true|search filter by merchant name|
-|status|MerchantStatus|true|the reseller status<br/> the value can be MerchantStatus.All, MerchantStatus.Active, MerchantStatus.Inactive, MerchantStatus.Suspend. If the value is MerchantStatus.All it will return merchant of all status|
+|status|MerchantStatus|false|the reseller status<br/> the value can be MerchantStatus.All, MerchantStatus.Active, MerchantStatus.Inactive, MerchantStatus.Suspend. If the value is MerchantStatus.All it will return merchant of all status|
 
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.Name, null, MerchantStatus.All);
 ```
 
@@ -138,7 +138,7 @@ public Result<Merchant>  GetMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<Merchant> result = api.GetMerchant(72590);
 ```
 
@@ -259,7 +259,7 @@ Structure of class MerchantCreateRequest
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
 merchantCreateRequest.Name = "hrmj";
 merchantCreateRequest.Email = "haoren@163.com";
@@ -413,7 +413,7 @@ Structure of class MerchantUpdateRequest
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
 merchantUpdateRequest.Name = "好人民间";
 merchantUpdateRequest.Email = "haoren2@163.com";
@@ -556,7 +556,7 @@ public Result<string> ActivateMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = api.ActivateMerchant(72590);
 ```
 
@@ -633,7 +633,7 @@ public Result<string> DisableMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = api.DisableMerchant(72594);
 ```
 
@@ -711,7 +711,7 @@ public Result<string> DeleteMerchant(long merchantId)
 **Sample codes**
 
 ```
-MerchantApi api = new MerchantApi("https://api.whatspos.cn/p-market-api/", "ZJFXJAG7SJXPPESKVAPOX", "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9X");
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = api.DeleteMerchant(72593);
 ```
 
