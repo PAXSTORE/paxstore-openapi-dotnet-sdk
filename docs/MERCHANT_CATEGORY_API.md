@@ -50,15 +50,15 @@ Result<List<MerchantCategory>> result = API.GetMerchantCategories("Fast food");
 
 ```
 {
-	"BusinessCode": 0,
-	"Message": null,
-	"ValidationErrors": null,
-	"Data": [{
-		"ID": 2555,
-		"Name": "Fast food",
-		"Remarks": "fast food category"
-	}],
-	"PageInfo": null
+    "BusinessCode": 0,
+    "Message": null,
+    "ValidationErrors": null,
+    "Data": [{
+        "ID": 2555,
+        "Name": "Fast food",
+        "Remarks": "fast food category"
+    }],
+    "PageInfo": null
 }
 ```
 
@@ -212,7 +212,7 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
 
 ```
 {
-    "BusinessCode": -1,
+	"BusinessCode": -1,
 	"Message": null,
 	"ValidationErrors": ["Parameter merchantCategoryId cannot be null and cannot be lese than 1"],
 	"Data": null,
@@ -224,7 +224,7 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
 
 ```
 {
-    "BusinessCode": 16001,
+	"BusinessCode": 16001,
 	"Message": "Merchant category name already exists",
 	"ValidationErrors": null,
 	"Data": null,
@@ -236,7 +236,7 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
 
 ```
 {
-    "BusinessCode": 0,
+	"BusinessCode": 0,
 	"Message": null,
 	"ValidationErrors": null,
 	"Data": {
@@ -308,7 +308,7 @@ Result<string> deleteResult = api.DeleteMerchantCategory(2597);
 
 ```
 {
-    "BusinessCode": -1,
+	"BusinessCode": -1,
 	"Message": null,
 	"ValidationErrors": ["Parameter merchantCategoryId cannot be null and cannot be lese than 1!"],
 	"Data": null,
@@ -320,7 +320,7 @@ Result<string> deleteResult = api.DeleteMerchantCategory(2597);
 
 ```
 {
-    "BusinessCode": 16000,
+	"BusinessCode": 16000,
 	"Message": "Merchant category not found",
 	"ValidationErrors": null,
 	"Data": null,
@@ -332,11 +332,11 @@ Result<string> deleteResult = api.DeleteMerchantCategory(2597);
 
 ```
 {
-    "BusinessCode": 0,
+	"BusinessCode": 0,
 	"Message": null,
 	"ValidationErrors": null,
 	"Data": null,
-    "PageInfo": null
+	"PageInfo": null
 }
 ```
 
@@ -428,19 +428,19 @@ Result<List<MerchantCategory>> result = api.BatchCreateMerchantCategory(createLi
     "BusinessCode": 0,
     "Message": null,
     "ValidationErrors": null,
-	"Data": [{
-		"id": 1,
-		"name": "restaurant",
-		"remarks": "restaurant"
-	}, {
-		"id": 2,
-		"name": "Fast Foods",
-		"remarks": "Fast Food remarks"
-	}, {
-		"id": 3,
-		"name": "Retail",
-		"remarks": "Retail"
-	}],
+    "Data": [{
+        "ID": 1,
+        "Name": "restaurant",
+        "Remarks": "restaurant"
+    }, {
+        "ID": 2,
+        "Name": "Fast Foods",
+        "Remarks": "Fast Food remarks"
+    }, {
+        "ID": 3,
+        "Name": "Retail",
+        "Remarks": "Retail"
+    }],
     "PageInfo": null
 }
 ```
