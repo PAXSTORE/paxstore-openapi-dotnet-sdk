@@ -6,7 +6,7 @@
 
 ## Download Packages  
 
-For a full list of packages available for download in this repository, please see our list of .NET SDK packages.
+[https://www.nuget.org/packages/Paxstore.OpenApi/](https://www.nuget.org/packages/Paxstore.OpenApi/)
 
 ## Target Frameworks  
 
@@ -121,9 +121,9 @@ Please keep the access key and access secret safely. Once the access key or acce
 <br>
 <br>
 
-## Intergrate with SDK
+## Install SDK
 
-refer to https://www.nuget.org/packages/Paxstore.OpenApi/
+Please refer to [https://www.nuget.org/packages/Paxstore.OpenApi/](https://www.nuget.org/packages/Paxstore.OpenApi/)
 
 <br/>
 
