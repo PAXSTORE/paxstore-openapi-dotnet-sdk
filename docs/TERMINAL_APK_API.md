@@ -82,10 +82,10 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 ```
 {
     "BusinessCode": 2028,
-"Message": "TerminalApk not found",
-"ValidationErrors": null,
-"Data": null,
-"PageInfo": null
+  "Message": "TerminalApk not found",
+  "ValidationErrors": null,
+  "Data": null,
+  "PageInfo": null
 }
 ```
 
@@ -94,10 +94,10 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 ```
 {
     "BusinessCode": 0,
-"Message": null,
-"ValidationErrors": null,
-"Data": null,
-"PageInfo": null
+    "Message": null,
+    "ValidationErrors": null,
+    "Data": null,
+    "PageInfo": null
 }
 ```
 
