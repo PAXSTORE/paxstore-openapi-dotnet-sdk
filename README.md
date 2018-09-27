@@ -123,7 +123,7 @@ Please keep the access key and access secret safely. Once the access key or acce
 
 ## Intergrate with SDK
 
-refer to https://www.nuget.org/packages/Com.Pax.OpenApi/
+refer to https://www.nuget.org/packages/Paxstore.OpenApi/
 
 <br/>
 
