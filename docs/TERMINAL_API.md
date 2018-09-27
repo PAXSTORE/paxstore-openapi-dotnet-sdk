@@ -128,7 +128,7 @@ public Result<Terminal> GetTerminal(long terminalId)
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<Terminal> result = API.GetTerminal(100);
 ```
 
@@ -225,7 +225,7 @@ Structure of class TerminalCreateRequest
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 TerminalCreateRequest createRequest = new TerminalCreateRequest();
 createRequest.Name = "Terminal 1";
 createRequest.ResellerName = "reseller_002";
@@ -253,7 +253,7 @@ Result<Terminal> result = api.CreateTerminal(createRequest);
 {
 	"businessCode": 1740,
 	"message": "Your terminal (SN:sn0101012237) already exists",
-    "ValidationErrors": null,
+	"ValidationErrors": null,
 	"Data": null,
 	"PageInfo": null
 }
@@ -291,13 +291,14 @@ The type of data in result is same as search terminal API.
 > <font color=red>'Model Name' should not be empty.</font>  
 > <font color=red>The length of 'Name' must be 64 characters or fewer. You entered 144 characters.</font>  
 > <font color=red>The length of 'TID' must be 16 characters or fewer. You entered 19 characters.</font>  
-> <font color=red>The length of 'TID' must be at least 8 characters. You entered 4 characters.</font>
+> <font color=red>The length of 'TID' must be at least 8 characters. You entered 4 characters.</font>  
 > <font color=red>The length of 'Serial No' must be 32 characters or fewer. You entered 35 characters.</font>  
 > <font color=red>The length of 'Merchant Name' must be 64 characters or fewer. You entered 65 characters.</font> 
-> <font color=red>The length of 'Reseller Name' must be 64 characters or fewer. You entered 65 characters.</font>
-> <font color=red>The length of 'Model Name' must be 64 characters or fewer. You entered 65 characters.</font>
-> <font color=red>The length of 'Location' must be 32 characters or fewer. You entered 40 characters.</font>
+> <font color=red>The length of 'Reseller Name' must be 64 characters or fewer. You entered 65 characters.</font>  
+> <font color=red>The length of 'Model Name' must be 64 characters or fewer. You entered 65 characters.</font>  
+> <font color=red>The length of 'Location' must be 32 characters or fewer. You entered 40 characters.</font>  
 > <font color=red>'Status' must be 'A' or 'P'.</font>  
+
 
 
 
@@ -349,19 +350,19 @@ Structure of class TerminalUpdateRequest
 
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|Name|String|false|The name of terminal, max length is 64.|
-|TID|String|true|The tid of terminal. If it is empty system will generate a tid when creating. And the length range is from 8 to 15.|
-|SerialNo|String|true|The serial number of terminal. If the status is active the serial number is mandatory.|
-|MerchantName|String|true|The merchant of terminal belongs to. If the initial is active then merchantName is mandatory. The max length is 64. Make sure the merchant belongs to the given reseller|
-|ResellerName|String|false|The reseller of terminal belongs to. Max length is 64.|
-|ModelName|String|false|The model name of terminal. Max length is 64.|
-|Location|String|true|The location of terminal, max length is 32.|
+|Name|string|false|The name of terminal, max length is 64.|
+|TID|string|true|The tid of terminal. If it is empty system will generate a tid when creating. And the length range is from 8 to 16.|
+|SerialNo|string|true|The serial number of terminal. If the status is active the serial number is mandatory.|
+|MerchantName|string|true|The merchant of terminal belongs to. If the initial is active then merchantName is mandatory. The max length is 64. Make sure the merchant belongs to the given reseller|
+|ResellerName|string|false|The reseller of terminal belongs to. Max length is 64.|
+|ModelName|string|false|The model name of terminal. Max length is 64.|
+|Location|string|true|The location of terminal, max length is 32.|
 
 
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 TerminalUpdateRequest updateRequest = new TerminalUpdateRequest();
 updateRequest.Name = "Terminal 1";
 updateRequest.Location = "Suzhou";
@@ -377,9 +378,9 @@ Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 ```
 {
 	"businessCode": -1,
-    "message": null,
+	"message": null,
 	"validationErrors": ["Parameter terminalId cannot be null and cannot be less than 1!"],
-    "Data": null,
+	"Data": null,
 	"PageInfo": null
 }
 ```
@@ -388,10 +389,10 @@ Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 
 ```
 {
-    "businessCode": -1804,
-    "message": "Terminal merchant is mandatory",
+	"businessCode": -1804,
+	"message": "Terminal merchant is mandatory",
 	"validationErrors": null,
-    "Data": null,
+	"Data": null,
 	"PageInfo": null
 }
 ```
@@ -401,8 +402,8 @@ Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 ```
 {
 	"businessCode": 0,
-    "message": null,
-    "validationErrors": null,
+	"message": null,
+	"validationErrors": null,
 	"data": {
 		"id": 907560,
 		"name": "KFC-TML-001",
@@ -413,7 +414,7 @@ Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 		"modelName": "A920",
 		"resellerName": "New York"
 	},
-    "PageInfo": null
+	"PageInfo": null
 }
 ```
 
@@ -423,18 +424,18 @@ The type of data in result is same as search terminal API.
 
 
 > <font color=red>Parameter terminalUpdateRequest cannot be null!</font>  
-> <font color=red>Parameter terminalId cannot be null and cannot be less than 1!</font>
+> <font color=red>Parameter terminalId cannot be null and cannot be less than 1!</font>  
 > <font color=red>'Name' should not be empty.</font>  
 > <font color=red>'Reseller Name' should not be empty.</font>  
 > <font color=red>'Model Name' should not be empty.</font>  
 > <font color=red>The length of 'Name' must be 64 characters or fewer. You entered 144 characters.</font>  
 > <font color=red>The length of 'TID' must be 16 characters or fewer. You entered 19 characters.</font>  
-> <font color=red>The length of 'TID' must be at least 8 characters. You entered 4 characters.</font>
+> <font color=red>The length of 'TID' must be at least 8 characters. You entered 4 characters.</font>  
 > <font color=red>The length of 'Serial No' must be 32 characters or fewer. You entered 35 characters.</font>  
-> <font color=red>The length of 'Merchant Name' must be 64 characters or fewer. You entered 65 characters.</font> 
-> <font color=red>The length of 'Reseller Name' must be 64 characters or fewer. You entered 65 characters.</font>
-> <font color=red>The length of 'Model Name' must be 64 characters or fewer. You entered 65 characters.</font>
-> <font color=red>The length of 'Location' must be 32 characters or fewer. You entered 40 characters.</font>
+> <font color=red>The length of 'Merchant Name' must be 64 characters or fewer. You entered 65 characters.</font>  
+> <font color=red>The length of 'Reseller Name' must be 64 characters or fewer. You entered 65 characters.</font>  
+> <font color=red>The length of 'Model Name' must be 64 characters or fewer. You entered 65 characters.</font>  
+> <font color=red>The length of 'Location' must be 32 characters or fewer. You entered 40 characters.</font>  
 
 
 **Possible business codes**
@@ -490,7 +491,7 @@ public Result<string> ActivateTerminal(long terminalId)
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = terminalApi.ActivateTerminal(907560L);
 ```
 
@@ -498,7 +499,7 @@ Result<string> result = terminalApi.ActivateTerminal(907560L);
 
 ```
 {
-    "BusinessCode": -1,
+	"BusinessCode": -1,
 	"Message": null,
 	"ValidationErrors": ["Parameter terminalId cannot be null and cannot be less than 1!"],
 	"Data": null,
@@ -510,7 +511,7 @@ Result<string> result = terminalApi.ActivateTerminal(907560L);
 
 ```
 {
-    "BusinessCode": 1800,
+	"BusinessCode": 1800,
 	"Message": "Terminal not found",
 	"ValidationErrors": null,
 	"Data": null,
@@ -568,7 +569,7 @@ public Result<string> DisableTerminal(long terminalId)
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = terminalApi.DisableTerminal(907560L);
 ```
 
@@ -576,7 +577,7 @@ Result<string> result = terminalApi.DisableTerminal(907560L);
 
 ```
 {
-    "BusinessCode": -1,
+	"BusinessCode": -1,
 	"Message": null,
 	"ValidationErrors": ["Parameter terminalId cannot be null and cannot be less than 1!"],
 	"Data": null,
@@ -588,7 +589,7 @@ Result<string> result = terminalApi.DisableTerminal(907560L);
 
 ```
 {
-    "BusinessCode": -1888,
+	"BusinessCode": -1888,
 	"Message": "The terminal is not active,unable to disable!",
 	"ValidationErrors": null,
 	"Data": null,
@@ -600,7 +601,7 @@ Result<string> result = terminalApi.DisableTerminal(907560L);
 
 ```
 {
-    "BusinessCode": 0,
+	"BusinessCode": 0,
 	"Message": null,
 	"ValidationErrors": null,
 	"Data": null,
@@ -642,7 +643,7 @@ public Result<string> DeleteTerminal(long terminalId)
 **Sample codes**
 
 ```
-TerminalApi api = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
 Result<string> result = terminalApi.DeleteTerminal(907560L);
 ```
 
@@ -650,7 +651,7 @@ Result<string> result = terminalApi.DeleteTerminal(907560L);
 
 ```
 {
-    "BusinessCode": -1,
+	"BusinessCode": -1,
 	"Message": null,
 	"ValidationErrors": ["Parameter terminalId cannot be null and cannot be less than 1!"],
 	"Data": null,
@@ -662,7 +663,7 @@ Result<string> result = terminalApi.DeleteTerminal(907560L);
 
 ```
 {
-    "BusinessCode": 1877,
+	"BusinessCode": 1877,
 	"Message": "The terminal is active,unable to delete!",
 	"ValidationErrors": null,
 	"Data": null,
@@ -674,7 +675,7 @@ Result<string> result = terminalApi.DeleteTerminal(907560L);
 
 ```
 {
-    "BusinessCode": 0,
+	"BusinessCode": 0,
 	"Message": null,
 	"ValidationErrors": null,
 	"Data": null,
