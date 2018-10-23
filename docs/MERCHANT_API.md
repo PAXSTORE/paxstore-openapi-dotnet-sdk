@@ -252,6 +252,7 @@ Structure of class MerchantCreateRequest
 |Postcode|string|true|Postcode of merchant, max length is 16.|
 |Address|string|true|Address of merchant, max length is 255.|
 |Description|string|true|Description of merchant, max length is 3000.|
+|CreateUserFlag|bool|true|Indicate whether to create user when activate the merchant, won't create user when activate if this value is empty|
 |MerchantCategoryNames|List&lt;string&gt;|true|Merchant categories. Make sure the categories are available.|
 |EntityAttributeValues|Dictionary&lt;string, string&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
 
@@ -407,6 +408,7 @@ Structure of class MerchantUpdateRequest
 |Postcode|string|true|Postcode of merchant, max length is 16.|
 |Address|string|true|Address of merchant, max length is 255.|
 |Description|string|true|Description of merchant, max length is 3000.|
+|CreateUserFlag|bool|true|Indicate whether to create user when activate the merchant, won't create user if this value is empty|
 |MerchantCategoryNames|List&lt;string&gt;|true|Merchant categories. Make sure the categories are available.|
 |EntityAttributeValues|Dictionary&lt;string, string&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
 
@@ -532,6 +534,7 @@ The data type in result is same as get merchant API.
 |1927|The merchant is not inactive,reseller cannot be updated!|&nbsp;|
 |1759|Reseller doesn't exist|&nbsp;|
 |1773|The associated reseller is not activate|&nbsp;|
+|1936|The merchant is not inactive,merchant email cannot be updated!|Only the pending merchant can update the email|
 
 
 
@@ -767,22 +770,84 @@ Result<string> result = api.DeleteMerchant(72593);
 
 
 
+### Replace merchant email
+
+This API is used to update the email of active merchant
+
+**API**
+
+```
+public Result<string> ReplaceMerchantEmail(long merchantId, string email, bool createUser)
+```
+
+**Input parameter(s) description**
+
+|Parameter Name|Type|Nullable|Description|
+|:--|:--|:--|:--|
+|merchantId|long|false|The merchant id|
+|email|string|false|The new email|
+|createUser|bool|false|Indicate whether to create user when replace the email|
+
+
+**Sample codes**
+
+```
+MerchantApi api = new MerchantApi(API_BASE_URL, API_KEY, API_SECRET);
+Result<string> result = api.ReplaceMerchantEmail(72593, "zhangsan@pax.com", true);
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["Parameter merchantId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1720,
+	"Message": "Merchant doesn't exist",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
+}
+```
+
+**Possible client validation errors**
+
+> <font color=red>Parameter merchantId cannot be null and cannot be less than 1!</font>  
+> <font color="red">'Email' should not be empty.</font>
+> <font color="red">The length of 'Email' must be 255 characters or fewer. You entered 256 characters.</font>  
+> <font color="red">'Email' is not a valid email address.</font>
 
 
 
 
+**Possible business codes**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+|Business Code|Message|Description|
+|:--|:--|:--|
+|1720|Merchant doesn't exist|&nbsp;|
+|1934|The merchant is not active,unable to replace user!|This API can only update the email of active merchants|
+|1105|Email is invalid|The inputted email address is invalid|
+|1933|The user email not update.|The inputted email address is same as the original email|
 

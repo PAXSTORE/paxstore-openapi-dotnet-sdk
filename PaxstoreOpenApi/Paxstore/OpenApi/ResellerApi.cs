@@ -6,6 +6,8 @@ using Paxstore.OpenApi.Model;
 using Paxstore.OpenApi.Base;
 using Paxstore.OpenApi.Validator.Reseller;
 using log4net;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Paxstore.OpenApi
 {
@@ -20,6 +22,7 @@ namespace Paxstore.OpenApi
         private const string ACTIVATE_RESELLER_URL = "/v1/3rdsys/resellers/{resellerId}/active";
         private const string DISABLE_RESELLER_URL = "/v1/3rdsys/resellers/{resellerId}/disable";
         private const string DELETE_RESELLER_URL = "/v1/3rdsys/resellers/{resellerId}";
+        private const string REPLACE_RESELLER_EMAIL_URL = "/v1/3rdsys/resellers/{resellerId}/replaceEmail";
 
         public ResellerApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
         {
@@ -125,6 +128,44 @@ namespace Paxstore.OpenApi
             }
             RestRequest request = new RestRequest(DELETE_RESELLER_URL, Method.DELETE);
             request.AddUrlSegment("resellerId",resellerId);
+            var responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
+
+        private List<string> ValidateReplaceEmail(string email)
+        {
+            List<string> validationErrs = new List<string>();
+            ReplaceResellerEmailModel model = new ReplaceResellerEmailModel(email);
+            IValidator validator = new ReplaceResellerEmailValidator();
+            ValidationResult results = validator.Validate(model);
+            if (!results.IsValid)
+            {
+                IList<ValidationFailure> failures = results.Errors;
+                for (int i = 0; i < results.Errors.Count; i++)
+                {
+                    validationErrs.Add(results.Errors[i].ErrorMessage);
+                }
+            }
+            return validationErrs;
+        }
+
+        public Result<string> ReplaceResellerEmail(long resellerId, string email)
+        {
+            List<string> validationErrs = ValidateId(resellerId, "resellerIdInvalid");
+            validationErrs.AddRange(ValidateReplaceEmail(email));
+            if (validationErrs.Count > 0)
+            {
+                return new Result<string>(validationErrs);
+            }
+
+            RestRequest request = new RestRequest(REPLACE_RESELLER_EMAIL_URL, Method.POST);
+            request.AddUrlSegment("resellerId", resellerId);
+            Dictionary<string, object> requestBodyObj = new Dictionary<string, object>();
+            requestBodyObj.Add("email", email);
+            var requestBodyStr = JsonConvert.SerializeObject(requestBodyObj);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyStr, ParameterType.RequestBody);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);

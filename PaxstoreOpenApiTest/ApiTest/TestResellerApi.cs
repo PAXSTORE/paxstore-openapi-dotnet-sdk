@@ -43,7 +43,7 @@ namespace Paxstore.Test
 
         [Test()]
         public void TestGetResellerCorrect() {
-            Result<Reseller> result = API.GetReseller(1000000211);
+            Result<Reseller> result = API.GetReseller(1000001975);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(0, result.BusinessCode);
         }
@@ -102,25 +102,41 @@ namespace Paxstore.Test
         [Test]
         public void TestActivateResellerAlreadyActive()
         {
-            Result<string> result = API.ActivateReseller(1000000267);
+            Result<string> result = API.ActivateReseller(1000005215);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 1891);
         }
 
         [Test]
+        public void TestActivateResellerSuccess()
+        {
+            Result<string> result = API.ActivateReseller(1000005215);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
         public void TestDisableReseller()
         {
-            Result<string> result = API.DisableReseller(1000000232);
+            Result<string> result = API.DisableReseller(1000005215);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
         public void TestDeleteReseller() {
-            Result<string> result = API.DisableReseller(1000000267);
+            Result<string> result = API.DeleteReseller(1000005213);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
+
+        [Test]
+        public void TestReplaceResellerEmail() {
+            Result<string> result = API.ReplaceResellerEmail(1000005215, "zhangsan@pax.com");
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
 
         [Test]
         public void TestCreateUpdateActivateDisableDelete() {
@@ -177,5 +193,18 @@ namespace Paxstore.Test
 
 
         }
+
+        [Test]
+        public void TestUrl() {
+            string baseUrl = "http://localhost:8080/p-market-api/";
+            if (baseUrl != null && baseUrl.EndsWith("/"))
+            {
+                baseUrl = baseUrl.Remove(baseUrl.Length-1);
+                Console.WriteLine(baseUrl);
+            }
+
+            Assert.IsTrue(baseUrl.Equals("http://localhost:8080/p-market-api"));
+        }
+
     }
 }

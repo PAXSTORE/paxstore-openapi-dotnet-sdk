@@ -59,7 +59,7 @@ namespace Paxstore.Test
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
             merchantCreateRequest.Name = "KFC";
             merchantCreateRequest.Email = "abc@163.com";
-            merchantCreateRequest.ResellerName = "reseller_002";
+            merchantCreateRequest.ResellerName = "Jesse";
             merchantCreateRequest.Contact = "tan";
             merchantCreateRequest.Country = "CN";
             merchantCreateRequest.Description = "Merchant KFC";
@@ -72,8 +72,26 @@ namespace Paxstore.Test
 
         [Test]
         public void TestActivateMerchant() {
-            long merchantId = 1000000134;
-            API.ActivateMerchant(merchantId);
+            long merchantId = 1000056490;
+            Result<string> result =  API.ActivateMerchant(merchantId);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestReplaceEmailWithoutCreateUser()
+        {
+            Result<string> result = API.ReplaceMerchantEmail(1000056490, "zhangsan2@pax.com", false);
+             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestReplaceEmailWithCreateUser()
+        {
+            Result<string> result = API.ReplaceMerchantEmail(1000056490, "zhangsan@pax.com", true);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
@@ -81,7 +99,7 @@ namespace Paxstore.Test
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
             merchantCreateRequest.Name = "好人民间";
             merchantCreateRequest.Email = "haoren@163.com";
-            merchantCreateRequest.ResellerName = "Pine Labs";
+            merchantCreateRequest.ResellerName = "Jesse";
             merchantCreateRequest.Contact = "haoren";
             merchantCreateRequest.Country = "CN";
             merchantCreateRequest.Description = "商户好人民间";
@@ -94,7 +112,7 @@ namespace Paxstore.Test
             MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
             merchantUpdateRequest.Name = "好人民间";
             merchantUpdateRequest.Email = "haoren2@163.com";
-            merchantUpdateRequest.ResellerName = "Pine Labs";
+            merchantUpdateRequest.ResellerName = "Jesse";
             merchantUpdateRequest.Contact = "haoren2";
             merchantUpdateRequest.Country = "CN";
             merchantUpdateRequest.Description = "商户好人民间";
@@ -127,7 +145,7 @@ namespace Paxstore.Test
             merchantUpdateRequest.Email = "haoren2@163.com";
             merchantUpdateRequest.ResellerName = "Pine Labs";
             merchantUpdateRequest.Contact = "haoren2";
-            merchantUpdateRequest.Country = "CN";
+            //merchantUpdateRequest.Country = "CN";
             merchantUpdateRequest.Description = "商户好人民间";
             merchantUpdateRequest.Phone = "0512-88889999";
             Result<Merchant> updateResult = API.UpdateMerchant(1000000, merchantUpdateRequest);

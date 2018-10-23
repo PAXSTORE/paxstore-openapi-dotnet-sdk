@@ -14,7 +14,6 @@ namespace Paxstore.OpenApi.Validator.Reseller
             RuleFor(x => x.Postcode).MaximumLength(16);
             RuleFor(x => x.Address).MaximumLength(255);
             RuleFor(x => x.Company).MaximumLength(255);
-            RuleFor(x => x.ParentResellerName).MaximumLength(64);
         }
     }
 }

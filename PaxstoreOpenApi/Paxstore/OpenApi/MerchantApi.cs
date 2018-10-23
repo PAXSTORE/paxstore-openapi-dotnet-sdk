@@ -25,7 +25,8 @@ using System.Collections.Generic;
 using Paxstore.OpenApi.Base;
 using Paxstore.OpenApi.Model;
 using Paxstore.OpenApi.Validator.Merchant;
-
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Paxstore.OpenApi
 {
@@ -38,6 +39,7 @@ namespace Paxstore.OpenApi
 	    private const string ACTIVATE_MERCHANT_URL = "/v1/3rdsys/merchants/{merchantId}/active";
 	    private const string DISABLE_MERCHANT_URL = "/v1/3rdsys/merchants/{merchantId}/disable";
 	    private const string DELETE_MERCHANT_URL = "/v1/3rdsys/merchants/{merchantId}";
+        private const string REPLACE_MERCHANT_EMAIL_URL = "/v1/3rdsys/merchants/{merchantId}/replaceEmail";
 
         public MerchantApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret){
 
@@ -141,7 +143,43 @@ namespace Paxstore.OpenApi
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
             return result;
-        } 
+        }
+
+        private List<string> ValidateReplaceEmail(string email, bool createUser) {
+            List<string> validationErrs = new List<string>();
+            ReplaceMerchantEmailModel model = new ReplaceMerchantEmailModel(email, createUser);
+            IValidator validator = new ReplaceMerchantEamilValidator();
+            ValidationResult results = validator.Validate(model);
+            if (!results.IsValid)
+            {
+                IList<ValidationFailure> failures = results.Errors;
+                for (int i = 0; i < results.Errors.Count; i++)
+                {
+                    validationErrs.Add(results.Errors[i].ErrorMessage);
+                }
+            }
+            return validationErrs;
+        }
+
+        public Result<string> ReplaceMerchantEmail(long merchantId, string email, bool createUser) {
+            List<string> validationErrs = ValidateId(merchantId, "parameterMerchantIdInvalid");
+            validationErrs.AddRange(this.ValidateReplaceEmail(email, createUser));
+            if (validationErrs.Count > 0){
+                return new Result<string>(validationErrs);
+            }
+            RestRequest request = new RestRequest(REPLACE_MERCHANT_EMAIL_URL, Method.POST);
+            request.AddUrlSegment("merchantId", merchantId);
+            Dictionary<string, object> requestBodyObj = new Dictionary<string, object>();
+            requestBodyObj.Add("email", email);
+            requestBodyObj.Add("createUser", createUser);
+            var requestBodyStr = JsonConvert.SerializeObject(requestBodyObj);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyStr, ParameterType.RequestBody);
+            var responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+
+        }
 
 
         string GetStatusValue(MerchantStatus status)

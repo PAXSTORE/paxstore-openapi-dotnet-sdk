@@ -93,8 +93,8 @@ namespace Paxstore.Test
             //start create terminal
             TerminalCreateRequest createRequest = new TerminalCreateRequest();
             createRequest.Name = "Terminal 1";
-            createRequest.ResellerName = "reseller_002";
-            createRequest.MerchantName = "KFC";
+            createRequest.ResellerName = "GLOBAL";
+            createRequest.MerchantName = "JD";
             createRequest.SerialNo = "sn021215";
             createRequest.ModelName = "A920";
             Result<Terminal> result = API.CreateTerminal(createRequest);
@@ -108,8 +108,8 @@ namespace Paxstore.Test
             TerminalUpdateRequest updateRequest = new TerminalUpdateRequest();
             updateRequest.Name = "Terminal 1";
             updateRequest.Location = "Suzhou";
-            updateRequest.MerchantName = "KFC";
-            updateRequest.ResellerName = "reseller_002";
+            updateRequest.MerchantName = "JD";
+            updateRequest.ResellerName = "GLOBAL";
             updateRequest.SerialNo = "sn021215";
             updateRequest.ModelName = "A920";
             Result<Terminal> updateResult = API.UpdateTerminal(terminalId, updateRequest);

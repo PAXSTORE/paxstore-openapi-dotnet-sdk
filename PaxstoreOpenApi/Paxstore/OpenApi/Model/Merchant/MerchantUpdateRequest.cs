@@ -32,6 +32,9 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("description")]
         public string Description{get; set;}
 
+        [JsonProperty("createUserFlag")]
+        public bool CreateUserFlag { get; set; }
+
         [JsonProperty("merchantCategoryNames")]
         public List<string> MerchantCategoryNames{get; set;}
 

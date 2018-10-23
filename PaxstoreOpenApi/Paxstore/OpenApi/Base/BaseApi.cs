@@ -28,6 +28,9 @@ namespace Paxstore.OpenApi.Base
 
         public BaseApi(string baseUrl, string apiKey, string apiSecret)
         {
+            if (baseUrl != null && baseUrl.EndsWith("/")) {
+                baseUrl = baseUrl.Remove(baseUrl.Length - 1);
+            }
             BaseUrl = baseUrl;
             ApiKey = apiKey;
             ApiSecret = apiSecret;

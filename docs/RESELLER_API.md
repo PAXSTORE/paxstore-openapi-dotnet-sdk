@@ -410,7 +410,6 @@ Structure of class ResellerUpdateRequest
 |Postcode|string|true|Post code, max length is 32. Sample value 510250.|
 |Address|string|true|Address of reseller, max length is 255.|
 |Company|string|true|Company of reseller, max length is 255.|
-|ParentResellerName|string|true|Parent reseller name, if it is empty will set the root reseller of current marketplace as the parent reseller. If the status of the updated reseller is active or suspend the parent cannot be changed.|
 |EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|  
 
 
@@ -487,7 +486,6 @@ Type of data is Reseller, same as the API get reseller.
 **Possible client validation errors**  
 
 > <font color="red">Parameter resellerId cannot be null and cannot be less than 1!</font><br/>
-> <font color="red">Parameter resellerUpdateRequest cannot be null!</font><br/>
 > <font color="red">'Name' should not be empty.</font><br/>
 > <font color="red">'Email' should not be empty.</font><br/>
 > <font color="red">'Country' should not be empty.</font><br/>
@@ -502,7 +500,7 @@ Type of data is Reseller, same as the API get reseller.
 > <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
 > <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/
 > <font color="red">The length of 'Company' must be 255 characters or fewer. You entered 300 characters.</font><br/>
-> <font color="red">The length of 'Parent Reseller Name' must be 64 characters or fewer. You entered 70 characters.</font>
+
 
 
 
@@ -514,7 +512,6 @@ Type of data is Reseller, same as the API get reseller.
 |Business Code|Message|Description|
 |:--|:--|:--|
 |1759|Reseller doesn't exist|&nbsp;|
-|1778|Parent reseller not found|&nbsp;|
 |1762|Reseller name is mandatory|&nbsp;|
 |1764|Reseller phone is mandatory|&nbsp;|
 |1606|Country is mandatory|&nbsp;|
@@ -766,3 +763,85 @@ Result<string> result = api.DeleteReseller(51739L);
 |1785|The reseller has been used by terminal|&nbsp;|
 |1788|The reseller has been used by terminal group|&nbsp;|
 |1780|The reseller has sub-resellers|&nbsp;|
+
+
+
+### Replace reseller email
+
+**API**
+
+This API is used to update email of the active resellers
+
+```
+public Result<string> replaceResellerEmail(long resellerId, string email)
+```
+
+**Input parameter(s) description**
+
+|Parameter Name|Type|Nullable|Description|
+|:--|:--|:--|:--|
+|resellerId|long|false|The reseller's id.|
+|email|string|false|The new email address.|
+
+**Sample codes**
+
+```
+ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
+Result<string> result = API.replaceResellerEmail(1000000267, "zhangsan@pax.com");
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": -1,
+	"Message": null,
+	"ValidationErrors": ["Parameter resellerId cannot be null and cannot be less than 1!"],
+	"Data": null,
+	"PageInfo": null
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1759,
+	"Message": "Reseller doesn't exist",
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
+}
+```
+
+**Successful sample result**
+
+```
+{
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": null,
+	"PageInfo": null
+}
+```
+
+
+**Possible client validation errors**
+
+> <font color="red">Parameter resellerId cannot be null and cannot be less than 1!</font>
+> <font color="red">'Email' should not be empty.</font>
+> <font color="red">The length of 'Email' must be 255 characters or fewer. You entered 256 characters.</font>  
+> <font color="red">'Email' is not a valid email address.</font>
+
+
+**Possible business codes**
+
+|BusinessCode|Message|Description|
+|:--|:--|:--|
+|1759|Reseller doesn't exist|The input reseller id not correct.|
+|131|Insufficient access right|This may caused by updating the root reseller's email|
+|1932|The reseller is not active,unable to replace user!|This API can only the active reseller's email|
+|1105|Email is invalid|Email address is not valid|
+|1933|The user email not update.|The inputted email address is same as the original email|
+
