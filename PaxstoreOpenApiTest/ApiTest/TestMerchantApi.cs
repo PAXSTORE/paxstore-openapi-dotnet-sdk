@@ -57,7 +57,7 @@ namespace Paxstore.Test
         public void TestCreateMerchantSuccess()
         {
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
-            merchantCreateRequest.Name = "KFC";
+            merchantCreateRequest.Name = "KFC1";
             merchantCreateRequest.Email = "abc@163.com";
             merchantCreateRequest.ResellerName = "Jesse";
             merchantCreateRequest.Contact = "tan";
@@ -97,7 +97,7 @@ namespace Paxstore.Test
         [Test]
         public void TestCreateUpdateActiveDisableDelete() {
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
-            merchantCreateRequest.Name = "好人民间";
+            merchantCreateRequest.Name = "好人民间2";
             merchantCreateRequest.Email = "haoren@163.com";
             merchantCreateRequest.ResellerName = "Jesse";
             merchantCreateRequest.Contact = "haoren";
@@ -110,9 +110,9 @@ namespace Paxstore.Test
             long merchantId = result.Data.ID;
 
             MerchantUpdateRequest merchantUpdateRequest = new MerchantUpdateRequest();
-            merchantUpdateRequest.Name = "好人民间";
-            merchantUpdateRequest.Email = "haoren2@163.com";
-            merchantUpdateRequest.ResellerName = "Jesse";
+            merchantUpdateRequest.Name = "好人民间2";
+            //merchantUpdateRequest.Email = "haoren2@163.com";
+            //merchantUpdateRequest.ResellerName = "Jesse";
             merchantUpdateRequest.Contact = "haoren2";
             merchantUpdateRequest.Country = "CN";
             merchantUpdateRequest.Description = "商户好人民间";
@@ -123,11 +123,15 @@ namespace Paxstore.Test
 
             Assert.AreEqual(updateResult.Data.Contact, "haoren2");
             Assert.AreEqual(updateResult.Data.Phone, "0512-88889999");
-            Assert.AreEqual(updateResult.Data.Email, "haoren2@163.com");
+      
 
             Result<string> activateResult = API.ActivateMerchant(merchantId);
             _logger.DebugFormat("Activate Merchant Result=\n{0}", JsonConvert.SerializeObject(activateResult));
             Assert.AreEqual(activateResult.BusinessCode, 0);
+
+            Result<string> replaceEmailResult = API.ReplaceMerchantEmail(merchantId, "tan@pax.com", true);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(replaceEmailResult));
+            Assert.AreEqual(replaceEmailResult.BusinessCode, 0);
 
             Result<string> disableResult = API.DisableMerchant(merchantId);
             _logger.DebugFormat("DisableResult Merchant Result=\n{0}", JsonConvert.SerializeObject(disableResult));

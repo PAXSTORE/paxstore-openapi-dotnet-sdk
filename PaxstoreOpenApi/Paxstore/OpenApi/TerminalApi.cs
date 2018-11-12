@@ -33,6 +33,7 @@ namespace Paxstore.OpenApi
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddParameter("orderBy", GetOrderValue(orderBy));
             request.AddParameter("snNameTID", snNameTID);
+            request.AddParameter("serialNo", snNameTID);
             request.AddParameter("status", GetStatusValue(status));
             var responseContent = Execute(request);
             TerminalPageResponse resellerPage = JsonConvert.DeserializeObject<TerminalPageResponse>(responseContent);

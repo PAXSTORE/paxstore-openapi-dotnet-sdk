@@ -95,7 +95,7 @@ namespace Paxstore.Test
             createRequest.Name = "Terminal 1";
             createRequest.ResellerName = "GLOBAL";
             createRequest.MerchantName = "JD";
-            createRequest.SerialNo = "sn021215";
+            createRequest.SerialNo = "ZT0001";
             createRequest.ModelName = "A920";
             Result<Terminal> result = API.CreateTerminal(createRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
@@ -110,7 +110,7 @@ namespace Paxstore.Test
             updateRequest.Location = "Suzhou";
             updateRequest.MerchantName = "JD";
             updateRequest.ResellerName = "GLOBAL";
-            updateRequest.SerialNo = "sn021215";
+            updateRequest.SerialNo = "ZT0002";
             updateRequest.ModelName = "A920";
             Result<Terminal> updateResult = API.UpdateTerminal(terminalId, updateRequest);
             _logger.DebugFormat("Update Result=\n{0}", JsonConvert.SerializeObject(updateResult));

@@ -403,14 +403,16 @@ Structure of class ResellerUpdateRequest
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
 |Name|string|false|Name of reseller, max length is 64.|
-|Email|string|false|Email of reseller, max length is 255.|
+|Email|string|true|Email of reseller, max length is 255. Only the pending reseller can update the email. For other reseller change email please call replaceResellerEmail API. If email is empty API won't update the email.|
 |Country|string|false|Country code of reseller, max length is 64.|
 |Contact|string|false|contact of reseller, max length is 64.|
 |Phone|string|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
 |Postcode|string|true|Post code, max length is 32. Sample value 510250.|
 |Address|string|true|Address of reseller, max length is 255.|
 |Company|string|true|Company of reseller, max length is 255.|
-|EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|  
+|ParentResellerName|String|true|Do not suggest set value for this property. If set value please keep the parentResellerName same as the original parentResellerName. Otherwise API will return a 1830 business code.|
+|EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
+
 
 
 **Sample codes**
@@ -433,7 +435,7 @@ Result<Reseller> updateResult = api.UpdateReseller(resellerId, updateRequest);
 {
 	"BusinessCode": -1,
 	"Message": null,
-	"ValidationErrors": ["'Email' should not be empty.","'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."],
+	"ValidationErrors": ["'Country' should not be empty.","'Contact' should not be empty.","'Phone' should not be empty."],
 	"Data": null,
 	"PageInfo": null
 }
@@ -487,7 +489,6 @@ Type of data is Reseller, same as the API get reseller.
 
 > <font color="red">Parameter resellerId cannot be null and cannot be less than 1!</font><br/>
 > <font color="red">'Name' should not be empty.</font><br/>
-> <font color="red">'Email' should not be empty.</font><br/>
 > <font color="red">'Country' should not be empty.</font><br/>
 > <font color="red">'Contact' should not be empty.</font><br/>
 > <font color="red">'Phone' should not be empty.</font><br/>
@@ -498,8 +499,9 @@ Type of data is Reseller, same as the API get reseller.
 > <font color="red">The length of 'Contact' must be 64 characters or fewer. You entered 70 characters.</font><br/>
 > <font color="red">The length of 'Phone' must be 32 characters or fewer. You entered 60 characters.</font><br/>
 > <font color="red">The length of 'Postcode' must be 16 characters or fewer. You entered 20 characters.</font><br/>
-> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/
+> <font color="red">The length of 'Address' must be 255 characters or fewer. You entered 300 characters.</font><br/>
 > <font color="red">The length of 'Company' must be 255 characters or fewer. You entered 300 characters.</font><br/>
+> <font color="red">The length of 'Parent Reseller Name' must be 64 characters or fewer. You entered 70 characters.</font><br/>
 
 
 
@@ -513,10 +515,10 @@ Type of data is Reseller, same as the API get reseller.
 |:--|:--|:--|
 |1759|Reseller doesn't exist|&nbsp;|
 |1762|Reseller name is mandatory|&nbsp;|
+|1760|Reseller name already exists|&nbsp;|
 |1764|Reseller phone is mandatory|&nbsp;|
 |1606|Country is mandatory|&nbsp;|
 |1763|Reseller contact is mandatory|&nbsp;|
-|1765|Reseller email is mandatory|&nbsp;|
 |1767|Reseller name is too long|&nbsp;|
 |1769|Reseller phone is too long|&nbsp;|
 |1768|Reseller contact is too long|&nbsp;|
@@ -528,7 +530,7 @@ Type of data is Reseller, same as the API get reseller.
 |1112|Phone No. is invalid|&nbsp;|
 |1624|The name cannot contain special characters|Name can contain the characters 0-9, a-z, A-Z, space, Chinese characters,(,),_,.|
 |3400|Country code is invalid|&nbsp;|
-|1938|Reseller is active or suspend, parent cannot be updated!|&nbsp;|
+|1830|Cannot update reseller's parent|
 
 
 

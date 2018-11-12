@@ -31,5 +31,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("entityAttributeValues")]
         public Dictionary<string, string> EntityAttributeValues;
+
+        [JsonProperty("parentResellerName")]
+        public string ParentResellerName { get; set; }
     }
 }

@@ -47,10 +47,12 @@ namespace Paxstore.OpenApi.Base
 
         protected string Execute(RestRequest request)
         {
+            _logger.DebugFormat("SDK Language is {0} and version is {1}", Constants.THIRD_PARTY_API_SDK_LANGUAGE, Constants.THIRD_PARTY_API_SDK_VERSION);
             _logger.DebugFormat("RestRequest={0}", request.ToString());
             _logger.DebugFormat("RestRequest URL\t\t={0}", request.Resource);
             _logger.DebugFormat("RestRequest Method\t\t={0}", request.Method);
             _logger.Debug("Request Parameters\t\t=");
+            
             if (_logger.IsDebugEnabled) {
                 for (int i = 0; i < request.Parameters.Count; i++) {
                     _logger.Debug(JsonConvert.SerializeObject(request.Parameters[i]));
@@ -68,6 +70,8 @@ namespace Paxstore.OpenApi.Base
             string querystr = GetQueryString(Client, request);
             string signature = Utils.GenSignature(ApiSecret, querystr);
             request.AddHeader(Constants.HEADER_NAME_SIGNATURE, signature);
+            request.AddHeader(Constants.REQ_HEADER_SDK_LANG, Constants.THIRD_PARTY_API_SDK_LANGUAGE);
+            request.AddHeader(Constants.REQ_HEADER_SDK_VERSION, Constants.THIRD_PARTY_API_SDK_VERSION);
             IRestResponse response = Client.Execute(request);
             _logger.DebugFormat("Response StatusCode\t\t={0}", response.StatusCode);
             _logger.DebugFormat("Response Content=\n{0}", response.Content);

@@ -400,8 +400,8 @@ Structure of class MerchantUpdateRequest
 |Property Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
 |Name|string|false|Merchant name, max length is 64.|
-|Email|string|false|Email of merchant, max length is 255.|
-|ResellerName|string|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
+|Email|string|true|Email of merchant, max length is 255. If email is empty the API won't change the email.|
+|ResellerName|string|true|Reseller name of merchant, max length is 64. Make sure the reseller exist. If resellerName is empty the API won't update the reseller of the merchant|
 |Contact|string|false|Contact of merchant, max length is 64.|
 |Country|string|false|Country code of merchant, max length is 64. Please refer to country codes table.|
 |Phone|string|false|Phone number of merchant, max length is 32.|
@@ -434,7 +434,7 @@ Result<Merchant> updateResult = api.UpdateMerchant(1000000155, merchantUpdateReq
 {
 	"BusinessCode": -1,
 	"Message": null,
-	"ValidationErrors": ["'Reseller Name' should not be empty.", "'Contact' should not be empty.", "'Country' should not be empty.", "'Phone' should not be empty."],
+	"ValidationErrors": ["'Contact' should not be empty.", "'Country' should not be empty.", "'Phone' should not be empty."],
 	"Data": null,
 	"PageInfo": null
 }
@@ -490,8 +490,6 @@ The data type in result is same as get merchant API.
 > <font color="red">Parameter merchantId cannot be null and cannot be less than 1!</font><br/>
 > <font color="red">Parameter merchantUpdateRequest cannot be null!</font><br/>
 > <font color="red">'Name' should not be empty.</font><br/>
-> <font color="red">'Email' should not be empty.</font><br/>
-> <font color="red">'Reseller Name' should not be empty.</font><br/>
 > <font color="red">'Country' should not be empty.</font><br/>
 > <font color="red">'Contact' should not be empty.</font><br/>
 > <font color="red">'Phone' should not be empty.</font><br/>
@@ -532,7 +530,6 @@ The data type in result is same as get merchant API.
 |1112|Phone No. is invalid|&nbsp;|
 |3400|Country code is invalid|&nbsp;|
 |1927|The merchant is not inactive,reseller cannot be updated!|&nbsp;|
-|1759|Reseller doesn't exist|&nbsp;|
 |1773|The associated reseller is not activate|&nbsp;|
 |1936|The merchant is not inactive,merchant email cannot be updated!|Only the pending merchant can update the email|
 

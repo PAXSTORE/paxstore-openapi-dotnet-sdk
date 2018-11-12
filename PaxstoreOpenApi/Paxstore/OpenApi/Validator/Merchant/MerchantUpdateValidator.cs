@@ -7,8 +7,8 @@ namespace Paxstore.OpenApi.Validator.Merchant
     {
         public MerchantUpdateValidator() {
             RuleFor(x => x.Name).NotEmpty().MaximumLength(64);
-            RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(255);
-            RuleFor(x => x.ResellerName).NotEmpty().MaximumLength(64);
+            RuleFor(x => x.Email).EmailAddress().MaximumLength(255);
+            RuleFor(x => x.ResellerName).MaximumLength(64);
             RuleFor(x => x.Contact).NotEmpty().MaximumLength(64);
             RuleFor(x => x.Country).NotEmpty().MaximumLength(64);
             RuleFor(x => x.Phone).NotEmpty().MaximumLength(32);
