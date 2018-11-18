@@ -124,7 +124,7 @@
     <value>Parameter merchantCategoryCreateRequest cannot be null!</value>
   </data>
   <data name="merchantCategoryIdInvalid" xml:space="preserve">
-    <value>Parameter merchantCategoryId cannot be null and cannot be lese than 1!</value>
+    <value>Parameter merchantCategoryId cannot be null and cannot be less than 1!</value>
   </data>
   <data name="merchantCategoryNameEmpty" xml:space="preserve">
     <value>All the category names in the list cannot be blank!</value>
