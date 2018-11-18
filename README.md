@@ -7,8 +7,9 @@
 
 PAXSTORE exposes reseller, merchant, terminal and merchant category related APIs for thirdparty system convenience. So that the authorized thirdparty systems can do operations for reseller, merchant, terminal and merchant category without logging into PAXSTORE's admin console. The exposed API is RESTful formatted. PAXSTORE provides this dotnet SDK to simplify the remote invoke.  
 
+## [Documents for Old Versions](docs/DOCUMENTS_OLD.md)
 
-<br>
+
 <br>
 
 ## Overview
