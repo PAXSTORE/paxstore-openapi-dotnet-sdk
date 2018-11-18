@@ -214,7 +214,7 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
 {
 	"BusinessCode": -1,
 	"Message": null,
-	"ValidationErrors": ["Parameter merchantCategoryId cannot be null and cannot be lese than 1"],
+	"ValidationErrors": ["Parameter merchantCategoryId cannot be null and cannot be less than 1"],
 	"Data": null,
 	"PageInfo": null
 }
@@ -254,7 +254,17 @@ Result<MerchantCategory> updateResult = api.UpdateMerchantCategory(2597, updateR
 
 **Possible client validation errors**
 
-> <font color=red>Parameter merchantCategoryId cannot be null and cannot be lese than 1</font>  
+> <font color=red>Parameter merchantCategoryId cannot be null and cannot be less
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+>  than 1</font>  
 > <font color=red>Parameter merchantCategoryUpdateRequest cannot be null!</font>  
 > <font color=red>'Name' should not be empty.</font>  
 > <font color=red>The length of 'Name' must be 128 characters or fewer. You entered 222 characters.</font>  

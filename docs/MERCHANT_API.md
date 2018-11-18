@@ -3,6 +3,8 @@
 The merchant APIs allow thirdparty system search merchants, get a merchant, create/update a merchant, activate/disable a merchant and delete a exist merchant.
 All the merchant APIs are in the class *Paxstore.OpenApi.MerchantApi*.    
 
+User can customize the additional attributes for merchant. To add/delete/update merchant's additional entity attributes please using marketplace admin login and go to page via General Setting -> Entity Attribute Setting.   
+
 **Constructors of MerchantApi**
 
 ```
