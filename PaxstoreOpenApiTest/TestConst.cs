@@ -14,7 +14,7 @@ namespace Paxstore.Test
 
 
         public const string API_BASE_URL = "http://localhost:8080/p-market-api";
-        public const string API_KEY = "WZ5JT4WYOCCN0JQ7UZEV";
-        public const string API_SECRET = "ALRBEIJDE9FDJHPWGCSGOTCM57HBDQFU0U2VGQPP";
+        public const string API_KEY = "NGUIWQGJZGMGSQD0SNA5";
+        public const string API_SECRET = "WX905C6V8K2NGDC9RBGVPH7NIARQSGUA4VVV746O";
     }
 }

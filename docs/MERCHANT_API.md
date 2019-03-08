@@ -257,6 +257,7 @@ Structure of class MerchantCreateRequest
 |CreateUserFlag|bool|true|Indicate whether to create user when activate the merchant, won't create user when activate if this value is empty|
 |MerchantCategoryNames|List&lt;string&gt;|true|Merchant categories. Make sure the categories are available.|
 |EntityAttributeValues|Dictionary&lt;string, string&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
+|ActivateWhenCreate|bool|true|Whether to activate the merchant when create, default value is false. The property is private, please call the set method to set the value|
 
 
 **Sample codes**

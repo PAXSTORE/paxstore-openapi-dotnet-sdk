@@ -72,6 +72,7 @@ namespace Paxstore.Test
             request.Name = "TestReseller";
             request.Address = "suzhou";
             request.Email = "suzhou";
+            request.ParentResellerName = "reseller";
             Result<Reseller> result = API.CreateReseller(request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
@@ -87,6 +88,8 @@ namespace Paxstore.Test
             request.Country = "CN";
             request.Contact = "ZhangSan";
             request.Phone = "22323";
+            request.ParentResellerName = "reseller";
+            request.setActivateWhenCreate(true);
             Result<Reseller> result = API.CreateReseller(request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);

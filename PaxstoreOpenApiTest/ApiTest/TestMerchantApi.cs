@@ -59,12 +59,12 @@ namespace Paxstore.Test
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
             merchantCreateRequest.Name = "KFC1";
             merchantCreateRequest.Email = "abc@163.com";
-            merchantCreateRequest.ResellerName = "Jesse";
+            merchantCreateRequest.ResellerName = "reseller";
             merchantCreateRequest.Contact = "tan";
             merchantCreateRequest.Country = "CN";
             merchantCreateRequest.Description = "Merchant KFC";
             merchantCreateRequest.Phone = "23231515";
-
+            merchantCreateRequest.setActivateWhenCreate(true);
             Result<Merchant> result = API.CreateMerchant(merchantCreateRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
