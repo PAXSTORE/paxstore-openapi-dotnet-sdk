@@ -41,12 +41,6 @@ namespace Paxstore.Test
             Assert.AreEqual(-1, result.BusinessCode);
         }
 
-        [Test()]
-        public void TestGetResellerCorrect() {
-            Result<Reseller> result = API.GetReseller(1000001975);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(0, result.BusinessCode);
-        }
 
         [Test()]
         public void TestGetResellerNotExist() {
@@ -72,7 +66,7 @@ namespace Paxstore.Test
             request.Name = "TestReseller";
             request.Address = "suzhou";
             request.Email = "suzhou";
-            request.ParentResellerName = "reseller";
+            request.ParentResellerName = "reseller test";
             Result<Reseller> result = API.CreateReseller(request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
@@ -82,17 +76,70 @@ namespace Paxstore.Test
         public void TestCreateResellerSuccess()
         {
             ResellerCreateRequest request = new ResellerCreateRequest();
-            request.Name = "TestResellerToDelete";
+            request.Name = "TestResellerToDelete3";
             request.Address = "suzhou";
             request.Email = "zhangsan@163.com";
             request.Country = "CN";
             request.Contact = "ZhangSan";
             request.Phone = "22323";
-            request.ParentResellerName = "reseller";
-            request.setActivateWhenCreate(true);
+            request.ParentResellerName = "reseller test";
+            request.setActivateWhenCreate(false);
             Result<Reseller> result = API.CreateReseller(request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
+
+
+            //Test get reseller by id
+            long resellerId = result.Data.ID;
+
+
+            ResellerUpdateRequest updateRequest = new ResellerUpdateRequest();
+            updateRequest.Name = "TestResellerToDelete4";
+            updateRequest.Address = "suzhou2";
+            updateRequest.Email = "zhangsan@163.com";
+            updateRequest.Country = "CN";
+            updateRequest.Contact = "ZhangSan2";
+            updateRequest.Phone = "44445555";
+            updateRequest.ParentResellerName = "reseller test";
+            Result<Reseller> updateResult = API.UpdateReseller(resellerId, updateRequest);
+            _logger.DebugFormat("Update Result=\n{0}", JsonConvert.SerializeObject(updateResult));
+            Assert.AreEqual(updateResult.BusinessCode, 0);
+            Assert.AreEqual("suzhou2", updateResult.Data.Address);
+            Assert.AreEqual("ZhangSan2", updateResult.Data.Contact);
+            Assert.AreEqual("44445555", updateResult.Data.Phone);
+
+
+
+            Result<Reseller> getResellerResult = API.GetReseller(resellerId);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(getResellerResult));
+            Assert.AreEqual(0, getResellerResult.BusinessCode);
+
+            //Test activate reseller
+            Result<string> activateResellerResult = API.ActivateReseller(resellerId);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(activateResellerResult));
+            Assert.AreEqual(activateResellerResult.BusinessCode, 0);
+
+
+            Result<string> replaceEmailResult = API.ReplaceResellerEmail(resellerId, "zhangsan@pax.com");
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(replaceEmailResult));
+            Assert.AreEqual(replaceEmailResult.BusinessCode, 0);
+
+            //Test activate reseller already active
+            Result<string> activateResellerResult2 = API.ActivateReseller(resellerId);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(activateResellerResult2));
+            Assert.AreEqual(activateResellerResult2.BusinessCode, 1891);
+
+
+            //Test disable reseller
+            Result<string> disableResellerResult = API.DisableReseller(resellerId);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(disableResellerResult));
+            Assert.AreEqual(disableResellerResult.BusinessCode, 0);
+
+            //Test delete
+            Result<string> deleteResellerResult = API.DeleteReseller(resellerId);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(deleteResellerResult));
+            Assert.AreEqual(deleteResellerResult.BusinessCode, 0);
+
         }
 
         [Test]
@@ -101,106 +148,7 @@ namespace Paxstore.Test
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 1759);
         }
-
-        [Test]
-        public void TestActivateResellerAlreadyActive()
-        {
-            Result<string> result = API.ActivateReseller(1000005215);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 1891);
-        }
-
-        [Test]
-        public void TestActivateResellerSuccess()
-        {
-            Result<string> result = API.ActivateReseller(1000005215);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
-
-        [Test]
-        public void TestDisableReseller()
-        {
-            Result<string> result = API.DisableReseller(1000005215);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
-
-        [Test]
-        public void TestDeleteReseller() {
-            Result<string> result = API.DeleteReseller(1000005213);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
-
-        [Test]
-        public void TestReplaceResellerEmail() {
-            Result<string> result = API.ReplaceResellerEmail(1000005215, "zhangsan@pax.com");
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
-
-
-        [Test]
-        public void TestCreateUpdateActivateDisableDelete() {
-            ResellerCreateRequest request = new ResellerCreateRequest();
-            request.Name = "Reseller For Test5";
-            request.Address = "suzhou";
-            request.Email = "zhangsan@163.com";
-            request.Country = "CN";
-            request.Contact = "ZhangSan";
-            request.Phone = "88889999";
-            Result<Reseller> createResult = API.CreateReseller(request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(createResult));
-            Assert.AreEqual(createResult.BusinessCode, 0);
-
-            Result<PagedReseller> searchResultAfterCreate = API.SearchReseller(1, 10, ResellerSearchOrderBy.Name, "Reseller For Test", ResellerStatus.All);
-            _logger.DebugFormat("Search Result After Create=\n{0}", JsonConvert.SerializeObject(searchResultAfterCreate));
-            Assert.IsTrue(searchResultAfterCreate.BusinessCode == 0);
-            Assert.IsTrue(searchResultAfterCreate.PageInfo.TotalCount > 0);
-
-            long resellerId = createResult.Data.ID;
-
-
-            ResellerUpdateRequest updateRequest = new ResellerUpdateRequest();
-            updateRequest.Name = "Reseller For Test5";
-            updateRequest.Address = "suzhou2";
-            updateRequest.Email = "zhangsan@163.com";
-            updateRequest.Country = "CN";
-            updateRequest.Contact = "ZhangSan2";
-            updateRequest.Phone = "44445555";
-            updateRequest.ParentResellerName = "GLOBAL";
-            Result<Reseller> updateResult = API.UpdateReseller(resellerId, updateRequest);
-            _logger.DebugFormat("Update Result=\n{0}", JsonConvert.SerializeObject(updateResult));
-            Assert.AreEqual(updateResult.BusinessCode, 0);
-            Assert.AreEqual("suzhou2", updateResult.Data.Address);
-            Assert.AreEqual("ZhangSan2", updateResult.Data.Contact);
-            Assert.AreEqual("44445555", updateResult.Data.Phone);
-
-            Result<string> activateResult = API.ActivateReseller(resellerId);
-            _logger.DebugFormat("Activate Result=\n{0}", JsonConvert.SerializeObject(activateResult));
-            Assert.AreEqual(activateResult.BusinessCode, 0);
-
-            Result<string> replaceEmailResult = API.ReplaceResellerEmail(resellerId, "tan@pax.com");
-            _logger.DebugFormat("Replace Email Result=\n{0}", JsonConvert.SerializeObject(replaceEmailResult));
-            Assert.AreEqual(replaceEmailResult.BusinessCode, 0);
-
-            Result<string> disableResult = API.DisableReseller(resellerId);
-            _logger.DebugFormat("Disable Result=\n{0}", JsonConvert.SerializeObject(disableResult));
-            Assert.AreEqual(disableResult.BusinessCode, 0);
-
-            Result<string> deleteResult = API.DeleteReseller(resellerId);
-            _logger.DebugFormat("Delete Result=\n{0}", JsonConvert.SerializeObject(deleteResult));
-            Assert.AreEqual(deleteResult.BusinessCode, 0);
-
-
-            Result<PagedReseller> searchResult = API.SearchReseller(1, 10, ResellerSearchOrderBy.Name, "Reseller For Test5", ResellerStatus.All);
-            _logger.DebugFormat("Search Result After Delete=\n{0}", JsonConvert.SerializeObject(searchResult));
-            Assert.IsTrue(searchResult.BusinessCode == 0);
-            Assert.IsTrue(searchResult.PageInfo.TotalCount == 0);
-
-
-        }
+       
 
         [Test]
         public void TestUrl() {

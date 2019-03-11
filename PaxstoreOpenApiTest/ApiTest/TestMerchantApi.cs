@@ -33,7 +33,7 @@ namespace Paxstore.Test
 
         [Test]
         public void TestGetMerchantNotExist() {
-            Result<Merchant> result = API.GetMerchant(10);
+            Result<Merchant> result = API.GetMerchant(1);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 1720);
         }
@@ -53,53 +53,17 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, -1);
         }
 
-        [Test]
-        public void TestCreateMerchantSuccess()
-        {
-            MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
-            merchantCreateRequest.Name = "KFC1";
-            merchantCreateRequest.Email = "abc@163.com";
-            merchantCreateRequest.ResellerName = "reseller";
-            merchantCreateRequest.Contact = "tan";
-            merchantCreateRequest.Country = "CN";
-            merchantCreateRequest.Description = "Merchant KFC";
-            merchantCreateRequest.Phone = "23231515";
-            merchantCreateRequest.setActivateWhenCreate(true);
-            Result<Merchant> result = API.CreateMerchant(merchantCreateRequest);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
+     
 
-        [Test]
-        public void TestActivateMerchant() {
-            long merchantId = 1000056490;
-            Result<string> result =  API.ActivateMerchant(merchantId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
 
-        [Test]
-        public void TestReplaceEmailWithoutCreateUser()
-        {
-            Result<string> result = API.ReplaceMerchantEmail(1000056490, "zhangsan2@pax.com", false);
-             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
 
-        [Test]
-        public void TestReplaceEmailWithCreateUser()
-        {
-            Result<string> result = API.ReplaceMerchantEmail(1000056490, "zhangsan@pax.com", true);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
-            Assert.AreEqual(result.BusinessCode, 0);
-        }
 
         [Test]
         public void TestCreateUpdateActiveDisableDelete() {
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
             merchantCreateRequest.Name = "好人民间2";
             merchantCreateRequest.Email = "haoren@163.com";
-            merchantCreateRequest.ResellerName = "Jesse";
+            merchantCreateRequest.ResellerName = "reseller";
             merchantCreateRequest.Contact = "haoren";
             merchantCreateRequest.Country = "CN";
             merchantCreateRequest.Description = "商户好人民间";
