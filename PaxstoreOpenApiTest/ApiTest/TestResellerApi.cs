@@ -148,19 +148,6 @@ namespace Paxstore.Test
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 1759);
         }
-       
-
-        [Test]
-        public void TestUrl() {
-            string baseUrl = "http://localhost:8080/p-market-api/";
-            if (baseUrl != null && baseUrl.EndsWith("/"))
-            {
-                baseUrl = baseUrl.Remove(baseUrl.Length-1);
-                Console.WriteLine(baseUrl);
-            }
-
-            Assert.IsTrue(baseUrl.Equals("http://localhost:8080/p-market-api"));
-        }
 
     }
 }
