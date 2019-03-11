@@ -44,7 +44,7 @@ Structure of class TerminalCreateRequest
 |SerialNo|string|true|The serial number of terminal|
 |PackageName|string|false|The package name which indicate the application you want to push to the terminal|
 |Version|string|true|The version name of application which you want to push, if it is blank API will use the latest version|
-|TemplateName|string|true|The template name of paramter. If user want to push more than one template the please use &#124; to concact the different template names like tempate1&#124;template2&#124;template3, the max size of template names is 10.|
+|TemplateName|string|true|The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10.|
 |Parameters|Dictionary&lt;string, string&gt;|false|The parameter key and value, the key the the PID in template|
 
 Note: TID and serialNo cannot be empty at same time.
@@ -130,5 +130,5 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 |1905|Terminal task app parameter is invalid||
 |13100|Invalid application parameter variables||
 |1111|Selected parameter templates exceeded the max limit||
-|2031|Templatename cannot be empty|&nbsp;|
+|2031|Template name cannot be empty|&nbsp;|
 
