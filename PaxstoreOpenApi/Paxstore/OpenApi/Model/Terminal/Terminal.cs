@@ -16,5 +16,7 @@ namespace Paxstore.OpenApi.Model
         public string ModelName{get; set;}
     
         public string ResellerName{get; set;}
+
+        public string Location { get; set; }
     }
 }
