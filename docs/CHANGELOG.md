@@ -1,6 +1,12 @@
 # Changelog  
 
 
+## 6.2.1  
+
+### Improvement
+
+* Add location field in response of terminal related APIs
+
 ## 6.2
 
 ### Improvement  

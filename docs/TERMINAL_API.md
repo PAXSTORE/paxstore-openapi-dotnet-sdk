@@ -80,7 +80,8 @@ Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.Serial
 			"Status": "P",
 			"MerchantName": null,
 			"ModelName": "A90",
-			"ResellerName": "Pine Labs"
+			"ResellerName": "Pine Labs",
+			"Location": "USA"
 		}]
 	}
 }
@@ -100,6 +101,7 @@ Structure of class Terminal
 |MerchantName|string|The merchant of terminal belongs to.|
 |ModelName|string|Model name of terminal.|
 |ResellerName|string|The reseller of terminal belongs to.|
+|Location|string|The location.|
 
 **Possible validation errors**
 
@@ -171,7 +173,8 @@ Result<Terminal> result = API.GetTerminal(100);
 		"Status": "P",
 		"MerchantName": null,
 		"ModelName": "A90",
-		"ResellerName": "Pine Labs"
+		"ResellerName": "Pine Labs",
+		"Location": "USA"
 	},
 	"PageInfo": null
 }
@@ -232,6 +235,7 @@ createRequest.ResellerName = "reseller_002";
 createRequest.MerchantName = "KFC";
 createRequest.SerialNo = "sn021215";
 createRequest.ModelName = "A920";
+createRequest.Location = "USA";
 Result<Terminal> result = api.CreateTerminal(createRequest);
 ```
 
@@ -274,7 +278,8 @@ Result<Terminal> result = api.CreateTerminal(createRequest);
 		"Status": "P",
 		"MerchantName": "KFC",
 		"ModelName": "A920",
-		"ResellerName": "reseller_002"
+		"ResellerName": "reseller_002",
+		"Location": "USA"
 	},
 	"PageInfo": null
 }
@@ -371,6 +376,7 @@ updateRequest.MerchantName = "KFC";
 updateRequest.ResellerName = "reseller_002";
 updateRequest.SerialNo = "sn021215";
 updateRequest.ModelName = "A920";
+updateRequest.Location = "China";
 Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 ```
 
@@ -413,7 +419,8 @@ Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 		"status": "S",
 		"merchantName": "KFC",
 		"modelName": "A920",
-		"resellerName": "New York"
+		"resellerName": "New York",
+		"Location": "China"
 	},
 	"PageInfo": null
 }
