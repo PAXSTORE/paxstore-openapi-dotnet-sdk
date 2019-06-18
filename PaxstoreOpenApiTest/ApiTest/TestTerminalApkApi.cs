@@ -67,7 +67,7 @@ namespace Paxstore.Test
 
         [Test]
         public void TestGetApkPushHistoryById() {
-            Result<PushApkHistory> result = API.GetPushApkHistory(5050);
+            Result<PushApkHistory> result = API.GetPushApkHistory(1000062204);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }

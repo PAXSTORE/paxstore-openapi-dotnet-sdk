@@ -3,7 +3,7 @@
     <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
 
     <PackageId>Paxstore.OpenApi</PackageId>
-    <Version>6.2.1</Version>
+    <Version>6.2.2</Version>
 	  <RootNamespace>Paxstore.OpenApi</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
@@ -17,10 +17,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <!--<OldToolsVersion>2.0</OldToolsVersion>-->
-    <AssemblyVersion>6.2.1</AssemblyVersion>
+    <AssemblyVersion>6.2.2</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <FileVersion>6.2.1</FileVersion>
+    <FileVersion>6.2.2</FileVersion>
     <PackageProjectUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
