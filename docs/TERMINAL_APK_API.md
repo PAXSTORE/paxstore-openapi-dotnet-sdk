@@ -152,10 +152,10 @@ public Result<PushApkHistory> SearchPushApkHistory(int pageNo, int pageSize, Sea
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|SearchOrderBy|true|the sort order by field name. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
-|terminalTid|String|false|search filter by terminal tid|
-|appPackageName|String|true|search filter by app packageName|
-|status|PushStatus|true|the push status<br/> the value can be PushStatus.Active, PushStatus.Suspend, PushStatus.All|
+|orderBy|SearchOrderBy|false|the sort order by field name. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
+|terminalTid|string|false|search filter by terminal tid|
+|appPackageName|string|true|search filter by app packageName|
+|status|PushStatus|false|the push status<br/> the value can be PushStatus.Active, PushStatus.Suspend, PushStatus.All|
 
 **Sample codes**
 
@@ -206,7 +206,7 @@ The type in dataSet is PushApkHistory. And the structure like below.
 |apkVersionName|string|the version name of apk|
 |apkVersionCode|long|the version code of apk|
 |terminalSN|string|the serialNo of terminal|
-|status|string|the status of terminal apk|
+|status|string|the status of this push, for the possible valus please refer to table Possible action status|
 |actionStatus|string|the action status|
 
 **Possible client validation errors**  
@@ -279,7 +279,7 @@ The type of data is TerminalApkDTO, and the structure shows below.
 |apkVersionName|string|the version name of apk|
 |apkVersionCode|long|the version code of apk|
 |terminalSN|string|the serialNo of terminal|
-|status|string|the status of terminal apk, value can be one of A(Active) and S(Suspend)|
+|status|string|the status of this push, for the possible valus please refer to table Possible action status|
 |actionStatus|string|the action status|
 |errorCode|string|the error code|
 
