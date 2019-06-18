@@ -1,5 +1,9 @@
 # Changelog  
 
+## 6.2.2
+
+* Add 2 APIs to allow third party system search push apk history and get push apk history by id
+
 
 ## 6.2.1  
 
