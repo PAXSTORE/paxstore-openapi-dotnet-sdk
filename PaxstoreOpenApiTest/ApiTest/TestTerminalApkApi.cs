@@ -49,5 +49,27 @@ namespace Paxstore.Test
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 2028);
         }
+
+        [Test]
+        public void TestSearchApkPushHistory() {
+            Result<PushApkHistory> result = API.SearchPushApkHistory(1, 10, SearchOrderBy.CreatedDate_desc, "7L03HWP9", "com.pax.android.demoapp", PushStatus.All);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestSearchApkPushHistoryTIDNull()
+        {
+            Result<PushApkHistory> result = API.SearchPushApkHistory(1, 10, SearchOrderBy.CreatedDate_desc, null, "com.pax.android.demoapp", PushStatus.All);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, -1);
+        }
+
+        [Test]
+        public void TestGetApkPushHistoryById() {
+            Result<PushApkHistory> result = API.GetPushApkHistory(5050);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
     }
 }

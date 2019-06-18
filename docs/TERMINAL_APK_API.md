@@ -132,3 +132,189 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 |1111|Selected parameter templates exceeded the max limit||
 |2031|Template name cannot be empty|&nbsp;|
 
+
+
+
+### Search apk push history
+
+The search apk push history API allows thirdparty system to search pushed apks to the specified terminal by page.   
+
+**API**
+
+```
+public Result<PushApkHistory> SearchPushApkHistory(int pageNo, int pageSize, SearchOrderBy orderBy,
+                                                    string terminalTid, string appPackageName, PushStatus status)
+```
+
+**Input parameter(s) description**
+
+| Name| Type | Nullable|Description |
+|:--- | :---|:---|:---|
+|pageNo|int|false|page number, value must >=1|
+|pageSize|int|false|the record number per page, range is 1 to 1000|
+|orderBy|SearchOrderBy|true|the sort order by field name. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
+|terminalTid|String|false|search filter by terminal tid|
+|appPackageName|String|true|search filter by app packageName|
+|status|PushStatus|true|the push status<br/> the value can be PushStatus.Active, PushStatus.Suspend, PushStatus.All|
+
+**Sample codes**
+
+```
+TerminalApkApi api = new TerminalApkApi(API_BASE_URL, API_KEY, API_SECRET);
+Result<PushApkHistory> result = api.SearchPushApkHistory(1, 10, SearchOrderBy.CreatedDate_desc, "7L03HWP9", "com.pax.android.demoapp", PushStatus.All);
+
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["pageNo:must be greater than or equal to 1"]
+}
+```
+
+**Successful sample result**
+
+```
+{
+	"businessCode": 0,
+	"pageInfo": {
+		"pageNo": 1,
+		"limit": 12,
+		"totalCount": 1,
+		"hasNext": false,
+		"dataSet": [{
+			"id": 17850,
+            "apkPackageName": "com.pax.demo",
+            "apkVersionName": "7.5.0",
+            "apkVersionCode": "75",
+            "terminalSN": "87879696",
+            "status": "A",
+            "actionStatus": 2
+		}]
+	}
+}
+```
+
+The type in dataSet is PushApkHistory. And the structure like below.
+
+|Name|Type|Description|
+|:---|:---|:---|
+|id|long|the id of terminal apk|
+|apkPackageName|string|the packageName of apk|
+|apkVersionName|string|the version name of apk|
+|apkVersionCode|long|the version code of apk|
+|terminalSN|string|the serialNo of terminal|
+|status|string|the status of terminal apk|
+|actionStatus|string|the action status|
+
+**Possible client validation errors**  
+
+> <font color=red>pageNo:must be greater than or equal to 1</font>   
+> <font color=red>pageSize:must be greater than or equal to 1</font>   
+> <font color=red>pageSize:must be less than or equal to 1000</font>  
+> <font color=red>Parameter terminalTid cannot be blank!</font> 
+
+### Get push apk history by id
+
+Get terminal push apk history by id.
+
+
+**API**
+
+```
+public Result<PushApkHistory> GetPushApkHistory(long pushApkId)
+```
+
+**Input parameter(s) description**
+
+|Parameter Name|Type|Nullable|Description|
+|:---|:---|:---|:---|
+|pushApkId|long|false|the id of terminalApk, it can be get by API SearchPushApkHistory|
+
+**Sample codes**
+
+```
+TerminalApkApi api = new TerminalApkApi(API_BASE_URL, API_KEY, API_SECRET);
+Result<PushApkHistory> result = api.GetPushApkHistory(1000062203);
+```
+
+
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 2001,
+	"message": "Terminal app not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 0,
+	"data": {
+		"id": 17850,
+		"apkPackageName": "com.pax.demo",
+		"apkVersionName": "7.5.0",
+		"apkVersionCode": "75",
+		"terminalSN": "87879696",
+		"status": "A",
+		"actionStatus": 2,
+		"errorCode": ""
+	}
+}
+```
+
+<br>
+The type of data is TerminalApkDTO, and the structure shows below.
+
+|Name|Type|Description|
+|:---|:---|:---|
+|id|long|the id of terminal apk|
+|apkPackageName|string|the packageName of apk|
+|apkVersionName|string|the version name of apk|
+|apkVersionCode|long|the version code of apk|
+|terminalSN|string|the serialNo of terminal|
+|status|string|the status of terminal apk, value can be one of A(Active) and S(Suspend)|
+|actionStatus|string|the action status|
+|errorCode|string|the error code|
+
+
+**Possible client validation errors**
+
+
+> <font color="red">Parameter terminalApkId cannot be null and cannot be less than 1!</font>
+
+
+**Possible business codes**
+
+|Business Code|Message|Description|
+|:---|:---|:---|
+|2001|Terminal app not found|&nbsp;|
+
+**Possible action status**
+
+|action status|status|Description|
+|:---|:---|:---|
+|0|None|The push task no start|
+|1|Pending|The push task staring|
+|2|Succeed|The push task is succeed|
+|3|Failed|The push task is failed|
+|4|Watting|The push task is watting, no need push|
+
+**Possible error codes**
+
+|Error Code|Description|
+|:---|:---|
+|1|Download error|
+|2|Install error|
+|3|App exist|
+|4|App version too low|
+|5|App param duplicate|
+|6|Apk not exist|
+|7|Apk version mismatch|
+|12|The push is disabled|

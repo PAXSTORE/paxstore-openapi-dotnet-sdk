@@ -183,4 +183,7 @@
   <data name="parameterCreateTerminalApkRequestTemplateNameTooLong" xml:space="preserve">
     <value>The max size of template names is 10!</value>
   </data>
+  <data name="parameterTerminalTidEmpty" xml:space="preserve">
+    <value>Parameter terminalTid cannot be blank!</value>
+  </data>
 </root>
