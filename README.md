@@ -26,6 +26,10 @@ Below is the structure of class *Paxstore.OpenApi.Model.Result*
 |ValidationErrors|IList|Client side validation errors.|
 |Data|T(generic)|The actural response content, the structure will be described in each APIs. And for pagination search the search result data will be in another property *PageInfo&lt;T&gt;*|
 |PageInfo|PageInfo&lt;T&gt;|The search result. If the operation is a search operation the data property is null. For the structure of PageInfo please refer to below|
+|RateLimit|string(int format)|The maximum number of requests you're permitted to make per 10 minutes.|
+|RateLimitRemain|string(int format)|The number of requests remaining in the current rate limit window.|
+|RateLimitReset|string(long format)|The time at which the current rate limit window resets in UTC epoch seconds.|
+
 <br>
 Structure of PageInfo
 
@@ -181,6 +185,10 @@ See the [Apache 2.0 license](LICENSE) file for details.
 ## [Merchant Category APIs](docs/MERCHANT_CATEGORY_API.md)
 
 ## [Terminal Apk APIs](docs/TERMINAL_APK_API.md)
+
+## [Terminal Firmware APIs](docs/TERMINAL_FIRMWARE_API.md)
+
+## [App APIs](docs/APP_API.md)
 
 ## [Country Codes](docs/COUNTRY_CODE.md)
 

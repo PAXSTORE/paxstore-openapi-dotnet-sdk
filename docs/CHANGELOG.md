@@ -1,5 +1,21 @@
 # Changelog  
 
+## 6.3  
+
+### New features
+
+* Add search app API
+* Add push firmware to terminal API
+* Add suspend APK push API
+* Add uninstall APP API
+
+
+### Improvement
+
+* Add request rate limit feature  (Please refer to overview)
+* Add set connectionTimeout and readWriteTimeout method for API
+
+
 ## 6.2.2
 
 * Add 2 APIs to allow third party system search push apk history and get push apk history by id
