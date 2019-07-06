@@ -318,3 +318,309 @@ The type of data is TerminalApkDTO, and the structure shows below.
 |6|Apk not exist|
 |7|Apk version mismatch|
 |12|The push is disabled|
+
+
+
+### Suspend apk push by TID and app package name
+
+This api allows the thirdparty system suspend an exist push by specifing the TID of terminal and the app package name
+
+
+**API**
+
+```
+public Result<String> SuspendApkPushByTidAndPackageName(string tid, string packageName)
+```
+
+**Input parameter(s) description**  
+
+
+|Parameter Name|Type|Nullable|Description|
+|:---|:---|:---|:---|
+|tid|string|false|The TID of terminal|
+|packageName|string|false|The package name of app|
+
+
+
+
+**Sample codes**
+
+```
+TerminalApkApi terminalApkApi = new TerminalApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+terminalApkApi.SuspendApkPushByTidAndPackageName("ABC09098989", "com.baidu.map");
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["Parameter tid is mandatory!", "Parameter packageName is mandatory!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 2038,
+	"message": "Unfinished terminal push app not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 0
+}
+```
+
+
+**Possible validation errors**
+
+> <font color=red>Parameter tid is mandatory!</font>  
+> <font color=red>Parameter packageName is mandatory!</font> 
+
+
+
+**Possible business codes**
+
+|Business Code|Message|Description|
+|:---|:---|:---|
+|2028|Terminal not found|Please check the value of tid or serialNo|
+|2029|Apk not found|Cannot find apk by packagename and version|
+|2026|Tid and serialNo cannot empty at same time||
+|2027|Package name cannot be empty||
+|2038|Unfinished terminal push app not found||
+|2039|Tid mismatch with serialNo|Please check the value of tid and serialNo|
+
+
+
+
+### Suspend apk push by serial number and app package name
+
+This api allows the thirdparty system suspend an exist push by specifing the serial number of terminal and the app package name. The function of this API is same as the above one
+
+
+**API**
+
+```
+public Result<String> SuspendApkPushBySnAndPackageName(string serialNo, string packageName)
+```
+
+**Input parameter(s) description**  
+
+
+|Parameter Name|Type|Nullable|Description|
+|:---|:---|:---|:---|
+|serialNo|string|false|The serial number of terminal|
+|packageName|string|false|The package name of app|
+
+
+
+
+**Sample codes**
+
+```
+TerminalApkApi terminalApkApi = new TerminalApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+terminalApkApi.SuspendApkPushByTidAndPackageName("sn12345645", "com.baidu.map");
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["Parameter serialNo is mandatory!", "Parameter packageName is mandatory!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 2038,
+	"message": "Unfinished terminal push app not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 0
+}
+```
+
+
+**Possible validation errors**
+
+> <font color=red>Parameter serialNo is mandatory!</font>  
+> <font color=red>Parameter packageName is mandatory!</font> 
+
+
+
+**Possible business codes**
+
+|Business Code|Message|Description|
+|:---|:---|:---|
+|2028|Terminal not found|Please check the value of tid or serialNo|
+|2029|Apk not found|Cannot find apk by packagename and version|
+|2026|Tid and serialNo cannot empty at same time||
+|2027|Package name cannot be empty||
+|2038|Unfinished terminal push app not found||
+|2039|Tid mismatch with serialNo|Please check the value of tid and serialNo|
+
+
+### Uninstall app by TID and package name
+
+This api allows the thirdparty system uninstall an app from a terminal by specifing the TID and the package name of app
+
+
+
+**API**
+
+```
+public Result<string> UninstallApkByTidAndPackageName(string tid, string packageName)
+```
+
+**Input parameter(s) description**  
+
+
+|Parameter Name|Type|Nullable|Description|
+|:---|:---|:---|:---|
+|tid|string|false|The TID of terminal|
+|packageName|string|false|The package name of app|
+
+
+
+**Sample codes**
+
+```
+TerminalApkApi terminalApkApi = new TerminalApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+terminalApkApi.UninstallApkByTidAndPackageName("ABC09098989", "com.baidu.map");
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["Parameter tid is mandatory!", "Parameter packageName is mandatory"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 2037,
+	"message": "This app is not installed on the terminal"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 0
+}
+```
+
+
+**Possible validation errors**
+
+> <font color=red>Parameter tid is mandatory!!</font>  
+> <font color=red>Parameter packageName is mandatory!</font> 
+
+
+
+**Possible business codes**
+
+|Business Code|Message|Description|
+|:---|:---|:---|
+|2028|Terminal not found|Please check the value of tid or serialNo|
+|2029|Apk not found|Cannot find apk by packagename and version|
+|2026|Tid and serialNo cannot empty at same time|Parameter tid is empty, please use a valid tid|
+|2027|Package name cannot be empty||
+|2037|This app is not installed on the terminal||
+
+
+
+
+### Uninstall app by serial number and package name
+
+This api allows the thirdparty system uninstall an app from a terminal by specifing the serial number and the package name of app. The function of this api is same as the above one
+
+
+
+**API**
+
+```
+public Result<string> UninstallApkBySnAndPackageName(string serialNo, string packageName)
+```
+
+**Input parameter(s) description**  
+
+
+|Parameter Name|Type|Nullable|Description|
+|:---|:---|:---|:---|
+|serialNo|string|false|The serial number of terminal|
+|packageName|string|false|The package name of app|
+
+
+
+**Sample codes**
+
+```
+TerminalApkApi terminalApkApi = new TerminalApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+terminalApkApi.UninstallApkBySnAndPackageName("sn12345678", "com.baidu.map");
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["Parameter serialNo is mandatory!", "Parameter packageName is mandatory"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 2037,
+	"message": "This app is not installed on the terminal"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 0
+}
+```
+
+
+**Possible validation errors**
+
+> <font color=red>Parameter serialNo is mandatory!!</font>  
+> <font color=red>Parameter packageName is mandatory!</font> 
+
+
+
+**Possible business codes**
+
+|Business Code|Message|Description|
+|:---|:---|:---|
+|2028|Terminal not found|Please check the value of tid or serialNo|
+|2029|Apk not found|Cannot find apk by packagename and version|
+|2026|Tid and serialNo cannot empty at same time|Parameter serialNo is empty, please use a valid serial number|
+|2027|Package name cannot be empty||
+|2037|This app is not installed on the terminal||
+
+
+

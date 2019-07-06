@@ -9,5 +9,6 @@ namespace Paxstore.OpenApi.Base.Dto{
         public long TotalCount{get; set;}
         public IList<T> Dataset{get; set;}
         public bool HasNext{get; set;}
+
     }
 }

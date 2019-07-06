@@ -196,6 +196,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter firmwareName is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterFirmwareNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("parameterFirmwareNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter merchantId cannot be null and cannot be less than 1! 的本地化字符串。
         /// </summary>
         internal static string parameterMerchantIdInvalid {
@@ -205,11 +214,56 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter packageName is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterPackageNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("parameterPackageNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter pushFirmware2TerminalRequest cannot be null! 的本地化字符串。
+        /// </summary>
+        internal static string parameterPushFirmware2TerminalRequestNull {
+            get {
+                return ResourceManager.GetString("parameterPushFirmware2TerminalRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The property SerialNo and TID in pushFirmware2TerminalRequest cannot be blank at same time! 的本地化字符串。
+        /// </summary>
+        internal static string parameterpushFirmware2TerminalRequestSnTidEmpty {
+            get {
+                return ResourceManager.GetString("parameterpushFirmware2TerminalRequestSnTidEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter serialNo is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterSnCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("parameterSnCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter terminalTid cannot be blank! 的本地化字符串。
         /// </summary>
         internal static string parameterTerminalTidEmpty {
             get {
                 return ResourceManager.GetString("parameterTerminalTidEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter tid is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTidCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("parameterTidCannotBeEmpty", resourceCulture);
             }
         }
         

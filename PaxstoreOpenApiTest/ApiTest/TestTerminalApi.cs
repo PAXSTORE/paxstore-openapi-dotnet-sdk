@@ -134,6 +134,21 @@ namespace Paxstore.Test
             Assert.AreEqual(terminal.BusinessCode, 1801);
         }
 
+        [Test]
+        public void TestActivateDisable()
+        {
+            
+
+            Result<string> disableResult = API.DisableTerminal(1000000600);
+            _logger.DebugFormat("Disable Result=\n{0}", JsonConvert.SerializeObject(disableResult));
+            Assert.AreEqual(disableResult.BusinessCode, 0);
+
+            Result<string> activateResult = API.ActivateTerminal(1000000600);
+            _logger.DebugFormat("Activate Result=\n{0}", JsonConvert.SerializeObject(activateResult));
+            Assert.AreEqual(activateResult.BusinessCode, 0);
+        }
 
     }
+
+    
 }

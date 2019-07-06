@@ -12,6 +12,7 @@ using FluentValidation.Results;
 using Paxstore.OpenApi.Base.Dto;
 using Paxstore.OpenApi.Validator;
 using log4net;
+using Newtonsoft.Json.Linq;
 
 namespace Paxstore.OpenApi.Base
 {
@@ -21,6 +22,13 @@ namespace Paxstore.OpenApi.Base
         public string BaseUrl { get; set; }
         public string ApiKey { get; set; }
         public string ApiSecret { get; set; }
+
+
+        private const string HEADER_X_RATE_LIMIT_LIMIT = "X-RateLimit-Limit";
+        private const string HEADER_X_RATE_LIMIT_REMAINING = "X-RateLimit-Remaining";
+        private const string HEADER_X_RATE_LIMIT_RESET = "X-RateLimit-Reset";
+        
+
 
         protected RestClient Client;
 
@@ -35,15 +43,53 @@ namespace Paxstore.OpenApi.Base
             ApiKey = apiKey;
             ApiSecret = apiSecret;
             Client = new RestClient(BaseUrl);
-
-            //if (string.IsNullOrEmpty(StrClutrue))
-            //{
-            //    StrClutrue = "en";
-            //}
-            //CultureInfo currentClutrue = new CultureInfo(StrClutrue);
-            //Thread.CurrentThread.CurrentCulture = currentClutrue;
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
+            Client.Timeout = 5000;
+            Client.ReadWriteTimeout = 5000;
         }
+
+        public void SetConnectionTimeoutTime(int connectTimeoutTime) {
+            if (connectTimeoutTime > 0) {
+                Client.Timeout = connectTimeoutTime;
+                _logger.DebugFormat("Set ConnectTimeout=" + connectTimeoutTime.ToString());
+            }
+        }
+
+        public void SetReadWriteTimeoutTime(int readWriteTimeoutTime) {
+            if (readWriteTimeoutTime > 0) {
+                Client.ReadWriteTimeout = readWriteTimeoutTime;
+                _logger.DebugFormat("Set read/write timeout=" + readWriteTimeoutTime.ToString());
+            }
+        }
+
+        public BaseApi(string baseUrl, string apiKey, string apiSecret, int connectionTimeout, int readWriteTimeout)
+        {
+            if (baseUrl != null && baseUrl.EndsWith("/"))
+            {
+                baseUrl = baseUrl.Remove(baseUrl.Length - 1);
+            }
+            BaseUrl = baseUrl;
+            ApiKey = apiKey;
+            ApiSecret = apiSecret;
+            Client = new RestClient(BaseUrl);
+            
+            if (connectionTimeout > 0)
+            {
+                Client.Timeout = connectionTimeout;
+            }
+            else {
+                Client.Timeout = 5000;
+            }
+            if (readWriteTimeout > 0)
+            {
+                Client.ReadWriteTimeout = readWriteTimeout;
+            }
+            else {
+                Client.ReadWriteTimeout = 5000;
+            }
+            
+        }
+
+
 
         protected string Execute(RestRequest request)
         {
@@ -58,14 +104,6 @@ namespace Paxstore.OpenApi.Base
                     _logger.Debug(JsonConvert.SerializeObject(request.Parameters[i]));
                 }
             }
-            //if (string.IsNullOrEmpty(StrClutrue))
-            //{
-            //    StrClutrue = "en";
-            //}
-            //CultureInfo currentClutrue = new CultureInfo(StrClutrue);
-            //Thread.CurrentThread.CurrentCulture = currentClutrue;
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(StrClutrue);
-
             request.AddParameter(Constants.PARAM_NAME_SYSKEY, ApiKey, ParameterType.QueryString);
             string querystr = GetQueryString(Client, request);
             string signature = Utils.GenSignature(ApiSecret, querystr);
@@ -75,17 +113,43 @@ namespace Paxstore.OpenApi.Base
             IRestResponse response = Client.Execute(request);
             _logger.DebugFormat("Response StatusCode\t\t={0}", response.StatusCode);
             _logger.DebugFormat("Response Content=\n{0}", response.Content);
+            IList<Parameter> headers = response.Headers;
             HttpStatusCode responseStatus = response.StatusCode;
             if (((HttpStatusCode.OK.Equals(responseStatus) || HttpStatusCode.Created.Equals(responseStatus) ||
                  HttpStatusCode.BadRequest.Equals(responseStatus) ||
                     HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) && !string.IsNullOrWhiteSpace(response.Content)) || HttpStatusCode.NoContent.Equals(responseStatus))
             {
-                return response.Content;
+                
+                return HandleRateLimitHeader(headers, response.Content);
             }
             else
             {
-                return HandleUnexceptedResponse(response);
+                return HandleRateLimitHeader(headers, HandleUnexceptedResponse(response));
             }
+        }
+
+        private string HandleRateLimitHeader(IList<Parameter> headers, string responseBody) {
+            if (string.IsNullOrWhiteSpace(responseBody)) {
+                responseBody = "{}";
+            }
+            if (headers != null && headers.Count > 0) {
+                JObject jo = (JObject)JsonConvert.DeserializeObject(responseBody);
+                for (int i = 0; i < headers.Count; i++) {
+                    if (HEADER_X_RATE_LIMIT_LIMIT.Equals(headers[i].Name))
+                    {
+                        jo.Add("rateLimit", headers[i].Value.ToString());
+                    }
+                    else if (HEADER_X_RATE_LIMIT_REMAINING.Equals(headers[i].Name))
+                    {
+                        jo.Add("rateLimitRemain", headers[i].Value.ToString());
+                    }
+                    else if (HEADER_X_RATE_LIMIT_RESET.Equals(headers[i].Name)) {
+                        jo.Add("rateLimitReset", headers[i].Value.ToString());
+                    }
+                }
+                return jo.ToString();
+            }
+            return responseBody;
         }
 
         private string HandleUnexceptedResponse(IRestResponse response)

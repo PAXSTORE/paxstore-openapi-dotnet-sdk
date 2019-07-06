@@ -186,4 +186,22 @@
   <data name="parameterTerminalTidEmpty" xml:space="preserve">
     <value>Parameter terminalTid cannot be blank!</value>
   </data>
+  <data name="parameterPushFirmware2TerminalRequestNull" xml:space="preserve">
+    <value>Parameter pushFirmware2TerminalRequest cannot be null!</value>
+  </data>
+  <data name="parameterpushFirmware2TerminalRequestSnTidEmpty" xml:space="preserve">
+    <value>The property SerialNo and TID in pushFirmware2TerminalRequest cannot be blank at same time!</value>
+  </data>
+  <data name="parameterFirmwareNameCannotBeEmpty" xml:space="preserve">
+    <value>Parameter firmwareName is mandatory!</value>
+  </data>
+  <data name="parameterPackageNameCannotBeEmpty" xml:space="preserve">
+    <value>Parameter packageName is mandatory!</value>
+  </data>
+  <data name="parameterSnCannotBeEmpty" xml:space="preserve">
+    <value>Parameter serialNo is mandatory!</value>
+  </data>
+  <data name="parameterTidCannotBeEmpty" xml:space="preserve">
+    <value>Parameter tid is mandatory!</value>
+  </data>
 </root>

@@ -71,5 +71,50 @@ namespace Paxstore.Test
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
+
+        [Test]
+        public void TestSuspendApkPush() {
+            Result<string> result = API.SuspendApkPushBySnAndPackageName(null, null);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, -1);
+
+            Result<string> result2 = API.SuspendApkPushByTidAndPackageName(null, null);
+            _logger.DebugFormat("Result2=\n{0}", JsonConvert.SerializeObject(result2));
+            Assert.AreEqual(result2.BusinessCode, -1);
+
+
+            Result<string> result3 = API.SuspendApkPushByTidAndPackageName("26121819", "com.wandoujia.phoenix2");
+            _logger.DebugFormat("Result3=\n{0}", JsonConvert.SerializeObject(result3));
+            Assert.AreNotEqual(result3.BusinessCode, 0);
+
+            Result<string> result4 = API.SuspendApkPushBySnAndPackageName("0820534733", "com.wandoujia.phoenix2");
+            _logger.DebugFormat("Result4=\n{0}", JsonConvert.SerializeObject(result4));
+            Assert.AreNotEqual(result4.BusinessCode, 0);
+
+        }
+
+        [Test]
+        public void TestUninstallApk()
+        {
+            Result<string> result = API.UninstallApkBySnAndPackageName(null, null);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, -1);
+
+            Result<string> result2 = API.UninstallApkByTidAndPackageName(null, null);
+            _logger.DebugFormat("Result2=\n{0}", JsonConvert.SerializeObject(result2));
+            Assert.AreEqual(result2.BusinessCode, -1);
+
+
+            Result<string> result3 = API.UninstallApkByTidAndPackageName("26121819", "com.wandoujia.phoenix2");
+            _logger.DebugFormat("Result3=\n{0}", JsonConvert.SerializeObject(result3));
+            Assert.AreEqual(result3.BusinessCode, 0);
+
+            Result<string> result4 = API.UninstallApkBySnAndPackageName("0820534733", "com.wandoujia.phoenix2");
+            _logger.DebugFormat("Result4=\n{0}", JsonConvert.SerializeObject(result4));
+            Assert.AreEqual(result4.BusinessCode, 0);
+
+        }
+
+
     }
 }

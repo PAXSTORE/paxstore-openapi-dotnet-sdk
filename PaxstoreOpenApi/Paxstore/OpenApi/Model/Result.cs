@@ -11,6 +11,10 @@ namespace Paxstore.OpenApi.Model{
         public T Data{get; set;}
         public PageInfo<T> PageInfo{get; set;}
 
+        public string RateLimit { get; set; }
+        public string RateLimitRemain { get; set; }
+        public string RateLimitReset { get; set; }
+
         public Result() {
 		
 	    }
@@ -24,6 +28,10 @@ namespace Paxstore.OpenApi.Model{
             BusinessCode = response.BusinessCode;
             Message = response.Message;
             Data = response.Data;
+
+            this.RateLimit = response.RateLimit;
+            this.RateLimitRemain = response.RateLimitRemain;
+            this.RateLimitReset = response.RateLimitReset;
         }
         
         public Result(PageResponse<T> response) {
@@ -36,6 +44,10 @@ namespace Paxstore.OpenApi.Model{
             pageInfo.PageNo = response.PageNo;
             pageInfo.TotalCount = response.TotalCount;
             PageInfo = pageInfo;
+
+            this.RateLimit = response.RateLimit;
+            this.RateLimitRemain = response.RateLimitRemain;
+            this.RateLimitReset = response.RateLimitReset;
         }
         
         public Result(EmptyResponse response) {
@@ -45,6 +57,10 @@ namespace Paxstore.OpenApi.Model{
                 BusinessCode = response.BusinessCode;
                 Message = response.Message;
             }
+
+            this.RateLimit = response.RateLimit;
+            this.RateLimitRemain = response.RateLimitRemain;
+            this.RateLimitReset = response.RateLimitReset;
         }
 
         public override string ToString(){
