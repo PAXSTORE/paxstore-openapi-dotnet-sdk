@@ -321,15 +321,15 @@ The type of data is TerminalApkDTO, and the structure shows below.
 
 
 
-### Suspend apk push by TID and app package name
+### Disable apk push by TID and app package name
 
-This api allows the thirdparty system suspend an exist push by specifing the TID of terminal and the app package name
+This api allows the thirdparty system disable an exist push by specifing the TID of terminal and the app package name
 
 
 **API**
 
 ```
-public Result<String> SuspendApkPushByTidAndPackageName(string tid, string packageName)
+public Result<String> DisableApkPushByTidAndPackageName(string tid, string packageName)
 ```
 
 **Input parameter(s) description**  
@@ -347,7 +347,7 @@ public Result<String> SuspendApkPushByTidAndPackageName(string tid, string packa
 
 ```
 TerminalApkApi terminalApkApi = new TerminalApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-terminalApkApi.SuspendApkPushByTidAndPackageName("ABC09098989", "com.baidu.map");
+terminalApkApi.DisableApkPushByTidAndPackageName("ABC09098989", "com.baidu.map");
 ```
 
 **Client side validation failed sample result(JSON formatted)**
@@ -398,15 +398,15 @@ terminalApkApi.SuspendApkPushByTidAndPackageName("ABC09098989", "com.baidu.map")
 
 
 
-### Suspend apk push by serial number and app package name
+### Disable apk push by serial number and app package name
 
-This api allows the thirdparty system suspend an exist push by specifing the serial number of terminal and the app package name. The function of this API is same as the above one
+This api allows the thirdparty system disable an exist push by specifing the serial number of terminal and the app package name. The function of this API is same as the above one
 
 
 **API**
 
 ```
-public Result<String> SuspendApkPushBySnAndPackageName(string serialNo, string packageName)
+public Result<String> DisableApkPushBySnAndPackageName(string serialNo, string packageName)
 ```
 
 **Input parameter(s) description**  
@@ -424,7 +424,7 @@ public Result<String> SuspendApkPushBySnAndPackageName(string serialNo, string p
 
 ```
 TerminalApkApi terminalApkApi = new TerminalApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-terminalApkApi.SuspendApkPushByTidAndPackageName("sn12345645", "com.baidu.map");
+terminalApkApi.DisableApkPushByTidAndPackageName("sn12345645", "com.baidu.map");
 ```
 
 **Client side validation failed sample result(JSON formatted)**

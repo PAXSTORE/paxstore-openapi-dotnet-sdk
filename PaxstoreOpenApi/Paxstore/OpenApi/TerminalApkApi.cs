@@ -86,7 +86,7 @@ namespace Paxstore.OpenApi {
             return result;
         }
 
-        public Result<string> SuspendApkPushByTidAndPackageName(string tid, string packageName){
+        public Result<string> DisableApkPushByTidAndPackageName(string tid, string packageName){
             List<string> validationErrs = new List<string>();
             if (string.IsNullOrEmpty(tid)) {
                 validationErrs.Add(GetMsgByKey("parameterTidCannotBeEmpty"));
@@ -104,7 +104,7 @@ namespace Paxstore.OpenApi {
             return SuspendApklPush(apkPushInfo);
         }
 
-        public Result<string> SuspendApkPushBySnAndPackageName(string serialNo, string packageName){
+        public Result<string> DisableApkPushBySnAndPackageName(string serialNo, string packageName){
             List<string> validationErrs = new List<string>();
             if (string.IsNullOrEmpty(serialNo)){
                 validationErrs.Add(GetMsgByKey("parameterSnCannotBeEmpty"));
