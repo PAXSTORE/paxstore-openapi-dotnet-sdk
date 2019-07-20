@@ -12,7 +12,7 @@
 
 ### Improvement
 
-* Add request rate limit feature  (Please refer to overview)
+* Add request rate limit feature
 * Add set connectionTimeout and readWriteTimeout method for API
 
 
