@@ -6,5 +6,5 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-[assembly: AssemblyVersion("6.2.3")]
-[assembly: AssemblyFileVersion("6.2.3")]
+[assembly: AssemblyVersion("6.3.0")]
+[assembly: AssemblyFileVersion("6.3.0")]
