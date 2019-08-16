@@ -349,7 +349,7 @@ public Result<Terminal> UpdateTerminal(long terminalId,TerminalUpdateRequest ter
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|terminalId|long|false|Terminal's id.|
+|terminalId|long|false|Terminal's id(Get from the result of create terminal, not the TID of terminal)|
 |terminalUpdateRequest|TerminalUpdateRequest|false|Update terminal request object. The structure shows below.|
 
 Structure of class TerminalUpdateRequest
@@ -495,7 +495,7 @@ public Result<string> ActivateTerminal(long terminalId)
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|terminalId|long|false|The terminal id.|
+|terminalId|long|false|The terminal id(Get from the result of create terminal, not the TID of terminal)|
 
 
 **Sample codes**
@@ -573,7 +573,7 @@ public Result<string> DisableTerminal(long terminalId)
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|terminalId|long|false|The terminal id.|
+|terminalId|long|false|The terminal id(Get from the result of create terminal, not the TID of terminal)|
 
 
 **Sample codes**
@@ -647,7 +647,7 @@ public Result<string> DeleteTerminal(long terminalId)
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|terminalId|long|false|The terminal id.|
+|terminalId|long|false|The terminal id(Get from the result of create terminal, not the TID of terminal)|
 
 
 **Sample codes**
