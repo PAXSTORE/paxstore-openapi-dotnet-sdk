@@ -1,5 +1,13 @@
 # Changelog  
 
+## 6.3.1  
+
+### New features
+
+* Add search firmware push history API
+* Add get single firmware push history API
+* Add suspend firmware push API
+
 ## 6.3.0  
 
 ### New features
