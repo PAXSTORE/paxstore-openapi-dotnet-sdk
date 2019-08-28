@@ -38,5 +38,29 @@ namespace Paxstore.Test
             Assert.AreEqual(result3.BusinessCode, 2034);
 
         }
+
+        [Test]
+        public void TestSearchPushFirmwareTask() {
+            Result<PushFirmwareTaskInfo> result = API.SearchPushFirmwareTasks(1, 10, SearchOrderBy.CreatedDate_desc, "I1TF6LA2", "PayDroid_5.1.1_Aquarius_V02.3.15_20181012", PushStatus.All);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+        }
+
+        [Test]
+        public void TestGetPushFirmwareTask() {
+            Result<PushFirmwareTaskInfo> result = API.GetPushFirmwareTask(1000012895);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+        }
+
+        [Test]
+        public void TestSuspendPushFirmwareTask()
+        {
+            Result<string> result = API.DisablePushFirmwareTaskBySnAndFirmwareName("0820881219", "PayDroid_5.1.1_Aquarius_V02.3.15_20181012");
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+
+            Result<string> result2 = API.DisablePushFirmwareTaskByTidAndFirmwareName("I1TF6LA2", "PayDroid_5.1.1_Aquarius_V02.3.15_20181012");
+            _logger.DebugFormat("Result2=\n{0}", JsonConvert.SerializeObject(result2));
+        }
+
+
     }
 }
