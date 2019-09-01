@@ -21,7 +21,7 @@ namespace Paxstore.OpenApi
 
         }
 
-        public Result<string> PushFirmware2TerminalByTidAndFirmwareName(string tid, string firmwareName) {
+        public Result<PushFirmwareTaskInfo> PushFirmware2TerminalByTidAndFirmwareName(string tid, string firmwareName) {
             List<string> validationErrs = new List<string>();
             if (string.IsNullOrEmpty(tid))
             {
@@ -37,7 +37,7 @@ namespace Paxstore.OpenApi
             return PushFirmware2Terminal(request);
         }
 
-        public Result<string> PushFirmware2TerminalBySnAndFirmwareName(string serialNo, string firmwareName)
+        public Result<PushFirmwareTaskInfo> PushFirmware2TerminalBySnAndFirmwareName(string serialNo, string firmwareName)
         {
             List<string> validationErrs = new List<string>();
             if (string.IsNullOrEmpty(serialNo))
@@ -54,11 +54,11 @@ namespace Paxstore.OpenApi
             return PushFirmware2Terminal(request);
         }
 
-        private Result<string> PushFirmware2Terminal(PushFirmware2TerminalRequest pushFirmware2TerminalRequest) {
+        private Result<PushFirmwareTaskInfo> PushFirmware2Terminal(PushFirmware2TerminalRequest pushFirmware2TerminalRequest) {
             List<String> validationErrs = validatePushFirmware2Terminal(pushFirmware2TerminalRequest);
 
             if (validationErrs.Count > 0) {
-                return new Result<String>(validationErrs);
+                return new Result<PushFirmwareTaskInfo>(validationErrs);
             }
 
             RestRequest request = new RestRequest(CREATE_TERMINAL_FIRMWARE_URL, Method.POST);
@@ -66,8 +66,8 @@ namespace Paxstore.OpenApi
             var terminalFirmwareJson = JsonConvert.SerializeObject(pushFirmware2TerminalRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalFirmwareJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
-            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
-            Result<string> result = new Result<string>(emptyResponse);
+            PushFirmwareTaskResponse response = JsonConvert.DeserializeObject<PushFirmwareTaskResponse>(responseContent);
+            Result<PushFirmwareTaskInfo> result = new Result<PushFirmwareTaskInfo>(response);
             return result;
         }
 
