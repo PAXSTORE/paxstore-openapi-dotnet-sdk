@@ -161,17 +161,17 @@ namespace Paxstore.OpenApi.Base
                     return response.Content;
                 }
                 else {
-                    return GenSdkRequestErrorJson(16111, GetMsgByKey("msg_16111"));
+                    return GenSdkRequestErrorJson(-2, GetMsgByKey("msg_16111"));
                 }
                 
             }
             else if (HttpStatusCode.RequestTimeout.Equals(responseStatus))
             {
-                return GenSdkRequestErrorJson(16104, GetMsgByKey("msg_16104"));
+                return GenSdkRequestErrorJson(-3, GetMsgByKey("msg_16104"));
             }
             else
             {
-                return GenSdkRequestErrorJson(16000, string.IsNullOrWhiteSpace(response.ErrorMessage) ? GetMsgByKey("msg_16000") : response.ErrorMessage);
+                return GenSdkRequestErrorJson(-4, string.IsNullOrWhiteSpace(response.ErrorMessage) ? GetMsgByKey("msg_16000") : response.ErrorMessage);
             }
         }
 

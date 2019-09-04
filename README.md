@@ -46,9 +46,9 @@ Below figure listed the global business codes, those business codes may appear i
 |Business Code|Message|Description|
 |:--|:--|:--|
 |0||Successful API call.
-|16000|Unknow SDK request error!|Unknow SDK error, contact with support|
-|16104|Connection timeout!|Connection timeout|
-|16111|BaseUrl not correct!|The API BaseUrl may not correct|
+|-4|Unknow SDK request error!|The message for this error code is not fix, "Unknow SDK request error!" is the default message for this error code, if developer encounter this error code please contact with our support|
+|-3|Connection timeout!|Connection timeout|
+|-2|BaseUrl not correct!|The API BaseUrl may not correct|
 |129|Authentication failed||
 |104|Client key is missing or invalid||
 |108|Marketplace is not available||
