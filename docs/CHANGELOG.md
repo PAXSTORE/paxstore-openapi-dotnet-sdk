@@ -1,5 +1,15 @@
 # Changelog  
 
+## 6.3.2  
+
+### Bug fixes
+* Fix dupliated businessCode issue (16111, 16104, 16000)  
+As above 3 business codes are generated at SDK side not from server response. So they may be same as the business code returned by server. Currently we found the SDK generated business code 16000 same as the one from server response 16000 (Merchant category not found).
+
+Now BusinessCode 16111 changed to -2, 16104 changed to -3, 16000 changed to -2
+
+
+
 ## 6.3.1  
 
 ### New features
