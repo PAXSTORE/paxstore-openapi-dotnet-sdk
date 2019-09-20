@@ -61,6 +61,10 @@ namespace Paxstore.OpenApi.Base
             }
         }
 
+        public void SetProxy(IWebProxy proxy) {
+            Client.Proxy = proxy;
+        }
+
         public BaseApi(string baseUrl, string apiKey, string apiSecret, int connectionTimeout, int readWriteTimeout)
         {
             if (baseUrl != null && baseUrl.EndsWith("/"))
@@ -120,17 +124,19 @@ namespace Paxstore.OpenApi.Base
                     HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) && !string.IsNullOrWhiteSpace(response.Content)) || HttpStatusCode.NoContent.Equals(responseStatus))
             {
                 
-                return HandleRateLimitHeader(headers, response.Content);
+                return HandleRateLimitHeader(headers, response.Content, response.ContentType);
             }
             else
             {
-                return HandleRateLimitHeader(headers, HandleUnexceptedResponse(response));
+                return HandleRateLimitHeader(headers, HandleUnexceptedResponse(response), response.ContentType);
             }
         }
 
-        private string HandleRateLimitHeader(IList<Parameter> headers, string responseBody) {
+        private string HandleRateLimitHeader(IList<Parameter> headers, string responseBody, string contentType) {
             if (string.IsNullOrWhiteSpace(responseBody)) {
                 responseBody = "{}";
+            }else if (!string.IsNullOrWhiteSpace(contentType) && !contentType.ToUpper().Contains("JSON")) {
+                responseBody = "{'BusinessCode':999,'Message':'" + responseBody + "'}";
             }
             if (headers != null && headers.Count > 0) {
                 JObject jo = (JObject)JsonConvert.DeserializeObject(responseBody);

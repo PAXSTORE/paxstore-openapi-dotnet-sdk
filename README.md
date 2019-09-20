@@ -100,6 +100,27 @@ API.SetReadWriteTimeoutTime(30000);
 
 ```
 
+## Configure API proxy  
+
+If the proxy is not setted, request will go to Paxstore directly. 
+If the server of thirdparty system does not have the abiliti to access Paxstore directly duto security purpose they can use proxy.
+The proxy configuration is API level. 
+Below is the interface to set proxy.
+
+```
+public void SetProxy(IWebProxy proxy)
+```
+
+Sample codes
+```
+ResellerApi API = new ResellerApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+IWebProxy proxy = new WebProxy("localhost", 1080);
+ICredentials credentials = new NetworkCredential("username", "password");
+proxy.Credentials = credentials;
+API.SetProxy(proxy);
+```
+Note: If the proxy server don't need username and password the credentials is not needed.
+
 
 
 ## Apply access rights
