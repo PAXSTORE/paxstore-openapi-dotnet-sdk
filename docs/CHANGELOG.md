@@ -1,5 +1,11 @@
 # Changelog  
 
+## 6.3.3  
+
+### New features
+
+*  Support proxy
+
 ## 6.3.2  
 
 ### Bug fixes
