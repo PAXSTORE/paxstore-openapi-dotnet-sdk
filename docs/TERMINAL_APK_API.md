@@ -82,7 +82,7 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 ```
 {
 	"BusinessCode": 2028,
-	"Message": "TerminalApk not found",
+	"Message": "Terminal not found",
 	"ValidationErrors": null,
 	"Data": null,
 	"PageInfo": null
