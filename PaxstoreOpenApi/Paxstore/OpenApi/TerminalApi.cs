@@ -23,6 +23,10 @@ namespace Paxstore.OpenApi
         }
 
         public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, TerminalStatus status, string snNameTID) {
+            return this.SearchTerminal(pageNo, pageSize, orderBy, status, snNameTID, false, false, false);
+        }
+
+        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, TerminalStatus status, string snNameTID, bool includeGeoLocation, bool includeInstalledApks, bool includeInstalledFirmware) {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
             {
@@ -35,6 +39,11 @@ namespace Paxstore.OpenApi
             request.AddParameter("snNameTID", snNameTID);
             request.AddParameter("serialNo", snNameTID);
             request.AddParameter("status", GetStatusValue(status));
+
+            request.AddParameter("includeGeoLocation", includeGeoLocation.ToString());
+            request.AddParameter("includeInstalledFirmware", includeInstalledFirmware.ToString());
+            request.AddParameter("includeInstalledApks", includeInstalledApks.ToString());
+
             var responseContent = Execute(request);
             TerminalPageResponse resellerPage = JsonConvert.DeserializeObject<TerminalPageResponse>(responseContent);
             Result<Terminal> result = new Result<Terminal>(resellerPage);

@@ -320,5 +320,14 @@ namespace Paxstore.OpenApi.Properties {
                 return ResourceManager.GetString("terminalUpdateRequestIsNull", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 Parameter terminalVariableId invalid 的本地化字符串。
+        /// </summary>
+        internal static string terminalVariableIdInvalid {
+            get {
+                return ResourceManager.GetString("terminalVariableIdInvalid", resourceCulture);
+            }
+        }
     }
 }
