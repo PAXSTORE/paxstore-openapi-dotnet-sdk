@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Paxstore.OpenAp.Model
 {
-    public class ParameterVariablePageResponse:PageResponse<ParameterVariable>
+    public class ParameterVariablePageResponse:PageResponse<TerminalParameterVariable>
     {
     }
 }
