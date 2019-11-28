@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Paxstore.OpenApi.Model
 {
     public class Terminal
@@ -18,5 +20,11 @@ namespace Paxstore.OpenApi.Model
         public string ResellerName{get; set;}
 
         public string Location { get; set; }
+
+        public TerminalLocation GeoLocation { get; set; }
+
+        public TerminalInstalledFirmware InstalledFirmware { get; set; }
+
+        public List<TerminalInstalledApk> InstalledApks { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Paxstore.OpenAp.Model;
 using Paxstore.OpenApi.Base;
+using Paxstore.OpenApi.Help;
 using Paxstore.OpenApi.Model;
 using RestSharp;
 using System;
@@ -24,14 +25,26 @@ namespace Paxstore.OpenApi
 
         }
 
-        public Result<TerminalParameterVariable> GetTerminalVariable(string tid, string serialNo, string packageName, string key, string source)
+        public Result<TerminalParameterVariable> GetTerminalVariable(string tid, string serialNo, string packageName, string key, Nullable<VariableSource> source)
         {
             RestRequest request = new RestRequest(GET_TERMINAL_VARIABLE_URL, Method.GET);
-            request.AddParameter("tid", tid);
-            request.AddParameter("serialNo", serialNo);
-            request.AddParameter("packageName", packageName);
-            request.AddParameter("key", key);
-            request.AddParameter("source", source);
+            if (!string.IsNullOrEmpty(tid)) {
+                request.AddParameter("tid", tid);
+            }
+            if (!string.IsNullOrEmpty(serialNo)) {
+                request.AddParameter("serialNo", serialNo);
+            }
+            if (!string.IsNullOrEmpty(packageName)) {
+                request.AddParameter("packageName", packageName);
+            }
+            if (!string.IsNullOrEmpty(key)) {
+                request.AddParameter("key", key);
+            }
+            if (source != null) {
+                request.AddParameter("source", ExtEnumHelper.GetEnumValue(source));
+            }
+            
+            
             var responseContent = Execute(request);
             ParameterVariablePageResponse parameterVariablePageResponse = JsonConvert.DeserializeObject<ParameterVariablePageResponse>(responseContent);
             Result<TerminalParameterVariable> result = new Result<TerminalParameterVariable>(parameterVariablePageResponse);
@@ -87,5 +100,21 @@ namespace Paxstore.OpenApi
             Result<string> result = new Result<string>(emptyResponse);
             return result;
         }
+
+    }
+
+    public enum VariableSource
+    {
+        [EnumValue("T")]
+        TERMINAL,
+
+        [EnumValue("G")]
+        GROUP,
+
+        [EnumValue("M")]
+        MARKET,
+
+        [EnumValue("C")]
+        MERCHANT
     }
 }

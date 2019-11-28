@@ -23,12 +23,19 @@ namespace Paxstore.OpenApi
 
         }
 
-        public Result<ApkParameter> getTerminalApkParameter(String templateName, String packageName, String versionName)
+        public Result<ApkParameter> GetTerminalApkParameter(String templateName, String packageName, String versionName)
         {
             RestRequest request = new RestRequest(GET_TERMINAL_APK_PARAMETER_URL, Method.GET);
-            request.AddParameter("templateName", templateName);
-            request.AddParameter("packageName", packageName);
-            request.AddParameter("versionName", versionName);
+            if (!string.IsNullOrEmpty(templateName)) {
+                request.AddParameter("templateName", templateName);
+            }
+            if (!string.IsNullOrEmpty(packageName)) {
+                request.AddParameter("packageName", packageName);
+            }
+            if (!string.IsNullOrEmpty(versionName)) {
+                request.AddParameter("versionName", versionName);
+            }
+            
             var responseContent = Execute(request);
             ApkParameterPageResponse apkParameterPageResponse = JsonConvert.DeserializeObject<ApkParameterPageResponse>(responseContent);
             Result<ApkParameter> result = new Result<ApkParameter>(apkParameterPageResponse);
@@ -38,7 +45,7 @@ namespace Paxstore.OpenApi
         public Result<ApkParameter> CreateApkParameter(CreateApkParameterRequest createApkParameterRequest)
         {
             RestRequest request = new RestRequest(CREATE_APK_PARAMETER_URL, Method.POST);
-            var createRequestJson = JsonConvert.SerializeObject(request);
+            var createRequestJson = JsonConvert.SerializeObject(createApkParameterRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, createRequestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             ApkParameterResponse apkParameterResponse = JsonConvert.DeserializeObject<ApkParameterResponse>(responseContent);

@@ -10,6 +10,6 @@ namespace Paxstore.OpenApi.Model
     public class TerminalParameterVariableDeleteRequest
     {
         [JsonProperty("variableIds")]
-        public Dictionary<long> VariableIds { get; set; }
+        public List<long> VariableIds { get; set; }
     }
 }

@@ -16,6 +16,6 @@ namespace Paxstore.OpenApi.Model
         public string SerialNo { get; set; }
 
         [JsonProperty("variableList")]
-        public Dictionary<TerminalParameterVariable> VariableList { get; set; }
+        public List<ParameterVariable> VariableList { get; set; }
     }
 }

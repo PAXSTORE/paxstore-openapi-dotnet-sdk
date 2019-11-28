@@ -169,6 +169,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter attributeId cannot be less than 1! 的本地化字符串。
+        /// </summary>
+        internal static string parameterAttributeIdInvalid {
+            get {
+                return ResourceManager.GetString("parameterAttributeIdInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter createTerminalApkRequest cannot be null! 的本地化字符串。
         /// </summary>
         internal static string parameterCreateTerminalApkRequestNull {

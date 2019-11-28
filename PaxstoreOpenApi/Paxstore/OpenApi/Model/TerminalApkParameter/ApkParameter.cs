@@ -14,6 +14,6 @@ namespace Paxstore.OpenApi.Model
         public string ParamTemplateName { get; set; }
         public long CreatedDate { get; set; }
         public long UpdatedDate { get; set; }
-        public bool ApkAvailable { get; set; }
+        public Nullable<bool> ApkAvailable { get; set; }
     }
 }

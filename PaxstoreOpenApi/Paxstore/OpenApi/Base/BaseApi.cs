@@ -119,9 +119,10 @@ namespace Paxstore.OpenApi.Base
             _logger.DebugFormat("Response Content=\n{0}", response.Content);
             IList<Parameter> headers = response.Headers;
             HttpStatusCode responseStatus = response.StatusCode;
+
             if (((HttpStatusCode.OK.Equals(responseStatus) || HttpStatusCode.Created.Equals(responseStatus) ||
                  HttpStatusCode.BadRequest.Equals(responseStatus) ||
-                    HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) && !string.IsNullOrWhiteSpace(response.Content)) || HttpStatusCode.NoContent.Equals(responseStatus))
+                    HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) ) || HttpStatusCode.NoContent.Equals(responseStatus))
             {
                 
                 return HandleRateLimitHeader(headers, response.Content, response.ContentType);
