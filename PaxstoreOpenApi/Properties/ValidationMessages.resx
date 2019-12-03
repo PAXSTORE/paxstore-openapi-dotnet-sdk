@@ -205,9 +205,12 @@
     <value>Parameter tid is mandatory!</value>
   </data>
   <data name="terminalVariableIdInvalid" xml:space="preserve">
-    <value>Parameter terminalVariableId invalid</value>
+    <value>Parameter terminalVariableId invalid!</value>
   </data>
   <data name="parameterAttributeIdInvalid" xml:space="preserve">
     <value>Parameter attributeId cannot be less than 1!</value>
+  </data>
+  <data name="parameterSerialNoMandatory" xml:space="preserve">
+    <value>Serial number is mandatory!</value>
   </data>
 </root>

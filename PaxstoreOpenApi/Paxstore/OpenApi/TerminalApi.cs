@@ -102,7 +102,7 @@ namespace Paxstore.OpenApi
             request.AddUrlSegment("terminalId",terminalId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
-            Result<String> result = new Result<String>(emptyResponse);
+            Result<string> result = new Result<string>(emptyResponse);
             return result;
         }
         
@@ -115,7 +115,7 @@ namespace Paxstore.OpenApi
             request.AddUrlSegment("terminalId",terminalId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
-            Result<String> result = new Result<String>(emptyResponse);
+            Result<string> result = new Result<string>(emptyResponse);
             return result;
         }
         
@@ -128,7 +128,7 @@ namespace Paxstore.OpenApi
             request.AddUrlSegment("terminalId",terminalId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
-            Result<String> result = new Result<String>(emptyResponse);
+            Result<string> result = new Result<string>(emptyResponse);
             return result;
         }
 

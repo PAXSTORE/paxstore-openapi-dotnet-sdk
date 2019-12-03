@@ -250,6 +250,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Serial number is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterSerialNoMandatory {
+            get {
+                return ResourceManager.GetString("parameterSerialNoMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter serialNo is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterSnCannotBeEmpty {
@@ -331,7 +340,7 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Parameter terminalVariableId invalid 的本地化字符串。
+        ///   查找类似 Parameter terminalVariableId invalid! 的本地化字符串。
         /// </summary>
         internal static string terminalVariableIdInvalid {
             get {
