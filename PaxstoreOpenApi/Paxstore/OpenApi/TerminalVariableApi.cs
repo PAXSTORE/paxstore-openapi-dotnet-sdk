@@ -25,9 +25,19 @@ namespace Paxstore.OpenApi
 
         }
 
-        public Result<TerminalParameterVariable> GetTerminalVariable(string tid, string serialNo, string packageName, string key, Nullable<VariableSource> source)
+        public Result<TerminalParameterVariable> GetTerminalVariable(int pageNo, int pageSize, Nullable<VariableSearchOrderBy> orderBy, string tid, string serialNo, string packageName, string key, Nullable<VariableSource> source)
         {
+            IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (validationErrs.Count > 0)
+            {
+                return new Result<TerminalParameterVariable>(validationErrs);
+            }
             RestRequest request = new RestRequest(GET_TERMINAL_VARIABLE_URL, Method.GET);
+            request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
+            request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
+            if (orderBy != null) {
+                request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
+            }
             if (!string.IsNullOrEmpty(tid)) {
                 request.AddParameter("tid", tid);
             }
@@ -103,7 +113,17 @@ namespace Paxstore.OpenApi
 
     }
 
-    public enum VariableSource
+    public enum VariableSearchOrderBy
+    {
+        [EnumValue("createdDate DESC")]
+        Variable_desc,
+
+        [EnumValue("createdDate ASC")]
+        Variable_asc
+
+    }
+
+public enum VariableSource
     {
         [EnumValue("T")]
         TERMINAL,

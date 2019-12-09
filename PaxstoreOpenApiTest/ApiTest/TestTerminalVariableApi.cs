@@ -20,7 +20,7 @@ namespace Paxstore.Test
         [Test]
         public void testGetTerminalVariable() {
             //Result<TerminalParameterVariable> result = API.GetTerminalVariable("JDEW5LCP", null, "com.pax.android.demoapp", "sys.param.acqInsCode", null);
-            Result<TerminalParameterVariable> result = API.GetTerminalVariable("JDEW5LCP", null, "com.pax.android.demoapp", "testCreateVariable1Api4", null);
+            Result<TerminalParameterVariable> result = API.GetTerminalVariable(1, 10, VariableSearchOrderBy.Variable_asc, "JDEW5LCP", null, "com.pax.android.demoapp", "testCreateVariable1Api4", null);
             //Result<TerminalParameterVariable> result = API.GetTerminalVariable("JDEW5LCP", null, "cn.ycmedia.youpin", "V1", null);
             //Result<TerminalParameterVariable> result = API.GetTerminalVariable("JDEW5LCP", null, "air.tv.douyu.android", "app1", null);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
