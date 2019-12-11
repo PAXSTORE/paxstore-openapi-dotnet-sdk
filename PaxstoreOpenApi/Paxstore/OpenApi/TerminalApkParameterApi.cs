@@ -23,7 +23,7 @@ namespace Paxstore.OpenApi
 
         }
 
-        public Result<ApkParameter> GetTerminalApkParameter(String templateName, String packageName, String versionName)
+        public Result<ApkParameter> GetTerminalApkParameter(string templateName, string packageName, string versionName)
         {
             RestRequest request = new RestRequest(GET_TERMINAL_APK_PARAMETER_URL, Method.GET);
             if (!string.IsNullOrEmpty(templateName)) {

@@ -1,32 +1,31 @@
 ## TerminalApkParameter API
 
-All terminal related APK parameter APIs are encapsulated in classes *com.pax.market.api.sdk.java.api.terminalApkParameter.TerminalApkParameterApi*.
+All terminal related APK parameter APIs are encapsulated in classes *Paxstore.OpenApi.TerminalApkParameterApi*.
 
 **Constructors of TerminalApkParameter **
 
 ```
-public TerminalApkParameterApi(String baseUrl, String apiKey, String apiSecret);
-public TerminalApkParameterApi(String baseUrl, String apiKey, String apiSecret, Locale locale);
+public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret);
 ```
 
 **Constructor parameters description**
 
 |Name|Type|Description|
 |:---|:---|:---|
-|baseUrl|String|the base url of REST API|
-|apiKey|String|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
-|apiSecret|String|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
-|locale|Locale|the locale, the default locale is Locale.ENGLISH, the language of message and errors in return object depend on locale|
+|baseUrl|string|the base url of REST API|
+|apiKey|string|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
+|apiSecret|string|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
 
 
-### get terminal apk parameter by templateName ,packageName,versionName
 
-Get terminal  apk parameter history by templateName ,packageName  ,versionName.
+### Get terminal apk parameter
+
+Get terminal apk parameter(s) by templateName, packageName and versionName.
 
 **API**
 
 ```
- public Result<ApkParameterDTO> getTerminalApkParameter(String templateName ,String packageName, String versionName)
+public Result<ApkParameter> GetTerminalApkParameter(string templateName, string packageName, string versionName)
 ```
 
 **Input parameter(s) description**  
@@ -34,18 +33,18 @@ Get terminal  apk parameter history by templateName ,packageName  ,versionName.
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.ApkParameter_asc and SearchOrderBy.ApkParameter_desc.|
-|templateName|String|false|Apk parameter template name|
-|packageName|String|true|get by app packageName|
-|versionName|String|true|The version name of application|
+|PageNo|int|false|page number, value must >=1|
+|PageSize|int|false|the record number per page, range is 1 to 1000|
+|OrderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.ApkParameter_asc and SearchOrderBy.ApkParameter_desc.|
+|TemplateName|String|false|Apk parameter template name|
+|PackageName|string|true|get by app packageName|
+|VersionName|string|true|The version name of application|
 
 **Sample codes**
 
 ```
-TerminalApkParameterApi terminalApkParameterApi = new TerminalApkParameterApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<ApkParameterDTO> result = terminalApkParameterApi.getTerminalApkParameter(1,2, TerminalApkParameterApi.SearchOrderBy.ApkParameter_asc,"12312","com.ss.android.article.lite","6.6.4");
+TerminalApkParameterApi API = new TerminalApkParameterApi("https://api.whatspos.com/p-market-
+Result<ApkParameter> result = API.GetTerminalApkParameter(null, "zhiyoucanshu", "1.2");
 ```
 
 **Client side validation failed sample result(JSON formatted)**

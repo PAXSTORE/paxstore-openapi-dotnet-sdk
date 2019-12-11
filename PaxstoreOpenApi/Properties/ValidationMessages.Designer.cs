@@ -394,6 +394,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 VariableIds cannot be empty! 的本地化字符串。
+        /// </summary>
+        internal static string variableIdsMandatory {
+            get {
+                return ResourceManager.GetString("variableIdsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 variableList can not be empty 的本地化字符串。
         /// </summary>
         internal static string variableListMandatory {
