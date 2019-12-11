@@ -25,7 +25,7 @@ This API allows third party system to get terminal variable by tid , serialNo , 
 **API**
 
 ```
-public Result<TerminalParameterVariable> GetTerminalVariable(string tid, string serialNo, string packageName, string key, Nullable<VariableSource> source)
+public Result<TerminalParameterVariable> GetTerminalVariable(int pageNo, int pageSize, VariableSearchOrderBy orderBy, string tid, string serialNo, string packageName, string key, Nullable<VariableSource> source)
 ```
 
 **Input parameter(s) description**  
@@ -35,26 +35,26 @@ public Result<TerminalParameterVariable> GetTerminalVariable(string tid, string 
 |:---|:---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.Variable_asc and SearchOrderBy.Variable_desc.|
-|tid|string|false|The tid of terminal|
-|serialNo|string|false|The serial number of terminal|
-|packageName|string|false|The package name of  needed to get the terminal variable|
-|key|string|false|The terminal variable key|
-|source|VariableSource|True|The  source of terminal variable|
+|orderBy|VariableSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of VariableSearchOrderBy.Variable_asc and VariableSearchOrderBy.Variable_desc.|
+|tid|string|true|The tid of terminal|
+|serialNo|string|true|The serial number of terminal|
+|packageName|string|true|The package name required to get the terminal variable|
+|key|string|true|The terminal variable key|
+|source|VariableSource|true|The  source of terminal variable, the value can be VariableSource.TERMINAL, VariableSource.GROUP, VariableSource.MARKET, VariableSource.MERCHANT|
 
 **Sample codes**
 
 ```
-TerminalVariableApi api = new TerminalVariableApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<ParameterVariableDTO> result = terminalVariableApi.getTerminalVariable(1,2,TerminalVariableApi.SearchOrderBy.Variable_asc,"124465D345",null,null,null,null);
+TerminalVariableApi api = new TerminalVariableApi(API_BASE_URL, API_KEY, API_SECRET);
+Result<TerminalParameterVariable> result = api.GetTerminalVariable(1,2,VariableSearchOrderBy.Variable_asc,"124465D345",null,null,null,null);
 ```
 
 **Server side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": 1800,
-	"message": "Terminal not found"
+	"BusinessCode": 1800,
+	"Message": "Terminal not found"
 }
 ```
 
@@ -62,58 +62,56 @@ Result<ParameterVariableDTO> result = terminalVariableApi.getTerminalVariable(1,
 
 ```
 {
-	"businessCode": 0,
-	"pageInfo": {
-		"pageNo": 1,
-		"limit": 2,
-		"totalCount": 10,
-		"hasNext": true,
-		"dataset": [{
-			"createdDate": 1519609650000,
-			"appName": null,
-			"appPackageName": null,
-			"id": 1000000169,
-			"source": "M",
-			"updatedDate": 1519609650000,
-			"value": "www",
-			"key": "MARKET_DOMAIN",
-			"remarks": "This variable is used in all apps of the market terminals"
+	"BusinessCode": 0,
+	"PageInfo": {
+		"PageNo": 1,
+		"Limit": 2,
+		"TotalCount": 10,
+		"HasNext": true,
+		"Dataset": [{
+			"CreatedDate": 1519609650000,
+			"AppName": null,
+			"AppPackageName": null,
+			"ID": 1000000169,
+			"Source": "M",
+			"UpdatedDate": 1519609650000,
+			"Value": "www",
+			"Key": "MARKET_DOMAIN",
+			"Remarks": "This variable is used in all apps of the market terminals"
 		}, {
-			"createdDate": 1519609650000,
-			"appName": "一键清理大师",
-			"appPackageName": "cn.com.opda.android.clearmaster",
-			"id": 1000000162,
-			"source": "M",
-			"updatedDate": 1519803201000,
-			"value": "Global",
-			"key": "MARKET_NAME",
-			"remarks": "This variable is only used in the specified app of the market terminals"
+			"CreatedDate": 1519609650000,
+			"AppName": "一键清理大师",
+			"AppPackageName": "cn.com.opda.android.clearmaster",
+			"ID": 1000000162,
+			"Source": "M",
+			"UpdatedDate": 1519803201000,
+			"Value": "Global",
+			"Key": "MARKET_NAME",
+			"Remarks": "This variable is only used in the specified app of the market terminals"
 		}]
 	}
 }
 ```
 
-The type in dataSet is ParameterVariableDTO. And the structure like below.
+The type in DataSet is TerminalParameterVariable. And the structure like below.
 
-| Property Name  | Type   | Description                 |
-| -------------- | ------ | --------------------------- |
-| id             | Long   | The id of terminal variable |
-| appPackageName | String | The app package name        |
-| appName        | String | The app name                |
-| key            | String | Terminal variable key       |
-| value          | String | Terminal variable value     |
-| remarks        | String | Comment                     |
-| source         | String | Source type                 |
-| createdDate    | Long   |                             |
-| updatedDate    | Long   |                             |
+| Property Name  | Type   | Description                                                  |
+| -------------- | ------ | ------------------------------------------------------------ |
+| ID             | long   | The id of terminal variable                                  |
+| AppPackageName | string | The app package name                                         |
+| AppName        | string | The app name                                                 |
+| Key            | string | Terminal variable key                                        |
+| Value          | string | Terminal variable value                                      |
+| Remarks        | string | Comment                                                      |
+| Source         | string | Source type, value can be T (Terminal), G (Group), M (Marketplace) and C (Merchant) |
+| CreatedDate    | long   |                                                              |
+| UpdatedDate    | long   |                                                              |
 
 **Possible client validation errors**  
 
-> <font color=red>pageNo:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be less than or equal to 1000</font>  
->
-> <font color=red>The parameter serialNo and tid  cannot be blank at same time!</font> 
+> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page No' must be greater than '0'.</font><br>
+> <font color="red">'Page Size' must be greater than '0'.</font>
 
 
 
@@ -123,61 +121,64 @@ The type in dataSet is ParameterVariableDTO. And the structure like below.
 **API**
 
 ```
-public Result<String> createTerminalVariable(TerminalParameterVariableRequest createRequest)
+public Result<String> CreateTerminalVariable(TerminalParameterVariableCreateRequest createRequest)
 ```
 
 **Input parameter(s) description**
 
-| Parameter Name | Type                             | Nullable | Description                                         |
-| :------------- | :------------------------------- | :------- | :-------------------------------------------------- |
-| createRequest  | TerminalParameterVariableRequest | true     | the create request object, the structure like below |
+| Parameter Name | Type                                   | Nullable | Description                                         |
+| :------------- | :------------------------------------- | :------- | :-------------------------------------------------- |
+| createRequest  | TerminalParameterVariableCreateRequest | false    | the create request object, the structure like below |
 
-Structure of class TerminalParameterVariableRequest
+Structure of class TerminalParameterVariableCreateRequest
 
 | Property Name | Type | Nullable|Description |
 |:--- | :---|:---|:---|
-|tid|String|false|the tid of terminal|
-|serialNo|String|false|the serial number of terminal|
-|variableList|List<ParameterVariable>|true|List of parametervariables,the structure like below|
+|TID|string|false|the tid of terminal, tid and serialNo cannot be empty at same time|
+|SerialNo|string|false|the serial number of terminal|
+|VariableList|List<ParameterVariable>|true|List of parametervariables,the structure like below|
 
 Structure of class ParameterVariable
 
 | Property Name | Type   | Nullable | Description             |
 | :------------ | :----- | :------- | :---------------------- |
-| packageName   | String | false    | The app package name    |
-| version       | String | false    | The app  version        |
-| key           | String | true     | Terminal variable key   |
-| value         | String | true     | Terminal variable value |
-| remarks       | String | false    | Comment                 |
+| PackageName   | string | false    | The app package name    |
+| Version       | string | false    | The app  version        |
+| Key           | string | true     | Terminal variable key   |
+| Value         | string | true     | Terminal variable value |
+| Remarks       | string | false    | Comment                 |
 
 **Sample codes**
 
 ```
-TerminalVariableApi terminalVariableApi = new TerminalVariableApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-TerminalParameterVariableRequest createRequest = new TerminalParameterVariableRequest();
+TerminalVariableApi api = new TerminalVariableApi(API_BASE_URL, API_KEY, API_SECRET);
+TerminalParameterVariableCreateRequest createRequest = new TerminalParameterVariableCreateRequest();
 ParameterVariable parameterVariable1 = new ParameterVariable();
-parameterVariable1.setKey("testUpdateVariable-key-WITHOUT-APPiD-BO-testAdDvALIDATE");
-parameterVariable1.setValue("testUpdateVariable-value1");
-parameterVariable1.setRemarks("今日头条app testCreateApi3");
+parameterVariable1.Key="testCreateVariable1Api3";
+parameterVariable1.Value="testApiCreate3";
+parameterVariable1.PackageName= "com.pax.android.demoapp";
+parameterVariable1.Remarks="今日头条app testCreateApi3";
+
 ParameterVariable parameterVariable2 = new ParameterVariable();
-parameterVariable2.setKey("testCreateVariable1Api4-BO");
-parameterVariable2.setValue("testApiCreate4");
-parameterVariable2.setPackageName("");
-parameterVariable2.setRemarks("今日头条app testCreateApi4");
-List<ParameterVariable> variableList = new ArrayList<>();
-variableList.add(parameterVariable1);
-variableList.add(parameterVariable2);
-createRequest.setTid("124465D345");
-createRequest.setVariableList(variableList);
-Result<String> createResult = terminalVariableApi.createTerminalVariable(createRequest);
+parameterVariable2.Key="testCreateVariable1Api4";
+parameterVariable2.Value="testApiCreate4";
+parameterVariable2.PackageName= "com.pax.android.demoapp";
+parameterVariable2.Remarks="今日头条app testCreateApi4";
+
+List<ParameterVariable> variableList = new List<ParameterVariable>();
+variableList.Add(parameterVariable1);
+variableList.Add(parameterVariable2);
+createRequest.TID= "JDEW5LCP";
+createRequest.VariableList = variableList;
+Result<String> createResult = API.CreateTerminalVariable(createRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter terminalVariableRequest cannot be null!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter terminalVariableRequest cannot be null!"]
 }
 ```
 
@@ -185,8 +186,8 @@ Result<String> createResult = terminalVariableApi.createTerminalVariable(createR
 
 ```
 {
-	"businessCode": 2026,
-	"message": "Tid and serialNo cannot be empty at same time"
+	"BusinessCode": 2026,
+	"Message": "Tid and serialNo cannot be empty at same time"
 }
 ```
 
@@ -194,7 +195,7 @@ Result<String> createResult = terminalVariableApi.createTerminalVariable(createR
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
@@ -224,14 +225,14 @@ Update terminal variable  by id.
 **API**
 
 ```
-public Result<String> updateTerminalVariable(Long terminalVariableId, ParameterVariable updateRequest)
+public Result<String> UpdateTerminalVariable(Long terminalVariableId, ParameterVariable updateRequest)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|terminalVariableId|Long|true|the id of terminal variable|
+|terminalVariableId|long|true|the id of terminal variable|
 |parameterVariable|ParameterVariable|true|The parameterVariable request object. The structure shows below.|
 
 Structure of class ParameterVariable
