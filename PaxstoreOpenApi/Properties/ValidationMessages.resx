@@ -213,4 +213,7 @@
   <data name="parameterSerialNoMandatory" xml:space="preserve">
     <value>Serial number is mandatory!</value>
   </data>
+  <data name="parameterTerminalParameterVariableCreateRequestMandatory" xml:space="preserve">
+    <value>Parameter terminalParameterVariableCreateReques is mandatory!</value>
+  </data>
 </root>

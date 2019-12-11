@@ -143,8 +143,8 @@ Structure of class ParameterVariable
 | Property Name | Type   | Nullable | Description             |
 | :------------ | :----- | :------- | :---------------------- |
 | PackageName   | string | false    | The app package name    |
-| Version       | string | false    | The app  version        |
-| Key           | string | true     | Terminal variable key   |
+| Version       | string | true    | The app  version        |
+| Key           | string | false     | Terminal variable key   |
 | Value         | string | true     | Terminal variable value |
 | Remarks       | string | false    | Comment                 |
 
@@ -178,7 +178,7 @@ Result<String> createResult = API.CreateTerminalVariable(createRequest);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["Parameter terminalVariableRequest cannot be null!"]
+	"ValidationErrors": ["Parameter terminalParameterVariableCreateReques is mandatory!"]
 }
 ```
 
@@ -225,7 +225,7 @@ Update terminal variable  by id.
 **API**
 
 ```
-public Result<String> UpdateTerminalVariable(Long terminalVariableId, ParameterVariable updateRequest)
+public Result<string> UpdateTerminalVariable(long terminalVariableId, TerminalVariableUpdateRequest terminalVariableUpdateRequest)
 ```
 
 **Input parameter(s) description**
@@ -233,39 +233,39 @@ public Result<String> UpdateTerminalVariable(Long terminalVariableId, ParameterV
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
 |terminalVariableId|long|true|the id of terminal variable|
-|parameterVariable|ParameterVariable|true|The parameterVariable request object. The structure shows below.|
+|updateRequest|TerminalVariableUpdateRequest|true|The request object. The structure shows below.|
 
 Structure of class ParameterVariable
 
 | Property Name | Type                | Nullable | Description                                              |
 | :------------ | :------------------ | :------- | :------------------------------------------------------- |
-| packageName   | String              | false    | The name of param template                               |
-| version       | Map<String, String> | false    | The parameter key and value, the key the PID in template |
-| key           | String              | true     | Terminal variable key                                    |
-| value         | String              | true     | Terminal variable value                                  |
-| remarks       | String              | false    | Comment                                                  |
+| PackageName   | string              | false    | The name of param template                               |
+| Version       | string              | true     |  |
+| Key           | string              | false    | Terminal variable key                                    |
+| Value         | string              | true     | Terminal variable value                                  |
+| Remarks       | string              | true     | Comment                                                  |
 
 Note: parameterVariable cannot be empty
 
 **Sample codes**
 
 ```
-TerminalVariableApi terminalVariableApi = new TerminalVariableApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Long terminalVariableId = 1000001148L;
-ParameterVariable updateRequest = new ParameterVariable();
-updateRequest.setKey("testUpdateVariable-key2-BO-UPDATE");
-updateRequest.setValue("testUpdateVariable-value1");
-updateRequest.setRemarks("updateRemarks1");
-updateRequest.setPackageName("com.ss.android.article.lite");
-Result<String> updateResult = terminalVariableApi.updateTerminalVariable(terminalVariableId,updateRequest);
+TerminalVariableApi api = new TerminalVariableApi(API_BASE_URL, API_KEY, API_SECRET);
+TerminalVariableUpdateRequest updateRequest = new TerminalVariableUpdateRequest();
+updateRequest.Key = "testCreateVariable1Api4";
+updateRequest.Value= "testApiCreate4_updated";
+updateRequest.Remarks="updateRemarks1";
+updateRequest.PackageName= "com.pax.android.demoapp";
+
+Result<string> updateResult = API.UpdateTerminalVariable(terminalVariableId, updateRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Terminal variable Id  cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Terminal variable Id  cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -274,12 +274,12 @@ Result<String> updateResult = terminalVariableApi.updateTerminalVariable(termina
 
 ```
 {
-	"businessCode": 113,
-	"message": "Your request is invalid, please try again or contact marketplace administrator"
+	"BusinessCode": 113,
+	"Message": "Your request is invalid, please try again or contact marketplace administrator"
 }
 {
-	"businessCode": 13000
-	"message"::"Variable not found"
+	"BusinessCode": 13000
+	"Message"::"Variable not found"
 }
 ```
 
@@ -287,11 +287,16 @@ Result<String> updateResult = terminalVariableApi.updateTerminalVariable(termina
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
+**Possible validation errors**
+
 > <font color="red">Parameter terminalVariableId cannot be null and cannot be less than 1!</font>
+> <font color="red">Parameter terminalVariableUpdateRequest is mandatory!</font>
+
+
 
 **Possible business codes**
 
@@ -310,7 +315,7 @@ The delete terminal variable API allows third party system to delete terminal va
 **API**
 
 ```
-public Result<String> deleteTerminalVariable(Long terminalVariableId)
+public Result<string> DeleteTerminalVariable(long terminalVariableId)
 ```
 
 **Input parameter(s) description**  
@@ -318,22 +323,22 @@ public Result<String> deleteTerminalVariable(Long terminalVariableId)
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|terminalVariableId|Long|true|The  terminal variable id|
+|terminalVariableId|long|false|The  terminal variable id|
 
 **Sample codes**
 
 ```
-TerminalVariableApi terminalVariableApi = new TerminalVariableApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Long terminalVariableId = 1000001156L;
-Result<String> deleteResult = terminalVariableApi.deleteTerminalVariable(terminalVariableId);
+TerminalVariableApi api = new TerminalVariableApi(API_BASE_URL, API_KEY, API_SECRET);
+long terminalVariableId = 1000001156;
+Result<string> deleteResult = API.DeleteTerminalVariable(terminalVariableId);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Terminal variable Id  cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter terminalVariableId invalid!"]
 }
 ```
 
@@ -341,8 +346,8 @@ Result<String> deleteResult = terminalVariableApi.deleteTerminalVariable(termina
 
 ```
 {
-	"businessCode": 113,
-	"message": "Your request is invalid, please try again or contact marketplace administrator"
+	"BusinessCode": 113,
+	"Message": "Your request is invalid, please try again or contact marketplace administrator"
 }
 ```
 
@@ -366,50 +371,48 @@ Result<String> deleteResult = terminalVariableApi.deleteTerminalVariable(termina
 **API**
 
 ```
-public Result<String> batchDeletionTerminalVariable(TerminalParameterVariableDeleteRequest batchDeletionRequest)
+public Result<string> BatchDeletionTerminalVariable(TerminalParameterVariableDeleteRequest batchDeletionRequest)
 ```
 
 **Input parameter(s) description** 
 
 | Parameter Name       | Type                                   | Nullable | Description                                                 |
 | :------------------- | :------------------------------------- | :------- | :---------------------------------------------------------- |
-| batchDeletionRequest | TerminalParameterVariableDeleteRequest | true     | The batchDeletionRequest object. The structure shows below. |
+| batchDeletionRequest | TerminalParameterVariableDeleteRequest | false     | The batchDeletionRequest object. The structure shows below. |
 
 Structure of class ParameterVariable
 
 | Property Name | Type       | Nullable | Description                     |
 | :------------ | :--------- | :------- | :------------------------------ |
-| variableIds   | List<Long> | false    | The ids of terminal variable id |
+| VariableIds   | List<long> | false    | The ids of terminal variable id |
 
 **Sample codes**
 
 ```
-TerminalVariableApi terminalVariableApi = new TerminalVariableApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+TerminalVariableApi api = new TerminalVariableApi(API_BASE_URL, API_KEY, API_SECRET);
 TerminalParameterVariableDeleteRequest batchDeletionRequest = new TerminalParameterVariableDeleteRequest();
-List<Long> variableIds = new ArrayList<>();
-variableIds.add(1000001137L);
-variableIds.add(32423523L);
-batchDeletionRequest.setVariableIds(variableIds);
-Result<String> batchDeletionResult = terminalVariableApi.batchDeletionTerminalVariable(batchDeletionRequest);
+List<long> variableIds = new List<long>();
+variableIds.Add(1001464163);
+variableIds.Add(1001464142);
+batchDeletionRequest.VariableIds = variableIds;
+Result<string> batchDeletionResult = API.BatchDeletionTerminalVariable(batchDeletionRequest);
 ```
 
-**Client side validation failed sample result(JSON formatted)**
 
-```
-{
-	"businessCode": -1,
-	"validationErrors": ["Parameter terminalVariableDeleteRequest cannot be null!"]
-}
-```
 
 **Server side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": 997,
-	"message": "Malformed or illegal request"
+	"BusinessCode": 997,
+	"Message": "Malformed or illegal request"
 }
 ```
+
+**Possible validation errors**
+
+> <font color="red">Parameter batchDeletionRequest is mandatory!</font>
+> <font color="red">VariableIds cannot be empty!</font>
 
 **Successful sample result(JSON formatted)**
 

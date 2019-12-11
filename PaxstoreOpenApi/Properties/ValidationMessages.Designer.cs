@@ -178,6 +178,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter batchDeletionRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterBatchDeletionRequestMandatory {
+            get {
+                return ResourceManager.GetString("parameterBatchDeletionRequestMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter createTerminalApkRequest cannot be null! 的本地化字符串。
         /// </summary>
         internal static string parameterCreateTerminalApkRequestNull {
@@ -268,11 +277,38 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter terminalParameterVariableCreateReques is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTerminalParameterVariableCreateRequestMandatory {
+            get {
+                return ResourceManager.GetString("parameterTerminalParameterVariableCreateRequestMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter terminalTid cannot be blank! 的本地化字符串。
         /// </summary>
         internal static string parameterTerminalTidEmpty {
             get {
                 return ResourceManager.GetString("parameterTerminalTidEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter terminalVariableId cannot be null and cannot be less than 1! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTerminalVariableIdInvalid {
+            get {
+                return ResourceManager.GetString("parameterTerminalVariableIdInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter terminalVariableUpdateRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTerminalVariableUpdateRequestMandatory {
+            get {
+                return ResourceManager.GetString("parameterTerminalVariableUpdateRequestMandatory", resourceCulture);
             }
         }
         
@@ -345,6 +381,24 @@ namespace Paxstore.OpenApi.Properties {
         internal static string terminalVariableIdInvalid {
             get {
                 return ResourceManager.GetString("terminalVariableIdInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The parameter serialNo and tid  cannot be blank at same time! 的本地化字符串。
+        /// </summary>
+        internal static string tidAndSnIsMandatory {
+            get {
+                return ResourceManager.GetString("tidAndSnIsMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 variableList can not be empty 的本地化字符串。
+        /// </summary>
+        internal static string variableListMandatory {
+            get {
+                return ResourceManager.GetString("variableListMandatory", resourceCulture);
             }
         }
     }

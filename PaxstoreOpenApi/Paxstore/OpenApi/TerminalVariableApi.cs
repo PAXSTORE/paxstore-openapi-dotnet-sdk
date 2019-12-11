@@ -61,10 +61,25 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-       public Result<String> CreateTerminalVariable(TerminalParameterVariableCreateRequest createRequest)
+       public Result<string> CreateTerminalVariable(TerminalParameterVariableCreateRequest terminalParameterVariableCreateRequest)
         {
+            IList<string> validationErrs = new List<string>();
+            if (terminalParameterVariableCreateRequest == null) {
+                
+                validationErrs.Add(GetMsgByKey("parameterTerminalParameterVariableCreateRequestMandatory"));
+                return new Result<string>(validationErrs);
+            }
+            if (string.IsNullOrEmpty(terminalParameterVariableCreateRequest.TID) || string.IsNullOrEmpty(terminalParameterVariableCreateRequest.SerialNo)) {
+                validationErrs.Add(GetMsgByKey("tidAndSnIsMandatory"));
+            }
+            if (terminalParameterVariableCreateRequest.VariableList == null || terminalParameterVariableCreateRequest.VariableList.Count == 0) {
+                validationErrs.Add(GetMsgByKey("variableListMandatory"));
+            }
+            if (validationErrs.Count > 0) {
+                return new Result<string>(validationErrs);
+            }
             RestRequest request = new RestRequest(CREATE_TERMINAL_VARIABLE_URL, Method.POST);
-            var requestJson = JsonConvert.SerializeObject(createRequest);
+            var requestJson = JsonConvert.SerializeObject(terminalParameterVariableCreateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             EmptyResponse temptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -72,10 +87,21 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<string> UpdateTerminalVariable(long terminalVariableId, TerminalVariableUpdateRequest updateRequest)
+        public Result<string> UpdateTerminalVariable(long terminalVariableId, TerminalVariableUpdateRequest terminalVariableUpdateRequest)
         {
+
+            IList<string> validationErrs = ValidateId(terminalVariableId, "parameterTerminalVariableIdInvalid");
+            if (terminalVariableUpdateRequest == null)
+            {
+                validationErrs.Add(GetMsgByKey("parameterTerminalVariableUpdateRequestMandatory"));
+                return new Result<string>(validationErrs);
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<string>(validationErrs);
+            }
             RestRequest request = new RestRequest(UPDATE_TERMINAL_VARIABLE_URL, Method.PUT);
-            var requestJson = JsonConvert.SerializeObject(updateRequest);
+            var requestJson = JsonConvert.SerializeObject(terminalVariableUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             request.AddUrlSegment("terminalVariableId",terminalVariableId.ToString());
             var responseContent = Execute(request);
@@ -102,6 +128,19 @@ namespace Paxstore.OpenApi
 
         public Result<string> BatchDeletionTerminalVariable(TerminalParameterVariableDeleteRequest batchDeletionRequest)
         {
+            IList<string> validationErrs = new List<string>();
+            if (batchDeletionRequest == null)
+            {
+                validationErrs.Add(GetMsgByKey("parameterBatchDeletionRequestMandatory"));
+            }else {
+                if (batchDeletionRequest.VariableIds == null || batchDeletionRequest.VariableIds.Count == 0) {
+                    validationErrs.Add(GetMsgByKey("variableIdsMandatory"));
+                }
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<string>(validationErrs);
+            }
             RestRequest request = new RestRequest(BATCH_DELETION_TERMINAL_VARIABLE_URL, Method.POST);
             var requestJson = JsonConvert.SerializeObject(batchDeletionRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
