@@ -19,7 +19,7 @@ namespace Paxstore.Test
 
         [Test]
         public void testGetTerminalApkParameter() {
-            Result<ApkParameter> result = API.GetTerminalApkParameter(null, "zhiyoucanshu", "1.2");
+            Result<ApkParameter> result = API.GetTerminalApkParameter(1, 10, TerminalApkParamSearchOrderBy.ApkParameter_asc, null, "zhiyoucanshu", "1.2");
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }

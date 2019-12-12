@@ -169,6 +169,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter createApkParameterRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string paramCreateApkParameterRequestMandatory {
+            get {
+                return ResourceManager.GetString("paramCreateApkParameterRequestMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter attributeId cannot be less than 1! 的本地化字符串。
         /// </summary>
         internal static string parameterAttributeIdInvalid {
