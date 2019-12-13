@@ -1,6 +1,8 @@
 ## TerminalApkParameter API
 
-All terminal related APK parameter APIs are encapsulated in classes *Paxstore.OpenApi.TerminalApkParameterApi*.
+This API is for get/create/update and delete push template.
+
+APIs are encapsulated in classes *Paxstore.OpenApi.TerminalApkParameterApi*.
 
 **Constructors of TerminalApkParameter **
 
@@ -18,7 +20,7 @@ public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret);
 
 
 
-### Get terminal apk parameter
+### Get push template(s)
 
 Get terminal apk parameter(s) by templateName, packageName and versionName.
 
@@ -33,12 +35,12 @@ public Result<TerminalParameterVariable> GetTerminalVariable(int pageNo, int pag
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|PageNo|int|false|page number, value must >=1|
-|PageSize|int|false|the record number per page, range is 1 to 1000|
-|OrderBy|VariableSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of VariableSearchOrderBy.ApkParameter_asc and VariableSearchOrderBy.ApkParameter_desc.|
-|TemplateName|String|false|Apk parameter template name|
-|PackageName|string|true|get by app packageName|
-|VersionName|string|true|The version name of application|
+|pageNo|int|false|page number, value must >=1|
+|pageSize|int|false|the record number per page, range is 1 to 1000|
+|orderBy|TerminalApkParamSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of VariableSearchOrderBy.ApkParameter_asc and VariableSearchOrderBy.ApkParameter_desc.|
+|templateName|String|false|Apk parameter template name|
+|packageName|string|true|get by app packageName|
+|versionName|string|true|The version name of application|
 
 **Sample codes**
 
@@ -136,8 +138,7 @@ The structure of class ApkFile
 
 
 
-### Create a Apk Parameter
-
+### Create a push template
 
 **API**
 
@@ -149,17 +150,17 @@ public Result<ApkParameter> CreateApkParameter(CreateApkParameterRequest createA
 
 | Parameter Name            | Type                      | Nullable | Description                                         |
 | :------------------------ | :------------------------ | :------- | :-------------------------------------------------- |
-| createApkParameterRequest | CreateApkParameterRequest | true     | the create request object, the structure like below |
+| createApkParameterRequest | CreateApkParameterRequest | false    | the create request object, the structure like below |
 
 Structure of class CreateApkParameterRequest
 
 | Property Name | Type | Nullable|Description |
 |:--- | :---|:---|:---|
-|PackageName  		|string						|true	|The package name which indicate the application you want to push to the terminal|
-|Version			|string						|true	|The version name of application which you want to push|
-|Name				|string						|true	|The name of Apk Parameter|
+|PackageName  		|string						|false	|The package name which indicate the application you want to push to the terminal|
+|Version			|string						|false	|The version name of application which you want to push|
+|Name				|string						|false	|The name of Apk Parameter|
 |ParamTemplateName	|string						|false	|The name of  Apk param template name|
-|Parameters			|Dictionary<string, string>	|false	|The parameter key and value, the key the PID in template|
+|Parameters			|Dictionary<string, string>	|true	|The parameter key and value, the key the PID in template|
 |Base64FileParameters|List<FileParameter>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
 Structure of class FileParameter
@@ -221,9 +222,9 @@ Result<ApkParameter> result = API.CreateApkParameter(createApkParameterRequest);
 > <font color=red>'Name' should not be empty.</font>
 > <font color=red>'ParamTemplateName' should not be empty.</font>
 
-### Update terminal apk parameter by id
+### Update a exist push template by id
 
-Update terminal apk parameter by id.
+
 
 
 **API**
@@ -236,18 +237,18 @@ public Result<ApkParameter> UpdateApkParameter(long apkParameterId, UpdateApkPar
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|apkParameterId|long|true|the id of apk parameter|
+|apkParameterId|long|true|the id of push template|
 |updateApkParameterRequest|UpdateApkParameterRequest|true|The update request object. The structure shows below.|
 
 Structure of class UpdateApkParameterRequest
 
-| Property Name     | Type                			| Nullable 	| Description                                              |
+| Property Name     | Type                			| Nullable 	| Description                                      |
 | :---------------- | :------------------ 			| :------- 	| :------------------------------------------------------- |
-| ParamTemplateName | String              			| false    	| The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use \| to concact the different template file names like tempate1.xml|template2.xml|template3.xml, the max size of template file names is 10.                               |
+| ParamTemplateName | String              			| true    	| The template file name of paramter application.  If this property is null api will not update this property. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use to concact the different template file names like tempate1.xml template2.xml template3.xml, the max size of template file names is 10.                               |
 | Parameters        | Dictionary<string, string> 	| true    	| The parameter key and value, the key the PID in template |
 |Base64FileParameters|List<FileParameter>			| true		| The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
-Note:UpdateApkParameterRequest cannot be empty or  paramTemplateName and  parameters cannot be empty at same time.
+
 
 **Sample codes**
 
@@ -275,8 +276,8 @@ Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParame
 
 ```
 {
-	"businessCode": 113,
-	"message": "Your request is invalid, please try again or contact marketplace administrator"
+	"BusinessCode": 113,
+	"Message": "Your request is invalid, please try again or contact marketplace administrator"
 }
 ```
 
@@ -284,7 +285,7 @@ Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParame
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 s}
 ```
 
@@ -300,9 +301,9 @@ s}
 
 
 
-### Delete apk parameter by apk parameter id
+### Delete a exist push template by id
 
-The delete apk parameter API allows third party system to delete apk parameter
+
 
 **API**
 
@@ -315,7 +316,7 @@ public Result<string> DeleteApkParameter(long apkParameterId)
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|apkParameterId|long|true|the apk parameter's id|
+|apkParameterId|long|true|the id of push template|
 
 
 **Sample codes**
