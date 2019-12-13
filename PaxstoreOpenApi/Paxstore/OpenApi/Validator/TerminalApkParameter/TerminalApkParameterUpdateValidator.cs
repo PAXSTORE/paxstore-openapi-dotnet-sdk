@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using Paxstore.OpenApi.Help;
 using Paxstore.OpenApi.Model;
+using Paxstore.OpenApi.Model.TerminalApkParameter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,26 +15,35 @@ namespace Paxstore.OpenApi.Validator.TerminalApkParameter
         public TerminalApkParameterUpdateValidator()
         {
             RuleFor(x => x.ParamTemplateName).NotEmpty();
-            RuleFor(x => x.TID).MinimumLength(8).MaximumLength(16);
-            RuleFor(x => x.SerialNo).MaximumLength(32);
-            RuleFor(x => x.MerchantName).MaximumLength(64);
-            RuleFor(x => x.ResellerName).NotEmpty().MaximumLength(64);
-            RuleFor(x => x.ModelName).NotEmpty().MaximumLength(64);
-            RuleFor(x => x.Location).MaximumLength(32);
-            RuleFor(x => x.Status).Must(BeValidStatus).WithMessage("'Status' must be 'A' or 'P'.");
+            RuleFor(x => x.Base64FileParameters).Must(validateParameterFilesLength).WithMessage("Max Base64FileParameters count is 10");
+            RuleFor(x => x.Base64FileParameters).Must(validateParameterFileSize).WithMessage("Max size of each parameter file is 500k");
         }
 
-        private bool BeValidStatus(string status)
+        private bool validateParameterFilesLength(List<FileParameter> base64FileParameters)
         {
-            if ("A".Equals(status) || "P".Equals(status) || status == null)
+            if (base64FileParameters != null)
             {
-                return true;
+                if (base64FileParameters.Count > 10)
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return true;
+        }
 
+        private bool validateParameterFileSize(List<FileParameter> base64FileParameters)
+        {
+            if (base64FileParameters != null)
+            {
+                for (int i = 0; i < base64FileParameters.Count; i++)
+                {
+                    if (Base64FileUtil.GetBase64FileSizeKB(base64FileParameters[i].FileData) > 500)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

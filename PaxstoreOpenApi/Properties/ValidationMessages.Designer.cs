@@ -169,6 +169,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter packageName is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string packageNameMandatory {
+            get {
+                return ResourceManager.GetString("packageNameMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter createApkParameterRequest is mandatory! 的本地化字符串。
         /// </summary>
         internal static string paramCreateApkParameterRequestMandatory {

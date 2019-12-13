@@ -160,6 +160,17 @@ Structure of class CreateApkParameterRequest
 |Name				|string						|true	|The name of Apk Parameter|
 |ParamTemplateName	|string						|false	|The name of  Apk param template name|
 |Parameters			|Dictionary<string, string>	|false	|The parameter key and value, the key the PID in template|
+|Base64FileParameters|List<FileParameter>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
+
+Structure of class FileParameter
+
+
+| Property Name | Type | Nullable|Description |
+|:--- | :---|:---|:---|
+|PID  			|string						|false	|The PID in template|
+|FileName		|string						|false	|The parameter of file type, filename containing suffix|
+|FileData		|string						|false	|The parameter of file type, it is the base64 string of the file, max size is 500kb|
+
 
 **Sample codes**
 
@@ -230,10 +241,11 @@ public Result<ApkParameter> UpdateApkParameter(long apkParameterId, UpdateApkPar
 
 Structure of class UpdateApkParameterRequest
 
-| Property Name     | Type                			| Nullable | Description                                              |
-| :---------------- | :------------------ 			| :------- | :------------------------------------------------------- |
-| ParamTemplateName | String              			| false    | The name of param template                               |
-| Parameters        | Dictionary<string, string> 	| false    | The parameter key and value, the key the PID in template |
+| Property Name     | Type                			| Nullable 	| Description                                              |
+| :---------------- | :------------------ 			| :------- 	| :------------------------------------------------------- |
+| ParamTemplateName | String              			| false    	| The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use \| to concact the different template file names like tempate1.xml|template2.xml|template3.xml, the max size of template file names is 10.                               |
+| Parameters        | Dictionary<string, string> 	| true    	| The parameter key and value, the key the PID in template |
+|Base64FileParameters|List<FileParameter>			| true		| The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
 Note:UpdateApkParameterRequest cannot be empty or  paramTemplateName and  parameters cannot be empty at same time.
 
@@ -253,8 +265,8 @@ Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParame
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["terminal apk parameter Id cannot be null and cannot be less than 1!,Parameter apkParameterUpdateRequest cannot be null!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["terminal apk parameter Id cannot be null and cannot be less than 1!,Parameter apkParameterUpdateRequest cannot be null!"]
 }
 ```
 
@@ -283,7 +295,6 @@ s}
 
 |Business Code|Message|Description|
 |:---|:---|:---|
-|113|Malformed or illegal request|&nbsp;|
 |1272|Parameter template {0} not found||
 |9001|Push template not found||
 
@@ -296,7 +307,7 @@ The delete apk parameter API allows third party system to delete apk parameter
 **API**
 
 ```
-public Result<String> deleteApkParameter(Long apkParameterId)
+public Result<string> DeleteApkParameter(long apkParameterId)
 ```
 
 **Input parameter(s) description**  
@@ -304,22 +315,22 @@ public Result<String> deleteApkParameter(Long apkParameterId)
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|apkParameterId|Long|true|the  apk parameter's id|
+|apkParameterId|long|true|the apk parameter's id|
 
 
 **Sample codes**
 
 ```
-TerminalApkParameterApi terminalApkParameterApi = new TerminalApkParameterApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-terminalApkParameterApi.deleteApkParameter(apkParameterId);
+TerminalApkParameterApi API = new TerminalApkParameterApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+API.DeleteApkParameter(apkParameterId);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["terminal apk parameter Id cannot be null and cannot be less than 1!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["terminal apk parameter Id cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -327,8 +338,8 @@ terminalApkParameterApi.deleteApkParameter(apkParameterId);
 
 ```
 {
-	"businessCode": 113,
-	"message": "Your request is invalid, please try again or contact marketplace administrator"
+	"BusinessCode": 9001,
+	"message": Push template not found"
 }
 ```
 
@@ -336,6 +347,6 @@ terminalApkParameterApi.deleteApkParameter(apkParameterId);
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```

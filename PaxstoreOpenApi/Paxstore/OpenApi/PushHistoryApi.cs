@@ -24,6 +24,9 @@ namespace Paxstore.OpenApi
         public Result<AppPushHistoryInfo> SearchAppPushStatus(int pageNo, int pageSize, Nullable<PushHistorySearchOrderBy> orderBy, string packageName, 
             string snNameTID, Nullable<PushHistoryStatus> appPushStatus, Nullable<PushHistoryStatus> parameterPushStatus){
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (string.IsNullOrEmpty(packageName)) {
+                validationErrs.Add(GetMsgByKey("packageNameMandatory"));
+            }
             if (validationErrs.Count > 0)
             {
                 return new Result<AppPushHistoryInfo>(validationErrs);
