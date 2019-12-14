@@ -22,7 +22,8 @@ public TerminalApi(string baseUrl, string apiKey, string apiSecret)
 
 ### Search terminals
 
-The search terminal API allow the thirdparty system search terminals by page. 
+The search terminal API allow the thirdparty system search terminals by page.   
+Note: This result of this API does not include the geolocation, firmware and installed application, if you need those 3 information in result please use another search terminals API
 
 **API**
 
@@ -102,6 +103,36 @@ Structure of class Terminal
 |ModelName|string|Model name of terminal.|
 |ResellerName|string|The reseller of terminal belongs to.|
 |Location|string|The location.|
+|GeoLocation|TerminalLocation| The geo location of the terminal|
+|InstalledFirmware|TerminalInstalledFirmware| The installed firmware of the terminal|
+|InstalledApks|List<TerminalInstalledApk>| The installed applications of the terminal|
+
+
+Structure of class TerminalLocation
+
+|Property Name|Type|Description|
+|:---|:---|:---|
+|Lat|Double|The latitude of geo location|
+|Lng|Double|The longitude of geo location|
+
+Structure of class TerminalInstalledFirmware 
+
+|Property Name|Type|Description|
+|:---|:---|:---|
+|FirmwareName|String|Firmware name|
+|InstallTime|Date|Firmware installed date|
+
+
+Structure of class TerminalInstalledApk  
+
+|Property Name|Type|Description|
+|:---|:---|:---|
+|AppName|String|Application name|
+|PackageName|String|Package name of application|
+|VersionName|String|Version name of application|
+|VersionCode|Long|Version code of application|
+|PackageName|String|Package name of application|
+|InstallTime|Date|Installed time of application|
 
 **Possible validation errors**
 
@@ -109,6 +140,106 @@ Structure of class Terminal
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font> 
 
+
+### Search terminals include geo location, installed app and firmware  
+This API is similar to the search terminals API, it has additional 3 parameters, the details please refer to the Input parameter(s) description
+
+**API**  
+```
+public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, TerminalStatus status, string snNameTID, bool includeGeoLocation, bool includeInstalledApks, bool includeInstalledFirmware)
+```
+
+**Input parameter(s) description**
+
+| Name| Type | Nullable|Description |
+|:---- | :----|:----|:----|
+|pageNo|int|false|page number, value must >=1|
+|pageSize|int|false|the record number per page, range is 1 to 1000|
+|orderBy|TerminalSearchOrderBy|true|the sort order by field name, value can be one of TerminalSearchOrderBy.Name, TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. If pass null parameter the search result will order by id by default.|
+|status|TerminalStatus|true|the terminal status<br/> the value can be TerminalStatus.Active, TerminalStatus.Inactive, TerminalStatus.Suspend|
+|snNameTID|String|true|search by serial number,name and TID|
+|includeGeoLocation|boolean|true|whether to include geo location information in search result|
+|includeInstalledApks|boolean|true|whether to include install applications in search result|
+|includeInstalledFirmware|boolean|true|whether to include the firmware version of the terminal in search result|
+
+
+**Sample codes**
+
+```
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
+Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, TerminalStatus.All, null, true, true, true);
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["pageSize:must be greater than or equal to 1", "pageNo:must be greater than or equal to 1"]
+}
+```
+
+**Succssful sample result(JSON formatted)**
+
+```  
+{
+	"BusinessCode": 0,
+	"PageInfo": {
+		"PageNo": 1,
+		"Limit": 10,
+		"TotalCount": 1,
+		"HasNext": false,
+		"DataSet": [{
+			"Id": 907558,
+			"Name": "testcreateterminal_023",
+			"Tid": "FATIAP0T",
+			"SerialNo": "sn0101012225",
+			"Status": "A",
+			"MerchantName": "KFC",
+			"ModelName": "A920",
+			"ResellerName": "New York",
+			"Location": "USA",
+			"GeoLocation": {
+				"lng": 120.77595,
+				"lat": 31.308021
+			},
+			"InstalledFirmware": {"firmwareName": "A930_PayDroid_7.1.1_Virgo_customer_res_pax_20180925",
+				"installTime": null
+			},
+			"InstalledApks": [{
+				"AppName": "WSPLink",
+				"PackageName": "com.soundpayments.wsplink",
+				"InstallTime": 1563639530000,
+				"VersionName": "10.01.00.00",
+				"VersionCode": 10010000
+			}, {
+				"AppName": "NeptuneService",
+				"PackageName": "com.pax.ipp.neptune",
+				"InstallTime": 1230692400000,
+				"VersionName": "V3.05.00_20190523",
+				"VersionCode": 33
+			}, {
+				"AppName": "releasedemo1",
+				"PackageName": "com.pax.new.release.demo1",
+				"InstallTime": 1563639280000,
+				"VersionName": "V3.02.00_20190129",
+				"VersionCode": 11
+			}
+			]
+		}]
+	}
+}
+```
+
+The type in dataSet of result is Terminal.
+
+
+
+**Possible validation errors**
+
+> <font color=red>pageSize:must be greater than or equal to 1</font>   
+> <font color=red>pageNo:must be greater than or equal to 1</font>   
+> <font color=red>pageSize:must be less than or equal to 1000</font>  
 
 ### Get a terminal
 

@@ -8,7 +8,7 @@ namespace Paxstore.OpenApi.Model
 {
     public class TerminalLocation
     {
-        public Double lat;
-        public Double lng;
+        public Double Lat { get; set; }
+        public Double Lng { get; set; }
     }
 }
