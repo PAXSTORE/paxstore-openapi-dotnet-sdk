@@ -143,7 +143,7 @@ The structure of class ApkFile
 **API**
 
 ```
-public Result<ApkParameter> CreateApkParameter(CreateApkParameterRequest createApkParameterRequest)
+public Result<string> CreateApkParameter(CreateApkParameterRequest createApkParameterRequest)
 ```
 
 **Input parameter(s) description**
@@ -185,7 +185,7 @@ createApkParameterRequest.Version= "1.2";
 Dictionary<string, string> parameters = new Dictionary<string, string>();
 parameters.Add("sys_F2_sys_param_acqInsCode", "00000000022");
 createApkParameterRequest.Parameters = parameters;
-Result<ApkParameter> result = API.CreateApkParameter(createApkParameterRequest);
+Result<string> result = API.CreateApkParameter(createApkParameterRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
@@ -219,8 +219,13 @@ Result<ApkParameter> result = API.CreateApkParameter(createApkParameterRequest);
 > <font color=red>Parameter createApkParameterRequest is mandatory!</font>  
 > <font color=red>'Package Name' should not be empty.</font> 
 > <font color=red>'Version' should not be empty.</font> 
-> <font color=red>'Name' should not be empty.</font>
-> <font color=red>'ParamTemplateName' should not be empty.</font>
+> <font color=red>'Name' should not be empty.</font>  
+> <font color=red>'ParamTemplateName' should not be empty.</font>  
+> <font color=red>Exceed max counter (10) of file type parameters!</font>  
+> <font color=red>Exceed max size (500kb) per file type parameters!</font>  
+> <font color=red>parameters and base64FileParameters cannot be null at same time!</font>  
+
+
 
 ### Update a exist push template by id
 
@@ -230,7 +235,7 @@ Result<ApkParameter> result = API.CreateApkParameter(createApkParameterRequest);
 **API**
 
 ```
-public Result<ApkParameter> UpdateApkParameter(long apkParameterId, UpdateApkParameterRequest updateApkParameterRequest)
+public Result<string> UpdateApkParameter(long apkParameterId, UpdateApkParameterRequest updateApkParameterRequest)
 ```
 
 **Input parameter(s) description**
@@ -244,7 +249,7 @@ Structure of class UpdateApkParameterRequest
 
 | Property Name     | Type                			| Nullable 	| Description                                      |
 | :---------------- | :------------------ 			| :------- 	| :------------------------------------------------------- |
-| ParamTemplateName | String              			| true    	| The template file name of paramter application.  If this property is null api will not update this property. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use to concact the different template file names like tempate1.xml template2.xml template3.xml, the max size of template file names is 10.                               |
+| ParamTemplateName | string              			| true    	| The template file name of paramter application.  If this property is null api will not update this property.                                |
 | Parameters        | Dictionary<string, string> 	| true    	| The parameter key and value, the key the PID in template |
 |Base64FileParameters|List<FileParameter>			| true		| The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
@@ -259,7 +264,7 @@ updateApkParameterRequest.ParamTemplateName = "paxstore_app_param.xml";
 Dictionary<string, string> parameters = new Dictionary<string, string>();
 parameters.Add("sys_F2_sys_param_acqInsCode", "00000000033");
 updateApkParameterRequest.Parameters = parameters;
-Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParameterRequest);
+Result<string> result = API.UpdateApkParameter(1000101970, updateApkParameterRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
@@ -267,7 +272,7 @@ Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParame
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["terminal apk parameter Id cannot be null and cannot be less than 1!,Parameter apkParameterUpdateRequest cannot be null!"]
+	"ValidationErrors": ["Parameter apkParameterId cannot be null and be less than 1!"]
 }
 ```
 
@@ -276,8 +281,8 @@ Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParame
 
 ```
 {
-	"BusinessCode": 113,
-	"Message": "Your request is invalid, please try again or contact marketplace administrator"
+	"businessCode": 9001,
+	"message": "Push template not found"
 }
 ```
 
@@ -289,7 +294,12 @@ Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParame
 s}
 ```
 
-> <font color="red">Parameter apkParameterId cannot be null and cannot be less than 1!</font>
+**Possible validation errors**  
+
+> <font color="red">Parameter apkParameterId cannot be null and be less than 1!</font>  
+> <font color="red">Parameter updateApkParameterRequest cannot be null!</font>  
+> <font color=red>Exceed max counter (10) of file type parameters!</font>  
+> <font color=red>Exceed max size (500kb) per file type parameters!</font>
 
 
 **Possible business codes**
@@ -323,7 +333,7 @@ public Result<string> DeleteApkParameter(long apkParameterId)
 
 ```
 TerminalApkParameterApi API = new TerminalApkParameterApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
-API.DeleteApkParameter(apkParameterId);
+API.DeleteApkParameter(10000);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
@@ -331,7 +341,7 @@ API.DeleteApkParameter(apkParameterId);
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["terminal apk parameter Id cannot be null and cannot be less than 1!"]
+	"ValidationErrors": ["Parameter apkParameterId cannot be less than 1!"]
 }
 ```
 
@@ -351,3 +361,8 @@ API.DeleteApkParameter(apkParameterId);
 	"BusinessCode": 0
 }
 ```
+
+**Possible validation errors**  
+
+> <font color="red">Parameter apkParameterId cannot be less than 1!</font>
+

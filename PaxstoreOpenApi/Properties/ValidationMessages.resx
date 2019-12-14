@@ -240,4 +240,16 @@
   <data name="packageNameMandatory" xml:space="preserve">
     <value>Parameter packageName is mandatory!</value>
   </data>
+  <data name="paramAndFileParamEmptySameTime" xml:space="preserve">
+    <value>parameters and base64FileParameters cannot be null at same time!</value>
+  </data>
+  <data name="parameterApkParameterIdIsInvalid" xml:space="preserve">
+    <value>Parameter apkParameterId cannot be less than 1!</value>
+  </data>
+  <data name="parameterUpdateApkParameterRequestIsNull" xml:space="preserve">
+    <value>Parameter updateApkParameterRequest cannot be null!</value>
+  </data>
+  <data name="paramterApkParameterIdIsNull" xml:space="preserve">
+    <value>Parameter apkParameterId cannot be null and be less than 1!</value>
+  </data>
 </root>

@@ -28,6 +28,9 @@ namespace Paxstore.OpenApi
         public Result<TerminalParameterVariable> GetTerminalVariable(int pageNo, int pageSize, Nullable<VariableSearchOrderBy> orderBy, string tid, string serialNo, string packageName, string key, Nullable<VariableSource> source)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (string.IsNullOrEmpty(tid) && string.IsNullOrEmpty(serialNo)) {
+                validationErrs.Add(GetMsgByKey("tidAndSnIsMandatory"));
+            }
             if (validationErrs.Count > 0)
             {
                 return new Result<TerminalParameterVariable>(validationErrs);
@@ -89,7 +92,6 @@ namespace Paxstore.OpenApi
 
         public Result<string> UpdateTerminalVariable(long terminalVariableId, TerminalVariableUpdateRequest terminalVariableUpdateRequest)
         {
-
             IList<string> validationErrs = ValidateId(terminalVariableId, "parameterTerminalVariableIdInvalid");
             if (terminalVariableUpdateRequest == null)
             {
@@ -162,7 +164,7 @@ namespace Paxstore.OpenApi
 
     }
 
-public enum VariableSource
+    public enum VariableSource
     {
         [EnumValue("T")]
         TERMINAL,

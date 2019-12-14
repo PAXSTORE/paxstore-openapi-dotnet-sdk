@@ -18,8 +18,9 @@ namespace Paxstore.OpenApi.Validator.TerminalApkParameter
             RuleFor(x => x.Version).NotEmpty();
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.ParamTemplateName).NotEmpty();
-            RuleFor(x => x.Base64FileParameters).Must(validateParameterFilesLength).WithMessage("Max Base64FileParameters count is 10");
-            RuleFor(x => x.Base64FileParameters).Must(validateParameterFileSize).WithMessage("Max size of each parameter file is 500k");
+            RuleFor(x => x.Base64FileParameters).Must(validateParameterFilesLength).WithMessage("Exceed max counter (10) of file type parameters!");
+            RuleFor(x => x.Base64FileParameters).Must(validateParameterFileSize).WithMessage("Exceed max size (500kb) per file type parameters!");
+
         }
 
         private bool validateParameterFilesLength(List<FileParameter> base64FileParameters)

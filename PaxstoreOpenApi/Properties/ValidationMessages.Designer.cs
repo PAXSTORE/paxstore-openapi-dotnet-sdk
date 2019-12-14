@@ -178,11 +178,29 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 parameters and base64FileParameters cannot be null at same time! 的本地化字符串。
+        /// </summary>
+        internal static string paramAndFileParamEmptySameTime {
+            get {
+                return ResourceManager.GetString("paramAndFileParamEmptySameTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter createApkParameterRequest is mandatory! 的本地化字符串。
         /// </summary>
         internal static string paramCreateApkParameterRequestMandatory {
             get {
                 return ResourceManager.GetString("paramCreateApkParameterRequestMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter apkParameterId cannot be less than 1! 的本地化字符串。
+        /// </summary>
+        internal static string parameterApkParameterIdIsInvalid {
+            get {
+                return ResourceManager.GetString("parameterApkParameterIdIsInvalid", resourceCulture);
             }
         }
         
@@ -336,6 +354,24 @@ namespace Paxstore.OpenApi.Properties {
         internal static string parameterTidCannotBeEmpty {
             get {
                 return ResourceManager.GetString("parameterTidCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter updateApkParameterRequest cannot be null! 的本地化字符串。
+        /// </summary>
+        internal static string parameterUpdateApkParameterRequestIsNull {
+            get {
+                return ResourceManager.GetString("parameterUpdateApkParameterRequestIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter apkParameterId cannot be null and be less than 1! 的本地化字符串。
+        /// </summary>
+        internal static string paramterApkParameterIdIsNull {
+            get {
+                return ResourceManager.GetString("paramterApkParameterIdIsNull", resourceCulture);
             }
         }
         

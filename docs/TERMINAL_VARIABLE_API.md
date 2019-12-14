@@ -37,7 +37,7 @@ public Result<TerminalParameterVariable> GetTerminalVariable(int pageNo, int pag
 |pageSize|int|false|the record number per page, range is 1 to 1000|
 |orderBy|VariableSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of VariableSearchOrderBy.Variable_asc and VariableSearchOrderBy.Variable_desc.|
 |tid|string|true|The tid of terminal|
-|serialNo|string|true|The serial number of terminal|
+|serialNo|string|true|The serial number of terminal. Note: tid and serialNo cannot be empty at same time|
 |packageName|string|true|The package name required to get the terminal variable|
 |key|string|true|The terminal variable key|
 |source|VariableSource|true|The  source of terminal variable, the value can be VariableSource.TERMINAL, VariableSource.GROUP, VariableSource.MARKET, VariableSource.MERCHANT|
@@ -112,6 +112,7 @@ The type in DataSet is TerminalParameterVariable. And the structure like below.
 > <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font>
+> <font color="red">The parameter serialNo and tid  cannot be blank at same time!</font>
 
 
 
@@ -121,7 +122,7 @@ The type in DataSet is TerminalParameterVariable. And the structure like below.
 **API**
 
 ```
-public Result<String> CreateTerminalVariable(TerminalParameterVariableCreateRequest createRequest)
+public Result<string> CreateTerminalVariable(TerminalParameterVariableCreateRequest createRequest)
 ```
 
 **Input parameter(s) description**
@@ -134,8 +135,8 @@ Structure of class TerminalParameterVariableCreateRequest
 
 | Property Name | Type | Nullable|Description |
 |:--- | :---|:---|:---|
-|TID|string|false|the tid of terminal, tid and serialNo cannot be empty at same time|
-|SerialNo|string|false|the serial number of terminal|
+|TID|string|true|the tid of terminal, tid and serialNo cannot be empty at same time|
+|SerialNo|string|true|the serial number of terminal, tid and serialNo cannot be empty at same time|
 |VariableList|List<ParameterVariable>|true|List of parametervariables,the structure like below|
 
 Structure of class ParameterVariable
@@ -201,9 +202,9 @@ Result<String> createResult = API.CreateTerminalVariable(createRequest);
 
 **Possible validation errors**
 
-> <font color=red>variableList can not be empty</font> 
-> 
-><font color=red>The parameter serialNo and tid  cannot be blank at same time!</font> 
+> <font color=red>Parameter terminalParameterVariableCreateReques is mandatory!y</font>  
+> <font color=red>variableList can not be empty</font>  
+> <font color=red>The parameter serialNo and tid  cannot be blank at same time!</font> 
 
 **Possible business codes**
 
@@ -265,7 +266,7 @@ Result<string> updateResult = API.UpdateTerminalVariable(terminalVariableId, upd
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["Terminal variable Id  cannot be null and cannot be less than 1!"]
+	"ValidationErrors": ["Parameter terminalVariableId cannot be null and cannot be less than 1!"]
 }
 ```
 
@@ -273,10 +274,6 @@ Result<string> updateResult = API.UpdateTerminalVariable(terminalVariableId, upd
 **Server side validation failed sample result(JSON formatted)**
 
 ```
-{
-	"BusinessCode": 113,
-	"Message": "Your request is invalid, please try again or contact marketplace administrator"
-}
 {
 	"BusinessCode": 13000
 	"Message"::"Variable not found"
@@ -346,8 +343,8 @@ Result<string> deleteResult = API.DeleteTerminalVariable(terminalVariableId);
 
 ```
 {
-	"BusinessCode": 113,
-	"Message": "Your request is invalid, please try again or contact marketplace administrator"
+	"BusinessCode": 13000,
+	"Message": "Variable not found"
 }
 ```
 
@@ -400,18 +397,9 @@ Result<string> batchDeletionResult = API.BatchDeletionTerminalVariable(batchDele
 
 
 
-**Server side validation failed sample result(JSON formatted)**
-
-```
-{
-	"BusinessCode": 997,
-	"Message": "Malformed or illegal request"
-}
-```
-
 **Possible validation errors**
 
-> <font color="red">Parameter batchDeletionRequest is mandatory!</font>
+> <font color="red">Parameter batchDeletionRequest is mandatory!</font>  
 > <font color="red">VariableIds cannot be empty!</font>
 
 **Successful sample result(JSON formatted)**

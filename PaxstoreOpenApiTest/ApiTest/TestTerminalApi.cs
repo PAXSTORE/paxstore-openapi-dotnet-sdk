@@ -153,7 +153,7 @@ namespace Paxstore.Test
         {
             //API.SetReadWriteTimeoutTime(30000);
             API.SetConnectionTimeoutTime(30000);
-            Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, TerminalStatus.All, "0820087775", true, true, true);
+            Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, TerminalStatus.All, null, true, true, true);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }

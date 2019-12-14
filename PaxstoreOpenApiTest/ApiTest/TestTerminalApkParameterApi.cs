@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Model;
+using Paxstore.OpenApi.Model.TerminalApkParameter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Paxstore.Test
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("sys_F2_sys_param_acqInsCode", "00000000022");
             createApkParameterRequest.Parameters = parameters;
-            Result<ApkParameter> result = API.CreateApkParameter(createApkParameterRequest);
+            Result<string> result = API.CreateApkParameter(createApkParameterRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
@@ -46,7 +47,7 @@ namespace Paxstore.Test
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("sys_F2_sys_param_acqInsCode", "00000000033");
             updateApkParameterRequest.Parameters = parameters;
-            Result<ApkParameter> result = API.UpdateApkParameter(1000101970, updateApkParameterRequest);
+            Result<string> result = API.UpdateApkParameter(1000101970, updateApkParameterRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
