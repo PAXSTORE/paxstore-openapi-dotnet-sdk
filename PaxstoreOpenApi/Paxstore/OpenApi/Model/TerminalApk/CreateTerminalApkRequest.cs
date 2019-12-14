@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Paxstore.OpenApi.Model.TerminalApkParameter;
 using System.Collections.Generic;
 
 namespace Paxstore.OpenApi.Model
@@ -22,5 +23,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("parameters")]
         public Dictionary<string, string> Parameters;
+
+        [JsonProperty("base64FileParameters")]
+        public List<FileParameter> Base64FileParameters { get; set; }
     }
 }

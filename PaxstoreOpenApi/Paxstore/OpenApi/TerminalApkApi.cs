@@ -6,6 +6,7 @@ using FluentValidation.Results;
 using Newtonsoft.Json;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Base;
+using Paxstore.OpenApi.Help;
 using Paxstore.OpenApi.Model;
 using Paxstore.OpenApi.Validator.TerminalApk;
 using RestSharp;
@@ -202,6 +203,21 @@ namespace Paxstore.OpenApi {
                         validationErrs.Add(GetMsgByKey("parameterCreateTerminalApkRequestTemplateNameTooLong"));
                     }
                 }
+                if (createTerminalApkRequest.Base64FileParameters != null) {
+                    if (createTerminalApkRequest.Base64FileParameters.Count > 10)
+                    {
+                        validationErrs.Add("Exceed max counter (10) of file type parameters!");
+                    }
+                    for (int i = 0; i < createTerminalApkRequest.Base64FileParameters.Count; i++)
+                    {
+                        if (Base64FileUtil.GetBase64FileSizeKB(createTerminalApkRequest.Base64FileParameters[i].FileData) > 500)
+                        {
+                            validationErrs.Add("Exceed max size (500kb) per file type parameters!");
+                            break;
+                        }
+                    }
+                }
+            
             }
             return validationErrs;
         }
