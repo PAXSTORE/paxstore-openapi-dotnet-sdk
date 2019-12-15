@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "paxstore-openapi-sdk", "PaxstoreOpenApi\paxstore-openapi-sdk.csproj", "{D44FDBE1-136D-4124-ADA3-912D2D0DEEBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "paxstore-openapi-sdk-test", "PaxstoreOpenApiTest\paxstore-openapi-sdk-test.csproj", "{8E7E4A03-548C-4761-AB1E-1181B9F7DA97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "paxstore-openapi-sdk-test", "PaxstoreOpenApiTest\paxstore-openapi-sdk-test.csproj", "{8E7E4A03-548C-4761-AB1E-1181B9F7DA97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +21,10 @@ Global
 		{8E7E4A03-548C-4761-AB1E-1181B9F7DA97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E7E4A03-548C-4761-AB1E-1181B9F7DA97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E7E4A03-548C-4761-AB1E-1181B9F7DA97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A91FCF3-DB7F-4D99-BCE7-456314D56049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A91FCF3-DB7F-4D99-BCE7-456314D56049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A91FCF3-DB7F-4D99-BCE7-456314D56049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A91FCF3-DB7F-4D99-BCE7-456314D56049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
