@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Paxstore.Test.ApiTest
+namespace Paxstore.Test
 {
     [TestFixture()]
     class TestUtils
