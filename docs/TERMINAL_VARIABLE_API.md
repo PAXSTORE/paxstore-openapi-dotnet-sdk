@@ -4,7 +4,7 @@ This API allow third party system get, create, update and  delete terminal varia
 
 All the related Variable APIs are encapsulated in the class *Paxstore.OpenApi.TerminalVariableApi*.
 
-**Constructors of TerminalApkParameter **
+**Constructors of TerminalApkParameter**
 
 ```
 public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret);
