@@ -4,7 +4,7 @@ This API is for get/create/update and delete push template.
 
 APIs are encapsulated in classes *Paxstore.OpenApi.TerminalApkParameterApi*.
 
-**Constructors of TerminalApkParameter **
+**Constructors of TerminalApkParameter**
 
 ```
 public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret);
