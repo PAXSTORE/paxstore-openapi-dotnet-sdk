@@ -22,8 +22,8 @@ namespace Paxstore.Test
         [Test]
         public void TestSearchPushHistory_success()
         {
-            Result<AppPushHistoryInfo> result = API.SearchAppPushStatus(1, 10, PushHistorySearchOrderBy.AppPushTime, "com.pax.posviewer",
-            null, PushHistoryStatus.Failed, null);
+            Result<ParameterPushHistoryInfo> result = API.SearchParameterPushHistory(1, 10, "com.pax.posviewer",
+            null, PushHistoryStatus.Failed, DateTime.Now);
 
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);

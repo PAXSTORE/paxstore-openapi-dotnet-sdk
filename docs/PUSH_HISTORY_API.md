@@ -34,11 +34,10 @@ public Result<AppPushHistoryInfo> SearchAppPushStatus(int pageNo, int pageSize, 
 | :------------------ | :----------------------- | :------- | :----------------------------------------------------------- |
 | pageNo              | int                      | false    | page number, value must >=1                                  |
 | pageSize            | int                      | false    | the record number per page, range is 1 to 1000               |
-| orderBy             | PushHistorySearchOrderBy | true     | the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of PushHistorySearchOrderBy.AppPushTime and PushHistorySearchOrderBy.SerialNo. |
-| packageName         | string                   | false    | search filter by app packageName                                |
-| snNameTID           | string                   | true     | search filter by terminal tid                             |
-| appPushStatus       | PushHistoryStatus        | true     | the push status  the value can be PushHistoryStatus.Success, PushHistoryStatus.Failed |
-| parameterPushStatus | PushHistoryStatus        | true     |                                                              |
+| packageName         | string                   | false    | search filter by app packageName                             |
+| serialNo            | string                   | true     | only terminal with specified serialNo will search out        |
+| pushStatus       	  | Nullable<PushHistoryStatus>        | true     | the push status  the value can be PushHistoryStatus.Success, PushHistoryStatus.Failed |
+| pushTime            | DateTime                 | true     | search the push history after the push time                  |
 
 
 
@@ -47,7 +46,7 @@ public Result<AppPushHistoryInfo> SearchAppPushStatus(int pageNo, int pageSize, 
 
 ```
 PushHistoryApi API = new PushHistoryApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
-Result<AppPushHistoryInfo> result = API.SearchAppPushStatus(1, 10, PushHistorySearchOrderBy.AppPushTime, "com.pax.posviewer", null, PushHistoryStatus.Failed, null);
+Result<ParameterPushHistoryInfo> result = API.SearchParameterPushHistory(1, 10, "com.pax.posviewer",null, PushHistoryStatus.Failed, nul);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
@@ -63,40 +62,50 @@ Result<AppPushHistoryInfo> result = API.SearchAppPushStatus(1, 10, PushHistorySe
 
 ```
 {
-	"BusinessCode": 0,
-	"PageInfo": {
-		"PageNo": 1,
-		"Limit": 2,
-		"TotalCount": 586,
-		"HasNext": true,
-		"DataSet": [{
-		"ParameterPushStatus": "None",
-		"AppPushStatus": "Failed",
-		"AppName": "百度贴吧",
-		"AppPushTime": 1575855301000,
-		"PushStartTime": 1575627420000,
-		"TerminalId": 461706,
-		"VersionName": "10.3.8.30",
-		"SerialNo": "1150000070",
-		"PushType": "Group",
-		"AppPushError": "任务已删除"
-	}, {
-		"ParameterPushStatus": "None",
-		"AppPushStatus": "Failed",
-		"AppName": "百度贴吧",
-		"AppPushTime": 1575855301000,
-		"PushStartTime": 1575627420000,
-		"TerminalId": 461720,
-		"VersionName": "10.3.8.30",
-		"SerialNo": "1140000570",
-		"PushType": "Group",
-		"AppPushError": "任务已删除"
-	}]
-	}
+  "BusinessCode": 0,
+  "RateLimit": "",
+  "PageNo": 1,
+  "Limit": 2,
+  "HasNext": true,
+  "TotalCount": 17,
+  "Dataset": [
+    {
+      "ParameterPushStatus": "Success",
+      "AppPushStatus": "Success",
+      "AppName": "PAXSTORE SDK Demo",
+      "AppPushTime": 1575274370000,
+      "PushStartTime": 1575274320000,
+      "TerminalId": 1013403755,
+      "VersionName": "7.0.0-inner",
+      "ParameterPushError": null,
+      "ParameterPushTime": 1575274373000,
+      "SerialNo": "HMP4C15A12000186",
+      "PushType": "Terminal",
+      "ParameterVariables": "{\"#{test}\": \"44\"}",
+      "ParameterValues": "{\"sys_F2_sys_param_termId\": \"#{test}\", \"sys_F2_sys_param_merCode\": \"000000000000001\", \"sys_F2_sys_param_merName\": \"Union Pay\", \"sys_F2_sys_param_acqInsCode\": \"00000000000\"}",
+      "AppPushError": null
+    },
+    {
+      "ParameterPushStatus": "Success",
+      "AppPushStatus": "Success",
+      "AppName": "PAXSTORE SDK Demo",
+      "AppPushTime": 1575102052000,
+      "PushStartTime": 1575102000000,
+      "TerminalId": 1013403370,
+      "VersionName": "5.02.02",
+      "ParameterPushError": null,
+      "ParameterPushTime": 1575102054000,
+      "SerialNo": "1170000652",
+      "PushType": "Terminal",
+      "ParameterVariables": "{}",
+      "ParameterValues": "{\"sys_F1_sys_cap_test01\": \"333\", \"sys_F1_sys_cap_test02\": \"111\"}",
+      "AppPushError": null
+    }
+  ]
 }
 ```
 
-The type in dataSet of is AppPushHistoryInfo. And the structure shows like below.
+The type in dataSet of is ParameterPushHistoryInfo. And the structure shows like below.
 
 |Property Name|Type|Description|
 |:--|:--|:--|

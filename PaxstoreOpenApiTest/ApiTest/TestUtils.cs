@@ -22,5 +22,12 @@ namespace Paxstore.Test
             _logger.DebugFormat("FileSize=\n{0}", size);
             _logger.DebugFormat("FileSize=\n{0} KB", size/1024);
         }
+
+        [Test]
+        public void TestDateTime() {
+            Nullable<DateTime> time = DateTime.Now;
+            String result = time.Value.ToString("yyyy-MM-dd HH:mm:ss zzz").Remove(23,1);
+            _logger.DebugFormat("Result={0}", result);
+        }
     }
 }

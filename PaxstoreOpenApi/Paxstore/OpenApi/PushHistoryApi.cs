@@ -14,56 +14,45 @@ namespace Paxstore.OpenApi
 {
     public class PushHistoryApi: BaseApi
     {
-        private const string SEARCH_APP_PUSH_STATUS_URL = "/v1/3rdsys/app/push/history";
+        private const string SEARCH_APP_PUSH_STATUS_URL = "/v1/3rdsys/parameter/push/history";
 
         public PushHistoryApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
         {
 
         }
 
-        public Result<AppPushHistoryInfo> SearchAppPushStatus(int pageNo, int pageSize, Nullable<PushHistorySearchOrderBy> orderBy, string packageName, 
-            string snNameTID, Nullable<PushHistoryStatus> appPushStatus, Nullable<PushHistoryStatus> parameterPushStatus){
+        public Result<ParameterPushHistoryInfo> SearchParameterPushHistory(int pageNo, int pageSize, String packageName, String serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime) { 
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (string.IsNullOrEmpty(packageName)) {
                 validationErrs.Add(GetMsgByKey("packageNameMandatory"));
             }
             if (validationErrs.Count > 0)
             {
-                return new Result<AppPushHistoryInfo>(validationErrs);
+                return new Result<ParameterPushHistoryInfo>(validationErrs);
             }
             RestRequest request = new RestRequest(SEARCH_APP_PUSH_STATUS_URL, Method.GET);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
-            if (orderBy != null) {
-                request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
-            }
 
-            if (packageName != null) {
+            if (!string.IsNullOrEmpty(packageName)) {
                 request.AddParameter("packageName", packageName);
             }
-            if (snNameTID != null) {
-                request.AddParameter("snNameTID", snNameTID);
+            if (!string.IsNullOrEmpty(serialNo)) {
+                request.AddParameter("serialNo", serialNo);
             }
-            if (appPushStatus != null) {
-                request.AddParameter("appPushStatus", (int)appPushStatus);
+            if (pushStatus != null) {
+                request.AddParameter("pushStatus", (int)pushStatus);
             }
-            if (parameterPushStatus != null) {
-                request.AddParameter("parameterPushStatus", (int)parameterPushStatus);
+            if (pushTime != null) {
+                request.AddParameter("pushTime", pushTime.Value.ToString(Constants.DATE_FORMAT).Remove(23, 1));
             }
+
             var responseContent = Execute(request);
-            AppPushHistoryInfoPageResponse appPushStatusInfoPageResponse = JsonConvert.DeserializeObject<AppPushHistoryInfoPageResponse>(responseContent);
-            Result<AppPushHistoryInfo> result = new Result<AppPushHistoryInfo>(appPushStatusInfoPageResponse);
+            ParameterPushHistoryInfoPageResponse pushStatusInfoPageResponse = JsonConvert.DeserializeObject<ParameterPushHistoryInfoPageResponse>(responseContent);
+            Result<ParameterPushHistoryInfo> result = new Result<ParameterPushHistoryInfo>(pushStatusInfoPageResponse);
             return result;
         }
 
-        public enum PushHistorySearchOrderBy
-        {
-            [EnumValue("appPushTime")]
-            AppPushTime,
-
-            [EnumValue("serialNo")]
-            SerialNo
-        }
 
         public enum PushHistoryStatus {
             Success=2,

@@ -33,3 +33,5 @@ hs_err_pid*
 /PaxstoreOpenApi/bin/
 /PaxstoreOpenApi/Properties/PublishProfiles
 /PaxstoreOpenApiTest/bin/
+
+/PaxstoreOpenApiTest/TestConst.cs
