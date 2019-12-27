@@ -1,5 +1,10 @@
 # Changelog  
 
+## 7.0.1  
+
+The search API in PushHistoryAPI is removed which provided in version 7.0. Please use the latest SDK 7.0.1
+
+
 ## 7.0  
 ### New features
 * Add new search terminal API to include geo location, firmware and installed app in search result
