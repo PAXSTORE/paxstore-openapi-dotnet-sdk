@@ -204,4 +204,13 @@
   <data name="parameterTidCannotBeEmpty" xml:space="preserve">
     <value>Parameter tid is mandatory!</value>
   </data>
+  <data name="parameterPushRki2TerminalRequestNull" xml:space="preserve">
+    <value>Parameter pushRki2TerminalRequest is mandatory!</value>
+  </data>
+  <data name="rkiKeyMandatory" xml:space="preserve">
+    <value>Rkikey is mandatory!</value>
+  </data>
+  <data name="snTidMandatory" xml:space="preserve">
+    <value>SerialNo or Tid is mandatory!</value>
+  </data>
 </root>

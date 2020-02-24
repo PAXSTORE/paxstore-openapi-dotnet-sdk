@@ -23,6 +23,7 @@ namespace Paxstore.OpenApi
         private const string DISABLE_RESELLER_URL = "/v1/3rdsys/resellers/{resellerId}/disable";
         private const string DELETE_RESELLER_URL = "/v1/3rdsys/resellers/{resellerId}";
         private const string REPLACE_RESELLER_EMAIL_URL = "/v1/3rdsys/resellers/{resellerId}/replaceEmail";
+        private const string SEARCH_RESELLER_RKI_KET_TEMPLATE_LIST_URL = "/v1/3rdsys/resellers/{resellerId}/rki/template";
 
         public ResellerApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
         {
@@ -172,9 +173,29 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        public Result<ResellerRkiKeyInfo> SearchResellerRkiKeyList(long resellerId, int pageNo, int pageSize, string rkiKey)
+        {
+            IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (validationErrs.Count > 0)
+            {
+                return new Result<ResellerRkiKeyInfo>(validationErrs);
+            }
+            RestRequest request = new RestRequest(SEARCH_RESELLER_RKI_KET_TEMPLATE_LIST_URL, Method.GET);
+            request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
+            request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
+            request.AddUrlSegment("resellerId", resellerId);
+            if (!string.IsNullOrEmpty(rkiKey)) {
+                request.AddParameter("key", rkiKey);
+            }
+            var responseContent = Execute(request);
+            ResellerRkiKeyPageResponse resellerRkiKeyPage = JsonConvert.DeserializeObject<ResellerRkiKeyPageResponse>(responseContent);
+            Result<ResellerRkiKeyInfo> result = new Result<ResellerRkiKeyInfo>(resellerRkiKeyPage);
+            return result;
+        }
 
 
-        string GetStatusValue(ResellerStatus status)
+
+    string GetStatusValue(ResellerStatus status)
         {
             switch (status)
             {

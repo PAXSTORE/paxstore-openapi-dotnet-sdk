@@ -241,6 +241,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter pushRki2TerminalRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterPushRki2TerminalRequestNull {
+            get {
+                return ResourceManager.GetString("parameterPushRki2TerminalRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter serialNo is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterSnCannotBeEmpty {
@@ -291,6 +300,24 @@ namespace Paxstore.OpenApi.Properties {
         internal static string resellerUpdateRequestIsNull {
             get {
                 return ResourceManager.GetString("resellerUpdateRequestIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Rkikey is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string rkiKeyMandatory {
+            get {
+                return ResourceManager.GetString("rkiKeyMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 SerialNo or Tid is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string snTidMandatory {
+            get {
+                return ResourceManager.GetString("snTidMandatory", resourceCulture);
             }
         }
         
