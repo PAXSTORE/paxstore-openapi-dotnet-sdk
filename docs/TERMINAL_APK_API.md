@@ -46,6 +46,7 @@ Structure of class TerminalCreateRequest
 |Version|string|true|The version name of application which you want to push, if it is blank API will use the latest version|
 |TemplateName|string|true|The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10.|
 |Parameters|Dictionary&lt;string, string&gt;|false|The parameter key and value, the key the the PID in template|
+|Base64FileParameters|List<FileParameter>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
 Note: TID and serialNo cannot be empty at same time.
 
@@ -82,7 +83,7 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 ```
 {
 	"BusinessCode": 2028,
-	"Message": "TerminalApk not found",
+	"Message": "Terminal not found",
 	"ValidationErrors": null,
 	"Data": null,
 	"PageInfo": null
@@ -107,9 +108,11 @@ Result<string> result = api.CreateTerminalApk(createTerminalApkRequest);
 
 > <font color=red>Parameter createTerminalApkRequest cannot be null!</font>  
 > <font color=red>The property parameters of createTerminalApkRequest cannot be empty!</font>  
-> <font color=red>The property serialNo and tid in createTerminalApkRequest cannot be blank at same time!</font> 
-> <font color=red>'Package Name' should not be empty.</font> 
-> <font color="red">The max size of template names is 10!</font>
+> <font color=red>The property serialNo and tid in createTerminalApkRequest cannot be blank at same time!</font>  
+> <font color=red>'Package Name' should not be empty.</font>  
+> <font color="red">The max size of template names is 10!</font>  
+> <font color=red>Exceed max counter (10) of file type parameters!</font>  
+> <font color=red>Exceed max size (500kb) per file type parameters!</font> 
 
 
 **Possible business codes**

@@ -19,24 +19,40 @@ namespace Paxstore.Test
 
         [Test]
         public void TestPushFirmware2Terminal() {
-            Result<string> result = API.PushFirmware2TerminalBySnAndFirmwareName(null, null);
+            Result<PushFirmwareTaskInfo> result = API.PushFirmware2TerminalBySnAndFirmwareName(null, null);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
 
 
-
-            API.SetConnectionTimeoutTime(1);
-            Result<string> result2 = API.PushFirmware2TerminalBySnAndFirmwareName("0820534733", "badfe");
-            _logger.DebugFormat("Result2=\n{0}", JsonConvert.SerializeObject(result2));
-            Assert.AreEqual(result2.BusinessCode, 16000);
-
             _logger.DebugFormat("==================================");
-            API.SetConnectionTimeoutTime(5000);
-            API.SetReadWriteTimeoutTime(1);
-            Result<string> result3 = API.PushFirmware2TerminalBySnAndFirmwareName("0820534733", "badfe");
+            Result<PushFirmwareTaskInfo> result3 = API.PushFirmware2TerminalBySnAndFirmwareName("0820534733", "badfe");
             _logger.DebugFormat("Result3=\n{0}", JsonConvert.SerializeObject(result3));
             Assert.AreEqual(result3.BusinessCode, 2034);
 
         }
+
+        [Test]
+        public void TestSearchPushFirmwareTask() {
+            Result<PushFirmwareTaskInfo> result = API.SearchPushFirmwareTasks(1, 10, SearchOrderBy.CreatedDate_desc, "I1TF6LA2", "PayDroid_5.1.1_Aquarius_V02.3.15_20181012", PushStatus.All);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+        }
+
+        [Test]
+        public void TestGetPushFirmwareTask() {
+            Result<PushFirmwareTaskInfo> result = API.GetPushFirmwareTask(1000012895);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+        }
+
+        [Test]
+        public void TestSuspendPushFirmwareTask()
+        {
+            Result<string> result = API.DisablePushFirmwareTaskBySnAndFirmwareName("0820881219", "PayDroid_5.1.1_Aquarius_V02.3.15_20181012");
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+
+            Result<string> result2 = API.DisablePushFirmwareTaskByTidAndFirmwareName("I1TF6LA2", "PayDroid_5.1.1_Aquarius_V02.3.15_20181012");
+            _logger.DebugFormat("Result2=\n{0}", JsonConvert.SerializeObject(result2));
+        }
+
+
     }
 }

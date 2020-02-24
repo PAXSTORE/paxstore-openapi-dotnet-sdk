@@ -9,8 +9,8 @@ namespace Paxstore.Test
     class TestConst
     {
         public const string API_BASE_URL = "https://api.whatspos.com/p-market-api/";
-        public const string API_KEY = "ZJFXJAG7SJXPPESKVAPOXY";
-        public const string API_SECRET = "AXN5ES2BFYYY8FRMSAPXKQ2ZMT22WYTQGCOGGFM9XY";
+        public const string API_KEY = "MCXF60RUVJPKWGBGATYOX";
+        public const string API_SECRET = "JVVN1TCL9L2KXDNEGIE9OCTFXSGCN5VLS9ZN10RYX";
 
 
     }

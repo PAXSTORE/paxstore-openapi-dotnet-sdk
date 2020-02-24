@@ -3,7 +3,7 @@
     <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
 
     <PackageId>Paxstore.OpenApi</PackageId>
-    <Version>6.3.0</Version>
+    <Version>7.0.1</Version>
 	  <RootNamespace>Paxstore.OpenApi</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
@@ -17,10 +17,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <!--<OldToolsVersion>2.0</OldToolsVersion>-->
-    <AssemblyVersion>6.3.0</AssemblyVersion>
+    <AssemblyVersion>7.0.1</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <FileVersion>6.3.0</FileVersion>
+    <FileVersion>7.0.1</FileVersion>
     <PackageProjectUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
@@ -28,6 +28,11 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Paxstore\OpenApi\新文件夹\**" />
+    <EmbeddedResource Remove="Paxstore\OpenApi\新文件夹\**" />
+    <None Remove="Paxstore\OpenApi\新文件夹\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.0.100" />
     <PackageReference Include="log4net" Version="2.0.8" />
@@ -46,8 +51,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Paxstore\OpenApi\新文件夹\" />
   </ItemGroup>
 </Project>
