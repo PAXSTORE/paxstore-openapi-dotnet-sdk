@@ -65,7 +65,7 @@ namespace Paxstore.OpenApi {
             request.AddParameter("terminalTid", terminalTid);
             request.AddParameter("appPackageName", appPackageName);
             request.AddParameter("orderBy", GetOrderValue(orderBy));
-            request.AddParameter("status", GetPushStatusValue(status));
+            request.AddParameter("status", PushStatusHelper.GetPushStatusVal(status));
             var responseContent = Execute(request);
             ApkPushHistoryPageResponse apkPushHistoryPageDTO = JsonConvert.DeserializeObject<ApkPushHistoryPageResponse>(responseContent);
             Result<PushApkHistory> result = new Result<PushApkHistory>(apkPushHistoryPageDTO);
@@ -243,19 +243,6 @@ namespace Paxstore.OpenApi {
             return validationErrs;
         }
 
-        string GetPushStatusValue(PushStatus status)
-        {
-            switch (status)
-            {
-                case PushStatus.Active:
-                    return "A";
-                case PushStatus.Suspend:
-                    return "S";
-                case PushStatus.All:
-                    return null;
-            }
-            return null;
-        }
 
         string GetOrderValue(SearchOrderBy order)
         {

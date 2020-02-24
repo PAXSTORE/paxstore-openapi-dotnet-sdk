@@ -260,6 +260,35 @@
   </data>
   <data name="paramterApkParameterIdIsNull" xml:space="preserve">
     <value>Parameter apkParameterId cannot be null and be less than 1!</value>
->>>>>>> master
+  </data>
+  <data name="parameterDisablePushRkiTaskRequestNull" xml:space="preserve">
+    <value>Parameter disablePushRkiTaskRequest is mandatory!</value>
+  </data>
+  <data name="parameterSearchPushRkiTasksTerminalTidEmpty" xml:space="preserve">
+    <value>Parameter terminalTid is mandatory!</value>
+  </data>
+  <data name="parameterEntityAttributeCreateRequestNull" xml:space="preserve">
+    <value>Parameter entityAttributerCreateRequest is mandatory!</value>
+  </data>
+  <data name="parameterEntityAttributeUpdateRequestNull" xml:space="preserve">
+    <value>Parameter entityAttributeUpdateReqeust is mandatory!</value>
+  </data>
+  <data name="parameterUpdateLabelRequestNull" xml:space="preserve">
+    <value>Parameter updateLabelRequest is mandatory!</value>
+  </data>
+  <data name="parameterCreateTerminalGroupRequestNull" xml:space="preserve">
+    <value>Parameter createTerminalGroupRequest is mandatory!</value>
+  </data>
+  <data name="parameterUpdateTerminalGroupRequestNull" xml:space="preserve">
+    <value>Parameter updateTerminalGroupRequest is mandatory!</value>
+  </data>
+  <data name="parameterAddTerminalToGroupRequestNull" xml:space="preserve">
+    <value>Parameter AddTerminalToGroupRequest is mandatory!</value>
+  </data>
+  <data name="parameterRemoveTerminalOutGroupRequestNull" xml:space="preserve">
+    <value>Parameter removeTerminalOutGroupRequest is mandatory!</value>
+  </data>
+  <data name="parameterCreateTerminalGroupApkRequestNull" xml:space="preserve">
+    <value>Parameter createTerminalGroupApkRequest is mandatory!</value>
   </data>
 </root>

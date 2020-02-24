@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,13 @@ namespace Paxstore.OpenApi.Model
 {
     public class PushRki2TerminalRequest
     {
+        [JsonProperty("tid")]
         public string Tid { get; set; }
 
+        [JsonProperty("serialNo")]
         public string SerialNo { get; set; }
-        
+
+        [JsonProperty("rkiKey")]
         public string RkiKey { get; set; }
     }
 }

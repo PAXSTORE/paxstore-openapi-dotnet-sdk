@@ -59,7 +59,68 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        public Result<EntityAttribute> CreateEntityAttribute(EntityAttributeCreateRequest entityAttributeCreateRequest)
+        {
+            List<string> validationErrs = new List<string>();
+            if (entityAttributeCreateRequest == null) {
+                validationErrs.Add(GetMsgByKey("parameterEntityAttributeCreateRequestNull"));
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<EntityAttribute>(validationErrs);
+            }
+            RestRequest request = new RestRequest(CREATE_ENTITY_ATTRIBUTES_URL, Method.POST);
+            var requestJson = JsonConvert.SerializeObject(entityAttributeCreateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            string responseContent = Execute(request);
+            EntityAttributeResponse entityAttributeResponse = JsonConvert.DeserializeObject<EntityAttributeResponse>(responseContent);
+            Result<EntityAttribute> result = new Result<EntityAttribute>(entityAttributeResponse);
+            return result;
+        }
 
+        public Result<EntityAttribute> UpdateEntityAttribute(long attributeId, EntityAttributeUpdateRequest entityAttributeUpdateRequest)
+        {
+            List<string> validationErrs = new List<string>();
+            if (entityAttributeUpdateRequest == null) {
+                validationErrs.Add(GetMsgByKey("parameterEntityAttributeUpdateRequestNull"));
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<EntityAttribute>(validationErrs);
+            }
+            RestRequest request = new RestRequest(UPDATE_ENTITY_ATTRIBUTES_URL, Method.PUT);
+            var requestJson = JsonConvert.SerializeObject(entityAttributeUpdateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            request.AddUrlSegment("attributeId", attributeId.ToString());
+            string responseContent = Execute(request);
+            EntityAttributeResponse entityAttributeResponse = JsonConvert.DeserializeObject<EntityAttributeResponse>(responseContent);
+            Result<EntityAttribute> result = new Result<EntityAttribute>(entityAttributeResponse);
+            return result;
+        }
+
+        public Result<string> UpdateEntityAttributeLabel(long attributeId, EntityAttributeLabelUpdateRequest updateLabelRequest)
+        {
+            if (updateLabelRequest == null) {
+                List<string> validationErrs = new List<string>();
+                validationErrs.Add(GetMsgByKey("parameterUpdateLabelRequestNull"));
+            }
+            RestRequest request = new RestRequest(UPDATE_ENTITY_ATTRIBUTES_LABEL_URL, Method.PUT);
+            request.AddUrlSegment("attributeId", attributeId.ToString());
+            var requestJson = JsonConvert.SerializeObject(updateLabelRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            string responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
+
+        public Result<string> DeleteEntityAttribute(long attributeId){
+            RestRequest request = new RestRequest(DELETE_ENTITY_ATTRIBUTES_URL, Method.DELETE);
+            string responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
 
     public enum SearchOrderBy
         {

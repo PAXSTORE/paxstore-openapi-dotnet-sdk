@@ -17,6 +17,7 @@ namespace Paxstore.OpenApi
 	    private const string DELETE_TERMINAL_URL = "/v1/3rdsys/terminals/{terminalId}";
 	    private const string CREATE_TERMINAL_URL = "/v1/3rdsys/terminals";
 	    private const string UPDATE_TERMINAL_URL = "/v1/3rdsys/terminals/{terminalId}";
+        private const string ADD_TERMINAL_TO_GROUP_URL = "/v1/3rdsys/terminals/groups";
 
         public TerminalApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret){
 
@@ -132,6 +133,21 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        public Result<string> BatchAddTerminalToGroup(TerminalGroupRequest batchAddTerminalToGroupRequest)
+        {
+            List<string> validationErrs = new List<string>();
+            if (batchAddTerminalToGroupRequest == null) {
+                validationErrs.Add(GetMsgByKey("parameterBatchAddTerminalToGroupRequestNull"));
+                return new Result<string>(validationErrs);
+            }
+            RestRequest request = new RestRequest(ADD_TERMINAL_TO_GROUP_URL, Method.POST);
+            var requestJson = JsonConvert.SerializeObject(batchAddTerminalToGroupRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            string responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
 
 
         string GetStatusValue(TerminalStatus status)
@@ -150,7 +166,7 @@ namespace Paxstore.OpenApi
             return null;
         }
 
-        string GetOrderValue(TerminalSearchOrderBy order)
+        public static string GetOrderValue(TerminalSearchOrderBy order)
         {
             switch (order)
             {
@@ -163,7 +179,6 @@ namespace Paxstore.OpenApi
             }
             return "name";
         }
-
     }
 
     public enum TerminalStatus {

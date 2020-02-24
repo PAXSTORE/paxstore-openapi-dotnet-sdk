@@ -196,6 +196,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter AddTerminalToGroupRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterAddTerminalToGroupRequestNull {
+            get {
+                return ResourceManager.GetString("parameterAddTerminalToGroupRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter apkParameterId cannot be less than 1! 的本地化字符串。
         /// </summary>
         internal static string parameterApkParameterIdIsInvalid {
@@ -250,6 +259,51 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter createTerminalGroupApkRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterCreateTerminalGroupApkRequestNull {
+            get {
+                return ResourceManager.GetString("parameterCreateTerminalGroupApkRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter createTerminalGroupRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterCreateTerminalGroupRequestNull {
+            get {
+                return ResourceManager.GetString("parameterCreateTerminalGroupRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter disablePushRkiTaskRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterDisablePushRkiTaskRequestNull {
+            get {
+                return ResourceManager.GetString("parameterDisablePushRkiTaskRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter entityAttributerCreateRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterEntityAttributeCreateRequestNull {
+            get {
+                return ResourceManager.GetString("parameterEntityAttributeCreateRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter entityAttributeUpdateReqeust is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterEntityAttributeUpdateRequestNull {
+            get {
+                return ResourceManager.GetString("parameterEntityAttributeUpdateRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter firmwareName is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterFirmwareNameCannotBeEmpty {
@@ -300,9 +354,28 @@ namespace Paxstore.OpenApi.Properties {
         internal static string parameterPushRki2TerminalRequestNull {
             get {
                 return ResourceManager.GetString("parameterPushRki2TerminalRequestNull", resourceCulture);
-			}
-		}
-		
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter removeTerminalOutGroupRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterRemoveTerminalOutGroupRequestNull {
+            get {
+                return ResourceManager.GetString("parameterRemoveTerminalOutGroupRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter terminalTid is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterSearchPushRkiTasksTerminalTidEmpty {
+            get {
+                return ResourceManager.GetString("parameterSearchPushRkiTasksTerminalTidEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Serial number is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterSerialNoMandatory {
@@ -371,6 +444,24 @@ namespace Paxstore.OpenApi.Properties {
         internal static string parameterUpdateApkParameterRequestIsNull {
             get {
                 return ResourceManager.GetString("parameterUpdateApkParameterRequestIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter updateLabelRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterUpdateLabelRequestNull {
+            get {
+                return ResourceManager.GetString("parameterUpdateLabelRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter updateTerminalGroupRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterUpdateTerminalGroupRequestNull {
+            get {
+                return ResourceManager.GetString("parameterUpdateTerminalGroupRequestNull", resourceCulture);
             }
         }
         

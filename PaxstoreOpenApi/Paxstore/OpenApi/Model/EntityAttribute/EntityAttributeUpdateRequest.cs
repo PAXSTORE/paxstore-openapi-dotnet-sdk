@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Paxstore.OpenApi.Model
 {
-    public class EntityAttributeCreateRequest
+    public class EntityAttributeUpdateRequest
     {
-        [JsonProperty("entityType")]
-        public string EntityType { get; set; }
-
         [JsonProperty("inputType")]
         public string InputType { get; set; }
 
@@ -29,9 +26,6 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("selector")]
         public string Selector { get; set; }
-
-        [JsonProperty("key")]
-        public string Key { get; set; }
 
         [JsonProperty("defaultLabel")]
         public string DefaultLabel { get; set; }

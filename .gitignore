@@ -35,3 +35,15 @@ hs_err_pid*
 /PaxstoreOpenApiTest/bin/
 
 /PaxstoreOpenApiTest/TestConst.cs
+/.idea/encodings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/paxstore-openapi-dotnet-sdk.iml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/ClassLibrary1/Class1.cs
+/ClassLibrary1/ClassLibrary1.csproj
+/ClassLibrary1/obj/*.cache
+/ClassLibrary1/obj/ClassLibrary1.csproj.nuget.g.props
+/ClassLibrary1/obj/ClassLibrary1.csproj.nuget.g.targets

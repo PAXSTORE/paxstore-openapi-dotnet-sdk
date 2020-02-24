@@ -1,5 +1,8 @@
-﻿using Paxstore.OpenApi.Base;
+﻿using Newtonsoft.Json;
+using Paxstore.OpenApi.Base;
+using Paxstore.OpenApi.Help;
 using Paxstore.OpenApi.Model;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,128 +25,123 @@ namespace Paxstore.OpenApi
 
         public Result<TerminalRkiTaskInfo> PushRkiKey2Terminal(PushRki2TerminalRequest pushRki2TerminalRequest)
         {
-            List<string> validationErrs = validateCreateTerminalRki(pushRki2TerminalRequest);
-
+            List<string> validationErrs = validateCreateTerminalRkiRequest(pushRki2TerminalRequest);
             if (validationErrs.Count > 0)
             {
                 return new Result<TerminalRkiTaskInfo>(validationErrs);
             }
-            ThirdPartySysApiClient client = new ThirdPartySysApiClient(getBaseUrl(), getApiKey(), getApiSecret());
-            SdkRequest request = createSdkRequest(CREATE_TERMINAL_RKI_KEY_URL);
-            request.setRequestMethod(SdkRequest.RequestMethod.POST);
-            request.addHeader(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_JSON);
-            request.setRequestBody(new Gson().toJson(pushRki2TerminalRequest, PushRki2TerminalRequest.class));
-        Response response = EnhancedJsonUtils.fromJson(client.execute(request), Response.class);
-        Result<PushRkiTaskDTO> result = new Result<PushRkiTaskDTO>(response);
-        return result;
-    }
+            RestRequest request = new RestRequest(CREATE_TERMINAL_RKI_KEY_URL, Method.POST);
+            var requestBodyJson = JsonConvert.SerializeObject(pushRki2TerminalRequest);
 
-    //    public Result<PushRkiTaskDTO> searchPushRkiTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
-    //                                                               String terminalTid, String rkiKey, PushStatus status)
-    //    {
-    //        ThirdPartySysApiClient client = new ThirdPartySysApiClient(getBaseUrl(), getApiKey(), getApiSecret());
-    //        PageRequestDTO page = new PageRequestDTO();
-    //        page.setPageNo(pageNo);
-    //        page.setPageSize(pageSize);
-    //        if (orderBy != null)
-    //        {
-    //            page.setOrderBy(orderBy.val());
-    //        }
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyJson, ParameterType.RequestBody);
+            var responseContent = Execute(request);
 
-    //        List<String> validationErrs = validate(page);
-    //        if (validationErrs.size() > 0)
-    //        {
-    //            return new Result<PushRkiTaskDTO>(validationErrs);
-    //        }
-    //        if (StringUtils.isEmpty(terminalTid))
-    //        {
-    //            validationErrs.add(super.getMessage("parameter.searchPushRkiTasks.terminalTid.empty"));
-    //            return new Result<PushRkiTaskDTO>(validationErrs);
-    //        }
-
-    //        SdkRequest request = getPageRequest(SEARCH_TERMINAL_RKI_KEY_LIST_URL, page);
-    //        request.addRequestParam("terminalTid", terminalTid);
-    //        request.addRequestParam("rkiKey", rkiKey);
-    //        if (status != null)
-    //        {
-    //            request.addRequestParam("status", status.val());
-    //        }
-
-    //        PushRkiTaskPageResponse pageResponse = EnhancedJsonUtils.fromJson(client.execute(request), PushRkiTaskPageResponse.class);
-    //        Result<PushRkiTaskDTO> result = new Result<PushRkiTaskDTO>(pageResponse);
-
-    //        return result;
-    //    }
-
-    //public Result<PushRkiTaskDTO> getPushRkiTask(Long pushRkiTaskId)
-    //{
-    //    logger.debug("pushRkiTaskId=" + pushRkiTaskId);
-    //    List<String> validationErrs = validateId(pushRkiTaskId, "parameter.pushRkiTaskId.invalid");
-    //    if (validationErrs.size() > 0)
-    //    {
-    //        return new Result<PushRkiTaskDTO>(validationErrs);
-    //    }
-    //    ThirdPartySysApiClient client = new ThirdPartySysApiClient(getBaseUrl(), getApiKey(), getApiSecret());
-    //    SdkRequest request = createSdkRequest(GET_TERMINAL_RKI_KEY_URL.replace("{terminalRkiId}", pushRkiTaskId + ""));
-    //    request.setRequestMethod(SdkRequest.RequestMethod.GET);
-    //    PushRkiTaskResponse resp = EnhancedJsonUtils.fromJson(client.execute(request), PushRkiTaskResponse.class);
-    //        Result<PushRkiTaskDTO> result = new Result<PushRkiTaskDTO>(resp);
-    //        return result;
-    //    }
-
-    //    public Result<String> disablePushRkiTask(DisablePushRkiTask disablePushRkiTask)
-    //{
-    //    List<String> validationErrs = validateDisablePushRki(disablePushRkiTask);
-
-    //    if (validationErrs.size() > 0)
-    //    {
-    //        return new Result<String>(validationErrs);
-    //    }
-    //    ThirdPartySysApiClient client = new ThirdPartySysApiClient(getBaseUrl(), getApiKey(), getApiSecret());
-    //    SdkRequest request = createSdkRequest(SUSPEND_TERMINAL_RKI_KEY_URL);
-    //    request.setRequestMethod(SdkRequest.RequestMethod.POST);
-    //    request.addHeader(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_JSON);
-    //    request.setRequestBody(new Gson().toJson(disablePushRkiTask, DisablePushRkiTask.class));
-    //        Response resp = EnhancedJsonUtils.fromJson(client.execute(request), Response.class);
-    //        Result<String> result = new Result<String>(resp);
-    //        return result;
-    //    }
-
-    private List<string> validateCreateTerminalRkiRequest(PushRki2TerminalRequest request)
-    {
-        List<string> validationErrs = new List<string>();
-        if (request == null)
-        {
-            validationErrs.Add(GetMsgByKey("parameterPushRki2TerminalRequestNull"));
-        }else{
-            if (string.IsNullOrEmpty(request.RkiKey)) {
-                validationErrs.Add(GetMsgByKey("rkiKeyMandatory"));
-            }
-            
-            if (string.IsNullOrEmpty(request.SerialNo) && string.IsNullOrEmpty(request.Tid))
-            {
-                validationErrs.Add(GetMsgByKey("snTidMandatory"));
-            }
+            PushRkiKey2TerminalResponse response = JsonConvert.DeserializeObject<PushRkiKey2TerminalResponse>(responseContent);
+            Result<TerminalRkiTaskInfo> result = new Result<TerminalRkiTaskInfo>(response);
+            return result;
         }
-        return validationErrs;
-    }
 
-    //private List<String> validateDisablePushRki(DisablePushRkiTask disablePushRkiTask)
-    //{
-    //    List<String> validationErrs = new ArrayList<String>();
-    //    if (disablePushRkiTask == null)
-    //    {
-    //        validationErrs.add(super.getMessage("parameter.disablePushRkiTask.null"));
-    //    }
-    //    else
-    //    {
-    //        validationErrs.addAll(validate(disablePushRkiTask));
-    //        if (StringUtils.isEmpty(disablePushRkiTask.getSerialNo()) && StringUtils.isEmpty(disablePushRkiTask.getTid()))
-    //        {
-    //            validationErrs.add(super.getMessage("parameter.disablePushRkiTask.sn.tid.empty"));
-    //        }
-    //    }
-    //    return validationErrs;
-    //}
-}
+        string GetOrderValue(SearchOrderBy order)
+        {
+            switch (order)
+            {
+                case SearchOrderBy.CreatedDate_asc:
+                    return "a.created_date ASC";
+                case SearchOrderBy.CreatedDate_desc:
+                    return "a.created_date DESC";
+            }
+            return "a.created_date DESC";
+        }
+
+        public Result<TerminalRkiTaskInfo> SearchPushRkiTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
+                                                                   string terminalTid, string rkiKey, PushStatus status){
+            IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (string.IsNullOrEmpty(terminalTid))
+            {
+                validationErrs.Add(GetMsgByKey("parameterSearchPushRkiTasksTerminalTidEmpty"));
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<TerminalRkiTaskInfo>(validationErrs);
+            }
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_RKI_KEY_LIST_URL, Method.GET);
+            request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
+            request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
+            request.AddParameter("orderBy", GetOrderValue(orderBy));
+            request.AddParameter("terminalTid", terminalTid);
+            if (!string.IsNullOrEmpty(rkiKey)) {
+                request.AddParameter("rkiKey", rkiKey);
+            }
+            request.AddParameter("status", PushStatusHelper.GetPushStatusVal(status));
+            var responseContent = Execute(request);
+            TerminalRkiTaskInfoPageResponse terminalRkiTaskInfoPage = JsonConvert.DeserializeObject<TerminalRkiTaskInfoPageResponse>(responseContent);
+            Result<TerminalRkiTaskInfo> result = new Result<TerminalRkiTaskInfo>(terminalRkiTaskInfoPage);
+            return result;
+
+        }
+
+        public Result<TerminalRkiTaskInfo> GetPushRkiTask(long pushRkiTaskId){
+            RestRequest request = new RestRequest(GET_TERMINAL_RKI_KEY_URL, Method.GET);
+            request.AddUrlSegment("terminalRkiId", pushRkiTaskId.ToString());
+            var responseContent = Execute(request);
+            PushRkiKey2TerminalResponse response = JsonConvert.DeserializeObject<PushRkiKey2TerminalResponse>(responseContent);
+            Result<TerminalRkiTaskInfo> result = new Result<TerminalRkiTaskInfo>(response);
+            return result;
+        }
+
+        public Result<String> DisablePushRkiTask(DisablePushRkiTaskRequest disablePushRkiTask)
+        {
+            List<String> validationErrs = validateDisablePushRki(disablePushRkiTask);
+
+            if (validationErrs.Count > 0)
+            {
+                return new Result<String>(validationErrs);
+            }
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_RKI_KEY_URL, Method.POST);
+            var requestBodyJson = JsonConvert.SerializeObject(disablePushRkiTask);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyJson, ParameterType.RequestBody);
+            var responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
+
+        private List<string> validateCreateTerminalRkiRequest(PushRki2TerminalRequest request)
+        {
+            List<string> validationErrs = new List<string>();
+            if (request == null)
+            {
+                validationErrs.Add(GetMsgByKey("parameterPushRki2TerminalRequestNull"));
+            }else{
+                if (string.IsNullOrEmpty(request.RkiKey)) {
+                    validationErrs.Add(GetMsgByKey("rkiKeyMandatory"));
+                }
+                if (string.IsNullOrEmpty(request.SerialNo) && string.IsNullOrEmpty(request.Tid))
+                {
+                    validationErrs.Add(GetMsgByKey("snTidMandatory"));
+                }
+            }
+            return validationErrs;
+        }
+
+        private List<string> validateDisablePushRki(DisablePushRkiTaskRequest disablePushRkiTaskRequest)
+        {
+            List<string> validationErrs = new List<string>();
+            if (disablePushRkiTaskRequest == null)
+            {
+                validationErrs.Add(GetMsgByKey("parameterDisablePushRkiTaskRequestNull"));
+            } else
+            {
+                if (string.IsNullOrEmpty(disablePushRkiTaskRequest.RkiKey))
+                {
+                    validationErrs.Add(GetMsgByKey("rkiKeyMandatory"));
+                }
+                if (string.IsNullOrEmpty(disablePushRkiTaskRequest.SerialNo) && string.IsNullOrEmpty(disablePushRkiTaskRequest.Tid))
+                {
+                    validationErrs.Add(GetMsgByKey("snTidMandatory"));
+                }
+            }
+            return validationErrs;
+        }
+    }
 }
