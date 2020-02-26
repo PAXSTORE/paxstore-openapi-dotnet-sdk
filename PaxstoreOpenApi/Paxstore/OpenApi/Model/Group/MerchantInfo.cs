@@ -23,8 +23,8 @@ namespace Paxstore.OpenApi.Model
         public string Phone { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
-        public long CreatedDate { get; set; }
-        public long UpdatedDate { get; set; }
+        //public long CreatedDate { get; set; }
+        //public long UpdatedDate { get; set; }
         public List<MerchantCategoryInfo> MerchantCategoryList { get; set; }
         public int TerminalCount { get; set; }
     }

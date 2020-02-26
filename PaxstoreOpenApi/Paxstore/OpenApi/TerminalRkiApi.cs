@@ -53,7 +53,7 @@ namespace Paxstore.OpenApi
             return "a.created_date DESC";
         }
 
-        public Result<TerminalRkiTaskInfo> SearchPushRkiTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
+        public Result<TerminalRkiTaskInfo> SearchPushRkiTasks(int pageNo, int pageSize, Nullable<SearchOrderBy> orderBy,
                                                                    string terminalTid, string rkiKey, PushStatus status){
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (string.IsNullOrEmpty(terminalTid))
@@ -67,7 +67,9 @@ namespace Paxstore.OpenApi
             RestRequest request = new RestRequest(SEARCH_TERMINAL_RKI_KEY_LIST_URL, Method.GET);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
-            request.AddParameter("orderBy", GetOrderValue(orderBy));
+            if (orderBy != null) {
+                request.AddParameter("orderBy", GetOrderValue(orderBy.Value));
+            }
             request.AddParameter("terminalTid", terminalTid);
             if (!string.IsNullOrEmpty(rkiKey)) {
                 request.AddParameter("rkiKey", rkiKey);
@@ -89,16 +91,16 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<String> DisablePushRkiTask(DisablePushRkiTaskRequest disablePushRkiTask)
+        public Result<String> DisablePushRkiTask(DisablePushRkiTaskRequest disablePushRkiTaskRequest)
         {
-            List<String> validationErrs = validateDisablePushRki(disablePushRkiTask);
+            List<String> validationErrs = validateDisablePushRki(disablePushRkiTaskRequest);
 
             if (validationErrs.Count > 0)
             {
                 return new Result<String>(validationErrs);
             }
             RestRequest request = new RestRequest(SUSPEND_TERMINAL_RKI_KEY_URL, Method.POST);
-            var requestBodyJson = JsonConvert.SerializeObject(disablePushRkiTask);
+            var requestBodyJson = JsonConvert.SerializeObject(disablePushRkiTaskRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);

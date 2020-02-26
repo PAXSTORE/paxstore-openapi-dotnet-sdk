@@ -10,7 +10,8 @@ namespace Paxstore.OpenApi.Model
     public class EntityAttributeUpdateRequest
     {
         [JsonProperty("inputType")]
-        public string InputType { get; set; }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EntityAttributeInputType InputType { get; set; }
 
         [JsonProperty("minLength")]
         public int MinLength { get; set; }

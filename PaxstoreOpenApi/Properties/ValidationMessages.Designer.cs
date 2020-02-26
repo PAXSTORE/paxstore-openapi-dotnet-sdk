@@ -196,15 +196,6 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Parameter AddTerminalToGroupRequest is mandatory! 的本地化字符串。
-        /// </summary>
-        internal static string parameterAddTerminalToGroupRequestNull {
-            get {
-                return ResourceManager.GetString("parameterAddTerminalToGroupRequestNull", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Parameter apkParameterId cannot be less than 1! 的本地化字符串。
         /// </summary>
         internal static string parameterApkParameterIdIsInvalid {
@@ -358,15 +349,6 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Parameter removeTerminalOutGroupRequest is mandatory! 的本地化字符串。
-        /// </summary>
-        internal static string parameterRemoveTerminalOutGroupRequestNull {
-            get {
-                return ResourceManager.GetString("parameterRemoveTerminalOutGroupRequestNull", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Parameter terminalTid is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterSearchPushRkiTasksTerminalTidEmpty {
@@ -390,6 +372,15 @@ namespace Paxstore.OpenApi.Properties {
         internal static string parameterSnCannotBeEmpty {
             get {
                 return ResourceManager.GetString("parameterSnCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter terminalIds is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTerminalIdsMandatory {
+            get {
+                return ResourceManager.GetString("parameterTerminalIdsMandatory", resourceCulture);
             }
         }
         

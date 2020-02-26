@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Paxstore.OpenApi.Help;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace Paxstore.OpenApi.Model
     public class EntityAttributeCreateRequest
     {
         [JsonProperty("entityType")]
-        public string EntityType { get; set; }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EntityAttributeType EntityType { get; set; }
 
         [JsonProperty("inputType")]
-        public string InputType { get; set; }
+        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public EntityAttributeInputType InputType { get; set; }
 
         [JsonProperty("minLength")]
         public int MinLength { get; set; }
@@ -36,4 +39,23 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("defaultLabel")]
         public string DefaultLabel { get; set; }
     }
+
+    public enum EntityAttributeType
+    {
+        [EnumValue("Merchant")]
+        Merchant,
+        [EnumValue("Reseller")]
+        Reseller
+    }
+
+
+    public enum EntityAttributeInputType
+    {
+        [EnumValue("SELECTOR")]
+        TEXT,
+        [EnumValue("SELECTOR")]
+        SELECTOR
+    }
+
+
 }

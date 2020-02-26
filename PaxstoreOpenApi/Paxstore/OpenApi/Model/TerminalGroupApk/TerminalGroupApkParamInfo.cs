@@ -10,8 +10,8 @@ namespace Paxstore.OpenApi.Model
     {
         public string ParamTemplateName { get; set; }
         public Dictionary<string, string> configuredParameters { get; set; }
-        public int PendingCount { get; set; }
-        public int SuccessCount { get; set; }
-        public int FailedCount { get; set; }
+        public Nullable<int> PendingCount { get; set; }
+        public Nullable<int> SuccessCount { get; set; }
+        public Nullable<int> FailedCount { get; set; }
     }
 }

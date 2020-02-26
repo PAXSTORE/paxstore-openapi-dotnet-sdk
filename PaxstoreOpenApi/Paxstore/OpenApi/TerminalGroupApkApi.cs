@@ -38,7 +38,7 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<TerminalGroupApkInfo> SearchTerminalGroupApk(int pageNo, int pageSize, Nullable<TerminalGroupApkSearchOrderBy> orderBy, Nullable<long> groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, String keyWords)
+        public Result<TerminalGroupApkInfo> SearchTerminalGroupApk(int pageNo, int pageSize, Nullable<TerminalGroupApkSearchOrderBy> orderBy, Nullable<long> groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, string keyWords)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
@@ -89,7 +89,7 @@ namespace Paxstore.OpenApi
 
         public Result<TerminalGroupApkInfo> SuspendTerminalGroupApk(long groupApkId)
         {
-            RestRequest request = new RestRequest(DELETE_TERMINAL_GROUP_APK_URL, Method.POST);
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_GROUP_APK_URL, Method.POST);
             request.AddUrlSegment("groupApkId", groupApkId.ToString());
             string responseContent = Execute(request);
             TerminalGroupApkResponse terminalGroupApkResponse = JsonConvert.DeserializeObject<TerminalGroupApkResponse>(responseContent);

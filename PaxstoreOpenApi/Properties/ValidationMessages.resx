@@ -282,13 +282,10 @@
   <data name="parameterUpdateTerminalGroupRequestNull" xml:space="preserve">
     <value>Parameter updateTerminalGroupRequest is mandatory!</value>
   </data>
-  <data name="parameterAddTerminalToGroupRequestNull" xml:space="preserve">
-    <value>Parameter AddTerminalToGroupRequest is mandatory!</value>
-  </data>
-  <data name="parameterRemoveTerminalOutGroupRequestNull" xml:space="preserve">
-    <value>Parameter removeTerminalOutGroupRequest is mandatory!</value>
-  </data>
   <data name="parameterCreateTerminalGroupApkRequestNull" xml:space="preserve">
     <value>Parameter createTerminalGroupApkRequest is mandatory!</value>
+  </data>
+  <data name="parameterTerminalIdsMandatory" xml:space="preserve">
+    <value>Parameter terminalIds is mandatory!</value>
   </data>
 </root>

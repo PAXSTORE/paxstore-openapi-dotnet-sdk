@@ -9,8 +9,8 @@ namespace Paxstore.OpenApi.Model
 {
     public class EntityAttributeLabelInfo
     {
-        [JsonProperty("entityAttributeId")]
-        public long EntityAttributeId { get; set; }
+        //[JsonProperty("entityAttributeId")]
+        //public Nullable<long> EntityAttributeId { get; set; }
 
         [JsonProperty("locale")]
         public string Locale { get; set; }

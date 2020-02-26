@@ -158,6 +158,24 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
+        [Test]
+        public void TestBatchAddTerminalToGroup() {
+            TerminalGroupRequest request = new TerminalGroupRequest();
+            HashSet<long> groupIds = new HashSet<long>();
+            groupIds.Add(1);
+            groupIds.Add(2);
+
+            HashSet<long> terminalIds = new HashSet<long>();
+            terminalIds.Add(1);
+            terminalIds.Add(2);
+
+            request.GroupIds = groupIds;
+            request.TerminalIds = terminalIds;
+            Result<string> result = API.BatchAddTerminalToGroup(request);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
     }
 
     

@@ -149,5 +149,11 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, 1759);
         }
 
+        [Test]
+        public void TestSearchResellerRkiKeyList() {
+            Result<ResellerRkiKeyInfo> result = API.SearchResellerRkiKeyList(1, 1, 20, null);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+        }
+
     }
 }

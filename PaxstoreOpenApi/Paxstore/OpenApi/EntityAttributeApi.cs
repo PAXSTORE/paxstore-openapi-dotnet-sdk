@@ -40,7 +40,7 @@ namespace Paxstore.OpenApi
                 return result;
         }
 
-        public Result<EntityAttribute> SearchEntityAttributes(int pageNo, int pageSize, SearchOrderBy orderBy, string key, string entityType)
+        public Result<EntityAttribute> SearchEntityAttributes(int pageNo, int pageSize, Nullable<EntityAttributeSearchOrderBy> orderBy, string key, string entityType)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
@@ -50,7 +50,9 @@ namespace Paxstore.OpenApi
             RestRequest request = new RestRequest(SEARCH_ENTITY_ATTRIBUTES_URL, Method.GET);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
-            request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
+            if (orderBy != null) {
+                request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
+            }
             request.AddParameter("key", key);
             request.AddParameter("entityType",entityType);
             var responseContent = Execute(request);
@@ -116,13 +118,14 @@ namespace Paxstore.OpenApi
 
         public Result<string> DeleteEntityAttribute(long attributeId){
             RestRequest request = new RestRequest(DELETE_ENTITY_ATTRIBUTES_URL, Method.DELETE);
+            request.AddUrlSegment("attributeId", attributeId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
             return result;
         }
 
-    public enum SearchOrderBy
+    public enum EntityAttributeSearchOrderBy
         {
             [EnumValue("a.entity_type DESC")]
             EntityType_desc,
