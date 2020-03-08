@@ -94,7 +94,7 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, string status,
+        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, Nullable<TerminalStatus> status,
                                              string modelName, string resellerName, string merchantName, String serialNo, Nullable<bool> excludeGroupId)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
@@ -109,8 +109,8 @@ namespace Paxstore.OpenApi
             {
                 request.AddParameter("orderBy", TerminalApi.GetOrderValue(orderBy.Value));
             }
-            if (!string.IsNullOrEmpty(status)) {
-                request.AddParameter("status", status);
+            if (status != null) {
+                request.AddParameter("status", ExtEnumHelper.GetEnumValue(status));
             }
             if (!string.IsNullOrEmpty(modelName))
             {
@@ -290,18 +290,4 @@ namespace Paxstore.OpenApi
         Suspend
     }
 
-    public enum TerminalStatus
-    {
-        [EnumValue("P")]
-        Pending,
-
-        [EnumValue("A")]
-        Active,
-
-        [EnumValue("S")]
-        Suspend,
-
-        [EnumValue("D")]
-        Deleted
-    }
 }
