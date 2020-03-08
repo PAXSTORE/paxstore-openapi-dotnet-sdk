@@ -2,6 +2,7 @@
 using Paxstore.OpenApi.Base;
 using Paxstore.OpenApi.Help;
 using Paxstore.OpenApi.Model;
+using Paxstore.OpenApi.Validator.GroupApk;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace Paxstore.OpenApi
         private const string CREATE_TERMINAL_GROUP_APK_URL = "/v1/3rdsys/terminalGroupApks";
         private const string SUSPEND_TERMINAL_GROUP_APK_URL = "/v1/3rdsys/terminalGroupApks/{groupApkId}/suspend";
         private const string DELETE_TERMINAL_GROUP_APK_URL = "/v1/3rdsys/terminalGroupApks/{groupApkId}";
+
+        
 
         public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
         {
@@ -72,11 +75,12 @@ namespace Paxstore.OpenApi
 
         public Result<TerminalGroupApkInfo> CreateAndActiveGroupApk(CreateTerminalGroupApkRequest createTerminalGroupApkRequest)
         {
-            List<string> validationErrs = new List<string>();
-            if (createTerminalGroupApkRequest == null) {
-                validationErrs.Add(GetMsgByKey("parameterCreateTerminalGroupApkRequestNull"));
+            List<string> validationErrs = ValidateCreate(createTerminalGroupApkRequest, new CreateGroupApkRequestValidator(), "parameterCreateTerminalGroupApkRequestNull");
+            if (validationErrs.Count > 0)
+            {
                 return new Result<TerminalGroupApkInfo>(validationErrs);
             }
+
             RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_APK_URL, Method.POST);
             var requestJson = JsonConvert.SerializeObject(createTerminalGroupApkRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
@@ -85,6 +89,8 @@ namespace Paxstore.OpenApi
             Result<TerminalGroupApkInfo> result = new Result<TerminalGroupApkInfo>(terminalGroupApkResponse);
             return result;
         }
+
+        
 
 
         public Result<TerminalGroupApkInfo> SuspendTerminalGroupApk(long groupApkId)

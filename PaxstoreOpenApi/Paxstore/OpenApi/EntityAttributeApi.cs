@@ -40,7 +40,7 @@ namespace Paxstore.OpenApi
                 return result;
         }
 
-        public Result<EntityAttribute> SearchEntityAttributes(int pageNo, int pageSize, Nullable<EntityAttributeSearchOrderBy> orderBy, string key, string entityType)
+        public Result<EntityAttribute> SearchEntityAttributes(int pageNo, int pageSize, Nullable<EntityAttributeSearchOrderBy> orderBy, string key, Nullable<EntityAttributeType> entityType)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
@@ -53,8 +53,13 @@ namespace Paxstore.OpenApi
             if (orderBy != null) {
                 request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
             }
-            request.AddParameter("key", key);
-            request.AddParameter("entityType",entityType);
+            if (!string.IsNullOrEmpty(key)) {
+                request.AddParameter("key", key);
+            }
+            if (entityType != null) {
+                request.AddParameter("entityType", ExtEnumHelper.GetEnumValue(entityType));
+            }
+            
             var responseContent = Execute(request);
             EntityAttributePageResponse entityAttributePageResponse = JsonConvert.DeserializeObject<EntityAttributePageResponse>(responseContent);
             Result<EntityAttribute> result = new Result<EntityAttribute>(entityAttributePageResponse);
@@ -125,12 +130,31 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        
+    }
+
     public enum EntityAttributeSearchOrderBy
-        {
-            [EnumValue("a.entity_type DESC")]
-            EntityType_desc,
-            [EnumValue("a.entity_type ASC")]
-            EntityType_asc
-        }
+    {
+        [EnumValue("a.entity_type DESC")]
+        EntityType_desc,
+        [EnumValue("a.entity_type ASC")]
+        EntityType_asc
+    }
+
+    public enum EntityAttributeType {
+
+        [EnumValue("Merchant")]
+        Merchant,
+        [EnumValue("Reseller")]
+        Reseller
+    }
+
+    public enum EntityAttributeInputType
+    {
+
+        [EnumValue("SELECTOR")]
+        Selector,
+        [EnumValue("TEXT")]
+        Text
     }
 }

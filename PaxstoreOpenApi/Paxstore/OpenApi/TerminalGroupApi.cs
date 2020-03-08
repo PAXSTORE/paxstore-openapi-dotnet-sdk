@@ -32,7 +32,8 @@ namespace Paxstore.OpenApi
         }
 
         public Result<TerminalGroup> SearchTerminalGroup(int pageNo, int pageSize, Nullable<TerminalGroupSearchOrderBy> orderBy,
-                                                        string status, string modelIds, string resellerIds, string name, Nullable<bool> includePushTasks, Nullable<bool> isDynamic){
+                                                        Nullable<TerminalGroupStatus> status, string name, string resellerNames, string modelNames, Nullable<bool> isDynamic)
+        {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0){
                 return new Result<TerminalGroup>(validationErrs);
@@ -43,23 +44,19 @@ namespace Paxstore.OpenApi
             if (orderBy != null) {
                 request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
             }
-            if (!string.IsNullOrEmpty(status)){
-                request.AddParameter("status", status);
+            if (status != null){
+                request.AddParameter("status", ExtEnumHelper.GetEnumValue(status));
+            }
+            if (!string.IsNullOrEmpty(name)) {
+                request.AddParameter("name", name.Trim());
             }
 
-            if (!string.IsNullOrEmpty(modelIds)){
-                request.AddParameter("modelIds", modelIds);
+            if (!string.IsNullOrEmpty(resellerNames)){
+                request.AddParameter("resellerNames", resellerNames.Trim());
             }
-            if (!string.IsNullOrEmpty(resellerIds)){
-                request.AddParameter("resellerIds", resellerIds);
-            }
-
-            if (!string.IsNullOrEmpty(name)){
-                request.AddParameter("name", name);
-            }
-            if (includePushTasks != null)
+            if (!string.IsNullOrEmpty(modelNames))
             {
-                request.AddParameter("includePushTasks", includePushTasks);
+                request.AddParameter("modelNames", modelNames.Trim());
             }
             if (isDynamic != null)
             {
@@ -97,8 +94,8 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, String status,
-                                             String modelId, String resellerId, String merchantId, String serialNo, Nullable<bool> excludeGroupId)
+        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, string status,
+                                             string modelName, string resellerName, string merchantName, String serialNo, Nullable<bool> excludeGroupId)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
@@ -115,17 +112,17 @@ namespace Paxstore.OpenApi
             if (!string.IsNullOrEmpty(status)) {
                 request.AddParameter("status", status);
             }
-            if (!string.IsNullOrEmpty(modelId))
+            if (!string.IsNullOrEmpty(modelName))
             {
-                request.AddParameter("modelId", modelId);
+                request.AddParameter("modelName", modelName.Trim());
             }
-            if (!string.IsNullOrEmpty(resellerId))
+            if (!string.IsNullOrEmpty(resellerName))
             {
-                request.AddParameter("resellerId", resellerId);
+                request.AddParameter("resellerName", resellerName.Trim());
             }
-            if (!string.IsNullOrEmpty(merchantId))
+            if (!string.IsNullOrEmpty(merchantName))
             {
-                request.AddParameter("merchantId", merchantId);
+                request.AddParameter("merchantName", merchantName.Trim());
             }
             if (!string.IsNullOrEmpty(serialNo))
             {
@@ -191,7 +188,7 @@ namespace Paxstore.OpenApi
 
 
         public Result<Terminal> SearchTerminalsInGroup(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy,
-                                                           long groupId, String serialNo, String merchantIds, Nullable<long> merchantId)
+                                                           long groupId, string serialNo, string merchantNames)
         {
 
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
@@ -210,12 +207,8 @@ namespace Paxstore.OpenApi
             if (!string.IsNullOrEmpty(serialNo)) {
                 request.AddParameter("serialNo", serialNo);
             }
-            if (!string.IsNullOrEmpty(merchantIds)) {
-                request.AddParameter("merchantIds", merchantIds);
-            }
-            if (merchantId != null)
-            {
-                request.AddParameter("merchantId", merchantId.Value.ToString());
+            if (!string.IsNullOrEmpty(merchantNames)) {
+                request.AddParameter("merchantNames", merchantNames.Trim());
             }
             string responseContent = Execute(request);
             TerminalPageResponse terminalPageResponse = JsonConvert.DeserializeObject<TerminalPageResponse>(responseContent);
@@ -283,6 +276,32 @@ namespace Paxstore.OpenApi
 
         [EnumValue("createdDate ASC")]
         CreatedDate_asc
+    }
 
+    public enum TerminalGroupStatus
+    {
+        [EnumValue("P")]
+        Pending,
+
+        [EnumValue("A")]
+        Active,
+
+        [EnumValue("S")]
+        Suspend
+    }
+
+    public enum TerminalStatus
+    {
+        [EnumValue("P")]
+        Pending,
+
+        [EnumValue("A")]
+        Active,
+
+        [EnumValue("S")]
+        Suspend,
+
+        [EnumValue("D")]
+        Deleted
     }
 }

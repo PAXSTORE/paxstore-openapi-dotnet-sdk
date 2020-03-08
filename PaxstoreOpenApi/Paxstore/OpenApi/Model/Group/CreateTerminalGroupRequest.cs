@@ -12,11 +12,11 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("modelId")]
-        public long ModelId { get; set; }
+        [JsonProperty("modelName")]
+        public string ModelName { get; set; }
 
-        [JsonProperty("resellerId")]
-        public long ResellerId { get; set; }
+        [JsonProperty("resellerName")]
+        public string ResellerName { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -25,12 +25,12 @@ namespace Paxstore.OpenApi.Model
         public string Status { get; set; }
 
         [JsonProperty("dynamic")]
-        public Boolean Dynamic { get; set; } = false;
+        public bool Dynamic { get; set; } = false;
 
         [JsonProperty("containSubResellerTerminal")]
-        public Boolean ContainSubResellerTerminal { get; set; } = false;
+        public bool ContainSubResellerTerminal { get; set; } = false;
 
-        [JsonProperty("merchantIds")]
-        public string MerchantIds { get; set; }
+        [JsonProperty("merchantNameList")]
+        public List<string> MerchantNameList { get; set; }
     }
 }

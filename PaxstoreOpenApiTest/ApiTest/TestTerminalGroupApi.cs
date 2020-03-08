@@ -20,7 +20,8 @@ namespace Paxstore.Test
         [Test]
         public void TestSearchGroup() {
             //Result<TerminalGroup> result = API.SearchTerminalGroup(1, 10, null, "cc", null, null, null, true, true);
-            Result<TerminalGroup> result = API.SearchTerminalGroup(1, 10, TerminalGroupSearchOrderBy.CreatedDate_asc, null, null, null, null, null, null);
+            Result<TerminalGroup> result = API.SearchTerminalGroup(1, 10, TerminalGroupSearchOrderBy.CreatedDate_asc,
+                                                        TerminalGroupStatus.Active, null, null, null, true);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
@@ -37,8 +38,8 @@ namespace Paxstore.Test
             CreateTerminalGroupRequest request = new CreateTerminalGroupRequest();
             request.Description = "test group";
             request.Name = "testgroup6";
-            request.ModelId = 1;
-            request.ResellerId = 1;
+            request.ModelName = "A920";
+            request.ResellerName = "reseller a";
             Result<TerminalGroup>  result = API.CreateTerminalGroup(request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
@@ -58,8 +59,8 @@ namespace Paxstore.Test
         public void TestUpdateTerminalGroup() {
             UpdateTerminalGroupRequest request = new UpdateTerminalGroupRequest();
             request.Name = "test group a";
-            request.ResellerId = 1;
-            request.ModelId = 1;
+            request.ResellerName = "reseller a";
+            request.ModelName = "A920";
 
             Result<TerminalGroup> result = API.UpdateTerminalGroup(1, request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
@@ -89,7 +90,8 @@ namespace Paxstore.Test
 
         [Test]
         public void TestSearchTerminalsInGroup() {
-            Result<Terminal> result = API.SearchTerminalsInGroup(1, 10, TerminalSearchOrderBy.SerialNo, 1, null, null, null);
+            Result<Terminal> result = API.SearchTerminalsInGroup(1, 10, TerminalSearchOrderBy.Name,
+                                                           1, null, null);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }

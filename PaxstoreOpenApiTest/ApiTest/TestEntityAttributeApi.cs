@@ -40,7 +40,7 @@ namespace Paxstore.Test
             request.MaxLength = 12;
             request.MinLength = 1;
             request.Required = false;
-            request.InputType = EntityAttributeInputType.TEXT;
+            request.InputType = EntityAttributeInputType.Text;
             request.DefaultLabel = "test";
 
             Result<EntityAttribute> result = API.CreateEntityAttribute(request);
@@ -51,7 +51,7 @@ namespace Paxstore.Test
         [Test]
         public void TestUpdateEntityAttribute() {
             EntityAttributeUpdateRequest request = new EntityAttributeUpdateRequest();
-            request.InputType = EntityAttributeInputType.TEXT;
+            request.InputType = EntityAttributeInputType.Text;
             request.MaxLength = 20;
             request.MinLength = 10;
             request.DefaultLabel = "ccdd";

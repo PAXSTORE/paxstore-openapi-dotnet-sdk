@@ -40,22 +40,6 @@ namespace Paxstore.OpenApi.Model
         public string DefaultLabel { get; set; }
     }
 
-    public enum EntityAttributeType
-    {
-        [EnumValue("Merchant")]
-        Merchant,
-        [EnumValue("Reseller")]
-        Reseller
-    }
-
-
-    public enum EntityAttributeInputType
-    {
-        [EnumValue("SELECTOR")]
-        TEXT,
-        [EnumValue("SELECTOR")]
-        SELECTOR
-    }
 
 
 }

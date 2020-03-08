@@ -10,15 +10,15 @@ namespace Paxstore.OpenApi.Model
     {
         public long Id { get; set; }
 
-        public ResellerInfo reseller { get; set; }
+        public string ResellerName { get; set; }
 
-        public ModelInfo model { get; set; }
+        public string ModelName { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string status { get; set; }
+        public string Status { get; set; }
 
-        public string description { get; set; }
+        public string Description { get; set; }
 
         public long CreatedByResellerId { get; set; }
 
@@ -28,10 +28,10 @@ namespace Paxstore.OpenApi.Model
 
         public int TerminalCount { get; set; }
 
-        public Boolean Dynamic { get; set; }
+        public bool Dynamic { get; set; }
 
-        public Boolean ContainSubResellerTerminal { get; set; }
+        public bool ContainSubResellerTerminal { get; set; }
 
-        public List<MerchantInfo> Merchants { get; set; }
+        public List<string> MerchantNames { get; set; }
     }
 }
