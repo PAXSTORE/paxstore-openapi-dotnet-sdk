@@ -19,10 +19,10 @@ namespace Paxstore.OpenApi.Model
         public EntityAttributeInputType InputType { get; set; }
 
         [JsonProperty("minLength")]
-        public int MinLength { get; set; }
+        public Nullable<int> MinLength { get; set; }
 
         [JsonProperty("maxLength")]
-        public int MaxLength { get; set; }
+        public Nullable<int> MaxLength { get; set; }
 
         [JsonProperty("required")]
         public bool Required { get; set; }
