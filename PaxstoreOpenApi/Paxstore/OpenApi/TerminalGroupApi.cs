@@ -95,7 +95,7 @@ namespace Paxstore.OpenApi
         }
 
         public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, Nullable<TerminalStatus> status,
-                                             string modelName, string resellerName, string merchantName, String serialNo, Nullable<bool> excludeGroupId)
+                                             string modelName, string resellerName, string merchantName, string serialNo, Nullable<bool> excludeGroupId)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
@@ -248,7 +248,7 @@ namespace Paxstore.OpenApi
 
 
         public Result<string> RemoveTerminalOutGroup(long groupId, HashSet<long> terminalIds)
-{
+        {
             if (terminalIds == null || terminalIds.Count == 0) {
                 List<string> validationErrs = new List<string>();
                 validationErrs.Add(GetMsgByKey("parameterTerminalIdsMandatory"));
@@ -263,7 +263,7 @@ namespace Paxstore.OpenApi
             Result<string> result = new Result<string>(emptyResponse);
             return result;
         }
-}
+    }
 
     
 
@@ -281,13 +281,13 @@ namespace Paxstore.OpenApi
     public enum TerminalGroupStatus
     {
         [EnumValue("P")]
-        Pending,
+        PENDING,
 
         [EnumValue("A")]
-        Active,
+        ACTIVE,
 
         [EnumValue("S")]
-        Suspend
+        SUSPEND
     }
 
 }

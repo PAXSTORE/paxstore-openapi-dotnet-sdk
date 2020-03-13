@@ -25,10 +25,10 @@ namespace Paxstore.OpenApi.Model
         public string Status { get; set; }
 
         [JsonProperty("dynamic")]
-        public bool Dynamic { get; set; } = false;
+        public Nullable<bool> Dynamic { get; set; }
 
         [JsonProperty("containSubResellerTerminal")]
-        public bool ContainSubResellerTerminal { get; set; } = false;
+        public Nullable<bool> ContainSubResellerTerminal { get; set; }
 
         [JsonProperty("merchantNameList")]
         public List<string> MerchantNameList { get; set; }

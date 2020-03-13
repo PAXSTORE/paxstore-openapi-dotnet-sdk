@@ -5,7 +5,7 @@ All the entity attribute related APIs are encapsulated in the class *Paxstore.Op
 **Constructors of EntityAttribute**
 
 ```
-public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)  
+public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret) 
 ```
 
 **Constructor parameters description**
@@ -539,7 +539,7 @@ public Result<string> DeleteEntityAttribute(long attributeId)
 
 ```
 EntityAttributeApi api = new EntityAttributeApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<String> result = api.DeleteEntityAttribute(1000000416);
+Result<string> result = api.DeleteEntityAttribute(1000000416);
 ```
 
 

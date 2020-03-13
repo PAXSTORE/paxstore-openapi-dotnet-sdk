@@ -21,7 +21,7 @@ namespace Paxstore.Test
         public void TestSearchGroup() {
             //Result<TerminalGroup> result = API.SearchTerminalGroup(1, 10, null, "cc", null, null, null, true, true);
             Result<TerminalGroup> result = API.SearchTerminalGroup(1, 10, TerminalGroupSearchOrderBy.CreatedDate_asc,
-                                                        TerminalGroupStatus.Active, null, null, null, true);
+                                                        TerminalGroupStatus.ACTIVE, null, null, null, true);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
