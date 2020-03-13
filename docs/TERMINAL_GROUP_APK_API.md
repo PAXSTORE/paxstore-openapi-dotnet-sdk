@@ -1,22 +1,21 @@
 ## TerminalGroupApk API
 
-All the push terminal group apk to terminal related APIs are encapsulated in the class *com.pax.market.api.sdk.java.api.terminalGroupApk.TerminalGroupApk*.
+All the push terminal group apk to terminal related APIs are encapsulated in the class *Paxstore.OpenApi.TerminalGroupApk*.
 
-**Constructors of TerminalGroupApk**
+**Constructors of TerminalGroupApkApi**
 
 ```
-public TerminalGroupApkApi(String baseUrl, String apiKey, String apiSecret);
-public TerminalGroupApkApi(String baseUrl, String apiKey, String apiSecret, Locale locale);
+public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret)
 ```
 
 **Constructor parameters description**
 
 |Name|Type|Description|
 |:---|:---|:---|
-|baseUrl|String|the base url of REST API|
-|apiKey|String|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
-|apiSecret|String|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
-|locale|Locale|the locale, the default locale is Locale.ENGLISH, the language of message and errors in return object depend on locale|
+|baseUrl|string|the base url of REST API|
+|apiKey|string|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
+|apiSecret|string|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
+
 
 
 ### Get terminal group apk
@@ -27,8 +26,7 @@ Get terminal group apk by groupApkId and pidList
 **API**
 
 ```
- public Result<SimpleTerminalGroupApkDTO> getTerminalGroupApk(Long groupApkId)
- public Result<SimpleTerminalGroupApkDTO> getTerminalGroupApk(Long groupApkId, List<String> pidList)
+public Result<TerminalGroupApkInfo> GetTerminalGroupApk(long groupApkId, List<string> pidList)
 ```
 
 **Input parameter(s) description**  
@@ -36,35 +34,27 @@ Get terminal group apk by groupApkId and pidList
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|groupApkId|Long|false|the id of terminalGroupApk|
-|pidList|List<String>|true|the pid of the configured parameters to return|
+|groupApkId|long|false|the id of terminalGroupApk|
+|pidList|List<string>|true|the pid of the configured parameters to return|
 
 **Sample codes**
 
 ```
-TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-List<String> pidList = new ArrayList<>();
-pidList.add("sys.cap.test01");
-pidList.add("sys.cap.test02");
-pidList.add("sys.cap.test03");
-Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.getTerminalGroupApk(17850L, pidList);
+TerminalGroupApkApi api = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+List<string> pidList = new List<string>();
+pidList.Add("sys.cap.test01");
+pidList.Add("sys.cap.test02");
+pidList.Add("sys.cap.test03");
+Result<TerminalGroupApkInfo> result = api.GetTerminalGroupApk(17850, pidList);
 ```
 
-**Client side validation failed sample result(JSON formatted)**
-
-```
-{
-	"businessCode": -1,
-	"validationErrors": ["Terminal group Apk Id  cannot be null and cannot be less than 1!"]
-}
-```
 
 **Server side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": 2101,
-	"message": "Group app not found"
+	"BusinessCode": 2101,
+	"Message": "Group app not found"
 }
 ```
 
@@ -72,34 +62,32 @@ Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.getTerminalGroupA
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-    	"groupApkParam": {
-			"failedCount": 0,
-			"pendingCount": 8,
-			"paramTemplateName": "PassWord_Param02.xml",
-			"successCount": 0
+	"BusinessCode": 0,
+	"Data": {
+    	"GroupApkParam": {
+			"FailedCount": 0,
+			"PendingCount": 8,
+			"ParamTemplateName": "PassWord_Param02.xml",
+			"SuccessCount": 0
 		},
-		"apkVersionName": "10.3.8.30",
-		"failedCount": 0,
-		"actionStatus": 1,
-		"apkPackageName": "com.baidu.tieba",
-		"pendingCount": 8,
-		"effectiveTime": 1576118640000,
-		"apkVersionCode": 167968776,
-		"successCount": 0,
-		"id": 1728,
-		"updatedDate": 1576118649000,
-		"status": "A"
+		"ApkVersionName": "10.3.8.30",
+		"FailedCount": 0,
+		"ActionStatus": 1,
+		"ApkPackageName": "com.baidu.tieba",
+		"PendingCount": 8,
+		"EffectiveTime": 1576118640000,
+		"ApkVersionCode": 167968776,
+		"SuccessCount": 0,
+		"Id": 1728,
+		"UpdatedDate": 1576118649000,
+		"Status": "A"
     }
 }
 ```
 
-The type of data is SimpleTerminalGroupApkDTO,TerminalGroupApkParamDTO , and Refer to Search terminal group apk Api for structure .
+The type of data is TerminalGroupApkInfo,TerminalGroupApkParamInfo , and Refer to Search terminal group apk Api for structure .
 
-**Possible validation errors**
 
-> <font color="red">Parameter terminalGroupApkId cannot be null and cannot be less than 1!</font>
 
 **Possible business codes**
 
@@ -114,7 +102,7 @@ The search terminal group apk API allows third party system to search group apks
 **API**
 
 ```
-public Result<SimpleTerminalGroupApkDTO> searchTerminalGroupApk(int pageNo, int pageSize, SearchOrderBy orderBy, Long groupId, Boolean pendingOnly, Boolean historyOnly, String keyWords)
+public Result<TerminalGroupApkInfo> SearchTerminalGroupApk(int pageNo, int pageSize, Nullable<TerminalGroupApkSearchOrderBy> orderBy, long groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, string keyWords)
 ```
 
 **Input parameter(s) description**
@@ -123,25 +111,25 @@ public Result<SimpleTerminalGroupApkDTO> searchTerminalGroupApk(int pageNo, int 
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupApkApi.SearchOrderBy.CreatedDate_desc and TerminalGroupApkApi.SearchOrderBy.CreatedDate_asc.|
-|groupId|Long|false|the id of the group|
-|pendingOnly|Boolean|true||
-|historyOnly|Boolean|true|                                                              |
-|keyWords|String|true|search filter by keywords|
+|orderBy|Nullable<TerminalGroupApkSearchOrderBy>|true|the sort order of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupApkSearchOrderBy.CreatedDate_desc and TerminalGroupApkSearchOrderBy.CreatedDate_asc.|
+|groupId|long|false|the id of the group|
+|pendingOnly|Nullable<bool>|true|Indicate whether to search the pending push task only|
+|historyOnly|Nullable<bool>|true|Indicate whether to search history push task only                                                              |
+|keyWords|string|true|Key words, it will match APP's package name, APK's name, APK's short description and APK's description|
 
 **Sample codes**
 
 ```
-TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.searchTerminalGroupApk(1,1, TerminalGroupApkApi.SearchOrderBy.CreatedDate_asc,16526L,true,null,null);
+TerminalGroupApkApi api = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<TerminalGroupApkInfo> result = api.SearchTerminalGroupApk(1,1, TerminalGroupApkSearchOrderBy.CreatedDate_asc,16526,true,null,null);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["pageNo:must be greater than or equal to 1"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["'Page No' must be greater than '0'."]
 }
 ```
 
@@ -149,8 +137,8 @@ Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.searchTerminalGro
 
 ```
 {
-	"businessCode": 2150,
-	"message": "Terminal group not found"
+	"BusinessCode": 2150,
+	"Message": "Terminal group not found"
 }
 ```
 
@@ -158,61 +146,61 @@ Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.searchTerminalGro
 
 ```
 {
-	"businessCode": 0,
-	"pageInfo": {
-		"pageNo": 1,
-		"limit": 1,
-		"totalCount": 3,
-		"hasNext": true,
-		"dataSet": [{
-		"groupApkParam": {
-			"failedCount": 0,
-			"pendingCount": 0,
-			"paramTemplateName": "paramTemplate.xml",
-			"successCount": 0
+	"BusinessCode": 0,
+	"PageInfo": {
+		"PageNo": 1,
+		"Limit": 1,
+		"TotalCount": 3,
+		"HasNext": true,
+		"DataSet": [{
+		"GroupApkParam": {
+			"FailedCount": 0,
+			"PendingCount": 0,
+			"ParamTemplateName": "paramTemplate.xml",
+			"SuccessCount": 0
 		},
-		"apkVersionName": "5.01.07",
-		"failedCount": 0,
-		"actionStatus": 0,
-		"apkPackageName": "com.pax.android.demoapp",
-		"pendingCount": 0,
-		"apkVersionCode": 57,
-		"successCount": 0,
-		"id": 1644,
-		"updatedDate": 1562219872000,
-		"status": "P"
+		"ApkVersionName": "5.01.07",
+		"FailedCount": 0,
+		"ActionStatus": 0,
+		"ApkPackageName": "com.pax.android.demoapp",
+		"PendingCount": 0,
+		"ApkVersionCode": 57,
+		"SuccessCount": 0,
+		"Id": 1644,
+		"UpdatedDate": 1562219872000,
+		"Status": "P"
 	}]
 	}
 }
 ```
 
-The type in dataSet is SimpleTerminalGroupApkDTO. And the structure like below.
+The type in dataSet is TerminalGroupApkInfo. And the structure like below.
 
 |Name|Type|Description|
 |:---|:---|:---|
-|id|Long|the id of terminal group apk|
-|apkPackageName|String|the packageName of terminal group apk|
-|apkVersionName|String|the version name of terminal group apk|
-|apkVersionCode|Long|the version code of terminal group apk|
-|effectiveTime|String|                                        |
-|expiredTime|String||
-|updatedDate|String||
-|actionStatus|int|the country code|
-|status|String|the push status|
-|pendingCount|int||
-|successCount|int||
-|failedCount|int||
-|groupApkParam|TerminalGroupApkParamDTO|the structure like below|
+|Id|long|the id of terminal group apk|
+|ApkPackageName|string|the packageName of terminal group apk|
+|ApkVersionName|string|the version name of terminal group apk|
+|ApkVersionCode|long|the version code of terminal group apk|
+|EffectiveTime|string|                                        |
+|ExpiredTime|string||
+|UpdatedDate|string||
+|ActionStatus|int|the country code|
+|Status|string|the push status|
+|PendingCount|int||
+|SuccessCount|int||
+|FailedCount|int||
+|GroupApkParam|TerminalGroupApkParamInfo|the structure like below|
 
 The type in data is TerminalGroupApkParamDTO. And the structure like below.
 
 | Name                 | Type               | Description                       |
 | :------------------- | :----------------- | :-------------------------------- |
-| paramTemplateName    | String             |                                   |
-| configuredParameters | Map<String,String> | Configuration parameters in param |
-| pendingCount         | int                |                                   |
-| successCount         | int                |                                   |
-| failedCount          | int                |                                   |
+| ParamTemplateName    | string             |                                   |
+| ConfiguredParameters | Dictionary<string, string> | Configuration parameters in param |
+| PendingCount         | Nullable<int>                |                                   |
+| SuccessCount         | Nullable<int>                |                                   |
+| FailedCount          | Nullable<int>                |                                   |
 
 **Possible action status**
 
@@ -226,9 +214,9 @@ The type in data is TerminalGroupApkParamDTO. And the structure like below.
 
 **Possible client validation errors**  
 
-> <font color=red>pageNo:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be less than or equal to 1000</font>  
+> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page No' must be greater than '0'.</font><br>
+> <font color="red">'Page Size' must be greater than '0'.</font> 
 
 **Possible business codes**
 
@@ -245,26 +233,26 @@ Create and active  a group push apk task by CreateTerminalGroupApkRequest.
 **API**
 
 ```
-public Result<SimpleTerminalGroupApkDTO> createAndActiveGroupApk(CreateTerminalGroupApkRequest createRequest)
+public Result<TerminalGroupApkInfo> CreateAndActiveGroupApk(CreateTerminalGroupApkRequest createTerminalGroupApkRequest)
 ```
 
 **Input parameter(s) description**
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|createRequest|CreateTerminalGroupApkRequest|false||
+|createTerminalGroupApkRequest|CreateTerminalGroupApkRequest|false||
 
 Structure of class CreateTerminalGroupApkRequest.
 
 | Property Name        | Type                | Nullable | Description                                                  |
 | :------------------- | :------------------ | :------- | :----------------------------------------------------------- |
-| groupId              | Long                | false    | The id of the terminal group                                 |
-| pushTemplateName     | String              | true     | the name of the push Template                                |
-| packageName          | String              | false    | the package name of push apk                                 |
-| version              | String              | true     | The package name which indicate the application you want to push |
-| templateName         | String              | true     | The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10. |
-| parameters           | Map<String, String> | true     | The parameter key and value, the key the PID in template     |
-| base64FileParameters | List<FileParameter> | true     | The parameter of file type, the max counter of file type parameter is 10, and the max size of each parameter file is 500kb |
+| GroupId              | Long                | false    | The id of the terminal group                                 |
+| PushTemplateName     | String              | true     | the name of the push Template                                |
+| PackageName          | String              | false    | the package name of push apk                                 |
+| Version              | String              | true     | The package name which indicate the application you want to push |
+| TemplateName         | String              | true     | The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10. |
+| Parameters           | Map<String, String> | true     | The parameter key and value, the key the PID in template     |
+| Base64FileParameters | List<FileParameter> | true     | The parameter of file type, the max counter of file type parameter is 10, and the max size of each parameter file is 500kb |
 
 Structure of class FileParameter
 

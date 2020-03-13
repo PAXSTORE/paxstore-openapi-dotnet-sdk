@@ -9,7 +9,7 @@ namespace Paxstore.OpenApi.Model
     public class TerminalGroupApkParamInfo
     {
         public string ParamTemplateName { get; set; }
-        public Dictionary<string, string> configuredParameters { get; set; }
+        public Dictionary<string, string> ConfiguredParameters { get; set; }
         public Nullable<int> PendingCount { get; set; }
         public Nullable<int> SuccessCount { get; set; }
         public Nullable<int> FailedCount { get; set; }

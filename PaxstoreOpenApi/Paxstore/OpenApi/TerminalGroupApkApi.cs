@@ -41,7 +41,7 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<TerminalGroupApkInfo> SearchTerminalGroupApk(int pageNo, int pageSize, Nullable<TerminalGroupApkSearchOrderBy> orderBy, Nullable<long> groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, string keyWords)
+        public Result<TerminalGroupApkInfo> SearchTerminalGroupApk(int pageNo, int pageSize, Nullable<TerminalGroupApkSearchOrderBy> orderBy, long groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, string keyWords)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
@@ -54,9 +54,7 @@ namespace Paxstore.OpenApi
             if (orderBy != null) {
                 request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
             }
-            if (groupId != null) {
-                request.AddParameter("groupId", groupId.Value.ToString());
-            }
+            request.AddParameter("groupId", groupId);
             if (pendingOnly != null) {
                 request.AddParameter("pendingOnly", pendingOnly.Value.ToString());
             }
