@@ -159,7 +159,7 @@ namespace Paxstore.OpenApi
 
         public Result<string> ActiveGroup(long groupId)
         {
-            RestRequest request = new RestRequest(ACTIVE_TERMINAL_GROUP_URL, Method.POST);
+            RestRequest request = new RestRequest(ACTIVE_TERMINAL_GROUP_URL, Method.PUT);
             request.AddUrlSegment("groupId", groupId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -168,7 +168,7 @@ namespace Paxstore.OpenApi
         }
 
         public Result<string> DisableGroup(long groupId){
-            RestRequest request = new RestRequest(DISABLE_TERMINAL_GROUP_URL, Method.POST);
+            RestRequest request = new RestRequest(DISABLE_TERMINAL_GROUP_URL, Method.PUT);
             request.AddUrlSegment("groupId", groupId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
