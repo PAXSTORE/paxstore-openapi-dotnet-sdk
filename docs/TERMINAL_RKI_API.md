@@ -176,8 +176,8 @@ The type in DataSet is TerminalRkiTaskInfo. And the structure like below.
 |Status|string|the status of push Rki, value can be one of A(Active) and S(Suspend)|
 |ActionStatus|string|the push status, 2(Success), 3(Failed)|
 |ActivatedDate|long|timestamp(milliseconds) of the push Rki activated date|
-|ErrorCode|String|the error code of push task|
-|Remarks|String|the push Rki result remarks|
+|ErrorCode|string|the error code of push task|
+|Remarks|string|the push Rki result remarks|
 
 **Possible action status**
 

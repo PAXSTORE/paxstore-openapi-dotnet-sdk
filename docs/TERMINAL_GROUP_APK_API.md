@@ -85,7 +85,46 @@ Result<TerminalGroupApkInfo> result = api.GetTerminalGroupApk(17850, pidList);
 }
 ```
 
-The type of data is TerminalGroupApkInfo,TerminalGroupApkParamInfo , and Refer to Search terminal group apk Api for structure .
+The type of data is TerminalGroupApkInfo, the structure is like below.  
+
+|Name|Type|Description|
+|:---|:---|:---|
+|Id|long|the id of terminal group apk|
+|ApkPackageName|string|the packageName of terminal group apk|
+|ApkVersionName|string|the version name of terminal group apk|
+|ApkVersionCode|long|the version code of terminal group apk|
+|EffectiveTime|Nullable<long>|the effective time|
+|ExpiredTime|Nullable<long>|the expire time|
+|UpdatedDate|Nullable<long>||
+|ActionStatus|int|action status|
+|Status|string|the push status|
+|PendingCount|Nullable<int>||
+|SuccessCount|Nullable<int>||
+|FailedCount|Nullable<int>||
+|GroupApkParam|TerminalGroupApkParamInfo|the structure like below|
+
+
+The structure of TerminalGroupApkParamInfo.
+
+| Name                 | Type               | Description                       |
+| :------------------- | :----------------- | :-------------------------------- |
+| ParamTemplateName    | string             |                                   |
+| ConfiguredParameters | Dictionary<string, string> | Configuration parameters in param |
+| PendingCount         | Nullable<int>                |                                   |
+| SuccessCount         | Nullable<int>                |                                   |
+| FailedCount          | Nullable<int>                |                                   |
+
+
+**Possible action status**
+
+| action status | status  | Description                            |
+| :------------ | :------ | :------------------------------------- |
+| 0             | None    | The push task no start                 |
+| 1             | Pending | The push task staring                  |
+| 2             | Succeed | The push task is succeed               |
+| 3             | Failed  | The push task is failed                |
+| 4             | Watting | The push task is watting, no need push |
+
 
 
 
@@ -174,43 +213,7 @@ Result<TerminalGroupApkInfo> result = api.SearchTerminalGroupApk(1,1, TerminalGr
 }
 ```
 
-The type in dataSet is TerminalGroupApkInfo. And the structure like below.
-
-|Name|Type|Description|
-|:---|:---|:---|
-|Id|long|the id of terminal group apk|
-|ApkPackageName|string|the packageName of terminal group apk|
-|ApkVersionName|string|the version name of terminal group apk|
-|ApkVersionCode|long|the version code of terminal group apk|
-|EffectiveTime|string|                                        |
-|ExpiredTime|string||
-|UpdatedDate|string||
-|ActionStatus|int|the country code|
-|Status|string|the push status|
-|PendingCount|int||
-|SuccessCount|int||
-|FailedCount|int||
-|GroupApkParam|TerminalGroupApkParamInfo|the structure like below|
-
-The type in data is TerminalGroupApkParamDTO. And the structure like below.
-
-| Name                 | Type               | Description                       |
-| :------------------- | :----------------- | :-------------------------------- |
-| ParamTemplateName    | string             |                                   |
-| ConfiguredParameters | Dictionary<string, string> | Configuration parameters in param |
-| PendingCount         | Nullable<int>                |                                   |
-| SuccessCount         | Nullable<int>                |                                   |
-| FailedCount          | Nullable<int>                |                                   |
-
-**Possible action status**
-
-| action status | status  | Description                            |
-| :------------ | :------ | :------------------------------------- |
-| 0             | None    | The push task no start                 |
-| 1             | Pending | The push task staring                  |
-| 2             | Succeed | The push task is succeed               |
-| 3             | Failed  | The push task is failed                |
-| 4             | Watting | The push task is watting, no need push |
+The type in dataSet is TerminalGroupApkInfo. 
 
 **Possible client validation errors**  
 
@@ -246,52 +249,40 @@ Structure of class CreateTerminalGroupApkRequest.
 
 | Property Name        | Type                | Nullable | Description                                                  |
 | :------------------- | :------------------ | :------- | :----------------------------------------------------------- |
-| GroupId              | Long                | false    | The id of the terminal group                                 |
-| PushTemplateName     | String              | true     | the name of the push Template                                |
-| PackageName          | String              | false    | the package name of push apk                                 |
-| Version              | String              | true     | The package name which indicate the application you want to push |
-| TemplateName         | String              | true     | The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10. |
-| Parameters           | Map<String, String> | true     | The parameter key and value, the key the PID in template     |
+| GroupId              | long                | false    | The id of the terminal group                                 |
+| PushTemplateName     | string              | true     | the name of the push Template                                |
+| PackageName          | string              | false    | the package name of push apk                                 |
+| Version              | string              | true     | The package name which indicate the application you want to push |
+| TemplateName         | string              | true     | The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10. |
+| Parameters           | Dictionary<string, string> | true     | The parameter key and value, the key the PID in template     |
 | Base64FileParameters | List<FileParameter> | true     | The parameter of file type, the max counter of file type parameter is 10, and the max size of each parameter file is 500kb |
 
 Structure of class FileParameter
 
 | Property Name | Type   | Nullable | Description                                             |
 | :------------ | :----- | :------- | :------------------------------------------------------ |
-| pid           | String | true     | The PID in template                                     |
-| fileName      | String | true     | The parameter of file type, file name containing suffix |
-| fileData      | String | true     | The parameter of file type, file base64 data            |
+| PID           | string | true     | The PID in template                                     |
+| FileName      | string | true     | The parameter of file type, file name containing suffix |
+| FileData      | string | true     | The parameter of file type, file base64 data            |
 
 **Sample codes**
 
 ```
-TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-     CreateTerminalGroupApkRequest createRequest = new CreateTerminalGroupApkRequest();
-        createRequest.setGroupId(16543L); 
-        createRequest.setPushTemplateName("testCreate3RD-result-api-test-CREATEbY-newest-12334111");
-        createRequest.setPackageName("com.baidu.tieba");
-        createRequest.setTemplateName("123 (3).xml");
-      //  Map<String, String> parameters = new HashMap<String, String>();
-      //  parameters.put("sys_F1_sys_cap_test01", "abc");
-      //  parameters.put("sys_F1_sys_cap_test02", "123");
-      //  parameters.put("sys_F1_sys_cap_password", "123");
-        createRequest.setParameters(null);
-       //  FileParameter fileParameter = new FileParameter();
-       //  fileParameter.setPid("PID.cardBinFile");
-       //  fileParameter.setFileName("cardBinFile.jpeg");
-       // fileParameter.setFileData("data:image/jpeg;base64,/9j/4AAQSkZJR==");
-       // List<FileParameter> base64FileParameters = new ArrayList<>();
-       // base64FileParameters.add(fileParameter);
-        createRequest.setBase64FileParameters(null);
-        Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.createAndActiveGroupApk(createRequest);
+TerminalGroupApkApi api = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+CreateTerminalGroupApkRequest createRequest = new CreateTerminalGroupApkRequest();
+createRequest.GroupId = 16543; 
+createRequest.PushTemplateName = "testCreate3RD-result-api-test-CREATEbY-newest-12334111";
+createRequest.PackageName = "com.baidu.tieba";
+createRequest.TemplateName = "123 (3).xml";
+Result<TerminalGroupApkInfo> result = api.CreateAndActiveGroupApk(createRequest);
 ```
 
 **Client side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter terminalGroupApkCreateRequest cannot be null!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter createTerminalGroupApkRequest is mandatory!"]
 }
 ```
 
@@ -300,8 +291,8 @@ TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.w
 
 ```
 {
-	"businessCode": 2150,
-	"message": "Terminal group not found"
+	"BusinessCode": 2150,
+	"Message": "Terminal group not found"
 }
 ```
 
@@ -309,36 +300,36 @@ TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.w
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-		"groupApkParam": {
-			"failedCount": 0,
-			"pendingCount": 0,
-			"paramTemplateName": "123 (3).xml",
-			"successCount": 0
+	"BusinessCode": 0,
+	"Data": {
+		"GroupApkParam": {
+			"FailedCount": 0,
+			"PendingCount": 0,
+			"ParamTemplateName": "123 (3).xml",
+			"SuccessCount": 0
 		},
-		"apkVersionName": "10.3.8.30",
-		"failedCount": 0,
-		"actionStatus": 0,
-		"apkPackageName": "com.baidu.tieba",
-		"pendingCount": 0,
-		"effectiveTime": 1583396340000,
-		"apkVersionCode": 167968776,
-		"successCount": 0,
-		"id": 1743,
-		"updatedDate": 1583396371789,
-		"status": "A"
+		"ApkVersionName": "10.3.8.30",
+		"FailedCount": 0,
+		"ActionStatus": 0,
+		"ApkPackageName": "com.baidu.tieba",
+		"PendingCount": 0,
+		"EffectiveTime": 1583396340000,
+		"ApkVersionCode": 167968776,
+		"SuccessCount": 0,
+		"Id": 1743,
+		"UpdatedDate": 1583396371789,
+		"Status": "A"
 	}
 }
 ```
 
 <br>
-The type of data is SimpleTerminalGroupApkDTO,TerminalGroupApkParamDTO , and Refer to Search terminal group apk Api for structure .
+The type of data is TerminalGroupApkInfo.
 
 **Possible client validation errors**
 
 
-> <font color="red">Parameter createRequest cannot be null!</font>
+> <font color="red">Parameter createTerminalGroupApkRequest is mandatory!</font>
 
 **Possible business codes**
 
@@ -364,7 +355,7 @@ This api allows the third party system suspend apk of group push task.
 **API**
 
 ```
-public Result<SimpleTerminalGroupApkDTO> suspendTerminalGroupApk(Long groupApkId)
+public Result<TerminalGroupApkInfo> SuspendTerminalGroupApk(long groupApkId)
 ```
 
 **Input parameter(s) description**  
@@ -372,31 +363,24 @@ public Result<SimpleTerminalGroupApkDTO> suspendTerminalGroupApk(Long groupApkId
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|groupApkId|Long|false|the id of the group push apk task|
+|groupApkId|long|false|the id of the group push apk task|
 
 
 **Sample codes**
 
 ```
-TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.suspendTerminalGroupApk(1743L);
+TerminalGroupApkApi api = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<TerminalGroupApkInfo> result = api.SuspendTerminalGroupApk(1743);
 ```
 
-**Client side validation failed sample result(JSON formatted)**
 
-```
-{
-	"businessCode": -1,
-	"validationErrors": ["Terminal group Apk Id  cannot be null and cannot be less than 1!"]
-}
-```
 
 **Server side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": 2101,
-	"message": "Group app not found"
+	"BusinessCode": 2101,
+	"Message": "Group app not found"
 }
 ```
 
@@ -404,30 +388,30 @@ Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.suspendTerminalGr
 
 ```
 {
-	"businessCode": 0
-	"data": {
-		"groupApkParam": {
-			"failedCount": 0,
-			"pendingCount": 0,
-			"paramTemplateName": "123 (3).xml",
-			"successCount": 0
+	"BusinessCode": 0
+	"Data": {
+		"GroupApkParam": {
+			"FailedCount": 0,
+			"PendingCount": 0,
+			"ParamTemplateName": "123 (3).xml",
+			"SuccessCount": 0
 		},
-		"apkVersionName": "10.3.8.30",
-		"failedCount": 0,
-		"actionStatus": 0,
-		"apkPackageName": "com.baidu.tieba",
-		"pendingCount": 0,
-		"effectiveTime": 1583396760000,
-		"apkVersionCode": 167968776,
-		"successCount": 0,
-		"id": 1743,
-		"updatedDate": 1583398464000,
-		"status": "S"
+		"ApkVersionName": "10.3.8.30",
+		"FailedCount": 0,
+		"ActionStatus": 0,
+		"ApkPackageName": "com.baidu.tieba",
+		"PendingCount": 0,
+		"EffectiveTime": 1583396760000,
+		"ApkVersionCode": 167968776,
+		"SuccessCount": 0,
+		"Id": 1743,
+		"UpdatedDate": 1583398464000,
+		"Status": "S"
 	}
 }
 ```
 
-The type of data is SimpleTerminalGroupApkDTO,TerminalGroupApkParamDTO , and Refer to Search terminal group apk Api for structure .
+The type of data is TerminalGroupApkInfo.
 
 
 **Possible business codes**
@@ -447,7 +431,7 @@ This api allows the third party system  delete apk of group push task.
 **API**
 
 ```
-public Result<String> deleteTerminalGroupApk(Long groupApkId)
+public Result<string> DeleteTerminalGroupApk(long groupApkId)
 ```
 
 **Input parameter(s) description**  
@@ -455,30 +439,22 @@ public Result<String> deleteTerminalGroupApk(Long groupApkId)
 
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
-|groupApkId|Long|false|the id of the group push apk task|
+|groupApkId|long|false|the id of the group push apk task|
 
 **Sample codes**
 
 ```
-TerminalGroupApkApi terminalGroupApkApi = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<SimpleTerminalGroupApkDTO> result = terminalGroupApkApi.suspendTerminalGroupApk(1743L);
+TerminalGroupApkApi api = new TerminalGroupApkApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<string> result = api.DeleteTerminalGroupApk(1743);
 ```
 
-**Client side validation failed sample result(JSON formatted)**
-
-```
-{
-	"businessCode": -1,
-	"validationErrors": ["Terminal group Apk Id  cannot be null and cannot be less than 1!"]
-}
-```
 
 **Server side validation failed sample result(JSON formatted)**
 
 ```
 {
-	"businessCode": 2101,
-	"message": "Group app not found"
+	"BusinessCode": 2101,
+	"Message": "Group app not found"
 }
 ```
 
