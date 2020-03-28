@@ -3,45 +3,44 @@
 ## 7.1.0  
 ### New features(To support these new feature Paxstore must upgrade to version 7.1)  
 * Add entity attribute APIs (EntityAttributeApi)  
-  1. Get entity attribute by id  ```getEntityAttribute(Long attributeId)```  
-  2. Search entity attribute  ```searchEntityAttributes(int pageNo, int pageSize, SearchOrderBy orderBy, String key , EntityAttributeType entityType)```  
-  3. Create entity attribute(this API is market level, reseller has not permission)  ```createEntityAttribute(EntityAttributeCreateRequest createRequest)```  
-  4. Update entity attribute(this API is market level, reseller has not permission)  ```updateEntityAttribute(Long attributeId, EntityAttributeUpdateRequest updateRequest)```  
-  5. Update entity attribute label(this API is market level, reseller has not permission)  ```updateEntityAttributeLabel(Long attributeId, EntityAttributeLabelUpdateRequest updateLabelRequest)```  
-  6. Delete entity attribute(this API is market level, reseller has not permission)  ```deleteEntityAttribute(Long attributeId)```  
+  1. Get entity attribute by id  ```GetEntityAttribute(long attributeId)```  
+  2. Search entity attribute  ```SearchEntityAttributes(int pageNo, int pageSize, Nullable<EntityAttributeSearchOrderBy> orderBy, string key, Nullable<EntityAttributeType> entityType)```  
+  3. Create entity attribute(this API is market level, reseller has not permission)  ```CreateEntityAttribute(EntityAttributeCreateRequest entityAttributeCreateRequest)```  
+  4. Update entity attribute(this API is market level, reseller has not permission)  ```UpdateEntityAttribute(long attributeId, EntityAttributeUpdateRequest entityAttributeUpdateRequest)```  
+  5. Update entity attribute label(this API is market level, reseller has not permission)  ```UpdateEntityAttributeLabel(long attributeId, EntityAttributeLabelUpdateRequest updateLabelRequest)```  
+  6. Delete entity attribute(this API is market level, reseller has not permission)  ```DeleteEntityAttribute(long attributeId)```  
   <br>
 * Add terminal group related APIs (TerminalGroupApi)  
-  1. Search terminal group  ```searchTerminalGroup(int pageNo, int pageSize,TerminalGroupSearchOrderBy orderBy, TerminalGroupStatus status, String name,String resellerNames,String modelNames, Boolean isDynamic)```   
-  2. Get terminal group by id  ```getTerminalGroup(Long groupId)```  
-  3. Create terminal group  ```createTerminalGroup(CreateTerminalGroupRequest createRequest)```  
-  4. Search terminal  ```searchTerminal(int pageNo, int pageSize, TerminalApi.TerminalSearchOrderBy orderBy, TerminalStatus status, String modelName, String resellerName, String serialNo, String excludeGroupId)```  
-  5. Update terminal group  ```updateTerminalGroup(Long groupId ,UpdateTerminalGroupRequest updateRequest)```  
-  6. Activate terminal group```activeGroup(Long groupId)```  
-  7. Disable terminal group  ```disableGroup(Long groupId)```  
-  8. Delete terminal group  ```deleteGroup(Long groupId)```  
-  9. Search terminals in group  ```searchTerminalsInGroup(int pageNo, int pageSize, TerminalApi.TerminalSearchOrderBy orderBy, Long groupId, String serialNo, String merchantNames)```  
-  10. Add terminal(s) to group  ```addTerminalToGroup(Long groupId, Set<Long> terminalIds)```  
-  11. Remove terminal(s) out of group  ```removeTerminalOutGroup(Long groupId, Set<Long> terminalIds)```  
+  1. Search terminal group  ```SearchTerminalGroup(int pageNo, int pageSize, Nullable<TerminalGroupSearchOrderBy> orderBy, Nullable<TerminalGroupStatus> status, string name, string resellerNames, string modelNames, Nullable<bool> isDynamic)```   
+  2. Get terminal group by id  ```GetTerminalGroup(long groupId)```  
+  3. Create terminal group  ```CreateTerminalGroup(CreateTerminalGroupRequest createTerminalGroupRequest)```  
+  4. Search terminal  ```SearchTerminal(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, Nullable<TerminalStatus> status, string modelName, string resellerName, string merchantName, string serialNo, Nullable<bool> excludeGroupId)```  
+  5. Update terminal group  ```UpdateTerminalGroup(long groupId, UpdateTerminalGroupRequest updateTerminalGroupRequest)```  
+  6. Activate terminal group```ActiveGroup(long groupId)```  
+  7. Disable terminal group  ```DisableGroup(long groupId)```  
+  8. Delete terminal group  ```DeleteGroup(long groupId)```  
+  9. Search terminals in group  ```SearchTerminalsInGroup(int pageNo, int pageSize, Nullable<TerminalSearchOrderBy> orderBy, long groupId, string serialNo, string merchantNames)```  
+  10. Add terminal(s) to group  ```AddTerminalToGroup(long groupId, HashSet<long> terminalIds)```  
+  11. Remove terminal(s) out of group  ```RemoveTerminalOutGroup(long groupId, HashSet<long> terminalIds)```  
   <br>
-* Add terminal group push related APIs (TerminalGroupApkApi)  
-  1. Get terminal group push task  ```getTerminalGroupApk(Long groupApkId)```  
-  2. Get terminal group push task and include specified parameters in result  ```getTerminalGroupApk(Long groupApkId, List<String> pidList)```  
-  3. Search terminal group push task  ```searchTerminalGroupApk(int pageNo, int pageSize, SearchOrderBy orderBy , Long groupId, Boolean pendingOnly, Boolean historyOnly, String keyWords)```  
-  4. Create terminal group push task  ```createAndActiveGroupApk(CreateTerminalGroupApkRequest createRequest)```  
-  5. Suspend terminal group push task  ```suspendTerminalGroupApk(Long groupApkId)```  
-  6. Delete terminal group push task  ```deleteTerminalGroupApk(Long groupApkId)```  
+* Add terminal group push related APIs (TerminalGroupApkApi)   
+  1. Get terminal group push task and include specified parameters in result  ```GetTerminalGroupApk(long groupApkId, List<string> pidList)```  
+  2. Search terminal group push task  ```SearchTerminalGroupApk(int pageNo, int pageSize, Nullable<TerminalGroupApkSearchOrderBy> orderBy, long groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, string keyWords)```  
+  3. Create terminal group push task  ```CreateAndActiveGroupApk(CreateTerminalGroupApkRequest createTerminalGroupApkRequest)```  
+  4. Suspend terminal group push task  ```SuspendTerminalGroupApk(long groupApkId)```  
+  5. Delete terminal group push task  ```DeleteTerminalGroupApk(long groupApkId)```  
   <br>
 * Add terminal RKI(remote key injection) APIs (TerminalRkiApi)  
-  1. Push RKI key to terminal  ```pushRkiKey2Terminal(PushRki2TerminalRequest pushRki2TerminalRequest)```  
-  2. Search RKI push task  ```searchPushRkiTasks(int pageNo, int pageSize, SearchOrderBy orderBy, String terminalTid, String rkiKey, PushStatus status)```  
-  3. Get RKI push task  ```getPushRkiTask(Long pushRkiTaskId)```  
-  4. Disable RKI push task  ```disablePushRkiTask(DisablePushRkiTask disablePushRkiTask)```  
+  1. Push RKI key to terminal  ```PushRkiKey2Terminal(PushRki2TerminalRequest pushRki2TerminalRequest)```  
+  2. Search RKI push task  ```SearchPushRkiTasks(int pageNo, int pageSize, Nullable<SearchOrderBy> orderBy, string terminalTid, string rkiKey, PushStatus status)```  
+  3. Get RKI push task  ```GetPushRkiTask(long pushRkiTaskId)```  
+  4. Disable RKI push task  ```DisablePushRkiTask(DisablePushRkiTaskRequest disablePushRkiTaskRequest)```  
   <br>
 * Update terminal APIs (TerminalApi)  
-  1. Batch add terminal(s) to group(s)  ```batchAddTerminalToGroup(TerminalGroupRequest groupRequest)```
+  1. Batch add terminal(s) to group(s)  ```BatchAddTerminalToGroup(TerminalGroupRequest batchAddTerminalToGroupRequest)```
   <br>
 * Update reseller APIs (ResellerApi)  
-  1. Search reseller RKI keys  ```searchResellerRkiKeyList(Long resellerId, int pageNo, int pageSize, String rkiKey)```  
+  1. Search reseller RKI keys  ```SearchResellerRkiKeyList(long resellerId, int pageNo, int pageSize, string rkiKey)```  
 
 ## 7.0.1  
 
