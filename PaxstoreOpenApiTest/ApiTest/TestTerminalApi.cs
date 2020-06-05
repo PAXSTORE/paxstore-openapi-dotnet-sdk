@@ -176,6 +176,36 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
+        [Test]
+        public void TestMoveTerminal() {
+            Result<string> result = API.MoveTerminal(100000, "testReseller", "testMerchant");
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestGetTerminalConfig() {
+            Result<TerminalConfig> result = API.GetTerminalConfig(100000);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestUpdateTerminalConfig() {
+            TerminalConfigUpdateRequest terminalConfigUpdateRequest = new TerminalConfigUpdateRequest();
+            terminalConfigUpdateRequest.AllowReplacement = true;
+            Result<string> result = API.UpdateTerminalConfig(100000, terminalConfigUpdateRequest);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestGetTerminalPED() {
+            Result<TerminalPED> result = API.GetTerminalPED(100000);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
     }
 
     

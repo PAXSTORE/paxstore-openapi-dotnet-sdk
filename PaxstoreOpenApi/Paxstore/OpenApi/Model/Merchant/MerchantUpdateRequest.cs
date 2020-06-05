@@ -29,6 +29,12 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("address")]
         public string Address{get; set;}
 
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("province")]
+        public string Province { get; set; }
+
         [JsonProperty("description")]
         public string Description{get; set;}
 

@@ -15,6 +15,8 @@ namespace Paxstore.OpenApi.Validator.Merchant
             RuleFor(x => x.Postcode).MaximumLength(16);
             RuleFor(x => x.Address).MaximumLength(255);
             RuleFor(x => x.Description).MaximumLength(3000);
+            RuleFor(x => x.City).MaximumLength(255);
+            RuleFor(x => x.Province).MaximumLength(64);
         }
     }
 }

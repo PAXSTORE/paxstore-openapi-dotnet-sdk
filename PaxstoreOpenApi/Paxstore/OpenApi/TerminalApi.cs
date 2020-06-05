@@ -18,6 +18,12 @@ namespace Paxstore.OpenApi
 	    private const string CREATE_TERMINAL_URL = "/v1/3rdsys/terminals";
 	    private const string UPDATE_TERMINAL_URL = "/v1/3rdsys/terminals/{terminalId}";
         private const string ADD_TERMINAL_TO_GROUP_URL = "/v1/3rdsys/terminals/groups";
+        private const string MOVE_TERMINAL_URL = "/v1/3rdsys/terminals/{terminalId}/move";
+        private const string GET_TERMINAL_PED_STATUS_URL = "/v1/3rdsys/terminals/{terminalId}/ped";
+        private const string UPDATE_TERMINAL_REMOTE_CONFIG_URL = "/v1/3rdsys/terminals/{terminalId}/config";
+        private const string GET_TERMINAL_REMOTE_CONFIG_URL = "/v1/3rdsys/terminals/{terminalId}/config";
+
+        private const string URL_SEGMENT_TERMINAL_ID = "terminalId";
 
         public TerminalApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret){
 
@@ -58,7 +64,7 @@ namespace Paxstore.OpenApi
                 return new Result<Terminal>(validationErrs);
             }
             RestRequest request = new RestRequest(GET_TERMINAL_URL, Method.GET);
-            request.AddUrlSegment("terminalId", terminalId);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
             var responseContent = Execute(request);
             TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);
             Result<Terminal> result = new Result<Terminal>(terminalResponse);
@@ -87,7 +93,7 @@ namespace Paxstore.OpenApi
             RestRequest request = new RestRequest(UPDATE_TERMINAL_URL, Method.PUT);
             var terminalJson = JsonConvert.SerializeObject(terminalUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalJson, ParameterType.RequestBody);
-            request.AddUrlSegment("terminalId",terminalId);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
             var responseContent = Execute(request);
             TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);
             Result<Terminal> result = new Result<Terminal>(terminalResponse);
@@ -100,7 +106,7 @@ namespace Paxstore.OpenApi
                 return new Result<string>(validationErrs);
             }
             RestRequest request = new RestRequest(ACTIVE_TERMINAL_URL, Method.PUT);
-            request.AddUrlSegment("terminalId",terminalId);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
@@ -113,7 +119,7 @@ namespace Paxstore.OpenApi
                 return new Result<string>(validationErrs);
             }
             RestRequest request = new RestRequest(DISABLE_TERMINAL_URL, Method.PUT);
-            request.AddUrlSegment("terminalId",terminalId);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
@@ -126,7 +132,7 @@ namespace Paxstore.OpenApi
                 return new Result<string>(validationErrs);
             }
             RestRequest request = new RestRequest(DELETE_TERMINAL_URL, Method.DELETE);
-            request.AddUrlSegment("terminalId",terminalId);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
@@ -149,8 +155,66 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        public Result<string> MoveTerminal(long terminalId, string resellerName, string merchantName) {
+            List<string> validationErrs = new List<string>();
+            if (string.IsNullOrEmpty(resellerName)) {
+                validationErrs.Add(GetMsgByKey("parameterResellerNameIsNull"));
+            }
+            if (string.IsNullOrEmpty(merchantName)) {
+                validationErrs.Add(GetMsgByKey("parameterMerchantNameIsNull"));
+            }
+            if (validationErrs.Count > 0) {
+                return new Result<string>(validationErrs);
+            }
+            RestRequest request = new RestRequest(MOVE_TERMINAL_URL, Method.PUT);
+            TerminalMoveRequest terminalMoveRequest = new TerminalMoveRequest();
+            terminalMoveRequest.ResellerName = resellerName;
+            terminalMoveRequest.MerchantName = merchantName;
 
-        string GetStatusValue(TerminalStatus status)
+            var requestJson = JsonConvert.SerializeObject(terminalMoveRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            string responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
+
+        public Result<TerminalPED> GetTerminalPED(long terminalId) {
+            RestRequest request = new RestRequest(GET_TERMINAL_PED_STATUS_URL, Method.GET);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
+            var responseContent = Execute(request);
+            TerminalPEDResponse terminalPEDResponse = JsonConvert.DeserializeObject<TerminalPEDResponse>(responseContent);
+            Result<TerminalPED> result = new Result<TerminalPED>(terminalPEDResponse);
+            return result;
+        }
+
+        public Result<string> UpdateTerminalConfig(long terminalId, TerminalConfigUpdateRequest terminalConfigUpdateRequest) {
+            if (terminalConfigUpdateRequest == null) {
+                List<string> validationErrs = new List<string>();
+                validationErrs.Add(GetMsgByKey("parameterTerminalConfigUpdateRequestIsNull"));
+                return new Result<string>(validationErrs);
+            }
+            RestRequest request = new RestRequest(UPDATE_TERMINAL_REMOTE_CONFIG_URL, Method.PUT);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
+            request.AddJsonBody(terminalConfigUpdateRequest);
+            string responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+            //request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalJson, ParameterType.RequestBody);
+        }
+
+        public Result<TerminalConfig> GetTerminalConfig(long terminalId){
+            RestRequest request = new RestRequest(GET_TERMINAL_REMOTE_CONFIG_URL, Method.GET);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
+            var responseContent = Execute(request);
+            TerminalConfigResponse terminalConfigResponse = JsonConvert.DeserializeObject<TerminalConfigResponse>(responseContent);
+            Result<TerminalConfig> result = new Result<TerminalConfig>(terminalConfigResponse);
+            return result;
+        }
+
+
+    string GetStatusValue(TerminalStatus status)
         {
             switch (status)
             {

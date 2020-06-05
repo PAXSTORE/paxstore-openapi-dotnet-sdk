@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Resources;
 using System.Reflection;
 using System.Threading;
-using System.Globalization;
 using FluentValidation;
 using FluentValidation.Results;
 using Paxstore.OpenApi.Base.Dto;
 using Paxstore.OpenApi.Validator;
 using log4net;
 using Newtonsoft.Json.Linq;
+using Paxstore.OpenApi.Help;
 
 namespace Paxstore.OpenApi.Base
 {
@@ -31,11 +31,14 @@ namespace Paxstore.OpenApi.Base
 
 
         protected RestClient Client;
-
+        protected TimeZoneInfo defaultTimeZone = TimeZoneInfo.Local;
         public string StrClutrue { get; set; }
 
         public BaseApi(string baseUrl, string apiKey, string apiSecret)
         {
+            if (string.IsNullOrWhiteSpace(baseUrl) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(apiSecret)) {
+                throw new ArgumentException("Construct parameter(s) is invalid");
+            }
             if (baseUrl != null && baseUrl.EndsWith("/")) {
                 baseUrl = baseUrl.Remove(baseUrl.Length - 1);
             }
@@ -45,6 +48,25 @@ namespace Paxstore.OpenApi.Base
             Client = new RestClient(BaseUrl);
             Client.Timeout = 5000;
             Client.ReadWriteTimeout = 5000;
+            //TimeZoneInfo.
+        }
+
+        public BaseApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) {
+            if (string.IsNullOrWhiteSpace(baseUrl) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(apiSecret) || timeZoneInfo == null)
+            {
+                throw new ArgumentException("Construct parameter(s) is invalid");
+            }
+            if (baseUrl != null && baseUrl.EndsWith("/"))
+            {
+                baseUrl = baseUrl.Remove(baseUrl.Length - 1);
+            }
+            BaseUrl = baseUrl;
+            ApiKey = apiKey;
+            ApiSecret = apiSecret;
+            Client = new RestClient(BaseUrl);
+            Client.Timeout = 5000;
+            Client.ReadWriteTimeout = 5000;
+            defaultTimeZone = timeZoneInfo;
         }
 
         public void SetConnectionTimeoutTime(int connectTimeoutTime) {
@@ -114,6 +136,7 @@ namespace Paxstore.OpenApi.Base
             request.AddHeader(Constants.HEADER_NAME_SIGNATURE, signature);
             request.AddHeader(Constants.REQ_HEADER_SDK_LANG, Constants.THIRD_PARTY_API_SDK_LANGUAGE);
             request.AddHeader(Constants.REQ_HEADER_SDK_VERSION, Constants.THIRD_PARTY_API_SDK_VERSION);
+            request.AddHeader(Constants.TIME_ZONE, TimeZoneHelper.GetTimeZoneId(defaultTimeZone));
             IRestResponse response = Client.Execute(request);
             _logger.DebugFormat("Response StatusCode\t\t={0}", response.StatusCode);
             _logger.DebugFormat("Response Content=\n{0}", response.Content);
