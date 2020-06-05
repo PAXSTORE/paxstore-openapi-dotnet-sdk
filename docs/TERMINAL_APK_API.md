@@ -45,8 +45,8 @@ Structure of class TerminalCreateRequest
 |PackageName|string|false|The package name which indicate the application you want to push to the terminal|
 |Version|string|true|The version name of application which you want to push, if it is blank API will use the latest version|
 |TemplateName|string|true|The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10.|
-|Parameters|Dictionary&lt;string, string&gt;|false|The parameter key and value, the key the the PID in template|
-|Base64FileParameters|List<FileParameter>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
+|Parameters|Dictionary\<string, string\>|false|The parameter key and value, the key the the PID in template|
+|Base64FileParameters|List\<FileParameter\>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
 Note: TID and serialNo cannot be empty at same time.
 

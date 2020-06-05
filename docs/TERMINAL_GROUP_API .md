@@ -35,12 +35,12 @@ public Result<TerminalGroup> SearchTerminalGroup(int pageNo, int pageSize, Nulla
 |:---|:---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|Nullable<TerminalGroupSearchOrderBy>|true|the sort order of search result. If this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupSearchOrderBy.CreatedDate_desc and TerminalGroupSearchOrderBy.CreatedDate_asc and TerminalGroupSearchOrderBy.Name.|
-|status|Nullable<TerminalGroupStatus>|true|The value of status can be one of TerminalGroupStatus.PENDING and TerminalGroupStatus.ACTIVE and TerminalGroupStatus.SUSPEND.|
-|name|String|true|The name of group|
-|resellerNames|String|true|The names of reseller. Multiple names can be separated by ','.                                                           For example, 'resellerName1,resellerName2'|
-|modelNames|String|true|The names of model. Multiple names can be separated by ','.                                                           For example, 'modelName1,modelName2'|
-|isDynamic|Nullable<bool>|true|Indicate whether to search dynamic group or general group only, if value is null will search both|
+|orderBy|Nullable\<TerminalGroupSearchOrderBy\>|true|the sort order of search result. If this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupSearchOrderBy.CreatedDate_desc and TerminalGroupSearchOrderBy.CreatedDate_asc and TerminalGroupSearchOrderBy.Name.|
+|status|Nullable\<TerminalGroupStatus\>|true|The value of status can be one of TerminalGroupStatus.PENDING and TerminalGroupStatus.ACTIVE and TerminalGroupStatus.SUSPEND.|
+|name|string|true|The name of group|
+|resellerNames|string|true|The names of reseller. Multiple names can be separated by ','.                                                           For example, 'resellerName1,resellerName2'|
+|modelNames|string|true|The names of model. Multiple names can be separated by ','.                                                           For example, 'modelName1,modelName2'|
+|isDynamic|Nullable\<bool\>|true|Indicate whether to search dynamic group or general group only, if value is null will search both|
 
 
 **Sample codes**
@@ -113,7 +113,7 @@ The type in dataSet is TerminalGroup. And the structure like below.
 | TerminalCount              | int          | Number of terminals in the terminal group                    |
 | Dynamic                    | bool      | Dynamic group or general group                               |
 | ContainSubResellerTerminal | bool      | Include sub resellers or not                                 |
-| merchantNames              | List<String> | the merchant names                                           |
+| merchantNames              | List\<string\> | the merchant names                                           |
 
 **Possible validation errors**
 
@@ -216,9 +216,9 @@ Structure of class CreateTerminalGroupRequest
 | resellerName               | string       | false    | reseller name, only the terminals in this reseller can be add to this group          |
 | description                | string       | true     |                                                              |
 | status                     | string       | true     | the status of terminal group,the values can be 'P' and 'A', if the value is null will create group with default status P(Pending) |
-| dynamic                    | Nullable<bool>      | true     | Indicate whether the group is dynamic group or general group, the default value is false (general group)                            |
-| containSubResellerTerminal | Nullable<bool>      | true     | Indicate whether to conatin sub reseller's termnal for dynamic group, this property is for dynamic group, if the value is null will use the default value false                                 |
-| merchantNameList           | List<string> | true     | merchant names, only terminals belong to those merchant can be add to group, this property is for dynamic group                                                            |
+| dynamic                    | Nullable\<bool\>      | true     | Indicate whether the group is dynamic group or general group, the default value is false (general group)                            |
+| containSubResellerTerminal | Nullable\<bool\>      | true     | Indicate whether to conatin sub reseller's termnal for dynamic group, this property is for dynamic group, if the value is null will use the default value false                                 |
+| merchantNameList           | List\<string\> | true     | merchant names, only terminals belong to those merchant can be add to group, this property is for dynamic group                                                            |
 
 **Sample codes**
 
@@ -330,8 +330,8 @@ public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<Termin
 | :------------- | :-------------------------------- | :------- | :----------------------------------------------------------- |
 | pageNo         | int                               | false    | page number, value must >=1                                  |
 | pageSize       | int                               | false    | the record number per page, range is 1 to 1000               |
-| orderBy        | Nullable<TerminalSearchOrderBy>   | true     | the sort order by of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalSearchOrderBy.Name and TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. |
-| status         | Nullable<TerminalStatus>                    | true     | Terminal status. The value can be one of TerminalStatus.Active and TerminalStatus.Inactive and TerminalStatus.Suspend |
+| orderBy        | Nullable\<TerminalSearchOrderBy\>   | true     | the sort order by of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalSearchOrderBy.Name and TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. |
+| status         | Nullable\<TerminalStatus\>                    | true     | Terminal status. The value can be one of TerminalStatus.Active and TerminalStatus.Inactive and TerminalStatus.Suspend |
 | modelName      | string                            | true     | the model name                                               |
 | resellerName   | string                            | true     | the reseller name                                            |
 | serialNo       | string                            | true     | the serial number of terminal                                |
@@ -436,7 +436,7 @@ Structure of class UpdateTerminalGroupRequest
 |Description|string|true|the description of terminal group|
 |ModelName|string|true| the name of model, if the value is null API won't update the origial value of this property|
 |ResellerName|string|true|the name of reseller, if the value is null API won't update the origial value of this property|
-|MerchantNameList|List<string>|true|the name of merchants|
+|MerchantNameList|List\<string\>|true|the name of merchants|
 
 Note: name, description, modelName, resellerName, and merchantNameList cannot be empty at same time. When it is not inactive, only name and description can be modified.
 
@@ -693,7 +693,7 @@ public Result<Terminal> SearchTerminalsInGroup(int pageNo, int pageSize, Nullabl
 | :------------- | :-------------------------------- | :------- | :----------------------------------------------------------- |
 | pageNo         | int                               | false    | page number, value must >=1                                  |
 | pageSize       | int                               | false    | the record number per page, range is 1 to 1000               |
-| orderBy        | Nullable<TerminalSearchOrderBy> | true     | the sort order of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalSearchOrderBy.Name and TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. |
+| orderBy        | Nullable\<TerminalSearchOrderBy\> | true     | the sort order of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalSearchOrderBy.Name and TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. |
 | groupId        | long                              | false     | the id of terminal group                                     |
 | serialNo       | string                            | true     | the serial number of terminal                                |
 | merchantNames  | string                            | true     | the name of merchants                                        |
@@ -781,7 +781,7 @@ public Result<string> AddTerminalToGroup(long groupId, HashSet<long> terminalIds
 | Parameter Name | Type      | Nullable | Description                                    |
 | :------------- | :-------- | :------- | :--------------------------------------------- |
 | groupId        | long      | false    | The id of terminal group                       |
-| terminalIds    | HashSet<long> | false    | Terminal ids to be added to the terminal group |
+| terminalIds    | HashSet\<long\> | false    | Terminal ids to be added to the terminal group |
 
 **Sample codes**
 
@@ -799,8 +799,8 @@ Result<string> result = api.AddTerminalToGroup(groupId, terminalIds);
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter terminalIds is mandatory!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter terminalIds is mandatory!"]
 }
 ```
 
@@ -849,7 +849,7 @@ public Result<string> RemoveTerminalOutGroup(long groupId, HashSet<long> termina
 | Parameter Name | Type      | Nullable | Description                                    |
 | :------------- | :-------- | :------- | :--------------------------------------------- |
 | groupId        | long      | false    | The id of terminal group                       |
-| terminalIds    | HashSet<long> | false    | terminal ids to be added to the terminal group |
+| terminalIds    | HashSet\<long\> | false    | terminal ids to be added to the terminal group |
 
 **Sample codes**
 

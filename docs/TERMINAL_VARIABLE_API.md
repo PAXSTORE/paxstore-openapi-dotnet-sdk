@@ -137,7 +137,7 @@ Structure of class TerminalParameterVariableCreateRequest
 |:--- | :---|:---|:---|
 |TID|string|true|the tid of terminal, tid and serialNo cannot be empty at same time|
 |SerialNo|string|true|the serial number of terminal, tid and serialNo cannot be empty at same time|
-|VariableList|List<ParameterVariable>|true|List of parametervariables,the structure like below|
+|VariableList|List\<ParameterVariable\>|true|List of parametervariables,the structure like below|
 
 Structure of class ParameterVariable
 
@@ -381,7 +381,7 @@ Structure of class ParameterVariable
 
 | Property Name | Type       | Nullable | Description                     |
 | :------------ | :--------- | :------- | :------------------------------ |
-| VariableIds   | List<long> | false    | The ids of terminal variable id |
+| VariableIds   | List\<long\> | false    | The ids of terminal variable id |
 
 **Sample codes**
 

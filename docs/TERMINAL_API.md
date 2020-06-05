@@ -105,7 +105,7 @@ Structure of class Terminal
 |Location|string|The location.|
 |GeoLocation|TerminalLocation| The geo location of the terminal|
 |InstalledFirmware|TerminalInstalledFirmware| The installed firmware of the terminal|
-|InstalledApks|List<TerminalInstalledApk>| The installed applications of the terminal|
+|InstalledApks|List\<TerminalInstalledApk\>| The installed applications of the terminal|
 
 
 Structure of class TerminalLocation
@@ -136,9 +136,9 @@ Structure of class TerminalInstalledApk
 
 **Possible validation errors**
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
-> <font color="red">'Page No' must be greater than '0'.</font><br>
-> <font color="red">'Page Size' must be greater than '0'.</font> 
+> <font color="red">'Page Size' must be less than or equal to '1000'.</font>  
+> <font color="red">'Page No' must be greater than '0'.</font>  
+> <font color="red">'Page Size' must be greater than '0'.</font>  
 
 
 ### Search terminals include geo location, installed app and firmware  
@@ -857,8 +857,8 @@ Structure of class TerminalGroupRequest
 
 | Property Name | Type      | Nullable | Description      |
 | :------------ | :-------- | :------- | :--------------- |
-| TerminalIds   | HashSet<long> | false    | terminal ids |
-| GroupIds      | HashSet<long> | false    | group ids    |
+| TerminalIds   | HashSet\<long\> | false    | terminal ids |
+| GroupIds      | HashSet\<long\> | false    | group ids    |
 
 **Sample codes**
 

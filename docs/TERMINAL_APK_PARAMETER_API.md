@@ -38,7 +38,7 @@ public Result<TerminalParameterVariable> GetTerminalVariable(int pageNo, int pag
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
 |orderBy|TerminalApkParamSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of VariableSearchOrderBy.ApkParameter_asc and VariableSearchOrderBy.ApkParameter_desc.|
-|templateName|String|false|Apk parameter template name|
+|templateName|string|false|Apk parameter template name|
 |packageName|string|true|get by app packageName|
 |versionName|string|true|The version name of application|
 
@@ -160,8 +160,8 @@ Structure of class CreateApkParameterRequest
 |Version			|string						|false	|The version name of application which you want to push|
 |Name				|string						|false	|The name of Apk Parameter|
 |ParamTemplateName	|string						|false	|The name of  Apk param template name|
-|Parameters			|Dictionary<string, string>	|true	|The parameter key and value, the key the PID in template|
-|Base64FileParameters|List<FileParameter>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
+|Parameters			|Dictionary\<string, string\>	|true	|The parameter key and value, the key the PID in template|
+|Base64FileParameters|List\<FileParameter\>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
 Structure of class FileParameter
 
@@ -250,8 +250,8 @@ Structure of class UpdateApkParameterRequest
 | Property Name     | Type                			| Nullable 	| Description                                      |
 | :---------------- | :------------------ 			| :------- 	| :------------------------------------------------------- |
 | ParamTemplateName | string              			| true    	| The template file name of paramter application.  If this property is null api will not update this property.                                |
-| Parameters        | Dictionary<string, string> 	| true    	| The parameter key and value, the key the PID in template |
-|Base64FileParameters|List<FileParameter>			| true		| The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
+| Parameters        | Dictionary\<string, string\> 	| true    	| The parameter key and value, the key the PID in template |
+|Base64FileParameters|List\<FileParameter\>			| true		| The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 
 
 

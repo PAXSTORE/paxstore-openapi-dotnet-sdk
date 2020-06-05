@@ -28,12 +28,12 @@ Note: This result of this API depends on the API query settings in GoInsight. Pa
 
 **API**
 
-```
+```  
 public Result<DataQueryResult> FindDataFromInsight(string queryCode)
 
 public Result<DataQueryResult> FindDataFromInsight(string queryCode, TimeRange timeRange)
    
-public Result<DataQueryResult> FindDataFromInsight(string queryCode, TimeRange timeRange, Nullable<int> pageNo, Nullable<int> pageSize)
+public Result<DataQueryResult> FindDataFromInsight(string queryCode, TimeRange timeRange, Nullable<int> pageNo, Nullable<int> pageSize)  
 ```
 
 **Input parameter(s) description**
@@ -42,8 +42,8 @@ public Result<DataQueryResult> FindDataFromInsight(string queryCode, TimeRange t
 |:---- | :----|:----|:----|
 |queryCode|string|false|search by GoInsight api query code|
 |rangeType|TimeRange|true|you can choose the range of data results for search|
-|pageNo|Nullable<int>|true|page number, value must >= 1|
-|pageSize|Nullable<int>|true|the record number per page, range is 1 to 100 for details data query, range is 1 to 1000 for statistics data query|
+|pageNo|Nullable\<int\>|true|page number, value must >= 1|
+|pageSize|Nullable\<int\>|true|the record number per page, range is 1 to 100 for details data query, range is 1 to 1000 for statistics data query|
 
 Note: The pageNo param will be ignore when your query result set type is statistics chart.
 
@@ -188,11 +188,11 @@ Structure of class DataQueryResult
 |Property Name|Type|Description|
 |:---|:---|:---|
 |WorksheetName|string|The result set worksheet name.|
-|Columns|List<Column>|The result set column.|
-|Rows|List<List<Row>>|The result set.|
-|HasNext|Nullable<bool>|Is there any data.|
-|Offset|Nullable<long>|Rows offset if exit page info.|
-|Limit|Nullable<int>|Rows page size if exit page info.|
+|Columns|List\<Column\>|The result set column|
+|Rows|List\<List\<Row\>\>|The result set|
+|HasNext| Nullable\<bool\> |Is there any data.|
+|Offset|Nullable\<long\>|Rows offset if exit page info.|
+|Limit|Nullable\<int\>|Rows page size if exit page info.|
 
 Structure of class Column
 

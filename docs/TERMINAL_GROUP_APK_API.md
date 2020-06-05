@@ -35,7 +35,7 @@ public Result<TerminalGroupApkInfo> GetTerminalGroupApk(long groupApkId, List<st
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
 |groupApkId|long|false|the id of terminalGroupApk|
-|pidList|List<string>|true|the pid of the configured parameters to return|
+|pidList|List\<string\>|true|the pid of the configured parameters to return|
 
 **Sample codes**
 
@@ -93,14 +93,14 @@ The type of data is TerminalGroupApkInfo, the structure is like below.
 |ApkPackageName|string|the packageName of terminal group apk|
 |ApkVersionName|string|the version name of terminal group apk|
 |ApkVersionCode|long|the version code of terminal group apk|
-|EffectiveTime|Nullable<long>|the effective time|
-|ExpiredTime|Nullable<long>|the expire time|
-|UpdatedDate|Nullable<long>||
+|EffectiveTime|Nullable\<long\>|the effective time|
+|ExpiredTime|Nullable\<long\>|the expire time|
+|UpdatedDate|Nullable\<long\>||
 |ActionStatus|int|action status|
 |Status|string|the push status|
-|PendingCount|Nullable<int>||
-|SuccessCount|Nullable<int>||
-|FailedCount|Nullable<int>||
+|PendingCount|Nullable\<int\>||
+|SuccessCount|Nullable\<int\>||
+|FailedCount|Nullable\<int\>||
 |GroupApkParam|TerminalGroupApkParamInfo|the structure like below|
 
 
@@ -110,9 +110,9 @@ The structure of TerminalGroupApkParamInfo.
 | :------------------- | :----------------- | :-------------------------------- |
 | ParamTemplateName    | string             |                                   |
 | ConfiguredParameters | Dictionary<string, string> | Configuration parameters in param |
-| PendingCount         | Nullable<int>                |                                   |
-| SuccessCount         | Nullable<int>                |                                   |
-| FailedCount          | Nullable<int>                |                                   |
+| PendingCount         | Nullable\<int\>                |                                   |
+| SuccessCount         | Nullable\<int\>                |                                   |
+| FailedCount          | Nullable\<int\>                |                                   |
 
 
 **Possible action status**
@@ -150,10 +150,10 @@ public Result<TerminalGroupApkInfo> SearchTerminalGroupApk(int pageNo, int pageS
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
-|orderBy|Nullable<TerminalGroupApkSearchOrderBy>|true|the sort order of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupApkSearchOrderBy.CreatedDate_desc and TerminalGroupApkSearchOrderBy.CreatedDate_asc.|
+|orderBy|Nullable\<TerminalGroupApkSearchOrderBy\>|true|the sort order of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupApkSearchOrderBy.CreatedDate_desc and TerminalGroupApkSearchOrderBy.CreatedDate_asc.|
 |groupId|long|false|the id of the group|
-|pendingOnly|Nullable<bool>|true|Indicate whether to search the pending push task only|
-|historyOnly|Nullable<bool>|true|Indicate whether to search history push task only                                                              |
+|pendingOnly|Nullable\<bool\>|true|Indicate whether to search the pending push task only|
+|historyOnly|Nullable\<bool\>|true|Indicate whether to search history push task only                                                              |
 |keyWords|string|true|Key words, it will match APP's package name, APK's name, APK's short description and APK's description|
 
 **Sample codes**
@@ -254,8 +254,8 @@ Structure of class CreateTerminalGroupApkRequest.
 | PackageName          | string              | false    | the package name of push apk                                 |
 | Version              | string              | true     | The package name which indicate the application you want to push |
 | TemplateName         | string              | true     | The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10. |
-| Parameters           | Dictionary<string, string> | true     | The parameter key and value, the key the PID in template     |
-| Base64FileParameters | List<FileParameter> | true     | The parameter of file type, the max counter of file type parameter is 10, and the max size of each parameter file is 500kb |
+| Parameters           | Dictionary\<string, string\> | true     | The parameter key and value, the key the PID in template     |
+| Base64FileParameters | List\<FileParameter\> | true     | The parameter of file type, the max counter of file type parameter is 10, and the max size of each parameter file is 500kb |
 
 Structure of class FileParameter
 
