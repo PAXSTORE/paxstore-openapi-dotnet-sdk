@@ -196,6 +196,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter pageSize must be range is 1 to 1000 的本地化字符串。
+        /// </summary>
+        internal static string parametePageSizeLengthInvalid {
+            get {
+                return ResourceManager.GetString("parametePageSizeLengthInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter apkParameterId cannot be less than 1! 的本地化字符串。
         /// </summary>
         internal static string parameterApkParameterIdIsInvalid {
