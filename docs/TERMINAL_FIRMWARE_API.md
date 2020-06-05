@@ -12,9 +12,9 @@ public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret);
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| baseUrl | String | the base url of REST API |
-|apiKey|String|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
-|apiSecret|String|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
+| baseUrl | string | the base url of REST API |
+|apiKey|string|the apiKey of marketplace, get this key from PAXSTORE admin console, refe to chapter Apply access rights|
+|apiSecret|string|apiSecret, get api secret from PAXSTORE admin console, refer to chapter Apply access rights|
 
 
 ### Push firmware to terminal by TID and firmware name
@@ -50,8 +50,8 @@ terminalFirmwareApi.PushFirmware2TerminalByTidAndFirmwareName("ABC09098989", "A9
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter tid is mandatory!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter tid is mandatory!"]
 }
 ```
 
@@ -59,8 +59,8 @@ terminalFirmwareApi.PushFirmware2TerminalByTidAndFirmwareName("ABC09098989", "A9
 
 ```
 {
-	"businessCode": 2028,
-	"message": "Terminal not found"
+	"BusinessCode": 2028,
+	"Message": "Terminal not found"
 }
 ```
 
@@ -68,7 +68,7 @@ terminalFirmwareApi.PushFirmware2TerminalByTidAndFirmwareName("ABC09098989", "A9
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
@@ -133,8 +133,8 @@ public Result<PushFirmwareTaskInfo> SearchPushFirmwareTasks(int pageNo, int page
 |pageNo|int|false|page number, value must >=1|
 |pageSize|int|false|the record number per page, range is 1 to 1000|
 |orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
-|terminalTid|String|false|search filter by terminal tid|
-|fmName|String|true|search filter by firmware name|
+|terminalTid|string|false|search filter by terminal tid|
+|fmName|string|true|search filter by firmware name|
 |status|PushStatus|true|the push status<br/> the value can be PushStatus.Active, PushStatus.Suspend, PushStatus.All|
 
 **Sample codes**
@@ -148,8 +148,8 @@ terminalFirmwareApi.SearchPushFirmwareTasks(1, 10, SearchOrderBy.CreatedDate_des
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["pageNo:must be greater than or equal to 1"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["pageNo:must be greater than or equal to 1"]
 }
 ```
 
@@ -157,19 +157,19 @@ terminalFirmwareApi.SearchPushFirmwareTasks(1, 10, SearchOrderBy.CreatedDate_des
 
 ```
 {
-	"businessCode": 0,
-	"pageInfo": {
-		"pageNo": 1,
-		"limit": 12,
-		"totalCount": 1,
-		"hasNext": false,
-		"dataSet": [{
-			"id": 17850,
-            "fmName": "PayDroid_5.1.1_Aquarius_V09.0.00_20190508",
-            "terminalSN": "87879696",
-            "status": "A",
-            "actionStatus": 2,
-            "errorCode": ""
+	"BusinessCode": 0,
+	"PageInfo": {
+		"PageNo": 1,
+		"Limit": 12,
+		"TotalCount": 1,
+		"HasNext": false,
+		"DataSet": [{
+			"ID": 17850,
+            "FmName": "PayDroid_5.1.1_Aquarius_V09.0.00_20190508",
+            "TerminalSN": "87879696",
+            "Status": "A",
+            "ActionStatus": 2,
+            "ErrorCode": ""
 		}]
 	}
 }
@@ -318,8 +318,8 @@ terminalFirmwareApi.DisablePushFirmwareTaskBySnAndFirmwareName("0820881219", "Pa
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter serialNo is mandatory!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter serialNo is mandatory!"]
 }
 ```
 
@@ -327,8 +327,8 @@ terminalFirmwareApi.DisablePushFirmwareTaskBySnAndFirmwareName("0820881219", "Pa
 
 ```
 {
-	"businessCode": 2040,
-	"message": "Unfinished terminal push firmware not found"
+	"BusinessCode": 2040,
+	"Message": "Unfinished terminal push firmware not found"
 }
 ```
 
@@ -336,7 +336,7 @@ terminalFirmwareApi.DisablePushFirmwareTaskBySnAndFirmwareName("0820881219", "Pa
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 
@@ -391,8 +391,8 @@ terminalFirmwareApi.DisablePushFirmwareTaskByTidAndFirmwareName("I1TF6LA2", "Pay
 
 ```
 {
-	"businessCode": -1,
-	"validationErrors": ["Parameter tid is mandatory!"]
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter tid is mandatory!"]
 }
 ```
 
@@ -400,8 +400,8 @@ terminalFirmwareApi.DisablePushFirmwareTaskByTidAndFirmwareName("I1TF6LA2", "Pay
 
 ```
 {
-	"businessCode": 2040,
-	"message": "Unfinished terminal push firmware not found"
+	"BusinessCode": 2040,
+	"Message": "Unfinished terminal push firmware not found"
 }
 ```
 
@@ -409,7 +409,7 @@ terminalFirmwareApi.DisablePushFirmwareTaskByTidAndFirmwareName("I1TF6LA2", "Pay
 
 ```
 {
-	"businessCode": 0
+	"BusinessCode": 0
 }
 ```
 

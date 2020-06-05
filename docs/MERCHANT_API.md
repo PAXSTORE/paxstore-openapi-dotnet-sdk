@@ -412,8 +412,8 @@ Structure of class MerchantUpdateRequest
 |Address|string|true|Address of merchant, max length is 255.|
 |Description|string|true|Description of merchant, max length is 3000.|
 |CreateUserFlag|bool|true|Indicate whether to create user when activate the merchant, won't create user if this value is empty|
-|MerchantCategoryNames|List&lt;string&gt;|true|Merchant categories. Make sure the categories are available.|
-|EntityAttributeValues|Dictionary&lt;string, string&gt;|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
+|MerchantCategoryNames|List\<string\>|true|Merchant categories. Make sure the categories are available.|
+|EntityAttributeValues|Dictionary\<string, string\>|true|Dynamic attributes of merchant. Whether the attribute is required or not depend on the configuration of attribute.|
 
 
 **Sample codes**
@@ -555,7 +555,7 @@ public Result<string> ActivateMerchant(long merchantId)
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|merchantId|Long|false|The merchant id.|
+|merchantId|long|false|The merchant id.|
 
 **Sample codes**
 
@@ -631,7 +631,7 @@ public Result<string> DisableMerchant(long merchantId)
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|merchantId|Long|false|The merchant id.|
+|merchantId|long|false|The merchant id.|
 
 
 **Sample codes**
@@ -709,7 +709,7 @@ public Result<string> DeleteMerchant(long merchantId)
 
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
-|merchantId|Long|false|The merchant id.|
+|merchantId|long|false|The merchant id.|
 
 
 **Sample codes**

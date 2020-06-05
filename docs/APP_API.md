@@ -127,7 +127,7 @@ The type in dataSet is AppPage. And the structure like below.
 |SpecificReseller|bool|whether make app specific reseller.|
 |Downloads|long|downloads of app.|
 |Developer|Developer|The developer of the app belongs to.|
-|ApkList|List<Apk>|App version list.|
+|ApkList|List\<Apk\>|App version list.|
 
 The structure of class Apk
 

@@ -105,7 +105,7 @@ The type in dataSet is EntityAttribute. And the structure like below.
 | Key                      | string                         | The key of the entity attribute                                                   |
 | Index                    | int                            |                                                    |
 | DefaultLabel             | string                         | The default of the entity attribute                                                   |
-| EntityAttributeLabelList | IList<EntityAttributeLabelInfo> | the EntityAttributeLabelInfo structure like below. |
+| EntityAttributeLabelList | IList\<EntityAttributeLabelInfo\> | the EntityAttributeLabelInfo structure like below. |
 
 The type in data is EntityAttributeLabelInfo. And the structure like below.
 

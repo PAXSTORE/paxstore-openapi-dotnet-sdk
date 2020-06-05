@@ -220,7 +220,7 @@ The type of data is Reseller, and the structure shows below.
 |Email|string|the email of reseller|
 |Status|string|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
 |Parent|SimpleReseller|reseller's parent|
-|EntityAttributeValues|Dictionary&lt;string, string&gt;|dynamic attributes|
+|EntityAttributeValues|Dictionary\<string, string\>|dynamic attributes|
 <br>
 Structure of SimpleReseller
 
@@ -270,7 +270,7 @@ Structure of class ResellerCreateRequest
 |Address|string|true|Address of reseller, max length is 255.|
 |Company|string|true|Company of reseller, max length is 255.|
 |ParentResellerName|string|true|Parent reseller name, if it is empty will set the root reseller of current marketplace as the parent reseller|
-|EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
+|EntityAttributeValues|Dictionary\<string, string\>|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
 |ActivateWhenCreate|bool|true|Whether to activate the reseller when create, default value is false. The property is private, please call the set method to set the value|
 
 
@@ -416,7 +416,7 @@ Structure of class ResellerUpdateRequest
 |Address|string|true|Address of reseller, max length is 255.|
 |Company|string|true|Company of reseller, max length is 255.|
 |ParentResellerName|String|true|Do not suggest set value for this property. If set value please keep the parentResellerName same as the original parentResellerName. Otherwise API will return a 1830 business code.|
-|EntityAttributeValues|Dictionary&lt;string, string&gt;|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
+|EntityAttributeValues|Dictionary\<string, string\>|false|Dynamic attributes. Whether the attributes is required or not depends on the attributes configuration.|
 
 
 
