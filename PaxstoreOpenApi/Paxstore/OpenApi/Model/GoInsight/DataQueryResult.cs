@@ -42,10 +42,10 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("colName")]
         public string ColName { get; set; }
 
-        [JsonProperty("colName")]
-        public string displayName { get; set; }
+        [JsonProperty("displayName")]
+        public string DisplayName { get; set; }
 
-        [JsonProperty("colName")]
-        public string type { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
     }
 }

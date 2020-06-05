@@ -68,11 +68,8 @@ Value of enum TimeRange
 **Sample codes**
 
 ```
-String[] ids = TimeZone.getAvailableIDs();
-//TimeZone tz1 = TimeZone.getTimeZone(ids[2]);
-TimeZone tz = TimeZone.getTimeZone("Etc/GMT-1");
-GoInsightApi goInsightApi = new GoInsightApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN", tz);
-Result<DataQueryResultDTO> resultData = goInsightApi.findDataFromInsight("ahh3y62t");
+GoInsightApi goInsightApi = new GoInsightApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN", TimeZoneInfo.FindSystemTimeZoneById("China Standard Time"));
+Result<DataQueryResult> resultData = goInsightApi.FindDataFromInsight("ahh3y62t");
 ```
 
 **Client side validation failed sample result(JSON formatted)**
@@ -88,134 +85,134 @@ Result<DataQueryResultDTO> resultData = goInsightApi.findDataFromInsight("ahh3y6
 
 ```
 {
-	"businessCode": 0,
-	"data": {
-        "worksheetName": "Merchant transaction amount trend (This Year)",
-		"columns": [{
-			"colName": "acquirer_type",
-			"displayName": "Acquirer Type",
-            "type": "Dimension"
+	"BusinessCode": 0,
+	"Data": {
+        "WorksheetName": "Merchant transaction amount trend (This Year)",
+		"Columns": [{
+			"ColName": "acquirer_type",
+			"DisplayName": "Acquirer Type",
+            "Type": "Dimension"
 		}, {
-			"colName": "currency",
-			"displayName": "Currency",
-            "type": "Dimension"
+			"ColName": "currency",
+			"DisplayName": "Currency",
+            "Type": "Dimension"
 		}, {
-			"colName": "purchase_id",
-			"displayName": "Purchase ID",
-            "type": "Dimension"
+			"ColName": "purchase_id",
+			"DisplayName": "Purchase ID",
+            "Type": "Dimension"
 		}, {
-			"colName": "amount",
-			"displayName": "Amount",
-            "type": "Measure"
+			"ColName": "amount",
+			"DisplayName": "Amount",
+            "Type": "Measure"
 		}, {
-			"colName": "tax",
-			"displayName": "Tax",
-            "type": "Measure"
+			"ColName": "tax",
+			"DisplayName": "Tax",
+            "Type": "Measure"
 		}, {
-			"colName": "_sys_marketid",
-			"displayName": "Marketplace",
-            "type": "Dimension"
+			"ColName": "_sys_marketid",
+			"DisplayName": "Marketplace",
+            "Type": "Dimension"
 		}, {
-			"colName": "_sys_merchantid",
-			"displayName": "Merchant",
-            "type": "Dimension"
+			"ColName": "_sys_merchantid",
+			"DisplayName": "Merchant",
+            "Type": "Dimension"
 		}, {
-			"colName": "_sys_terminalid",
-			"displayName": "Terminal",
-            "type": "Dimension"
+			"ColName": "_sys_terminalid",
+			"DisplayName": "Terminal",
+            "Type": "Dimension"
 		}],
-		"rows": [
+		"Rows": [
 			[{
-				"colName": "acquirer_type",
-				"value": "ZTO"
+				"ColName": "acquirer_type",
+				"Value": "ZTO"
 			}, {
-				"colName": "currency",
-				"value": "USD"
+				"ColName": "currency",
+				"Value": "USD"
 			}, {
-                "colName": "purchase_id",
-				"value": "15851195134847"
+                "ColName": "purchase_id",
+				"Value": "15851195134847"
 			}, {
-                "colName": "amount",
-				"value": "169.15"
+                "ColName": "amount",
+				"Value": "169.15"
 			}, {
-                "colName": "tax",
-				"value": "64.38"
+                "ColName": "tax",
+				"Value": "64.38"
 			}, {
-				"colName": "_sys_marketid",
-				"value": "demo"
+				"ColName": "_sys_marketid",
+				"Value": "demo"
 			}, {
-				"colName": "_sys_merchantid",
-				"value": "Macy’s"
+				"ColName": "_sys_merchantid",
+				"Value": "Macy’s"
 			}, {
-				"colName": "_sys_terminalid",
-				"value": "0820087295"
+				"ColName": "_sys_terminalid",
+				"Value": "0820087295"
 			}],
             [{
-				"colName": "acquirer_type",
-				"value": "ZTO"
+				"ColName": "acquirer_type",
+				"Value": "ZTO"
 			}, {
-				"colName": "currency",
-				"value": "USD"
+				"ColName": "currency",
+				"Value": "USD"
 			}, {
-                "colName": "purchase_id",
-				"value": "15851135975100"
+                "ColName": "purchase_id",
+				"Value": "15851135975100"
 			}, {
-                "colName": "amount",
-				"value": "2990.09"
+                "ColName": "amount",
+				"Value": "2990.09"
 			}, {
-                "colName": "tax",
-				"value": "64.12"
+                "ColName": "tax",
+				"Value": "64.12"
 			}, {
-				"colName": "_sys_marketid",
-				"value": "demo"
+				"ColName": "_sys_marketid",
+				"Value": "demo"
 			}, {
-				"colName": "_sys_merchantid",
-				"value": "Macy’s"
+				"ColName": "_sys_merchantid",
+				"Value": "Macy’s"
 			}, {
-				"colName": "_sys_terminalid",
-				"value": "0820087295"
+				"ColName": "_sys_terminalid",
+				"Value": "0820087295"
 			}]
 		],
-        "offset": 10,
-		"limit": 10,
-		"hasNext": true,
+        "Offset": 10,
+		"Limit": 10,
+		"HasNext": true,
 	},
-	"rateLimitRemain": ""
+	"RateLimitRemain": ""
 }
 ```
 
-The type in dataSet of result is DataQueryResultDTO. The structure shows below.
+The type in dataSet of result is DataQueryResult. The structure shows below.
 
-Structure of class TerminalDTO
+Structure of class DataQueryResult
 
 |Property Name|Type|Description|
 |:---|:---|:---|
-|worksheetName|String|The result set worksheet name.|
-|columns|List<Column>|The result set column.|
-|rows|List<List<Row>>|The result set.|
-|hasNext|Boolean|Is there any data.|
-|offset|int|Rows offset if exit page info.|
-|limit|int|Rows page size if exit page info.|
+|WorksheetName|string|The result set worksheet name.|
+|Columns|List<Column>|The result set column.|
+|Rows|List<List<Row>>|The result set.|
+|HasNext|Nullable<bool>|Is there any data.|
+|Offset|Nullable<long>|Rows offset if exit page info.|
+|Limit|Nullable<int>|Rows page size if exit page info.|
 
 Structure of class Column
 
 |Property Name|Type|Description|
 |:---|:---|:---|
-|colName|String|The dataset filed name in GoInsight|
-|displayName|String|The dataset filed's display name|
-|type|String|Data analysis type of dataset field. Value can be one of Dimension, Measure and Image|
+|ColName|string|The dataset filed name in GoInsight|
+|DisplayName|string|The dataset filed's display name|
+|Type|string|Data analysis type of dataset field. Value can be one of Dimension, Measure and Image|
 
 Structure of class Row  
 
 |Property Name|Type|Description|
 |:---|:---|:---|
-|colName|String|The dataset filed name in GoInsight|
-|value|String|The dataset filed's value|
+|ColName|string|The dataset filed name in GoInsight|
+|Value|string|The dataset filed's value|
 
 **Possible client validation errors**
  
-> <font color=red>Parameter queryCode cannot be null</font>  
-> <font color=red>Parameter queryCode length must is 8</font>
+> <font color=red>Parameter queryCode is mandatory!</font>  
+> <font color=red>The length of parameter queryCode must 8!</font>
 > <font color=red>Parameter pageSize must be range is 1 to 1000</font>
 
 **Possible business codes**
