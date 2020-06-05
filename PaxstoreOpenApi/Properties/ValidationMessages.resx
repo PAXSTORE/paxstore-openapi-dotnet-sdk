@@ -288,4 +288,22 @@
   <data name="parameterTerminalIdsMandatory" xml:space="preserve">
     <value>Parameter terminalIds is mandatory!</value>
   </data>
+  <data name="parameterMerchantNameIsNull" xml:space="preserve">
+    <value>Parameter merchantName is mandatory!</value>
+  </data>
+  <data name="parameterResellerNameIsNull" xml:space="preserve">
+    <value>Parameter resellerName is mandatory!</value>
+  </data>
+  <data name="parameterTerminalConfigUpdateRequestIsNull" xml:space="preserve">
+    <value>Parameter terminalConfigUpdateRequest is mandatory!</value>
+  </data>
+  <data name="parameterBatchAddTerminalToGroupRequestNull" xml:space="preserve">
+    <value>Parameter batchAddTerminalToGroupRequest is mandatory!</value>
+  </data>
+  <data name="parameterQueryCodeIsNull" xml:space="preserve">
+    <value>Parameter queryCode is mandatory!</value>
+  </data>
+  <data name="parameterQueryCodeLengthInvalid" xml:space="preserve">
+    <value>The length of parameter queryCode must 8!</value>
+  </data>
 </root>

@@ -837,5 +837,259 @@ Result<string> result = terminalApi.DeleteTerminal(907560L);
 
 
 
+### Batch add terminal to group  
+
+Batch add terminal to group API allows the thirdparty system to add terminals to one or more groups.
+
+**API**
+
+```
+public Result<string> BatchAddTerminalToGroup(TerminalGroupRequest batchAddTerminalToGroupRequest)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name | Type                 | Nullable | Description                                                  |
+| :------------- | :------------------- | :------- | :----------------------------------------------------------- |
+| batchAddTerminalToGroupRequest   | TerminalGroupRequest | false    | add terminals to group request object. The structure shows below. |
+
+Structure of class TerminalGroupRequest
+
+| Property Name | Type      | Nullable | Description      |
+| :------------ | :-------- | :------- | :--------------- |
+| TerminalIds   | HashSet<long> | false    | terminal ids |
+| GroupIds      | HashSet<long> | false    | group ids    |
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+TerminalGroupRequest batchAddTerminalToGroupRequest = new TerminalGroupRequest();
+
+HashSet<long> groupIds = new HashSet<long>();
+groupIds.Add(16529);
+groupIds.Add(16527);
+HashSet<long> terminalIds = new HashSet<long>();
+terminalIds.Add(909744);
+terminalIds.Add(909742);
+request.GroupIds = groupIds;
+request.TerminalIds = terminalIds;
+Result<string> result = API.BatchAddTerminalToGroup(request);
+```
+
+**Client validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter batchAddTerminalToGroupRequest is mandatory!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 2150,
+	"Message": "Terminal group not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0
+}
+```
+
+**Possible client validation errors**
+
+> <font color=red>Parameter batchAddTerminalToGroupRequest is mandatory!</font>  
+
+**Possible business codes**
+
+| Business Code | Message                                                      | Description |
+| :------------ | :----------------------------------------------------------- | :---------- |
+| 1800          | Terminal not found                                           |             |
+| 1810          | Terminal is not active                                       |             |
+| 2150          | Terminal group not found                                     |             |
+| 2163          | Terminal reseller mismatched                                 |             |
+| 2164          | Terminal model mismatched                                    |             |
+| 2167          | Terminal group exceeded the max terminal count limit, please create new terminal group to put the terminal |             |
 
 
+### Update terminal configuration
+
+Update terminal configuration like whether allow terminal replacement by API or input serial number on terminal.
+
+**API**
+
+```
+public Result<string> UpdateTerminalConfig(long terminalId, TerminalConfigUpdateRequest terminalConfigUpdateRequest)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name              | Type                        | Nullable | Description                                                  |
+| :-------------------------- | :-------------------------- | :------- | :----------------------------------------------------------- |
+| terminalId                  | long                        | false    | Terminal's id.                                               |
+| terminalConfigUpdateRequest | TerminalConfigUpdateRequest | false    | Update terminal config request object. The structure shows below. |
+
+Structure of class TerminalRemoteConfigRequest
+
+| Property Name    | Type    | Nullable | Description                                                  |
+| :--------------- | :------ | :------- | :----------------------------------------------------------- |
+| AllowReplacement | bool | false    | Whether allow terminal replacement by API or input serial number on termial |
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+long terminalId = 909744;
+TerminalConfigUpdateRequest terminalConfigUpdateRequest = new TerminalConfigUpdateRequest();
+terminalConfigUpdateRequest.AllowReplacement = true;
+Result<string> result = terminalApi.UpdateTerminalConfig(terminalId,terminalConfigUpdateRequest);
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter terminalConfigUpdateRequest is mandatory!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1800,
+	"Message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0
+}
+```
+
+**Possible client validation errors**
+
+> <font color=red>Parameter terminalConfigUpdateRequest is mandatory!</font>  
+
+**Possible business codes**
+
+| Business Code | Message                                                      | Description |
+| :------------ | :----------------------------------------------------------- | :---------- |
+| 1800          | Terminal not found                                           |             |
+| 1838          | It is not allowed to change the terminal level "Terminal Replacement" status. please make sure reseller level terminal replacement settings are enabled. |             |
+
+### Get terminal configuration
+
+Get terminal configuration.
+
+**API**
+
+```
+public Result<TerminalConfig> GetTerminalConfig(long terminalId)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name | Type | Nullable | Description    |
+| :------------- | :--- | :------- | :------------- |
+| terminalId     | long | false    | Terminal's id. |
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<TerminalConfig> result = terminalApi.GetTerminalConfig(909744);
+```
+
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1800,
+	"Message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+	"Data": {
+		"AllowReplacement": true
+	}
+}
+```
+
+ 
+
+**Possible business codes**
+
+| Business Code | Message                | Description |
+| :------------ | :--------------------- | :---------- |
+| 1800          | Terminal not found     |             |
+| 1801          | Terminal doesn't exist |             |
+
+### Get terminal PED information  
+
+Get terminal PED information by terminal id.
+
+**API**
+
+```
+public Result<TerminalPED> GetTerminalPED(long terminalId)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name | Type | Nullable | Description    |
+| :------------- | :--- | :------- | :------------- |
+| terminalId     | long | false    | Terminal's id |
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<TerminalPED> result = terminalApi.GetTerminalPED(909755);
+```
+
+
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1800,
+	"Message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+	"Data": {
+		"info": "[{\"SK/TPK\": [{\"kcv\": \"B03273DC0000000000\", \"slot\": \"2\"}]}, {\"TDES DUKPT\": [{\"ksi\": \"FFFF539SD99336FCA00001\", \"slot\": \"1\"}, {\"ksi\": \"FFFF98765D400CB600001\", \"slot\": \"3\"}, {\"ksi\": \"FFFF9876D5400CB200001\", \"slot\": \"4\"}, {\"ksi\": \"FFFF98765D43347000001\", \"slot\": \"5\"}, {\"ksi\": \"FFFF987654C92DA200001\", \"slot\": \"11\"}]}]"
+	}
+}
+```
+
+
+**Possible business codes**
+
+| Business Code | Message            | Description |
+| :------------ | :----------------- | :---------- |
+| 1800          | Terminal not found |             |

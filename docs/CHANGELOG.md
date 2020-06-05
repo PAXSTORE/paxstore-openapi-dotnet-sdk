@@ -1,5 +1,20 @@
 # Changelog  
 
+## 7.2.0  
+### New features(To support these new features server side application must upgrade to version 7.2.0)  
+
+* Merchant supports new properties 'city' and 'province'
+* Add new terminal related APIs in TerminalApi
+  1. Move terminal to another reseller and merchant  ```MoveTerminal(long terminalId, string resellerName, string merchantName) ```  
+  2. Get terminal PED information  ```GetTerminalPED(long terminalId)```  
+  3. Get terminal configuration(allow replacement)  ```GetTerminalConfig(long terminalId)```  
+  4. Update terminal configuration(allow replacement)  ```UpdateTerminalConfig(long terminalId, TerminalConfigUpdateRequest terminalConfigUpdateRequest)```
+* Add GoInsight related APIs
+  1. Find app business data by query code  ```FindDataFromInsight(string queryCode)```  
+  2. Find app business data by query code and date range  ```FindDataFromInsight(string queryCode, TimeRange timeRange)```  
+  3. Find app business data by query code, date range and page  ```FindDataFromInsight(string queryCode, TimeRange timeRange, int pageNo, int pageSize)```
+
+
 ## 7.1.0  
 ### New features(To support these new feature Paxstore must upgrade to version 7.1)  
 * Add entity attribute APIs (EntityAttributeApi)  

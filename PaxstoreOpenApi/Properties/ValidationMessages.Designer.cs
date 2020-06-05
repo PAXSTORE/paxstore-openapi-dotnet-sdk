@@ -214,6 +214,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter batchAddTerminalToGroupRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterBatchAddTerminalToGroupRequestNull {
+            get {
+                return ResourceManager.GetString("parameterBatchAddTerminalToGroupRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter batchDeletionRequest is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterBatchDeletionRequestMandatory {
@@ -313,6 +322,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter merchantName is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterMerchantNameIsNull {
+            get {
+                return ResourceManager.GetString("parameterMerchantNameIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter packageName is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterPackageNameCannotBeEmpty {
@@ -349,6 +367,33 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter queryCode is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterQueryCodeIsNull {
+            get {
+                return ResourceManager.GetString("parameterQueryCodeIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The length of parameter queryCode must 8! 的本地化字符串。
+        /// </summary>
+        internal static string parameterQueryCodeLengthInvalid {
+            get {
+                return ResourceManager.GetString("parameterQueryCodeLengthInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter resellerName is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterResellerNameIsNull {
+            get {
+                return ResourceManager.GetString("parameterResellerNameIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter terminalTid is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterSearchPushRkiTasksTerminalTidEmpty {
@@ -372,6 +417,15 @@ namespace Paxstore.OpenApi.Properties {
         internal static string parameterSnCannotBeEmpty {
             get {
                 return ResourceManager.GetString("parameterSnCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter terminalConfigUpdateRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTerminalConfigUpdateRequestIsNull {
+            get {
+                return ResourceManager.GetString("parameterTerminalConfigUpdateRequestIsNull", resourceCulture);
             }
         }
         

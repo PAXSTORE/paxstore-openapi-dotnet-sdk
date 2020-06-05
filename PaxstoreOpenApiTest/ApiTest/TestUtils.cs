@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Paxstore.OpenApi.Help;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +25,12 @@ namespace Paxstore.Test
         }
 
         [Test]
-        public void TestDateTime() {
-            Nullable<DateTime> time = DateTime.Now;
-            String result = time.Value.ToString("yyyy-MM-dd HH:mm:ss zzz").Remove(23,1);
-            _logger.DebugFormat("Result={0}", result);
+        public void TestDateTime(){
+            ReadOnlyCollection<TimeZoneInfo> zones = TimeZoneInfo.GetSystemTimeZones();
+            for (int i = 0; i < zones.Count; i++) {
+                Console.WriteLine(TimeZoneHelper.GetTimeZoneId(zones[i]));
+                Assert.NotNull(TimeZoneHelper.GetTimeZoneId(zones[i]));
+            }
         }
     }
 }
