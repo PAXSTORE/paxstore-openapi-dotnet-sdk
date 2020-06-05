@@ -1093,3 +1093,71 @@ Result<TerminalPED> result = terminalApi.GetTerminalPED(909755);
 | Business Code | Message            | Description |
 | :------------ | :----------------- | :---------- |
 | 1800          | Terminal not found |             |
+
+
+### Move terminal
+
+Move a terminal to another reseller and merchant
+
+**API**
+
+```
+public Result<string> MoveTerminal(long terminalId, string resellerName, string merchantName)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name | Type | Nullable | Description    |
+| :------------- | :--- | :------- | :------------- |
+| terminalId     | long | false    | Terminal's id. |
+| resellerName| string | false | The target reseller name the terminal move to|
+| merchantName| string | false | The target merchant name the terminal move to|  
+
+
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<string> result = terminalApi.MoveTerminal(terminalId, "PAX", "6666");
+```
+
+**Client side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter resellerName is mandatory!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1800,
+	"Message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+}
+```
+
+**Possible client validation errors**
+
+> <font color=red>Parameter resellerName is mandatory!</font>  
+> <font color=red>Parameter merchantName is mandatory!</font> 
+
+**Possible business codes**
+
+| Business Code | Message            | Description |
+| :------------ | :----------------- | :---------- |
+| 1800          | Terminal not found |             |
+| 1759          | Reseller doesn't exist |             |
+| 1720          | Merchant doesn't exist |             |
+| 1937          | Merchant is not belong to the given Reseller! |             |
