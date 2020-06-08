@@ -178,14 +178,14 @@ namespace Paxstore.Test
 
         [Test]
         public void TestMoveTerminal() {
-            Result<string> result = API.MoveTerminal(100000, "testReseller", "testMerchant");
+            Result<string> result = API.MoveTerminal(1019920356, "Neal", "w");
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
         public void TestGetTerminalConfig() {
-            Result<TerminalConfig> result = API.GetTerminalConfig(100000);
+            Result<TerminalConfig> result = API.GetTerminalConfig(1019920370);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
@@ -194,14 +194,14 @@ namespace Paxstore.Test
         public void TestUpdateTerminalConfig() {
             TerminalConfigUpdateRequest terminalConfigUpdateRequest = new TerminalConfigUpdateRequest();
             terminalConfigUpdateRequest.AllowReplacement = true;
-            Result<string> result = API.UpdateTerminalConfig(100000, terminalConfigUpdateRequest);
+            Result<string> result = API.UpdateTerminalConfig(1019920370, terminalConfigUpdateRequest);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
         public void TestGetTerminalPED() {
-            Result<TerminalPED> result = API.GetTerminalPED(100000);
+            Result<TerminalPED> result = API.GetTerminalPED(1019920370);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }

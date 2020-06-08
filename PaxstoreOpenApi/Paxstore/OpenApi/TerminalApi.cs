@@ -173,6 +173,7 @@ namespace Paxstore.OpenApi
 
             var requestJson = JsonConvert.SerializeObject(terminalMoveRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
@@ -196,12 +197,12 @@ namespace Paxstore.OpenApi
             }
             RestRequest request = new RestRequest(UPDATE_TERMINAL_REMOTE_CONFIG_URL, Method.PUT);
             request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
-            request.AddJsonBody(terminalConfigUpdateRequest);
+            var requestJson = JsonConvert.SerializeObject(terminalConfigUpdateRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
             Result<string> result = new Result<string>(emptyResponse);
             return result;
-            //request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalJson, ParameterType.RequestBody);
         }
 
         public Result<TerminalConfig> GetTerminalConfig(long terminalId){
