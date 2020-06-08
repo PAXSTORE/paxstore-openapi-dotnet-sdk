@@ -99,7 +99,7 @@ The type in dataSet is PagedMerchant. And the structure like below.
 |ID|long|The id of merchant.|
 |Name|string|The name of merchant.|
 |Reseller|SimpleReseller|The reseller of the merchant belongs to.|
-|Country|string|Country code of merchant. Please refer to [Country Codes](docs/APPENDIX.md#_country-code)|
+|Country|string|Country code of merchant. Please refer to [Country Codes](APPENDIX.md#_country-code)|
 |Contact|string|Contact of merchant.|
 |Email|string|Email of merchant.|
 |Phone|string|Phone number of merchant.|

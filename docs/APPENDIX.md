@@ -1,4 +1,4 @@
-<a name="_country-code">## Country Codes</a>
+## <a name="_country-code">Country Codes</a>
 
 For creating/updating reseller or merchant the country property is mandatory. The API of this SDK requires the user pass a country code when create/update reseller or merchant. Below table listed all the country codes used in PAXSTORE admin console. The first column is country code, the value in this column is needed for the API of this SDK. And the label column is what you see in the dropdown list of country field in create/update merchant and reseller page in PAXSTORE admin console. And the description column is the description of the country code. Both label column and description column have English and Chinese language.  
 If more country codes added to PAXSTORE we will update this table in time.
@@ -19,33 +19,33 @@ Description
 <th>English</th><th>Chinese</th><th>English</th><th>Chinese</th>
 </tr>
 <tr>
-<td>CN</td><td>China</td><td>ÖĞ¹ú</td><td>China</td><td>ÖĞ¹ú</td>
+<td>CN</td><td>China</td><td>ä¸­å›½</td><td>China</td><td>ä¸­å›½</td>
 </tr>
 <tr>
-<td>ITA</td><td>Italy</td><td>Òâ´óÀû</td><td>Italy</td><td>Òâ´óÀû</td>
+<td>ITA</td><td>Italy</td><td>æ„å¤§åˆ©</td><td>Italy</td><td>æ„å¤§åˆ©</td>
 </tr>
 <tr>
-<td>USA</td><td>U.S.A</td><td>ÃÀ¹ú</td><td>America</td><td>ÃÀ¹ú</td>
+<td>USA</td><td>U.S.A</td><td>ç¾å›½</td><td>America</td><td>ç¾å›½</td>
 </tr>
 <tr>
-<td>IRN</td><td>Iran</td><td>ÒÁÀÊ</td><td>Iran</td><td>ÒÁÀÊ</td>
+<td>IRN</td><td>Iran</td><td>ä¼Šæœ—</td><td>Iran</td><td>ä¼Šæœ—</td>
 </tr>
 <tr>
-<td>BRA</td><td>Bresil</td><td>°ÍÎ÷</td><td>Bresil</td><td>°ÍÎ÷</td>
+<td>BRA</td><td>Bresil</td><td>å·´è¥¿</td><td>Bresil</td><td>å·´è¥¿</td>
 </tr>
 <tr>
-<td>GBR</td><td>United Kingdom</td><td>Ó¢¹ú</td><td>United Kingdom</td><td>Ó¢¹ú</td>
+<td>GBR</td><td>United Kingdom</td><td>è‹±å›½</td><td>United Kingdom</td><td>è‹±å›½</td>
 </tr>
 <tr>
-<td>AUS</td><td>Australia</td><td>°Ä´óÀûÑÇ</td><td>Australia</td><td>°Ä´óÀûÑÇ</td>
+<td>AUS</td><td>Australia</td><td>æ¾³å¤§åˆ©äºš</td><td>Australia</td><td>æ¾³å¤§åˆ©äºš</td>
 </tr>
 <tr>
-<td>MYS</td><td>Malaysia</td><td>ÂíÀ´Î÷ÑÇ</td><td>Malaysia</td><td>ÂíÀ´Î÷ÑÇ</td>
+<td>MYS</td><td>Malaysia</td><td>é©¬æ¥è¥¿äºš</td><td>Malaysia</td><td>é©¬æ¥è¥¿äºš</td>
 </tr>
 <tr>
-<td>JP</td><td>Japan</td><td>ÈÕ±¾</td><td>Japan</td><td>ÈÕ±¾</td>
+<td>JP</td><td>Japan</td><td>æ—¥æœ¬</td><td>Japan</td><td>æ—¥æœ¬</td>
 </tr>
 <tr>
-<td>IND</td><td>India</td><td>Ó¡¶È</td><td>India</td><td>Ó¡¶È</td>
+<td>IND</td><td>India</td><td>å°åº¦</td><td>India</td><td>å°åº¦</td>
 </tr>
 </table>
