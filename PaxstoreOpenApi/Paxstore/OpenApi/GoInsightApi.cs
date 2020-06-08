@@ -16,7 +16,7 @@ namespace Paxstore.OpenApi
 
         private const int QUERY_CODE_LENGTH = 8;
 
-        private const string SEARCH_GO_INSIGHT_DATA_URL = "/v1/3rdsys/goInsight/data/querying/{queryCode}";
+        private const string SEARCH_GO_INSIGHT_DATA_URL = "/v1/3rdsys/goInsight/data/app-biz";
 
         public GoInsightApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo)
         {
@@ -55,7 +55,7 @@ namespace Paxstore.OpenApi
                 return new Result<DataQueryResult>(validationErrs);
             }
             RestRequest request = new RestRequest(SEARCH_GO_INSIGHT_DATA_URL, Method.GET);
-            request.AddUrlSegment("queryCode", queryCode);
+            request.AddParameter("queryCode", queryCode);
             if (pageNo != null && pageNo > 0 && pageSize != null && pageSize > 0)
             {
                 request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
