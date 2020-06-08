@@ -26,7 +26,7 @@ namespace Paxstore.Test
 
         [Test]
         public void testQueryData_success() {
-            Result<DataQueryResult> result1 = API.FindDataFromInsight("abcdaaaa");
+            Result<DataQueryResult> result1 = API.FindDataFromInsight("s4x5iz40");
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result1));
             Assert.AreEqual(result1.BusinessCode, 0);
         }
