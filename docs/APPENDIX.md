@@ -51,7 +51,7 @@ Description
 </table>
 
 
-## <a name="_action-status">Action Status</a>
+## Action Status{#action-status}
 
 |Error Code|Description|
 |:--|:--|
@@ -62,7 +62,7 @@ Description
 |4|Push task is waiting, no need push|
 
 
-## <a name="_action-error-codes">Action Error Codes</a>
+## Action Error Codes{#action-error-codes}
 
 |Error Code|Description|
 |:--|:--|

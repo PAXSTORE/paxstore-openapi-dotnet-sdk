@@ -210,7 +210,7 @@ The type in dataSet is PushApkHistory. And the structure like below.
 |apkVersionCode|long|the version code of apk|
 |terminalSN|string|the serialNo of terminal|
 |status|string|the status of this push, for the possible valus please refer to table Possible action status|
-|actionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#_action_status)|
+|actionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#action_status)|
 
 **Possible client validation errors**  
 
