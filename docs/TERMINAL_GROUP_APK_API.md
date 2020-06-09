@@ -96,7 +96,7 @@ The type of data is TerminalGroupApkInfo, the structure is like below.
 |EffectiveTime|Nullable\<long\>|the effective time|
 |ExpiredTime|Nullable\<long\>|the expire time|
 |UpdatedDate|Nullable\<long\>||
-|ActionStatus|int|action status|
+|ActionStatus|int|action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
 |Status|string|the push status|
 |PendingCount|Nullable\<int\>||
 |SuccessCount|Nullable\<int\>||
@@ -113,17 +113,6 @@ The structure of TerminalGroupApkParamInfo.
 | PendingCount         | Nullable\<int\>                |                                   |
 | SuccessCount         | Nullable\<int\>                |                                   |
 | FailedCount          | Nullable\<int\>                |                                   |
-
-
-**Possible action status**
-
-| action status | status  | Description                            |
-| :------------ | :------ | :------------------------------------- |
-| 0             | None    | The push task no start                 |
-| 1             | Pending | The push task staring                  |
-| 2             | Succeed | The push task is succeed               |
-| 3             | Failed  | The push task is failed                |
-| 4             | Watting | The push task is watting, no need push |
 
 
 
