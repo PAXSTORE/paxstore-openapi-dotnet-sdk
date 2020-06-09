@@ -183,8 +183,8 @@ The type in dataSet is PushFirmwareTaskInfo. And the structure like below.
 |FmName|string|the name of firmware|
 |TerminalSN|string|the serialNo of terminal|
 |Status|string|the status of push firmware, value can be one of A(Active) and S(Suspend)|
-|ActionStatus|string|the push status|
-|ErrorCode|string|the error code of push task|
+|ActionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
+|ErrorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
 |ActivatedDate|long|the push firmware activated date|
 
 **Possible client validation errors**  
@@ -257,33 +257,7 @@ terminalFirmwareApi.GetPushFirmwareTask(1000012895);
 |:---|:---|:---|
 |8101|Terminal firmware not found|&nbsp;|
 
-**Possible action status**
 
-|action status|status|Description|
-|:---|:---|:---|
-|0|None|The push task no start|
-|1|Pending|The push task staring|
-|2|Succeed|The push task is succeed|
-|3|Failed|The push task is failed|
-|4|Watting|The push task is watting, no need push|
-
-**Possible error codes**
-
-|Error Code|Description|
-|:---|:---|
-|1|Download error|
-|2|Install error|
-|12|The push is disabled|
-|13|The firmware is duplicate|
-|14|The firmware status invalid|
-|15|The firmware model pn mismatch with terminal|
-|16|The firmware version mismatch|
-|17|The firmware model mismatch with terminal|
-|18|The terminal no right to download this firmware|
-|19|The firmware already installed|
-|20|The firmware file version too low|
-|22|The firmware file deleted by user|
-|25|The firmware resource mismatch|
 
 
 ### Disable firmware push by serial number and firmware name

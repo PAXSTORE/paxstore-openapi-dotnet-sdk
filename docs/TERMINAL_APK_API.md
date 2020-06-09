@@ -21,7 +21,6 @@ public TerminalApkApi(string baseUrl, string apiKey, string apiSecret)
 
 Create terminalApk API allow the thirdparty system create a terminalApk (create a push apk task for the specified terminal).
 
-
 **API**
 
 ```
@@ -283,8 +282,8 @@ The type of data is TerminalApkDTO, and the structure shows below.
 |apkVersionCode|long|the version code of apk|
 |terminalSN|string|the serialNo of terminal|
 |status|string|the status of this push, for the possible valus please refer to table Possible action status|
-|actionStatus|string|the action status|
-|errorCode|string|the error code|
+|actionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
+|errorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
 
 
 **Possible client validation errors**
