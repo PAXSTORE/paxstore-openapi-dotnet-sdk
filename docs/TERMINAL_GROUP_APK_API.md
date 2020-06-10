@@ -96,7 +96,7 @@ The type of data is TerminalGroupApkInfo, the structure is like below.
 |EffectiveTime|Nullable\<long\>|the effective time|
 |ExpiredTime|Nullable\<long\>|the expire time|
 |UpdatedDate|Nullable\<long\>||
-|ActionStatus|int|action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
+|ActionStatus|int|action status, value can be 0 and 1, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
 |Status|string|the push status|
 |PendingCount|Nullable\<int\>||
 |SuccessCount|Nullable\<int\>||

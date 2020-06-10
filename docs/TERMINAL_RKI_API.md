@@ -174,29 +174,10 @@ The type in DataSet is TerminalRkiTaskInfo. And the structure like below.
 |RkiKey|string|the key of RKI|
 |TerminalSN|string|the serialNo of terminal|
 |Status|string|the status of push Rki, value can be one of A(Active) and S(Suspend)|
-|ActionStatus|string|the push status, 2(Success), 3(Failed)|
+|ActionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
 |ActivatedDate|long|timestamp(milliseconds) of the push Rki activated date|
-|ErrorCode|string|the error code of push task|
+|ErrorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
 |Remarks|string|the push Rki result remarks|
-
-**Possible action status**
-
-|action status|status|Description|
-|:---|:---|:---|
-|0|None|The push task no start|
-|1|Pending|The push task staring|
-|2|Succeed|The push task is succeed|
-|3|Failed|The push task is failed|
-|4|Watting|The push task is watting, no need push|
-
-**Possible error codes**
-
-|Error Code|Description|
-|:---|:---|
-|1|Download error|
-|2|Install error|
-|12|The push is disabled|
-|27|Unable To Bind Terminal RKI Key|
 
 **Possible client validation errors**  
 
