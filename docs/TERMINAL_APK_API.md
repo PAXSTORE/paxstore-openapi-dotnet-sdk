@@ -44,8 +44,9 @@ Structure of class TerminalCreateRequest
 |PackageName|string|false|The package name which indicate the application you want to push to the terminal|
 |Version|string|true|The version name of application which you want to push, if it is blank API will use the latest version|
 |TemplateName|string|true|The template file name of paramter application. The template file name can be found in the detail of the parameter application. If user want to push more than one template the please use &#124; to concact the different template file names like tempate1.xml&#124;template2.xml&#124;template3.xml, the max size of template file names is 10.|
-|Parameters|Dictionary\<string, string\>|false|The parameter key and value, the key the the PID in template|
+|Parameters|Dictionary\<string, string\>|true|The parameter key and value, the key the the PID in template|
 |Base64FileParameters|List\<FileParameter\>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
+|PushTemplateName|string|true|The push template name|
 
 Note: TID and serialNo cannot be empty at same time.
 
@@ -291,35 +292,11 @@ The type of data is TerminalApkDTO, and the structure shows below.
 
 > <font color="red">Parameter terminalApkId cannot be null and cannot be less than 1!</font>
 
-
 **Possible business codes**
 
 |Business Code|Message|Description|
 |:---|:---|:---|
 |2001|Terminal app not found|&nbsp;|
-
-**Possible action status**
-
-|action status|status|Description|
-|:---|:---|:---|
-|0|None|The push task no start|
-|1|Pending|The push task staring|
-|2|Succeed|The push task is succeed|
-|3|Failed|The push task is failed|
-|4|Watting|The push task is watting, no need push|
-
-**Possible error codes**
-
-|Error Code|Description|
-|:---|:---|
-|1|Download error|
-|2|Install error|
-|3|App exist|
-|4|App version too low|
-|5|App param duplicate|
-|6|Apk not exist|
-|7|Apk version mismatch|
-|12|The push is disabled|
 
 
 
