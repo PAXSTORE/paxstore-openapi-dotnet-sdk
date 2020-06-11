@@ -99,7 +99,7 @@ The type in dataSet is PagedMerchant. And the structure like below.
 |ID|long|The id of merchant.|
 |Name|string|The name of merchant.|
 |Reseller|SimpleReseller|The reseller of the merchant belongs to.|
-|Country|string|Country code of merchant. Please refer to [Country Codes](APPENDIX.md#_country-code)|
+|Country|string|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Contact|string|Contact of merchant.|
 |Email|string|Email of merchant.|
 |Phone|string|Phone number of merchant.|
@@ -204,7 +204,7 @@ The type of data in result is Merchant, and the structure shows below.
 |ID|long|The id of merchant.|
 |Name|string|The name of merchant.|
 |Reseller|SimpleReseller|The reseller of the merchant belongs to.|
-|Country|string|Country code of merchant.|
+|Country|string|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Contact|string|Contact of merchant.|
 |Email|string|Email of merchant.|
 |Phone|string|Phone number of merchant.|
@@ -249,7 +249,7 @@ Structure of class MerchantCreateRequest
 |Email|string|false|Email of merchant, max length is 255.|
 |ResellerName|string|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
 |Contact|string|false|Contact of merchant, max length is 64.|
-|Country|string|false|Country code of merchant, max length is 64. Please refer to country codes table.|
+|Country|string|false|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Phone|string|false|Phone number of merchant, max length is 32.|
 |Postcode|string|true|Postcode of merchant, max length is 16.|
 |Address|string|true|Address of merchant, max length is 255.|
@@ -406,7 +406,7 @@ Structure of class MerchantUpdateRequest
 |Email|string|true|Email of merchant, max length is 255. If email is empty the API won't change the email.|
 |ResellerName|string|true|Reseller name of merchant, max length is 64. Make sure the reseller exist. If resellerName is empty the API won't update the reseller of the merchant|
 |Contact|string|false|Contact of merchant, max length is 64.|
-|Country|string|false|Country code of merchant, max length is 64. Please refer to country codes table.|
+|Country|string|false|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Phone|string|false|Phone number of merchant, max length is 32.|
 |Postcode|string|true|Postcode of merchant, max length is 16.|
 |Address|string|true|Address of merchant, max length is 255.|
