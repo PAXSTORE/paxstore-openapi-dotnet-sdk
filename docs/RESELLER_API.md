@@ -51,7 +51,7 @@ public Result<PagedReseller> SearchReseller(int pageNo, int pageSize, ResellerSe
 ```
 ResellerApi api = new ResellerApi (API_BASE_URL, API_KEY, API_SECRET);
 Result<PagedReseller> result = api.SearchReseller(1, 10, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
-```    
+```
 
 
 
@@ -117,7 +117,7 @@ The type in dataSet of is PagedReseller. And the structure shows like below.
 |ID|long|the id of reseller|
 |Name|string|the name of reseller|
 |Phone|string|the phone number of reseller|
-|Country|string|the country code|
+|Country|string|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Postcode|string|the postcode of reseller|
 |Email|string|the email of reseller|
 |Status|string|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
@@ -215,7 +215,7 @@ The type of data is Reseller, and the structure shows below.
 |ID|long|the id of reseller|
 |Name|string|the name of reseller|
 |Phone|string|the phone number of reseller|
-|Country|string|the country code|
+|Country|string|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Postcode|string|the postcode of reseller|
 |Email|string|the email of reseller|
 |Status|string|the status of reseller, value can be one of A(Active), P(Pendding) and S(Suspend)|
@@ -263,7 +263,7 @@ Structure of class ResellerCreateRequest
 |:--|:--|:--|:--|
 |Name|string|false|Name of reseller, max length is 64.|
 |Email|string|false|Email of reseller, max length is 255.|
-|Country|string|false|Country code of reseller, max length is 64.|
+|Country|string|false|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Contact|string|false|contact of reseller, max length is 64.|
 |Phone|string|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
 |Postcode|string|true|Post code, max length is 32. Sample value 510250.|
@@ -409,7 +409,7 @@ Structure of class ResellerUpdateRequest
 |:--|:--|:--|:--|
 |Name|string|false|Name of reseller, max length is 64.|
 |Email|string|true|Email of reseller, max length is 255. Only the pending reseller can update the email. For other reseller change email please call replaceResellerEmail API. If email is empty API won't update the email.|
-|Country|string|false|Country code of reseller, max length is 64.|
+|Country|string|false|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
 |Contact|string|false|contact of reseller, max length is 64.|
 |Phone|string|false|Phone number of reseller, max length is 32. Sample value 400-86554555.|
 |Postcode|string|true|Post code, max length is 32. Sample value 510250.|
