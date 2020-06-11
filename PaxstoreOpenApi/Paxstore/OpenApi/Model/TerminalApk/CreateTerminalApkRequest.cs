@@ -26,5 +26,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("base64FileParameters")]
         public List<FileParameter> Base64FileParameters { get; set; }
+
+        [JsonProperty("pushTemplateName")]
+        public string PushTemplateName { get; set; }
     }
 }
