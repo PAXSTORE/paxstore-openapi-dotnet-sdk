@@ -91,13 +91,13 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<String> DisablePushRkiTask(DisablePushRkiTaskRequest disablePushRkiTaskRequest)
+        public Result<string> DisablePushRkiTask(DisablePushRkiTaskRequest disablePushRkiTaskRequest)
         {
-            List<String> validationErrs = validateDisablePushRki(disablePushRkiTaskRequest);
+            List<string> validationErrs = validateDisablePushRki(disablePushRkiTaskRequest);
 
             if (validationErrs.Count > 0)
             {
-                return new Result<String>(validationErrs);
+                return new Result<string>(validationErrs);
             }
             RestRequest request = new RestRequest(SUSPEND_TERMINAL_RKI_KEY_URL, Method.POST);
             var requestBodyJson = JsonConvert.SerializeObject(disablePushRkiTaskRequest);
