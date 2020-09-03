@@ -38,7 +38,7 @@ public Result<PagedReseller> SearchReseller(int pageNo, int pageSize, ResellerSe
 | Name| Type | Nullable|Description |
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
+|pageSize|int|false|the record number per page, range is 1 to 100|
 |orderBy|ResellerSearchOrderBy|false|the field name of sort order by. The value of the parameter can be one of ResellerSearchOrderBy.Name, ResellerSearchOrderBy.Phone and ResellerSearchOrderBy.Contact|
 |name|string|true|search filter by reseller name|
 |status|ResellerStatus|false|the reseller status<br/> the value can be ResellerStatus.All, ResellerStatus.Active, ResellerStatus.Inactive, ResellerStatus.Suspend. If the value is ResellerStatus.All it will return the resellers of all status|
@@ -125,7 +125,7 @@ The type in dataSet of is PagedReseller. And the structure shows like below.
 
 **Possible client validation errors**
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page Size' must be less than or equal to '100'.</font><br>
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font>
 

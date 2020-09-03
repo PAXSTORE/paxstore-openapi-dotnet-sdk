@@ -121,7 +121,7 @@ public Result<TerminalRkiTaskInfo> SearchPushRkiTasks(int pageNo, int pageSize, 
 | Name| Type | Nullable|Description |
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
+|pageSize|int|false|the record number per page, range is 1 to 100|
 |orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
 |terminalTid|string|false|search filter by terminal tid|
 |rkiKey|string|true|search filter by rki key|
@@ -160,7 +160,7 @@ Result<TerminalRkiTaskInfo> result = terminalRkiApi.SearchPushRkiTasks(1,12,Sear
             "TerminalSN": "87879696",
             "Status": "A",
             "ActionStatus": 2,
-            "ErrorCode": ""
+            "ErrorCode": 0
 		}]
 	}
 }
@@ -176,12 +176,12 @@ The type in DataSet is TerminalRkiTaskInfo. And the structure like below.
 |Status|string|the status of push Rki, value can be one of A(Active) and S(Suspend)|
 |ActionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
 |ActivatedDate|long|timestamp(milliseconds) of the push Rki activated date|
-|ErrorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
+|ErrorCode|int|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
 |Remarks|string|the push Rki result remarks|
 
 **Possible client validation errors**  
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page Size' must be less than or equal to '100'.</font><br>
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font>
 > <font color="red">Parameter terminalTid is mandatory!  
@@ -233,7 +233,7 @@ Result<TerminalRkiTaskInfo> result = terminalRkiApi.GetPushRkiTask(17850);
         "TerminalSN": "87879696",
         "Status": "A",
         "ActionStatus": 2,
-        "ErrorCode": ""
+        "ErrorCode": 0
 	}
 }
 ```

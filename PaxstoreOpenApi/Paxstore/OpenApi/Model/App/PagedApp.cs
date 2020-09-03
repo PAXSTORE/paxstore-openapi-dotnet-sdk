@@ -16,7 +16,6 @@ namespace Paxstore.OpenApi.Model
         public Nullable<int> ChargeType { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<long> Downloads { get; set; }             // 下载次数
-        public Developer Developer { get; set; }
         public IList<Apk> ApkList { get; set; }
     }
 }

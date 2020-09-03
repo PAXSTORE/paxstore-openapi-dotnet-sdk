@@ -73,6 +73,9 @@ namespace Paxstore.OpenApi
     }
 
     public enum TimeRange{
+        [EnumValue("p1h")]
+        LAST_HOUR,
+
         [EnumValue("p1d")]
         YESTERDAY,
 
@@ -82,21 +85,60 @@ namespace Paxstore.OpenApi
         [EnumValue("p1m")]
         LAST_MONTH,
 
+        [EnumValue("p1q")]
+        LAST_QUARTER,
+
         [EnumValue("p1y")]
         LAST_YEAR,
 
+        [EnumValue("p1ybq")]
+        LAST_YEAR_BY_QUARTER,
+
+        [EnumValue("r5min")]
+        RECENT_5_MIN,
+
+        [EnumValue("r30min")]
+        RECENT_30_MIN,
+
+        [EnumValue("r1h")]
+        RECENT_HOUR,
+
+        [EnumValue("r3h")]
+        RECENT_3_HOUR,
+
         [EnumValue("r1d")]
         RECENT_DAY,
+
+        [EnumValue("r2d")]
+        RECENT_2_DAY,
+
+        [EnumValue("r5d")]
+        RECENT_5_DAY,
 
         [EnumValue("r1w")]
         RECENT_WEEK,
     
         [EnumValue("r1m")]
         RECENT_MONTH,
-    
+
+        [EnumValue("r3m")]
+        RECENT_3_MONTH,
+
+        [EnumValue("r3mbw")]
+        RECENT_3_MONTH_BY_WEEK,
+
+        [EnumValue("r6m")]
+        RECENT_6_MONTH,
+
         [EnumValue("r1y")]
         RECENT_YEAR,
-    
+
+        [EnumValue("r1ybq")]
+        RECENT_YEAR_BY_QUARTER,
+
+        [EnumValue("t1h")]
+        THIS_HOUR,
+
         [EnumValue("t1d")]
         TODAY,
 
@@ -105,8 +147,17 @@ namespace Paxstore.OpenApi
     
         [EnumValue("t1m")]
         THIS_MONTH,
-    
+
+        [EnumValue("t1q")]
+        THIS_QUARTER,
+
+        [EnumValue("t1qbw")]
+        THIS_QUARTER_BY_WEEK,
+
         [EnumValue("t1y")]
-        THIS_YEAR
+        THIS_YEAR,
+
+        [EnumValue("t1ybq")]
+        THIS_YEAR_BY_QUARTER
     }
 }

@@ -131,7 +131,7 @@ public Result<PushFirmwareTaskInfo> SearchPushFirmwareTasks(int pageNo, int page
 | Name| Type | Nullable|Description |
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
+|pageSize|int|false|the record number per page, range is 1 to 100|
 |orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
 |terminalTid|string|false|search filter by terminal tid|
 |fmName|string|true|search filter by firmware name|
@@ -169,7 +169,7 @@ terminalFirmwareApi.SearchPushFirmwareTasks(1, 10, SearchOrderBy.CreatedDate_des
             "TerminalSN": "87879696",
             "Status": "A",
             "ActionStatus": 2,
-            "ErrorCode": ""
+            "ErrorCode": 0
 		}]
 	}
 }
@@ -184,14 +184,14 @@ The type in dataSet is PushFirmwareTaskInfo. And the structure like below.
 |TerminalSN|string|the serialNo of terminal|
 |Status|string|the status of push firmware, value can be one of A(Active) and S(Suspend)|
 |ActionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
-|ErrorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
+|ErrorCode|int|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
 |ActivatedDate|long|the push firmware activated date|
 
 **Possible client validation errors**  
 
 > <font color=red>pageNo:must be greater than or equal to 1</font>   
 > <font color=red>pageSize:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be less than or equal to 1000</font>  
+> <font color=red>pageSize:must be less than or equal to 100</font>  
 
 ### Get push firmware history by id
 
@@ -239,7 +239,7 @@ terminalFirmwareApi.GetPushFirmwareTask(1000012895);
         "terminalSN": "87879696",
         "status": "A",
         "actionStatus": 2,
-        "errorCode": ""
+        "errorCode": 0
 	}
 }
 ```

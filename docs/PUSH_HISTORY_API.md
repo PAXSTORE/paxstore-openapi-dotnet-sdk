@@ -33,7 +33,7 @@ public Result<AppPushHistoryInfo> SearchAppPushStatus(int pageNo, int pageSize, 
 | Name                | Type                     | Nullable | Description                                                  |
 | :------------------ | :----------------------- | :------- | :----------------------------------------------------------- |
 | pageNo              | int                      | false    | page number, value must >=1                                  |
-| pageSize            | int                      | false    | the record number per page, range is 1 to 1000               |
+| pageSize            | int                      | false    | the record number per page, range is 1 to 100               |
 | packageName         | string                   | false    | search filter by app packageName                             |
 | serialNo            | string                   | true     | only terminal with specified serialNo will search out        |
 | pushStatus       	  | Nullable<PushHistoryStatus>        | true     | the push status  the value can be PushHistoryStatus.Success, PushHistoryStatus.Failed |
