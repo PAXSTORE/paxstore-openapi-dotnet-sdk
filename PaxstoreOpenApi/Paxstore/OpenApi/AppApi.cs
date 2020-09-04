@@ -21,8 +21,6 @@ namespace Paxstore.OpenApi
         }
 
 
-        Boolean includeSubscribedApp
-
         public Result<PagedApp> SearchApp(
             int pageNo,
             int pageSize, Nullable<AppSearchOrderBy> orderBy,
