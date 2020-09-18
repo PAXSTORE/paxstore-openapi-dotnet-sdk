@@ -34,7 +34,7 @@ public Result<TerminalGroup> SearchTerminalGroup(int pageNo, int pageSize, Nulla
 |Parameter Name|Type|Nullable|Description|
 |:---|:---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
+|pageSize|int|false|the record number per page, range is 1 to 100|
 |orderBy|Nullable\<TerminalGroupSearchOrderBy\>|true|the sort order of search result. If this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalGroupSearchOrderBy.CreatedDate_desc and TerminalGroupSearchOrderBy.CreatedDate_asc and TerminalGroupSearchOrderBy.Name.|
 |status|Nullable\<TerminalGroupStatus\>|true|The value of status can be one of TerminalGroupStatus.PENDING and TerminalGroupStatus.ACTIVE and TerminalGroupStatus.SUSPEND.|
 |name|string|true|The name of group|
@@ -55,7 +55,7 @@ Result<TerminalGroup> result =  api.searchTerminalGroup(1,5, TerminalGroupSearch
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["'Page Size' must be less than or equal to '1000'."]
+	"ValidationErrors": ["'Page Size' must be less than or equal to '100'."]
 }
 ```
 
@@ -117,7 +117,7 @@ The type in dataSet is TerminalGroup. And the structure like below.
 
 **Possible validation errors**
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page Size' must be less than or equal to '100'.</font><br>
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font> 
 
@@ -329,7 +329,7 @@ public Result<Terminal> SearchTerminal(int pageNo, int pageSize, Nullable<Termin
 | Parameter Name | Type                              | Nullable | Description                                                  |
 | :------------- | :-------------------------------- | :------- | :----------------------------------------------------------- |
 | pageNo         | int                               | false    | page number, value must >=1                                  |
-| pageSize       | int                               | false    | the record number per page, range is 1 to 1000               |
+| pageSize       | int                               | false    | the record number per page, range is 1 to 100               |
 | orderBy        | Nullable\<TerminalSearchOrderBy\>   | true     | the sort order by of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalSearchOrderBy.Name and TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. |
 | status         | Nullable\<TerminalStatus\>                    | true     | Terminal status. The value can be one of TerminalStatus.Active and TerminalStatus.Inactive and TerminalStatus.Suspend |
 | modelName      | string                            | true     | the model name                                               |
@@ -349,7 +349,7 @@ Result<Terminal> result = api.SearchTerminal(1,5, TerminalSearchOrderBy.Name, Te
 ```
 {
 	"BusinessCode": -1,
-	"ValidationErrors": ["'Page Size' must be less than or equal to '1000'."]
+	"ValidationErrors": ["'Page Size' must be less than or equal to '100'."]
 }
 ```
 
@@ -402,7 +402,7 @@ The type in dataSet is Terminal. The structure of this object please refer to Te
 
 **Possible validation errors**
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page Size' must be less than or equal to '100'.</font><br>
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font>
 
@@ -692,7 +692,7 @@ public Result<Terminal> SearchTerminalsInGroup(int pageNo, int pageSize, Nullabl
 | Parameter Name | Type                              | Nullable | Description                                                  |
 | :------------- | :-------------------------------- | :------- | :----------------------------------------------------------- |
 | pageNo         | int                               | false    | page number, value must >=1                                  |
-| pageSize       | int                               | false    | the record number per page, range is 1 to 1000               |
+| pageSize       | int                               | false    | the record number per page, range is 1 to 100               |
 | orderBy        | Nullable\<TerminalSearchOrderBy\> | true     | the sort order of search result, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of TerminalSearchOrderBy.Name and TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. |
 | groupId        | long                              | false     | the id of terminal group                                     |
 | serialNo       | string                            | true     | the serial number of terminal                                |
@@ -753,7 +753,7 @@ The type in dataSet is Terminal. And the structure please refer to TerminalApi.
 
 **Possible validation errors**
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font><br>
+> <font color="red">'Page Size' must be less than or equal to '100'.</font><br>
 > <font color="red">'Page No' must be greater than '0'.</font><br>
 > <font color="red">'Page Size' must be greater than '0'.</font>
 

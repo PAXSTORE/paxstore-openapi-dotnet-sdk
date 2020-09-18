@@ -20,6 +20,22 @@ namespace Paxstore.OpenApi
 
         }
 
+
+        public Result<PagedApp> SearchApp(
+            int pageNo,
+            int pageSize, Nullable<AppSearchOrderBy> orderBy,
+            String name,
+            Nullable<AppOsType> osType,
+            Nullable<AppChargeType> chargeType,
+            Nullable<AppBaseType> baseType,
+            Nullable<AppStatus> appStatus,
+            Nullable<ApkStatus> apkStatus,
+            Nullable<bool> specificReseller,
+            Nullable<bool> specificMerchantCategory)
+        {
+            return SearchApp(pageNo, pageSize, orderBy, name, osType, chargeType, baseType, appStatus, apkStatus, specificReseller, specificMerchantCategory, false);
+        }
+
         public Result<PagedApp> SearchApp(
             int pageNo, 
             int pageSize, Nullable<AppSearchOrderBy> orderBy,
@@ -30,7 +46,9 @@ namespace Paxstore.OpenApi
             Nullable<AppStatus> appStatus, 
             Nullable<ApkStatus> apkStatus,
             Nullable<bool> specificReseller, 
-            Nullable<bool> specificMerchantCategory)
+            Nullable<bool> specificMerchantCategory,
+            bool includeSubscribedApp
+            )
         {
 
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
@@ -72,7 +90,8 @@ namespace Paxstore.OpenApi
             if (specificMerchantCategory != null) {
                 request.AddParameter("specificMerchantCategory", specificMerchantCategory.ToString());
             }
-;
+            request.AddParameter("includeSubscribedApp", includeSubscribedApp.ToString());
+            
             var responseContent = Execute(request);
             AppPageResponse appPageDTO = JsonConvert.DeserializeObject<AppPageResponse>(responseContent);
             Result<PagedApp> result = new Result<PagedApp>(appPageDTO);
@@ -128,11 +147,11 @@ namespace Paxstore.OpenApi
         [EnumValue("CONVERT( app.name USING gbk ) COLLATE gbk_chinese_ci ASC")]
         AppName_asc,
 
-        [EnumValue("developer.email DESC")]
-        Emial_desc,
+        //[EnumValue("developer.email DESC")]
+        //Emial_desc,
 
-        [EnumValue("developer.email ASC")]
-        Emial_asc,
+        //[EnumValue("developer.email ASC")]
+        //Emial_asc,
 
         [EnumValue("app.updated_date DESC")]
         UpdatedDate_desc,

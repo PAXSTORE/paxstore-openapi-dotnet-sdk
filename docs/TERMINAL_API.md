@@ -36,7 +36,7 @@ public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchO
 | Name| Type | Nullable|Description |
 |:--- | :---|:---|:---|
 |pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
+|pageSize|int|false|the record number per page, range is 1 to 100|
 |orderBy|TerminalSearchOrderBy|false|the field name of sort order by. Value can be one of TerminalSearchOrderBy.Name, TerminalSearchOrderBy.TID and TerminalSearchOrderBy.SerialNo.|
 |status|TerminalStatus|false|the terminal status<br/> the value can be TerminalStatus.Active, TerminalStatus.Inactive, TerminalStatus.Suspend and TerminalStatus.All. If the value is TerminalStatus.All it will return terminals of all status|
 |snNameTID|string|true|search filter by serial number,name or TID|
@@ -136,7 +136,7 @@ Structure of class TerminalInstalledApk
 
 **Possible validation errors**
 
-> <font color="red">'Page Size' must be less than or equal to '1000'.</font>  
+> <font color="red">'Page Size' must be less than or equal to '100'.</font>  
 > <font color="red">'Page No' must be greater than '0'.</font>  
 > <font color="red">'Page Size' must be greater than '0'.</font>  
 
@@ -154,7 +154,7 @@ public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchO
 | Name| Type | Nullable|Description |
 |:---- | :----|:----|:----|
 |pageNo|int|false|page number, value must >=1|
-|pageSize|int|false|the record number per page, range is 1 to 1000|
+|pageSize|int|false|the record number per page, range is 1 to 100|
 |orderBy|TerminalSearchOrderBy|true|the sort order by field name, value can be one of TerminalSearchOrderBy.Name, TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. If pass null parameter the search result will order by id by default.|
 |status|TerminalStatus|true|the terminal status<br/> the value can be TerminalStatus.Active, TerminalStatus.Inactive, TerminalStatus.Suspend|
 |snNameTID|String|true|search by serial number,name and TID|
@@ -239,7 +239,7 @@ The type in dataSet of result is Terminal.
 
 > <font color=red>pageSize:must be greater than or equal to 1</font>   
 > <font color=red>pageNo:must be greater than or equal to 1</font>   
-> <font color=red>pageSize:must be less than or equal to 1000</font>  
+> <font color=red>pageSize:must be less than or equal to 100</font>  
 
 ### Get a terminal
 
