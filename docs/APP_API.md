@@ -54,7 +54,7 @@ public Result<PagedApp>  SearchApp(int pageNo, int pageSize, AppSearchOrderBy or
 
 ```
 AppApi AppApi = new  AppApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
-Result<AppPageDTO> result = AppApi.searchApp(1, 10, AppSearchOrderBy.UpdatedDate_desc,
+Result<PagedApp> result = AppApi.searchApp(1, 10, AppSearchOrderBy.UpdatedDate_desc,
                                                  "", AppOsType.Android, AppChargeType.Free, AppBaseType.Normal, 
                                                  AppStatus.Active, ApkStatus.Online, false, false);
 ```
@@ -114,7 +114,7 @@ Result<AppPageDTO> result = AppApi.searchApp(1, 10, AppSearchOrderBy.UpdatedDate
 }
 ```
 
-The type in dataSet is AppPage. And the structure like below.
+The type in dataSet is PagedApp. And the structure like below.
 
 |Property Name|Type|Description|
 |:---|:---|:---|

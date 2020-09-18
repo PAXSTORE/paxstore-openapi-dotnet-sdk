@@ -2,7 +2,13 @@
 
 ## 7.3.0  
 
+### Bug fix
+* Fixed the pagination issue for search app API
+
 ### Breaking Changes  
+* Change property status to Status in the class PagedApp
+* Max records per page is reduced from 1000 to 100 (except GoInsightApi). If pass a value greate than 100 SDK validation will fail.
+* Developer inforamtion is removed from search result(PagedApp class) of AppApi
 
 
 ## 7.2.0  
