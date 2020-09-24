@@ -1,5 +1,10 @@
 # Changelog  
 
+## 7.3.2 
+
+### Bug fix    
+* Fix SDK version incorrect issue
+
 ## 7.3.1 
 
 ### Improve  
