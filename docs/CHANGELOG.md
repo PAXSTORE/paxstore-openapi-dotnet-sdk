@@ -1,5 +1,11 @@
 # Changelog  
 
+## 7.3.1 
+
+### Improve  
+* Add Name and FileSize properties to ApkFile in search application result
+
+
 ## 7.3.0  
 
 ### Bug fix
