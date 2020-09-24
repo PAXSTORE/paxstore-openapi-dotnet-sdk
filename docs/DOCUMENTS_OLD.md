@@ -1,3 +1,4 @@
+### [7.3.0](https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk/tree/7.3.0)  
 ### [7.2.0](https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk/tree/7.2.0)  
 ### [7.1.0](https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk/tree/7.1.0)  
 ### [7.0.1](https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk/tree/7.0.1)  

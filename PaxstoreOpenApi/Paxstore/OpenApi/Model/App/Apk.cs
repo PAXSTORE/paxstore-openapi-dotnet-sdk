@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace Paxstore.OpenApi.Model
 {
     public class Apk{
+        public string Name { get; set; }
+        public Nullable<long> FileSize { get; set; }
         public string Status { get; set; }       // 状态
         public Nullable<long> VersionCode { get; set; }
         public string VersionName { get; set; }

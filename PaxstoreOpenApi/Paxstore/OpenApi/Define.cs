@@ -17,7 +17,7 @@ namespace Paxstore.OpenApi{
         public const string CONTENT_TYPE_JSON = "application/json; charset=utf-8";
 
         public const string THIRD_PARTY_API_SDK_LANGUAGE = "DOTNET";
-        public const string THIRD_PARTY_API_SDK_VERSION = "7.3.0";
+        public const string THIRD_PARTY_API_SDK_VERSION = "7.3.2";
         public const string REQ_HEADER_SDK_LANG = "SDK-Language";
         public const string REQ_HEADER_SDK_VERSION = "SDK-Version";
         public const string TIME_ZONE = "Time-Zone";

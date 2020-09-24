@@ -133,6 +133,8 @@ The structure of class Apk
 
 |Property Name|Type|Description|
 |:---|:---|:---|
+|Name|string|Apk name|
+|FileSize|long|Apk file size(byte)|
 |Status|string|Status of apk. Value can be one of P(Pending), O(Online), R(Rejected) and U(Offline)|
 |VersionCode|long|version code of apk.|
 |VersionName|string|version name of apk.|
