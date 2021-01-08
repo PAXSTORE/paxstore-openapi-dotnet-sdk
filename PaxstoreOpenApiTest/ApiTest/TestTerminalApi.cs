@@ -206,6 +206,13 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
+        [Test]
+        public void TestPushCmdToTerminal() {
+            Result<string> result = API.PushCmdToTerminal(1023805258, TerminalPushCmd.Unlock);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
     }
 
     

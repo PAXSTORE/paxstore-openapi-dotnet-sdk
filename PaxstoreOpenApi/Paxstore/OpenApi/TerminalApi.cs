@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Paxstore.OpenApi.Base;
 using Paxstore.OpenApi.Model;
 using Paxstore.OpenApi.Validator.Terminal;
+using Paxstore.OpenApi.Help;
 
 namespace Paxstore.OpenApi
 {
@@ -22,6 +23,7 @@ namespace Paxstore.OpenApi
         private const string GET_TERMINAL_PED_STATUS_URL = "/v1/3rdsys/terminals/{terminalId}/ped";
         private const string UPDATE_TERMINAL_REMOTE_CONFIG_URL = "/v1/3rdsys/terminals/{terminalId}/config";
         private const string GET_TERMINAL_REMOTE_CONFIG_URL = "/v1/3rdsys/terminals/{terminalId}/config";
+        private const string PUSH_TERMINAL_ACTION_URL = "/v1/3rdsys/terminals/{terminalId}/operation";
 
         private const string URL_SEGMENT_TERMINAL_ID = "terminalId";
 
@@ -214,6 +216,17 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        public Result<string> PushCmdToTerminal(long terminalId, TerminalPushCmd command){
+            RestRequest request = new RestRequest(PUSH_TERMINAL_ACTION_URL, Method.POST);
+            request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
+            request.AddParameter("command", ExtEnumHelper.GetEnumValue(command));
+            string responseContent = Execute(request);
+            EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
+            Result<string> result = new Result<string>(emptyResponse);
+            return result;
+        }
+
+
 
     string GetStatusValue(TerminalStatus status)
         {
@@ -258,4 +271,13 @@ namespace Paxstore.OpenApi
 		TID,
 		SerialNo
 	}
+
+    public enum TerminalPushCmd {
+        [EnumValue("Restart")]
+        Restart,
+        [EnumValue("Lock")]
+        Lock,
+        [EnumValue("Unlock")]
+        Unlock
+    }
 }
