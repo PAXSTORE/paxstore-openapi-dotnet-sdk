@@ -1161,3 +1161,60 @@ Result<string> result = terminalApi.MoveTerminal(terminalId, "PAX", "6666");
 | 1759          | Reseller doesn't exist |             |
 | 1720          | Merchant doesn't exist |             |
 | 1937          | Merchant is not belong to the given Reseller! |             |
+
+
+### Push Command to Terminal
+
+Push lock, unlock and restart command to terminal
+
+**API**
+
+```
+public Result<string> PushCmdToTerminal(long terminalId, TerminalPushCmd command)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name              | Type                        | Nullable | Description                     |
+| :-------------------------- | :-------------------------- | :------- | :------------------------------ |
+| terminalId                  | long                        | false    | Terminal's id.                  |
+| command | TerminalPushCmd | false    | Value can be TerminalPushCmd.Lock, TerminalPushCmd.Unlock and TerminalPushCmd.Restart |
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<string> result = terminalApi.PushCmdToTerminal(terminalId, TerminalPushCmd.Lock);
+```
+
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1801,
+	"Message": "Terminal doesn't exist"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+}
+```
+
+**Possible business codes**
+
+| Business Code | Message                                  | Description |
+| :------------ | :--------------------------------------- | :---------- |
+| 135           | Request parameter is missing or invalid  |             |
+| 997           | Malformed or illegal request             |             |
+| 1801          | Terminal doesn't exist                   |             |
+| 1896          | The terminal is offline                  |             |
+| 15094         | Terminal is locked                       |             |
+| 15095         | Terminal has been unlocked               |             |
+| 15096         | The terminal is being locked or unlocked |             |
+| 15099         | Terminal restart in progress             |             |
+
