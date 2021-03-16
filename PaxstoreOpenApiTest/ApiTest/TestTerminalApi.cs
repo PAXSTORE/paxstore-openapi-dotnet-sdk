@@ -206,6 +206,14 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
+        [Test]
+        public void TestGetTerminalWithDetail() {
+            Result<Terminal> result = API.GetTerminal(1024943752, true);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+            Assert.NotNull(result.Data.TerminalDetail.PN);
+        }
+
     }
 
     
