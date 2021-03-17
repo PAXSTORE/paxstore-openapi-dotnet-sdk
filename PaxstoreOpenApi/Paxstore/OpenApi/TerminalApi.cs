@@ -60,17 +60,6 @@ namespace Paxstore.OpenApi
         }
 
         public Result<Terminal> GetTerminal(long terminalId) {
-            //IList<string> validationErrs = ValidateId(terminalId, "terminalIdInvalid");
-            //if (validationErrs.Count > 0)
-            //{
-            //    return new Result<Terminal>(validationErrs);
-            //}
-            //RestRequest request = new RestRequest(GET_TERMINAL_URL, Method.GET);
-            //request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
-            //var responseContent = Execute(request);
-            //TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);
-            //Result<Terminal> result = new Result<Terminal>(terminalResponse);
-            //return result;
             return GetTerminal(terminalId, false);
         }
 

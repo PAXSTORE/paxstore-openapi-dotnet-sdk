@@ -106,8 +106,8 @@ Structure of class Terminal
 |GeoLocation|TerminalLocation| The geography location of the terminal|
 |InstalledFirmware|TerminalInstalledFirmware| The installed firmware of the terminal|
 |InstalledApks|List\<TerminalInstalledApk\>| The installed applications of the terminal|
-|TerminalDetail|TerminalDetail| The terminal detail information |
-|TerminalAccessory|TerminalAccessory| The terminal accessory information |
+|TerminalDetail|TerminalDetail| The terminal detail information, only available when using GetTerminal API and set parameter includeDetailInfo=true |
+|TerminalAccessory|TerminalAccessory| The terminal accessory information, only available when using GetTerminal API and set parameter includeDetailInfo=true |
 
 
 Structure of class TerminalLocation
@@ -122,7 +122,7 @@ Structure of class TerminalInstalledFirmware
 |Property Name|Type|Description|
 |:---|:---|:---|
 |FirmwareName|string|Firmware name|
-|InstallTime|Nullable<DateTime>|Firmware installed date|
+|InstallTime|Nullable\<DateTime\>|Firmware installed date|
 
 
 Structure of class TerminalInstalledApk  
@@ -133,7 +133,7 @@ Structure of class TerminalInstalledApk
 |PackageName|string|Package name of application|
 |VersionName|string|Version name of application|
 |VersionCode|long|Version code of application|
-|InstallTime|Nullable<DateTime>|Installed time of application|
+|InstallTime|Nullable\<DateTime\>|Installed time of application|
 
 Structure of class TerminalDetail
 
@@ -155,10 +155,10 @@ Structure of class TerminalAccessory
 | Property Name       | Type                     | Description                                         |
 | :------------------ | :----------------------- | :-------------------------------------------------- |
 | relatedTerminalName | String                   | The accessory information terminal name             |
-| Basic               | TerminalDeviceInfo  | The basic information of the accessory device       |
-| Hardware            | TerminalDeviceInfo  | The hardware information of the accessory device    |
-| InstallApps         | TerminalDeviceInfo  | The installApps information of the accessory device |
-| History             | TerminalDeviceHistory | The history information of the accessory device     |
+| Basic               | List\<TerminalDeviceInfo\>  | The basic information of the accessory device       |
+| Hardware            | List\<TerminalDeviceInfo\>  | The hardware information of the accessory device    |
+| InstallApps         | List\<TerminalDeviceInfo\> | The installApps information of the accessory device |
+| History             | List\<TerminalDeviceHistory\> | The history information of the accessory device     |
 
 Structure of class TerminalDeviceInfo
 
@@ -174,8 +174,8 @@ Structure of class TerminalDeviceHistory
 | Name          | string | The accessory information name                               |
 | Version       | string | The accessory information version                            |
 | Status        | string | The status of the related historical push of the accessory device |
-| InstallTime   | Nullable<DateTime>   | The accessory information install time                       |
-| FileSize      | Nullable<long>  | The size of the file pushed by the accessory device          |
+| InstallTime   | Nullable\<DateTime\>   | The accessory information install time                       |
+| FileSize      | Nullable\<long\>  | The size of the file pushed by the accessory device          |
 | FileType      | string | The type of the file pushed by the accessory device          |
 | Source        | string | The file source                                              |
 | Remarks       | string | The remarks information 
