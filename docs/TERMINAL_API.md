@@ -103,36 +103,82 @@ Structure of class Terminal
 |ModelName|string|Model name of terminal.|
 |ResellerName|string|The reseller of terminal belongs to.|
 |Location|string|The location.|
-|GeoLocation|TerminalLocation| The geo location of the terminal|
+|GeoLocation|TerminalLocation| The geography location of the terminal|
 |InstalledFirmware|TerminalInstalledFirmware| The installed firmware of the terminal|
 |InstalledApks|List\<TerminalInstalledApk\>| The installed applications of the terminal|
+|TerminalDetail|TerminalDetail| The terminal detail information |
+|TerminalAccessory|TerminalAccessory| The terminal accessory information |
 
 
 Structure of class TerminalLocation
 
 |Property Name|Type|Description|
 |:---|:---|:---|
-|Lat|Double|The latitude of geo location|
-|Lng|Double|The longitude of geo location|
+|Lat|Double|The latitude of geography location|
+|Lng|Double|The longitude of geography location|
 
 Structure of class TerminalInstalledFirmware 
 
 |Property Name|Type|Description|
 |:---|:---|:---|
-|FirmwareName|String|Firmware name|
-|InstallTime|Date|Firmware installed date|
+|FirmwareName|string|Firmware name|
+|InstallTime|Nullable<DateTime>|Firmware installed date|
 
 
 Structure of class TerminalInstalledApk  
 
 |Property Name|Type|Description|
 |:---|:---|:---|
-|AppName|String|Application name|
-|PackageName|String|Package name of application|
-|VersionName|String|Version name of application|
-|VersionCode|Long|Version code of application|
-|PackageName|String|Package name of application|
-|InstallTime|Date|Installed time of application|
+|AppName|string|Application name|
+|PackageName|string|Package name of application|
+|VersionName|string|Version name of application|
+|VersionCode|long|Version code of application|
+|InstallTime|Nullable<DateTime>|Installed time of application|
+
+Structure of class TerminalDetail
+
+| Property Name    | Type   | Description                  |
+| :--------------- | :----- | :--------------------------- |
+| PN               | string | Terminal's pn                |
+| OSVersion        | string | Terminal's android version   |
+| IMEI             | string | Terminal's IMEI              |
+| ScreenResolution | string | Terminal's screen resolution |
+| Language         | string | Terminal's language          |
+| IP               | string | Terminal's network ip        |
+| TimeZone         | string | Terminal's time zone         |
+| MacAddress       | string | Terminal's MAC address       |
+| ICCID            | string | Terminal's ICCID             |
+| CellId           | string | Terminal's Cellid            |
+
+Structure of class TerminalAccessory
+
+| Property Name       | Type                     | Description                                         |
+| :------------------ | :----------------------- | :-------------------------------------------------- |
+| relatedTerminalName | String                   | The accessory information terminal name             |
+| Basic               | TerminalDeviceInfo  | The basic information of the accessory device       |
+| Hardware            | TerminalDeviceInfo  | The hardware information of the accessory device    |
+| InstallApps         | TerminalDeviceInfo  | The installApps information of the accessory device |
+| History             | TerminalDeviceHistory | The history information of the accessory device     |
+
+Structure of class TerminalDeviceInfo
+
+| Property Name | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Name          | string | The accessory information name    |
+| Content       | string | The accessory information content |
+
+Structure of class TerminalDeviceHistory
+
+| Property Name | Type   | Description                                                  |
+| :------------ | :----- | :----------------------------------------------------------- |
+| Name          | string | The accessory information name                               |
+| Version       | string | The accessory information version                            |
+| Status        | string | The status of the related historical push of the accessory device |
+| InstallTime   | Nullable<DateTime>   | The accessory information install time                       |
+| FileSize      | Nullable<long>  | The size of the file pushed by the accessory device          |
+| FileType      | string | The type of the file pushed by the accessory device          |
+| Source        | string | The file source                                              |
+| Remarks       | string | The remarks information 
 
 **Possible validation errors**
 
@@ -249,6 +295,8 @@ The get terminal API allows the thirdparty system get a terminal by terminal id.
 
 ```
 public Result<Terminal> GetTerminal(long terminalId)
+
+public Result<Terminal> GetTerminal(long terminalId, bool includeDetailInfo);
 ```
 
 **Input parameter(s) description**
@@ -256,6 +304,7 @@ public Result<Terminal> GetTerminal(long terminalId)
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
 |terminalId|long|false|The terminal id.|
+|includeDetailInfo|bool|false|Whether to include terminal details in result|
 
 
 **Sample codes**
@@ -1111,7 +1160,7 @@ public Result<string> MoveTerminal(long terminalId, string resellerName, string 
 | :------------- | :--- | :------- | :------------- |
 | terminalId     | long | false    | Terminal's id. |
 | resellerName| string | false | The target reseller name the terminal move to|
-| merchantName| string | false | The target merchant name the terminal move to|  
+| merchantName| string | false | The target merchant name the terminal move to|
 
 
 

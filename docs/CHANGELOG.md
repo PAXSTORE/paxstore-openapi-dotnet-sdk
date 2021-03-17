@@ -1,4 +1,9 @@
 # Changelog  
+
+## 8.0  
+### New Feature  
+* Terminal API supports get details when get single terminal  
+
 ## 7.4.0  
 ### New Feature  
 * Terminal API supports push command(lock, unlock, restart) to terminal  
