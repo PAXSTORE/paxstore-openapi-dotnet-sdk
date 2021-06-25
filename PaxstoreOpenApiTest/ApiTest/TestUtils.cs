@@ -1,5 +1,6 @@
 ﻿using log4net;
 using NUnit.Framework;
+using Paxstore.OpenApi;
 using Paxstore.OpenApi.Help;
 using System;
 using System.Collections.Generic;

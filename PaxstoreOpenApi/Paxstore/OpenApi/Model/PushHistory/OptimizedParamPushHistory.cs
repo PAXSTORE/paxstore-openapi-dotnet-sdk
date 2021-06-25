@@ -1,20 +1,14 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Paxstore.OpenApi.Paxstore.OpenApi.Help;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Paxstore.OpenApi.Paxstore.OpenApi.Help;
 
 namespace Paxstore.OpenApi.Model.PushHistory
 {
-    public class AppPushHistoryInfo
+    public class OptimizedParamPushHistory
     {
-
         [JsonProperty("terminalId")]
         public long TerminalId { get; set; }
-
 
         [JsonProperty("serialNo")]
         public string SerialNo { get; set; }
@@ -28,17 +22,15 @@ namespace Paxstore.OpenApi.Model.PushHistory
         [JsonConverter(typeof(LongDateTimeConverter))]
         public Nullable<DateTime> PushStartTime { get; set; }
 
-
         [JsonConverter(typeof(LongDateTimeConverter))]
         public Nullable<DateTime> AppPushTime { get; set; }
 
-       
+        [JsonProperty("appPushStatus")]
         public string AppPushStatus { get; set; }
 
         [JsonProperty("appPushError")]
         public string AppPushError { get; set; }
 
-        
         [JsonConverter(typeof(LongDateTimeConverter))]
         public Nullable<DateTime> ParameterPushTime { get; set; }
 
@@ -48,11 +40,8 @@ namespace Paxstore.OpenApi.Model.PushHistory
         [JsonProperty("parameterPushError")]
         public string ParameterPushError { get; set; }
 
-        [JsonProperty("parameterValues")]
-        public string ParameterValues { get; set; }
-
-        [JsonProperty("parameterVariables")]
-        public string ParameterVariables { get; set; }
+        [JsonProperty("parameters")]
+        public Dictionary<string, string> Parameters { get; set; }
 
         [JsonProperty("pushType")]
         public string PushType { get; set; }

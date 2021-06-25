@@ -30,27 +30,96 @@ namespace Paxstore.OpenApi
             {
                 return new Result<ParameterPushHistoryInfo>(validationErrs);
             }
+            var responseContent = searchParameterPushHistory(pageNo, pageSize, packageName, serialNo, pushStatus, pushTime, false, false);
+
+            ParameterPushHistoryInfoPageResponse pushStatusInfoPageResponse = JsonConvert.DeserializeObject<ParameterPushHistoryInfoPageResponse>(responseContent);
+            Result<ParameterPushHistoryInfo> result = new Result<ParameterPushHistoryInfo>(pushStatusInfoPageResponse);
+            return result;
+        }
+
+        public Result<OptimizedParamPushHistory> SearchOptimizedParameterPushHistory(int pageNo, int pageSize, string packageName, String serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
+        {
+            IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (string.IsNullOrEmpty(packageName))
+            {
+                validationErrs.Add(GetMsgByKey("packageNameMandatory"));
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<OptimizedParamPushHistory>(validationErrs);
+            }
+            var responseContent = searchParameterPushHistory(pageNo, pageSize, packageName, serialNo, pushStatus, pushTime, false, true);
+
+            OptimizedParamPushHistoryPageResponse pushStatusInfoPageResponse = JsonConvert.DeserializeObject<OptimizedParamPushHistoryPageResponse>(responseContent);
+            Result<OptimizedParamPushHistory> result = new Result<OptimizedParamPushHistory>(pushStatusInfoPageResponse);
+            return result;
+        }
+
+        public Result<ParameterPushHistoryInfo> SearchLatestParameterPushHistory(int pageNo, int pageSize, string packageName, string serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
+        {
+            IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (string.IsNullOrEmpty(packageName))
+            {
+                validationErrs.Add(GetMsgByKey("packageNameMandatory"));
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<ParameterPushHistoryInfo>(validationErrs);
+            }
+            var responseContent = searchParameterPushHistory(pageNo, pageSize, packageName, serialNo, pushStatus, pushTime, true, false);
+
+            ParameterPushHistoryInfoPageResponse pushStatusInfoPageResponse = JsonConvert.DeserializeObject<ParameterPushHistoryInfoPageResponse>(responseContent);
+            Result<ParameterPushHistoryInfo> result = new Result<ParameterPushHistoryInfo>(pushStatusInfoPageResponse);
+            return result;
+        }
+
+        public Result<OptimizedParamPushHistory> SearchLatestOptimizedParameterPushHistory(int pageNo, int pageSize, String packageName, String serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
+        {
+            IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
+            if (string.IsNullOrEmpty(packageName))
+            {
+                validationErrs.Add(GetMsgByKey("packageNameMandatory"));
+            }
+            if (validationErrs.Count > 0)
+            {
+                return new Result<OptimizedParamPushHistory>(validationErrs);
+            }
+            var responseContent = searchParameterPushHistory(pageNo, pageSize, packageName, serialNo, pushStatus, pushTime, true, true);
+
+            OptimizedParamPushHistoryPageResponse pushStatusInfoPageResponse = JsonConvert.DeserializeObject<OptimizedParamPushHistoryPageResponse>(responseContent);
+            Result<OptimizedParamPushHistory> result = new Result<OptimizedParamPushHistory>(pushStatusInfoPageResponse);
+            return result;
+        }
+
+    
+        private string searchParameterPushHistory(int pageNo, int pageSize, String packageName, String serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime,
+            bool onlyLastPushHistory, bool optimizeParameters)
+        {
             RestRequest request = new RestRequest(SEARCH_APP_PUSH_STATUS_URL, Method.GET);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
 
-            if (!string.IsNullOrEmpty(packageName)) {
+            if (!string.IsNullOrEmpty(packageName))
+            {
                 request.AddParameter("packageName", packageName);
             }
-            if (!string.IsNullOrEmpty(serialNo)) {
+            if (!string.IsNullOrEmpty(serialNo))
+            {
                 request.AddParameter("serialNo", serialNo);
             }
-            if (pushStatus != null) {
+            if (pushStatus != null)
+            {
                 request.AddParameter("pushStatus", (int)pushStatus);
             }
-            if (pushTime != null) {
+            if (pushTime != null)
+            {
                 request.AddParameter("pushTime", pushTime.Value.ToString(Constants.DATE_FORMAT).Remove(23, 1));
             }
+            request.AddParameter("onlyLastPushHistory", onlyLastPushHistory ? "true":"false");
+            request.AddParameter("optimizeParameters", optimizeParameters ? "true":"false");
 
             var responseContent = Execute(request);
-            ParameterPushHistoryInfoPageResponse pushStatusInfoPageResponse = JsonConvert.DeserializeObject<ParameterPushHistoryInfoPageResponse>(responseContent);
-            Result<ParameterPushHistoryInfo> result = new Result<ParameterPushHistoryInfo>(pushStatusInfoPageResponse);
-            return result;
+            return responseContent;
         }
 
 

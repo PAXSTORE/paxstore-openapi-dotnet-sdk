@@ -14,6 +14,8 @@ namespace Paxstore.OpenApi.Model
         public Nullable<int> MinLength { get; set; }
         public Nullable<int> MaxLength { get; set; }
         public bool Required { get; set; }
+
+        [Obsolete("Property Regex is not supported anymore")]
         public string Regex { get; set; }
         public string Selector { get; set; }
         public string Key { get; set; }

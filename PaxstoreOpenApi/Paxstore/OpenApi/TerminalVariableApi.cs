@@ -64,7 +64,21 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-       public Result<string> CreateTerminalVariable(TerminalParameterVariableCreateRequest terminalParameterVariableCreateRequest)
+      //  private void encryptPasswordVariable(ParameterVariable parameterVariable)
+       // {
+        //    if (string.Equals("P", parameterVariable.Type) && !string.IsNullOrWhiteSpace(parameterVariable.Value))
+          //  {
+            //    try
+              //  {
+                //    parameterVariable.Value = CryptoUtils.byte2hex(CryptoUtils.aesEncrypt(parameterVariable.getValue().getBytes(StandardCharsets.UTF_8), CryptoUtils.encryptMD5(getApiSecret()))));
+    //            }
+      //          catch (Exception ignore)
+        //        {
+          //      }
+          //  }
+        //}
+
+        public Result<string> CreateTerminalVariable(TerminalParameterVariableCreateRequest terminalParameterVariableCreateRequest)
         {
             IList<string> validationErrs = new List<string>();
             if (terminalParameterVariableCreateRequest == null) {
@@ -168,9 +182,6 @@ namespace Paxstore.OpenApi
     {
         [EnumValue("T")]
         TERMINAL,
-
-        [EnumValue("G")]
-        GROUP,
 
         [EnumValue("M")]
         MARKET,

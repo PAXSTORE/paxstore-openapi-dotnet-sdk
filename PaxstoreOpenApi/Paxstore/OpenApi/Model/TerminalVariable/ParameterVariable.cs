@@ -12,8 +12,8 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("packageName")]
         public string PackageName { get; set; }
 
-        [JsonProperty("version")]
-        public string Version { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
         [JsonProperty("key")]
         public string Key { get; set; }

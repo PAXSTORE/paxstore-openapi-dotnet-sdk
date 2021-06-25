@@ -400,7 +400,7 @@ Structure of class TerminalCreateRequest
 |SerialNo|string|true|The serial number of terminal. If the status is active the serial number is mandatory.|
 |MerchantName|string|true|The merchant of terminal belongs to. If the initial is active then merchantName is mandatory. The max length is 64. Make sure the merchant belongs to the given reseller|
 |ResellerName|string|false|The reseller of terminal belongs to. Max length is 64.|
-|ModelName|string|false|The model name of terminal. Max length is 64.|
+|ModelName|string|true|The model name of terminal. Max length is 64.|
 |Location|string|true|The location of terminal, max length is 32.|
 |Status|string|true|Status of terminal, valus can be one of A(Active) and P(Pendding). If status is null the initial status is P(Pendding) when creating.|
 
@@ -425,7 +425,7 @@ Result<Terminal> result = api.CreateTerminal(createRequest);
 {
 	"BusinessCode": -1,
 	"Message": null,
-	"ValidationErrors": ["'Name' should not be empty.", "'Reseller Name' should not be empty.", "'Model Name' should not be empty.", "'Status' must be 'A' or 'P'."],
+	"ValidationErrors": ["'Name' should not be empty.", "'Reseller Name' should not be empty.", "'Status' must be 'A' or 'P'."],
 	"Data": null,
 	"PageInfo": null
 }

@@ -169,7 +169,6 @@ The structure of class Developer
 
 ### Search apps includes subscribed apps
 
-The search apps API allows thirdparty system to search apps for page.   
 
 **API**
 
@@ -196,5 +195,38 @@ public Result<PagedApp>  SearchApp(int pageNo, int pageSize, AppSearchOrderBy or
 |specificReseller|bool|true|specific reseller<br/> make app private to some reseller, the value can be true or false|
 |specificMerchantCategory|bool|true|sperific merchant category<br/> make app only visible by specific merchants in store client, the value can be true or false|
 |includeSubscribedApp|bool|false|whether to include the subscribed applications from global market|
+
+Note: The result structure is same as search app API
+
+
+### Search apps includes subscribed apps and filter by reseller name
+
+
+**API**
+
+```
+public Result<PagedApp>  SearchApp(int pageNo, int pageSize, AppSearchOrderBy orderBy,
+                                    string name, AppOsType osType, AppChargeType chargeType,
+                                    AppBaseType baseType, AppStatus appStatus, ApkStatus apkStatus,
+                                    bool specificReseller, bool specificMerchantCategory, bool includeSubscribedApp, string resellerName)
+```
+
+**Input parameter(s) description**
+
+| Name| Type | Nullable|Description |
+|:--- | :---|:---|:---|
+|pageNo|int|false|page number, value must >=1|
+|pageSize|int|false|the record number per page, range is 1 to 100|
+|orderBy|AppSearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of AppSearchOrderBy.AppName_desc, AppSearchOrderBy.AppName_asc, AppSearchOrderBy.Emial_desc, AppSearchOrderBy.Emial_asc, AppSearchOrderBy.UpdatedDate_desc and AppSearchOrderBy.UpdatedDate_asc.|
+|name|string|true|search filter by app name(parsed from apk file）, package name or the developer's name|
+|appStatus|AppStatus|true|the app status<br/> the value can be AppStatus.Active, AppStatus.Suspend|
+|apkStatus|ApkStatus|true|the apk status<br/> the value can be ApkStatus.Pending, ApkStatus.Online, ApkStatus.Rejected, ApkStatus.Offline|
+|osType|AppOsType|true|the app osType<br/> the value can be AppOsType.Android, AppOsType.Traditional|
+|baseType|AppBaseType|true|the app baseType<br/> the value can be AppBaseType.Normal, AppBaseType.Parameter|
+|chargeType|AppChargeType|true|the app chargeType<br/> the value can be AppChargeType.Free, AppChargeType.Charging|
+|specificReseller|bool|true|specific reseller<br/> make app private to some reseller, the value can be true or false|
+|specificMerchantCategory|bool|true|sperific merchant category<br/> make app only visible by specific merchants in store client, the value can be true or false|
+|includeSubscribedApp|bool|false|whether to include the subscribed applications from global market|
+|resellerName|string|true|search filter by reseller name, search out the app to which the reseller belongs|
 
 Note: The result structure is same as search app API
