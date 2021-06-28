@@ -2,6 +2,11 @@
 
 ## 8.1  
 
+### New Feature   
+* PushHistoryApi supports search latest parameter push history
+* PushHistoryApi supports search optimized parameter push history
+* PushHistoryApi supports search latest optimized parameter push history
+
 ### Improvement  
 * Add new search app API to support search apps filter by reseller
 * Add new search push firmware task API to support search by tasks filter by serial number
@@ -11,6 +16,7 @@
 
 ### Breaking Changes
 * GROUP is removed from enum VariableSource, if you are using it when search terminal variables you need to change codes.
+* Version property is removed from class ParameterVariable.
 
 ## 8.0  
 ### New Feature  

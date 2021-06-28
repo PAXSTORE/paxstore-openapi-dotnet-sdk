@@ -37,7 +37,7 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<OptimizedParamPushHistory> SearchOptimizedParameterPushHistory(int pageNo, int pageSize, string packageName, String serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
+        public Result<OptimizedParamPushHistory> SearchOptimizedParameterPushHistory(int pageNo, int pageSize, string packageName, string serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (string.IsNullOrEmpty(packageName))
@@ -73,7 +73,7 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-        public Result<OptimizedParamPushHistory> SearchLatestOptimizedParameterPushHistory(int pageNo, int pageSize, String packageName, String serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
+        public Result<OptimizedParamPushHistory> SearchLatestOptimizedParameterPushHistory(int pageNo, int pageSize, string packageName, string serialNo, Nullable<PushHistoryStatus> pushStatus, Nullable<DateTime> pushTime)
         {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (string.IsNullOrEmpty(packageName))

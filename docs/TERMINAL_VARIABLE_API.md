@@ -102,10 +102,11 @@ The type in DataSet is TerminalParameterVariable. And the structure like below.
 | ID             | long   | The id of terminal variable                                  |
 | AppPackageName | string | The app package name                                         |
 | AppName        | string | The app name                                                 |
+| Type           | string | Terminal variable type, T(text) or P(password) |
 | Key            | string | Terminal variable key                                        |
 | Value          | string | Terminal variable value                                      |
 | Remarks        | string | Comment                                                      |
-| Source         | string | Source type, value can be T (Terminal), G (Group), M (Marketplace) and C (Merchant) |
+| Source         | string | Source type, value can be T (Terminal), M (Marketplace) and C (Merchant) |
 | CreatedDate    | long   |                                                              |
 | UpdatedDate    | long   |                                                              |
 
