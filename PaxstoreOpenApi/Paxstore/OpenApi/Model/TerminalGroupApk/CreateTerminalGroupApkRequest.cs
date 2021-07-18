@@ -30,5 +30,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("base64FileParameters")]
         public List<FileParameter> Base64FileParameters { get; set; }
+
+        [JsonProperty("inheritPushHistory")]
+        public Nullable<bool> InheritPushHistory { get; set; }
     }
 }
