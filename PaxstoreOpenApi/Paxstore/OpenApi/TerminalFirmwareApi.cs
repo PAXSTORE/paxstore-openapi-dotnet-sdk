@@ -74,6 +74,12 @@ namespace Paxstore.OpenApi
 
         public Result<PushFirmwareTaskInfo> SearchPushFirmwareTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
                                                                string terminalTid, string fmName, PushStatus status){
+            return SearchPushFirmwareTasks(pageNo, pageSize, orderBy, terminalTid, fmName, status, null);
+        }
+
+        public Result<PushFirmwareTaskInfo> SearchPushFirmwareTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
+                                                               string terminalTid, string fmName, PushStatus status, String serialNo)
+        {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (string.IsNullOrWhiteSpace(terminalTid))
             {
@@ -90,6 +96,9 @@ namespace Paxstore.OpenApi
             request.AddParameter("fmName", fmName);
             request.AddParameter("orderBy", GetOrderValue(orderBy));
             request.AddParameter("status", GetPushStatusValue(status));
+            if (!string.IsNullOrWhiteSpace(serialNo)) {
+                request.AddParameter("serialNo", serialNo);
+            }
             var responseContent = Execute(request);
             PushFirmwareTaskPageResponse response = JsonConvert.DeserializeObject<PushFirmwareTaskPageResponse>(responseContent);
             Result<PushFirmwareTaskInfo> result = new Result<PushFirmwareTaskInfo>(response);

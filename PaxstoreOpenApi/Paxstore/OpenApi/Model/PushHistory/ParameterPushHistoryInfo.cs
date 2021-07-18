@@ -26,25 +26,21 @@ namespace Paxstore.OpenApi.Model
 
         public string AppPushStatus { get; set; }
 
-        [JsonProperty("appPushError")]
         public string AppPushError { get; set; }
+
+        public string ParameterTemplateName { get; set; }
 
         [JsonConverter(typeof(LongDateTimeConverter))]
         public Nullable<DateTime> ParameterPushTime { get; set; }
 
-        [JsonProperty("parameterPushStatus")]
         public string ParameterPushStatus { get; set; }
 
-        [JsonProperty("parameterPushError")]
         public string ParameterPushError { get; set; }
 
-        [JsonProperty("parameterValues")]
         public string ParameterValues { get; set; }
 
-        [JsonProperty("parameterVariables")]
         public string ParameterVariables { get; set; }
 
-        [JsonProperty("pushType")]
         public string PushType { get; set; }
     }
 }

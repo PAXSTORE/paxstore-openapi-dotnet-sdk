@@ -64,7 +64,7 @@ namespace Paxstore.OpenApi
             return result;
         }
 
-       public Result<string> CreateTerminalVariable(TerminalParameterVariableCreateRequest terminalParameterVariableCreateRequest)
+        public Result<string> CreateTerminalVariable(TerminalParameterVariableCreateRequest terminalParameterVariableCreateRequest)
         {
             IList<string> validationErrs = new List<string>();
             if (terminalParameterVariableCreateRequest == null) {
@@ -168,9 +168,6 @@ namespace Paxstore.OpenApi
     {
         [EnumValue("T")]
         TERMINAL,
-
-        [EnumValue("G")]
-        GROUP,
 
         [EnumValue("M")]
         MARKET,

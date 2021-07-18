@@ -207,6 +207,14 @@ namespace Paxstore.Test
         }
 
         [Test]
+        public void TestGetTerminalWithDetail() {
+            Result<Terminal> result = API.GetTerminal(1017767065, true);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+            Assert.NotNull(result.Data.TerminalDetail.PN);
+        }
+
+        [Test]
         public void TestPushCmdToTerminal() {
             Result<string> result = API.PushCmdToTerminal(1023805258, TerminalPushCmd.Unlock);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));

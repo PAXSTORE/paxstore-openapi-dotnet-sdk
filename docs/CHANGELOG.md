@@ -1,4 +1,27 @@
 # Changelog  
+
+## 8.1  
+
+### New Feature   
+* PushHistoryApi supports search latest parameter push history
+* PushHistoryApi supports search optimized parameter push history
+* PushHistoryApi supports search latest optimized parameter push history
+
+### Improvement  
+* Add new search app API to support search apps filter by reseller
+* Add new search push firmware task API to support search by tasks filter by serial number
+* TerminalApkApi supports push a parameter app inherite parameters from the lastest success push history
+* EntityAttributeApi does not support regular expression anymore
+* TerminalVariableApi does not support specify the version when create variable
+
+### Breaking Changes
+* GROUP is removed from enum VariableSource, if you are using it when search terminal variables you need to change codes.
+* Version property is removed from class ParameterVariable.
+
+## 8.0  
+### New Feature  
+* Terminal API supports get details when get single terminal  
+
 ## 7.4.0  
 ### New Feature  
 * Terminal API supports push command(lock, unlock, restart) to terminal  
@@ -10,7 +33,7 @@
 
 ## 7.3.1 
 
-### Improve  
+### Improvement  
 * Add Name and FileSize properties to ApkFile in search application result
 
 

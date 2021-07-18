@@ -28,6 +28,7 @@ namespace Paxstore.OpenApi.Model
         public bool Required { get; set; }
 
         [JsonProperty("regex")]
+        [Obsolete("Property Regex is not supported anymore")]
         public string Regex { get; set; }
 
         [JsonProperty("selector")]

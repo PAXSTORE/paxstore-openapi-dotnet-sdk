@@ -60,6 +60,10 @@ namespace Paxstore.OpenApi
         }
 
         public Result<Terminal> GetTerminal(long terminalId) {
+            return GetTerminal(terminalId, false);
+        }
+
+        public Result<Terminal> GetTerminal(long terminalId, bool includeDetailInfo) {
             IList<string> validationErrs = ValidateId(terminalId, "terminalIdInvalid");
             if (validationErrs.Count > 0)
             {
@@ -67,6 +71,7 @@ namespace Paxstore.OpenApi
             }
             RestRequest request = new RestRequest(GET_TERMINAL_URL, Method.GET);
             request.AddUrlSegment(URL_SEGMENT_TERMINAL_ID, terminalId);
+            request.AddParameter("includeDetailInfo", includeDetailInfo);
             var responseContent = Execute(request);
             TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);
             Result<Terminal> result = new Result<Terminal>(terminalResponse);

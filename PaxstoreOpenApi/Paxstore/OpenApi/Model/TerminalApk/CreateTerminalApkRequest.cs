@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Paxstore.OpenApi.Model.TerminalApkParameter;
+using System;
 using System.Collections.Generic;
 
 namespace Paxstore.OpenApi.Model
@@ -29,5 +30,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("pushTemplateName")]
         public string PushTemplateName { get; set; }
+
+        [JsonProperty("inheritPushHistory")]
+        public Nullable<bool> InheritPushHistory { get; set; }
     }
 }

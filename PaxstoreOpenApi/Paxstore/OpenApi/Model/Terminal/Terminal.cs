@@ -26,5 +26,9 @@ namespace Paxstore.OpenApi.Model
         public TerminalInstalledFirmware InstalledFirmware { get; set; }
 
         public List<TerminalInstalledApk> InstalledApks { get; set; }
+
+        public TerminalDetail TerminalDetail { get; set; }
+
+        public TerminalAccessory TerminalAccessory { get; set; }
     }
 }

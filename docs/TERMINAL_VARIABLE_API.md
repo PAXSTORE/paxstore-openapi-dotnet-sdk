@@ -77,6 +77,7 @@ Result<TerminalParameterVariable> result = api.GetTerminalVariable(1,2,VariableS
 			"UpdatedDate": 1519609650000,
 			"Value": "www",
 			"Key": "MARKET_DOMAIN",
+            "Type": "T",
 			"Remarks": "This variable is used in all apps of the market terminals"
 		}, {
 			"CreatedDate": 1519609650000,
@@ -87,6 +88,7 @@ Result<TerminalParameterVariable> result = api.GetTerminalVariable(1,2,VariableS
 			"UpdatedDate": 1519803201000,
 			"Value": "Global",
 			"Key": "MARKET_NAME",
+            "Type": "P",
 			"Remarks": "This variable is only used in the specified app of the market terminals"
 		}]
 	}
@@ -100,10 +102,11 @@ The type in DataSet is TerminalParameterVariable. And the structure like below.
 | ID             | long   | The id of terminal variable                                  |
 | AppPackageName | string | The app package name                                         |
 | AppName        | string | The app name                                                 |
+| Type           | string | Terminal variable type, T(text) or P(password) |
 | Key            | string | Terminal variable key                                        |
 | Value          | string | Terminal variable value                                      |
 | Remarks        | string | Comment                                                      |
-| Source         | string | Source type, value can be T (Terminal), G (Group), M (Marketplace) and C (Merchant) |
+| Source         | string | Source type, value can be T (Terminal), M (Marketplace) and C (Merchant) |
 | CreatedDate    | long   |                                                              |
 | UpdatedDate    | long   |                                                              |
 
@@ -144,7 +147,7 @@ Structure of class ParameterVariable
 | Property Name | Type   | Nullable | Description             |
 | :------------ | :----- | :------- | :---------------------- |
 | PackageName   | string | false    | The app package name    |
-| Version       | string | true    | The app  version        |
+| Type          | string | true     | Terminal variable type, T(text) or P(password) |
 | Key           | string | false     | Terminal variable key   |
 | Value         | string | true     | Terminal variable value |
 | Remarks       | string | false    | Comment                 |
@@ -156,12 +159,14 @@ TerminalVariableApi api = new TerminalVariableApi(API_BASE_URL, API_KEY, API_SEC
 TerminalParameterVariableCreateRequest createRequest = new TerminalParameterVariableCreateRequest();
 ParameterVariable parameterVariable1 = new ParameterVariable();
 parameterVariable1.Key="testCreateVariable1Api3";
+parameterVariable1.Type = "T";
 parameterVariable1.Value="testApiCreate3";
 parameterVariable1.PackageName= "com.pax.android.demoapp";
 parameterVariable1.Remarks="今日头条app testCreateApi3";
 
 ParameterVariable parameterVariable2 = new ParameterVariable();
 parameterVariable2.Key="testCreateVariable1Api4";
+parameterVariable2.Type = "P";
 parameterVariable2.Value="testApiCreate4";
 parameterVariable2.PackageName= "com.pax.android.demoapp";
 parameterVariable2.Remarks="今日头条app testCreateApi4";
@@ -241,7 +246,7 @@ Structure of class ParameterVariable
 | Property Name | Type                | Nullable | Description                                              |
 | :------------ | :------------------ | :------- | :------------------------------------------------------- |
 | PackageName   | string              | false    | The name of param template                               |
-| Version       | string              | true     |  |
+| Type          | string              | true     | Terminal variable type, T(text) or P(password) |
 | Key           | string              | false    | Terminal variable key                                    |
 | Value         | string              | true     | Terminal variable value                                  |
 | Remarks       | string              | true     | Comment                                                  |

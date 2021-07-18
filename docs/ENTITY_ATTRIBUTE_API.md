@@ -100,7 +100,6 @@ The type in dataSet is EntityAttribute. And the structure like below.
 | MinLength                | int                            | Minimal length of attribute value, this property is for TEXT input type entity attribute|
 | MaxLength                | int                            | Maximal length of attribute value, this property is for TEXT input type entity attribute|
 | Required                 | bool                           | Wether the value of the entity attribute is required or not
-| Regex                    | string                         | The regex for entity attribute value which is TEXT input type                 |
 | Selector                 | string                         | The select options for SELECTOR input type entity attribute, the value msut be json formatted                                                   |
 | Key                      | string                         | The key of the entity attribute                                                   |
 | Index                    | int                            |                                                    |
@@ -247,7 +246,6 @@ Structure of class EntityAttributeCreateRequest.
 | MinLength     | int             | true     | The property is for TEXT input type entity attribute                                                              |
 | MaxLength     | int             | true     | The property is for TEXT input type entity attribute|
 | Rrequired     | bool             | false    |                                                              |
-| Regex         | string              | true     | The regex to verify the value of entity attribute, this property is for TEXT input type entity attribute                                |
 | Selector      | string              | true     | The select options for Selector input type attribute, the value must be json format                                     |
 | Key           | string              | false    | The key of entity attribute                               |
 | DefaultLabel  | string              | false    | The default label of entity attribute                                                             |
@@ -373,7 +371,6 @@ Structure of class entityAttributeUpdateRequest.
 | MinLength     | int         | true     | If the value is null API won't update it                                                             |
 | MaxLength     | int         | true     | If the value is null API won't update it                                                             |
 | Required      | bool         | false    |                                                              |
-| Regex         | string          | true     | If the value is null API won't update it                                |
 | Selector      | string          | true     | The select options                                     |
 | DefaultLabel  | string          | false    | If the value is null API won't update it                                                             |
 

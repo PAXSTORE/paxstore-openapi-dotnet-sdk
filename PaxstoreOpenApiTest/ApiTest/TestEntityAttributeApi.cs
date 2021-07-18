@@ -55,7 +55,6 @@ namespace Paxstore.Test
             request.MaxLength = 20;
             request.MinLength = 10;
             request.DefaultLabel = "ccdd";
-            request.Regex = "fefe";
             Result<EntityAttribute> result = API.UpdateEntityAttribute(4, request);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);

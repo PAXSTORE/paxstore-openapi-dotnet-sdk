@@ -22,8 +22,7 @@ namespace Paxstore.OpenApi
 
 
         public Result<PagedApp> SearchApp(
-            int pageNo,
-            int pageSize, Nullable<AppSearchOrderBy> orderBy,
+            int pageNo, int pageSize, Nullable<AppSearchOrderBy> orderBy,
             String name,
             Nullable<AppOsType> osType,
             Nullable<AppChargeType> chargeType,
@@ -37,18 +36,32 @@ namespace Paxstore.OpenApi
         }
 
         public Result<PagedApp> SearchApp(
-            int pageNo, 
-            int pageSize, Nullable<AppSearchOrderBy> orderBy,
-            String name, 
-            Nullable<AppOsType> osType, 
+            int pageNo, int pageSize, Nullable<AppSearchOrderBy> orderBy,
+            String name,
+            Nullable<AppOsType> osType,
             Nullable<AppChargeType> chargeType,
-            Nullable<AppBaseType> baseType, 
-            Nullable<AppStatus> appStatus, 
+            Nullable<AppBaseType> baseType,
+            Nullable<AppStatus> appStatus,
             Nullable<ApkStatus> apkStatus,
-            Nullable<bool> specificReseller, 
+            Nullable<bool> specificReseller,
             Nullable<bool> specificMerchantCategory,
-            bool includeSubscribedApp
-            )
+            bool includeSubscribedApp) 
+            {
+                return SearchApp(pageNo, pageSize, orderBy, name, osType, chargeType, baseType, appStatus, apkStatus, specificReseller, specificMerchantCategory, includeSubscribedApp, null);
+            }
+
+        public Result<PagedApp> SearchApp(
+            int pageNo, int pageSize, Nullable<AppSearchOrderBy> orderBy,
+                String name,
+                Nullable<AppOsType> osType,
+                Nullable<AppChargeType> chargeType,
+                Nullable<AppBaseType> baseType,
+                Nullable<AppStatus> appStatus,
+                Nullable<ApkStatus> apkStatus,
+                Nullable<bool> specificReseller,
+                Nullable<bool> specificMerchantCategory,
+                bool includeSubscribedApp,
+                String resellerName)
         {
 
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
@@ -61,45 +74,56 @@ namespace Paxstore.OpenApi
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
 
-            if (orderBy != null) {
+            if (orderBy != null)
+            {
                 request.AddParameter("orderBy", ExtEnumHelper.GetEnumValue(orderBy));
             }
 
             request.AddParameter("name", name);
 
-            if (apkStatus != null) {
+            if (apkStatus != null)
+            {
                 request.AddParameter("apkStatus", ExtEnumHelper.GetEnumValue(apkStatus));
             }
 
-            if (appStatus != null){
+            if (appStatus != null)
+            {
                 request.AddParameter("appStatus", ExtEnumHelper.GetEnumValue(appStatus));
             }
 
-            if (baseType != null){
+            if (baseType != null)
+            {
                 request.AddParameter("baseType", ExtEnumHelper.GetEnumValue(baseType));
             }
-            if (chargeType != null){
+            if (chargeType != null)
+            {
                 request.AddParameter("chargeType", chargeType.ToString());
             }
-            if (osType != null){
+            if (osType != null)
+            {
                 request.AddParameter("osType", ExtEnumHelper.GetEnumValue(osType));
             }
-            if (specificReseller != null) {
+            if (specificReseller != null)
+            {
                 request.AddParameter("specificReseller", specificReseller.ToString());
             }
-            if (specificMerchantCategory != null) {
+            if (specificMerchantCategory != null)
+            {
                 request.AddParameter("specificMerchantCategory", specificMerchantCategory.ToString());
             }
             request.AddParameter("includeSubscribedApp", includeSubscribedApp.ToString());
-            
+            if (!string.IsNullOrWhiteSpace(resellerName))
+            {
+                request.AddParameter("resellerName", resellerName.Trim());
+            }
+
             var responseContent = Execute(request);
             AppPageResponse appPageDTO = JsonConvert.DeserializeObject<AppPageResponse>(responseContent);
             Result<PagedApp> result = new Result<PagedApp>(appPageDTO);
             return result;
-
         }
-
     }
+    
     public enum AppStatus{
         [EnumValue("A")]
         Active,

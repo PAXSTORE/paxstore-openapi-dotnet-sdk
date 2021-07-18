@@ -193,6 +193,30 @@ The type in dataSet is PushFirmwareTaskInfo. And the structure like below.
 > <font color=red>pageSize:must be greater than or equal to 1</font>   
 > <font color=red>pageSize:must be less than or equal to 100</font>  
 
+
+### Search firmware push history by serial number
+ 
+**API**
+
+```
+public Result<PushFirmwareTaskInfo> SearchPushFirmwareTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
+                                                               string terminalTid, string fmName, PushStatus status, String serialNo)
+```
+
+**Input parameter(s) description**
+
+| Name| Type | Nullable|Description |
+|:--- | :---|:---|:---|
+|pageNo|int|false|page number, value must >=1|
+|pageSize|int|false|the record number per page, range is 1 to 100|
+|orderBy|SearchOrderBy|true|the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc.|
+|terminalTid|string|false|search filter by terminal tid|
+|fmName|string|true|search filter by firmware name|
+|status|PushStatus|true|the push status<br/> the value can be PushStatus.Active, PushStatus.Suspend, PushStatus.All|
+|string|serialNo|true|search filter by terminal serial number|
+
+
+
 ### Get push firmware history by id
 
 Get terminal push firmware history by id.

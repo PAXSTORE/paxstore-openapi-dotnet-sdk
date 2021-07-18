@@ -3,8 +3,8 @@
     <TargetFrameworks>net452;netcoreapp2.0;netstandard2.0</TargetFrameworks>
 
     <PackageId>Paxstore.OpenApi</PackageId>
-    <Version>7.4.0</Version>
-	  <RootNamespace>Paxstore.OpenApi</RootNamespace>
+    <Version>8.1.0</Version>
+	<RootNamespace>Paxstore.OpenApi</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
     <Product>Paxstore.OpenApi.NET</Product>
@@ -16,11 +16,10 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <!--<OldToolsVersion>2.0</OldToolsVersion>-->
-    <AssemblyVersion>7.4.0</AssemblyVersion>
+    <AssemblyVersion>8.1.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <FileVersion>7.4.0</FileVersion>
+    <FileVersion>8.1.0</FileVersion>
     <PackageProjectUrl>https://github.com/PAXSTORE/paxstore-openapi-dotnet-sdk</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
@@ -30,7 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.0.100" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="RestSharp" Version="106.3.1" />
   </ItemGroup>

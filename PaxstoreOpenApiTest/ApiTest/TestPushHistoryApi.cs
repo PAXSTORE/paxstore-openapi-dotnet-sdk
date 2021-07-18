@@ -22,8 +22,37 @@ namespace Paxstore.Test
         [Test]
         public void TestSearchPushHistory_success()
         {
-            Result<ParameterPushHistoryInfo> result = API.SearchParameterPushHistory(1, 10, "com.pax.posviewer",
-            null, PushHistoryStatus.Failed, DateTime.Now);
+            Result<ParameterPushHistoryInfo> result = API.SearchParameterPushHistory(1, 10, "com.pax.android.demoapp",
+            "0820534734", PushHistoryStatus.Success, null);
+
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestSearchOptimizedPushHistory_success() {
+            Result<OptimizedParamPushHistory> result = API.SearchOptimizedParameterPushHistory(1, 10, "com.pax.android.demoapp",
+            "0820534734", PushHistoryStatus.Success, null);
+
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestLatestPushHistory_success()
+        {
+            Result<ParameterPushHistoryInfo> result = API.SearchLatestParameterPushHistory(1, 10, "com.pax.android.demoapp",
+            "0820534734", PushHistoryStatus.Success, null);
+
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestSearchLatestOptimizedPushHistory_success()
+        {
+            Result<OptimizedParamPushHistory> result = API.SearchLatestOptimizedParameterPushHistory(1, 10, "com.pax.android.demoapp",
+            "0820534734", PushHistoryStatus.Success, null);
 
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
