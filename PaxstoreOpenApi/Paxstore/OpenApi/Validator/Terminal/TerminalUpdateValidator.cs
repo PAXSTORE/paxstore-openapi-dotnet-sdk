@@ -12,7 +12,8 @@ namespace Paxstore.OpenApi.Validator.Terminal
             RuleFor(x => x.MerchantName).MaximumLength(64);
             RuleFor(x => x.ResellerName).NotEmpty().MaximumLength(64);
             RuleFor(x => x.ModelName).NotEmpty().MaximumLength(64);
-            RuleFor(x => x.Location).MaximumLength(32);
+            RuleFor(x => x.Location).MaximumLength(64);
+            RuleFor(x => x.Remark).MaximumLength(64);
         }
     }
 }
