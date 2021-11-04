@@ -82,7 +82,8 @@ Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.Serial
 			"MerchantName": null,
 			"ModelName": "A90",
 			"ResellerName": "Pine Labs",
-			"Location": "USA"
+			"Location": "USA",
+            "Remark": "remark"
 		}]
 	}
 }
@@ -103,6 +104,7 @@ Structure of class Terminal
 |ModelName|string|Model name of terminal.|
 |ResellerName|string|The reseller of terminal belongs to.|
 |Location|string|The location.|
+|Remark|string|The remark.|
 |GeoLocation|TerminalLocation| The geography location of the terminal|
 |InstalledFirmware|TerminalInstalledFirmware| The installed firmware of the terminal|
 |InstalledApks|List\<TerminalInstalledApk\>| The installed applications of the terminal|
@@ -245,6 +247,7 @@ Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.Serial
 			"ModelName": "A920",
 			"ResellerName": "New York",
 			"Location": "USA",
+            "Remark": "remark",
 			"GeoLocation": {
 				"lng": 120.77595,
 				"lat": 31.308021
@@ -354,7 +357,8 @@ Result<Terminal> result = API.GetTerminal(100);
 		"MerchantName": null,
 		"ModelName": "A90",
 		"ResellerName": "Pine Labs",
-		"Location": "USA"
+		"Location": "USA",
+        "Remark": "remakr"
 	},
 	"PageInfo": null
 }
@@ -401,7 +405,8 @@ Structure of class TerminalCreateRequest
 |MerchantName|string|true|The merchant of terminal belongs to. If the initial is active then merchantName is mandatory. The max length is 64. Make sure the merchant belongs to the given reseller|
 |ResellerName|string|false|The reseller of terminal belongs to. Max length is 64.|
 |ModelName|string|true|The model name of terminal. Max length is 64.|
-|Location|string|true|The location of terminal, max length is 32.|
+|Location|string|true|The location of terminal, max length is 64.|
+|Remark|string|true|The remark of terminal, max length is 64.|
 |Status|string|true|Status of terminal, valus can be one of A(Active) and P(Pendding). If status is null the initial status is P(Pendding) when creating.|
 
 
@@ -416,6 +421,7 @@ createRequest.MerchantName = "KFC";
 createRequest.SerialNo = "sn021215";
 createRequest.ModelName = "A920";
 createRequest.Location = "USA";
+createRequest.Remark = "remark";
 Result<Terminal> result = api.CreateTerminal(createRequest);
 ```
 
@@ -542,7 +548,8 @@ Structure of class TerminalUpdateRequest
 |MerchantName|string|true|The merchant of terminal belongs to. If the initial is active then merchantName is mandatory. The max length is 64. Make sure the merchant belongs to the given reseller|
 |ResellerName|string|false|The reseller of terminal belongs to. Max length is 64.|
 |ModelName|string|false|The model name of terminal. Max length is 64.|
-|Location|string|true|The location of terminal, max length is 32.|
+|Location|string|true|The location of terminal, max length is 64.|
+|Remark|string|true|The remark of terminal, max length is 32.|
 
 
 **Sample codes**
@@ -557,6 +564,7 @@ updateRequest.ResellerName = "reseller_002";
 updateRequest.SerialNo = "sn021215";
 updateRequest.ModelName = "A920";
 updateRequest.Location = "China";
+updateRequest.Remark = "remark";
 Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 ```
 
@@ -600,7 +608,8 @@ Result<Terminal> updateResult = api.UpdateTerminal(1000160042, updateRequest);
 		"merchantName": "KFC",
 		"modelName": "A920",
 		"resellerName": "New York",
-		"Location": "China"
+		"Location": "China",
+        "Remark": "remark"
 	},
 	"PageInfo": null
 }

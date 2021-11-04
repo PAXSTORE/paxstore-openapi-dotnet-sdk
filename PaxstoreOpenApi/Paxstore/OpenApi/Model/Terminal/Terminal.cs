@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Paxstore.OpenApi.Model
@@ -21,6 +22,8 @@ namespace Paxstore.OpenApi.Model
 
         public string Location { get; set; }
 
+        public string Remark { get; set; }
+
         public TerminalLocation GeoLocation { get; set; }
 
         public TerminalInstalledFirmware InstalledFirmware { get; set; }
@@ -30,5 +33,7 @@ namespace Paxstore.OpenApi.Model
         public TerminalDetail TerminalDetail { get; set; }
 
         public TerminalAccessory TerminalAccessory { get; set; }
+
+        public Nullable<long> CreatedDate { get; set; }
     }
 }

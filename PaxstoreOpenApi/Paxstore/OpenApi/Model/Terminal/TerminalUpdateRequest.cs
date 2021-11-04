@@ -24,5 +24,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("location")]
         public string Location{get; set;}
+
+        [JsonProperty("remark")]
+        public string Remark { get; set; }
     }
 }
