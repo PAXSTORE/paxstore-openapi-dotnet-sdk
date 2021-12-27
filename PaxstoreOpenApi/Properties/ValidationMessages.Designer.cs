@@ -61,6 +61,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter groupRkiPushTaskId must grate than 0! 的本地化字符串。
+        /// </summary>
+        internal static string groupRkiPushTaskIdInvalid {
+            get {
+                return ResourceManager.GetString("groupRkiPushTaskIdInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter merchantCategoryBatchCreateRequest cannot be null and empty! 的本地化字符串。
         /// </summary>
         internal static string merchantCategoryBatchCreateRequestInvalid {
@@ -282,6 +291,15 @@ namespace Paxstore.OpenApi.Properties {
         internal static string parameterCreateTerminalGroupRequestNull {
             get {
                 return ResourceManager.GetString("parameterCreateTerminalGroupRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter createTerminalGroupRkiTaskRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterCreateTerminalGroupRkiTaskRequestIsNull {
+            get {
+                return ResourceManager.GetString("parameterCreateTerminalGroupRkiTaskRequestIsNull", resourceCulture);
             }
         }
         
@@ -556,7 +574,7 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Rkikey is mandatory! 的本地化字符串。
+        ///   查找类似 RkiKey is mandatory! 的本地化字符串。
         /// </summary>
         internal static string rkiKeyMandatory {
             get {
