@@ -1,5 +1,10 @@
 # Changelog  
 
+## 8.3.0  
+### New Feature  
+* Add group RKI related APIs  
+
+
 ## 8.2  
 
 ### New Feature

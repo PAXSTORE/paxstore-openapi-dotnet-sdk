@@ -33,10 +33,10 @@ public Result<TerminalGroupRkiTask> SearchGroupPushRkiTask(int pageNo, int pageS
 | :---------- | :------------ | :------- | :----------------------------------------------------------- |
 | pageNo      | int           | false    | page number, value must >=1                                  |
 | pageSize    | int           | false    | the record number per page, range is 1 to 100                |
-| orderBy     | Nullable<SearchOrderBy> | true     | the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc. |
+| orderBy     | Nullable\<SearchOrderBy\> | true     | the sort order by field name, if this parameter is null the search result will order by created date descend. The value of this parameter can be one of SearchOrderBy.CreatedDate_desc and SearchOrderBy.CreatedDate_asc. |
 | groupId     | long          | false    | the id of the group                                          |
-| pendingOnly | Nullable<bool>       | true     | Indicate whether to search the pending push task only        |
-| historyOnly | Nullable<bool>       | true     | Indicate whether to search history push task only            |
+| pendingOnly | Nullable\<bool\>       | true     | Indicate whether to search the pending push task only        |
+| historyOnly | Nullable\<bool\>       | true     | Indicate whether to search history push task only            |
 | keyWords    | string        | true     | Key words， it will match rkiKey                             |
 
 **Sample codes**
@@ -103,8 +103,8 @@ The type in dataSet is TerminalGroupRkiTask. And the structure like below.
 | RkiKey        | string  | the key of RKI                                               |
 | Status        | string  | the status of push Rki, value can be one of A(Active) and S(Suspend) |
 | ActionStatus  | string  | the action status, please refer to [Action Status](APPENDIX.md#action-status) |
-| ActivatedDate | Nullable<long>    | the timestamp of the push Rki activated date                                  |
-| EffectiveTime | Nullable<long>    | the timestamp of the push Rki effective date                                  |
+| ActivatedDate | Nullable\<long\>    | the timestamp of the push Rki activated date                                  |
+| EffectiveTime | Nullable\<long\>    | the timestamp of the push Rki effective date                                  |
 | Remarks       | String  | the push Rki result remarks                                  |
 | ErrorCode     | int     | the error code, please refer to [Action Error Codes](APPENDIX.md#action-error-codes) |
 | PendingCount  | int     |                                                              |
