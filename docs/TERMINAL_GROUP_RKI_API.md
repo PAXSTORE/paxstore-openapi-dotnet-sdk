@@ -105,7 +105,7 @@ The type in dataSet is TerminalGroupRkiTask. And the structure like below.
 | ActionStatus  | string  | the action status, please refer to [Action Status](APPENDIX.md#action-status) |
 | ActivatedDate | Nullable\<long\>    | the timestamp of the push Rki activated date                                  |
 | EffectiveTime | Nullable\<long\>    | the timestamp of the push Rki effective date                                  |
-| Remarks       | String  | the push Rki result remarks                                  |
+| Remarks       | string  | the push Rki result remarks                                  |
 | ErrorCode     | int     | the error code, please refer to [Action Error Codes](APPENDIX.md#action-error-codes) |
 | PendingCount  | int     |                                                              |
 | SuccessCount  | int     |                                                              |
@@ -288,7 +288,7 @@ Result<TerminalGroupRkiTask> result = terminalGroupRkiApi.PushRkiKey2Group(creat
 
 **Possible validation errors**
 
-> <font color=red>Parameter GroupId must grate than 0!</font>
+> <font color=red>Parameter GroupId must grate than 0!</font>  
 > <font color=red>Parameter RkiKey is mandatory!</font>  
 
 <br>
