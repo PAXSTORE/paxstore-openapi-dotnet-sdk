@@ -1,6 +1,11 @@
 ## TerminalRki API
 
-The push RKI to terminal related APIs are encapsulated in the class *Paxstore.OpenApi.TerminalRkiApi*.
+The push RKI to terminal related APIs are encapsulated in the class *Paxstore.OpenApi.TerminalRkiApi*.  
+
+**Introduction**  
+
+With the growing maturity of the PAX RKI solution. PAX already provides customers with remote key injection services. Through the remote key update, the POS operation and maintenance company replaces the terminal with the LKI for the local key update, reducing its operation and maintenance costs. The Global administrator can manage the RKI server in the global center, And assign one instance to the marketplace. Reseller admin configures RKI user token and gets key template to identify by request RKI server. Push RKI task to terminal. You can get error detail from the UI page If the bind failed. When an error occurred during the download phase. Please go to the terminal detail page download the logcat file.
+
 
 **Constructors of TerminalRkiApi**
 
