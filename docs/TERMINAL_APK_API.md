@@ -47,7 +47,7 @@ Structure of class TerminalCreateRequest
 |Parameters|Dictionary\<string, string\>|true|The parameter key and value, the key the the PID in template|
 |Base64FileParameters|List\<FileParameter\>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 |PushTemplateName|string|true|The push template name|
-|InheritPushHistory|Nullable<bool>|true|Whether to inherit the latest success push history parameters, inherited parameter values have lower priority than passed-in parameter values|
+|InheritPushHistory|Nullable\<bool\>|true|Whether to inherit the latest success push history parameters, inherited parameter values have lower priority than passed-in parameter values|
 
 Note: TID and serialNo cannot be empty at same time.
 

@@ -208,7 +208,7 @@
     <value>Parameter pushRki2TerminalRequest is mandatory!</value>
   </data>
   <data name="rkiKeyMandatory" xml:space="preserve">
-    <value>Rkikey is mandatory!</value>
+    <value>RkiKey is mandatory!</value>
   </data>
   <data name="snTidMandatory" xml:space="preserve">
     <value>SerialNo or Tid is mandatory!</value>
@@ -308,5 +308,11 @@
   </data>
   <data name="parametePageSizeLengthInvalid" xml:space="preserve">
     <value>Parameter pageSize must be range is 1 to 1000</value>
+  </data>
+  <data name="groupRkiPushTaskIdInvalid" xml:space="preserve">
+    <value>Parameter groupRkiPushTaskId must grate than 0!</value>
+  </data>
+  <data name="parameterCreateTerminalGroupRkiTaskRequestIsNull" xml:space="preserve">
+    <value>Parameter createTerminalGroupRkiTaskRequest is mandatory!</value>
   </data>
 </root>
