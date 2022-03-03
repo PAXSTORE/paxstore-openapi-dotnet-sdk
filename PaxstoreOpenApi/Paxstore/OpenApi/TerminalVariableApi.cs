@@ -72,7 +72,7 @@ namespace Paxstore.OpenApi
                 validationErrs.Add(GetMsgByKey("parameterTerminalParameterVariableCreateRequestMandatory"));
                 return new Result<string>(validationErrs);
             }
-            if (string.IsNullOrEmpty(terminalParameterVariableCreateRequest.TID) || string.IsNullOrEmpty(terminalParameterVariableCreateRequest.SerialNo)) {
+            if (string.IsNullOrEmpty(terminalParameterVariableCreateRequest.TID) && string.IsNullOrEmpty(terminalParameterVariableCreateRequest.SerialNo)) {
                 validationErrs.Add(GetMsgByKey("tidAndSnIsMandatory"));
             }
             if (terminalParameterVariableCreateRequest.VariableList == null || terminalParameterVariableCreateRequest.VariableList.Count == 0) {
