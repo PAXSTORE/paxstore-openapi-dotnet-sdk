@@ -109,7 +109,7 @@ Structure of class Terminal
 |InstalledFirmware|TerminalInstalledFirmware| The installed firmware of the terminal|
 |InstalledApks|List\<TerminalInstalledApk\>| The installed applications of the terminal|
 |TerminalDetail|TerminalDetail| The terminal detail information, only available when using GetTerminal API and set parameter includeDetailInfo=true |
-|TerminalAccessory|TerminalAccessory| The terminal accessory information, only available when using GetTerminal API and set parameter includeDetailInfo=true |
+|TerminalAccessoryList|List\<TerminalAccessory\>| The terminal accessory information list, only available when using GetTerminal API and set parameter includeDetailInfoList=true |
 
 
 Structure of class TerminalLocation
@@ -299,7 +299,7 @@ The get terminal API allows the thirdparty system get a terminal by terminal id.
 ```
 public Result<Terminal> GetTerminal(long terminalId)
 
-public Result<Terminal> GetTerminal(long terminalId, bool includeDetailInfo);
+public Result<Terminal> GetTerminal(long terminalId, bool includeDetailInfoList);
 ```
 
 **Input parameter(s) description**
@@ -307,7 +307,7 @@ public Result<Terminal> GetTerminal(long terminalId, bool includeDetailInfo);
 |Parameter Name|Type|Nullable|Description|
 |:--|:--|:--|:--|
 |terminalId|long|false|The terminal id.|
-|includeDetailInfo|bool|false|Whether to include terminal details in result|
+|includeDetailInfoList|bool|false|Whether to include terminal details and accessory list in result|
 
 
 **Sample codes**

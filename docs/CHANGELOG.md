@@ -1,5 +1,21 @@
 # Changelog  
 
+## 8.5.0  
+### Improvement  
+* Updated get terminal details API to support return accessory list  
+* Updated create merchant API and update merchant API, fields email, contact, country and phone are not mandatory anymore when create/update merchant.
+
+### Breaking Changes
+* The API TerminalAPI.GetTerminal(long terminalId, boolean includeDetailInfoList) is not compatible with the old API, 
+the structure of the return result is not same as before. It will cause compile fail if developer do not change codes after upgrading SDK to 8.5.0.
+Please refer to the API document.   
+
+
+## 8.3.1  
+### Bug Fix  
+* Fix TID, serial No. bug in create terminal variable API  
+
+
 ## 8.3.0  
 ### New Feature  
 * Add group RKI related APIs  
