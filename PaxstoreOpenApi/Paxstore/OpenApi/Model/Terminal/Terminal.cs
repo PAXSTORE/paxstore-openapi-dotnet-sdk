@@ -32,7 +32,7 @@ namespace Paxstore.OpenApi.Model
 
         public TerminalDetail TerminalDetail { get; set; }
 
-        public TerminalAccessory TerminalAccessory { get; set; }
+        public List<TerminalAccessory> TerminalAccessoryList { get; set; }
 
         public Nullable<long> CreatedDate { get; set; }
     }
