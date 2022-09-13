@@ -167,17 +167,7 @@ Result<Reseller> result = api.GetReseller(1000000211);
 }
 ```
 
-
-**Server side validation failed sample result(JSON formatted)**
-
-```
-{
-	"BusinessCode": -1760,
-	"Message": "Reseller name already exists",
-	"ValidationErrors": null,
-	"Data": null,
-	"PageInfo": null
-}
+**Add code when Reseller is not exists**
 ```
 
 **Successful sample result(JSON formatted)**
