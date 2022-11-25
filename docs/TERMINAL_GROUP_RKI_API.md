@@ -239,6 +239,9 @@ Structure of class CreateTerminalGroupRkiRequest
 |:---|:---|:---|:---|
 |GroupId|long|false|The id of group|
 |RkiKey|string|false|The rki key which indicate you want to push RKI Key template to the terminal|
+| EffectiveTime | Nullable\<DateTime\>   | true     | The time when to start the push task                                         |
+| ExpiredTime   | Nullable\<DateTime\>   | true     | The time when to stop the push task                                          |
+
 
 **Sample codes**
 

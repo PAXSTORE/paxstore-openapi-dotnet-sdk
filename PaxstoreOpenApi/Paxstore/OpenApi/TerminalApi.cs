@@ -35,7 +35,17 @@ namespace Paxstore.OpenApi
             return this.SearchTerminal(pageNo, pageSize, orderBy, status, snNameTID, false, false, false);
         }
 
-        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, TerminalStatus status, string snNameTID, bool includeGeoLocation, bool includeInstalledApks, bool includeInstalledFirmware) {
+        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, string resellerName, string merchantName, TerminalStatus status, String snNameTID)
+        {
+            return SearchTerminal(pageNo, pageSize, orderBy, resellerName, merchantName, status, snNameTID, false, false, false);
+        }
+
+        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, TerminalStatus status, String snNameTID, bool includeGeoLocation, bool includeInstalledApks, bool includeInstalledFirmware)
+        {
+            return SearchTerminal(pageNo, pageSize, orderBy, null, null, status, snNameTID, includeGeoLocation, includeInstalledApks, includeInstalledFirmware);
+        }
+
+        public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, string resellerName, string merchantName, TerminalStatus status, string snNameTID, bool includeGeoLocation, bool includeInstalledApks, bool includeInstalledFirmware) {
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
             if (validationErrs.Count > 0)
             {
@@ -45,8 +55,15 @@ namespace Paxstore.OpenApi
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddParameter("orderBy", GetOrderValue(orderBy));
-            request.AddParameter("snNameTID", snNameTID);
-            request.AddParameter("serialNo", snNameTID);
+            if (!string.IsNullOrEmpty(snNameTID)) {
+                request.AddParameter("snNameTID", snNameTID);
+            }
+            if (!string.IsNullOrEmpty(resellerName)) {
+                request.AddParameter("resellerName", resellerName);
+            }
+            if (!string.IsNullOrEmpty(merchantName)) {
+                request.AddParameter("merchantName", merchantName);
+            }
             request.AddParameter("status", GetStatusValue(status));
 
             request.AddParameter("includeGeoLocation", includeGeoLocation.ToString());

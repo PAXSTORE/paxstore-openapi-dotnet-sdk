@@ -29,6 +29,8 @@ namespace Paxstore.Test
             _logger.DebugFormat("Result3=\n{0}", JsonConvert.SerializeObject(result3));
             Assert.AreEqual(result3.BusinessCode, 2034);
 
+            API.PushFirmware2TerminalBySnAndFirmwareName("0820534733", "firmware", true, null, DateTime.Now.AddHours(3));
+
         }
 
         [Test]

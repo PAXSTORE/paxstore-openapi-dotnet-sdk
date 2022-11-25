@@ -21,20 +21,23 @@ namespace Paxstore.OpenApi
 
         }
 
-        public Result<PushFirmwareTaskInfo> PushFirmware2TerminalByTidAndFirmwareName(string tid, string firmwareName) {
+        public Result<PushFirmwareTaskInfo> PushFirmware2TerminalByTidAndFirmwareName(string tid, string firmwareName, bool wifeOnly, Nullable<DateTime> effectiveTime, Nullable<DateTime> expiredTime) {
             List<string> validationErrs = new List<string>();
             if (string.IsNullOrEmpty(tid))
             {
                 validationErrs.Add(GetMsgByKey("parameterTidCannotBeEmpty"));
             }
-            if (string.IsNullOrEmpty(firmwareName))
+            return pushFirmware2Terminal(tid, null, firmwareName, wifeOnly, effectiveTime, expiredTime);
+        }
+
+        public Result<PushFirmwareTaskInfo> PushFirmware2TerminalByTidAndFirmwareName(string tid, string firmwareName)
+        {
+            List<string> validationErrs = new List<string>();
+            if (string.IsNullOrEmpty(tid))
             {
-                validationErrs.Add(GetMsgByKey("parameterFirmwareNameCannotBeEmpty"));
+                validationErrs.Add(GetMsgByKey("parameterTidCannotBeEmpty"));
             }
-            PushFirmware2TerminalRequest request = new PushFirmware2TerminalRequest();
-            request.TID = tid;
-            request.FirmwareName = firmwareName;
-            return PushFirmware2Terminal(request);
+            return pushFirmware2Terminal(tid, null, firmwareName, false, null, null);
         }
 
         public Result<PushFirmwareTaskInfo> PushFirmware2TerminalBySnAndFirmwareName(string serialNo, string firmwareName)
@@ -48,9 +51,40 @@ namespace Paxstore.OpenApi
             {
                 validationErrs.Add(GetMsgByKey("parameterFirmwareNameCannotBeEmpty"));
             }
+            return pushFirmware2Terminal(null, serialNo, firmwareName, false, null, null);
+        }
+
+        public Result<PushFirmwareTaskInfo> PushFirmware2TerminalBySnAndFirmwareName(string serialNo, string firmwareName, bool wifeOnly, Nullable<DateTime> effectiveTime, Nullable<DateTime> expiredTime)
+        {
+            List<string> validationErrs = new List<string>();
+            if (string.IsNullOrEmpty(serialNo))
+            {
+                validationErrs.Add(GetMsgByKey("parameterSnCannotBeEmpty"));
+            }
+            if (string.IsNullOrEmpty(firmwareName))
+            {
+                validationErrs.Add(GetMsgByKey("parameterFirmwareNameCannotBeEmpty"));
+            }
+            return pushFirmware2Terminal(null, serialNo, firmwareName, wifeOnly, effectiveTime, expiredTime);
+        }
+
+        private Result<PushFirmwareTaskInfo> pushFirmware2Terminal(string tid, string serialNo, string firmwareName, bool wifeOnly, Nullable<DateTime> effectiveTime, Nullable<DateTime> expiredTime) {
+            List<string> validationErrs = new List<string>();
+            if (string.IsNullOrEmpty(firmwareName))
+            {
+                validationErrs.Add(GetMsgByKey("parameterFirmwareNameCannotBeEmpty"));
+            }
             PushFirmware2TerminalRequest request = new PushFirmware2TerminalRequest();
+            request.TID = tid;
             request.SerialNo = serialNo;
             request.FirmwareName = firmwareName;
+            request.WifiOnly = wifeOnly;
+            if (effectiveTime != null) {
+                request.EffectiveTime = effectiveTime.Value;
+            }
+            if (expiredTime != null) {
+                request.ExpiredTime = expiredTime.Value;
+            }
             return PushFirmware2Terminal(request);
         }
 
@@ -70,7 +104,6 @@ namespace Paxstore.OpenApi
             Result<PushFirmwareTaskInfo> result = new Result<PushFirmwareTaskInfo>(response);
             return result;
         }
-
 
         public Result<PushFirmwareTaskInfo> SearchPushFirmwareTasks(int pageNo, int pageSize, SearchOrderBy orderBy,
                                                                string terminalTid, string fmName, PushStatus status){

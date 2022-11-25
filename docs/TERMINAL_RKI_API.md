@@ -48,6 +48,9 @@ Structure of class PushRki2TerminalRequest
 |Tid|string|true|The tid of terminal|
 |SerialNo|string|true|The serial number of terminal|
 |RkiKey|string|false|The rki key which indicate you want to push RKI Key template to the terminal|
+| EffectiveTime | Nullable\<DateTime\>   | true     | The time when to start the push task                                         |
+| ExpiredTime   | Nullable\<DateTime\>   | true     | The time when to stop the push task                                          |
+
 
 Note: tid and serialNo cannot be empty at same time.
 

@@ -76,6 +76,7 @@ Result<ParameterPushHistoryInfo> result = pushHistoryApi.SearchParameterPushHist
                 "SerialNo": "0820534734", 
                 "AppName": "PAXSTORE SDK Demo", 
                 "VersionName": "8.1.3-SNAPSHOT", 
+                "ParameterTemplateName": "parameter.xml",
                 "PushStartTime": 1624850040000, 
                 "AppPushTime": 1624850127000, 
                 "AppPushStatus": "Success", 
@@ -92,6 +93,7 @@ Result<ParameterPushHistoryInfo> result = pushHistoryApi.SearchParameterPushHist
                 "SerialNo": "1000000423", 
                 "AppName": "PAXSTORE SDK Demo", 
                 "VersionName": "8.1.3-SNAPSHOT", 
+                "ParameterTemplateName": "parameter.xml",
                 "PushStartTime": 1624838340000, 
                 "AppPushTime": 1624838403000, 
                 "AppPushStatus": "Success", 
@@ -124,6 +126,7 @@ The type in dataSet of is ParameterPushHistoryDTO. And the structure shows like 
 |AppPushTime	|long	|app push time|
 |AppPushStatus	|string	|the push result status, value can be Success and Fail|
 |AppPushError	|string	|the reason of app push fail|
+|ParameterTemplateName	|string	|the pushed parameter template name|
 |ParameterPushTime|long	|parameter push time|
 |ParameterPushStatus|string|the parameter push result status, value can be Success and Fail|
 |ParameterPushError|string|the reason of parameter push failed|
@@ -190,6 +193,7 @@ Result<ParameterPushHistoryInfo> result = pushHistoryApi.SearchLatestParameterPu
                 "SerialNo": "0820534734", 
                 "AppName": "PAXSTORE SDK Demo", 
                 "VersionName": "8.1.3-SNAPSHOT", 
+                "ParameterTemplateName": "parameter.xml",
                 "PushStartTime": 1624850040000, 
                 "AppPushTime": 1624850127000, 
                 "AppPushStatus": "Success", 
@@ -221,6 +225,7 @@ The type in dataSet of is ParameterPushHistoryDTO. And the structure shows like 
 |AppPushTime	|long	|app push time|
 |AppPushStatus	|string	|the push result status, value can be Success and Fail|
 |AppPushError	|string	|the reason of app push fail|
+|ParameterTemplateName	|string	|the pushed parameter template name|
 |ParameterPushTime|long	|parameter push time|
 |ParameterPushStatus|string|the parameter push result status, value can be Success and Fail|
 |ParameterPushError|string|the reason of parameter push failed|
@@ -287,6 +292,7 @@ Result<OptimizedParamPushHistory> result = pushHistoryApi.SearchOptimizedParamet
                 "SerialNo": "0820534734", 
                 "AppName": "PAXSTORE SDK Demo", 
                 "VersionName": "8.1.3-SNAPSHOT", 
+                "ParameterTemplateName": "parameter.xml",
                 "PushStartTime": 1624850040000, 
                 "AppPushTime": 1624850127000, 
                 "AppPushStatus": "Success", 
@@ -321,6 +327,7 @@ The type in dataSet of is OptimizedParameterPushHistoryDTO. And the structure sh
 |AppPushTime	|long	|app push time|
 |AppPushStatus	|string	|the push result status, value can be Success and Fail|
 |AppPushError	|string	|the reason of app push fail|
+|ParameterTemplateName	|string	|the pushed parameter template name|
 |ParameterPushTime|long	|parameter push time|
 |ParameterPushStatus|string|the parameter push result status, value can be Success and Fail|
 |ParameterPushError|string|the reason of parameter push failed|
@@ -385,6 +392,7 @@ Result<OptimizedParamPushHistory> result = pushHistoryApi.SearchLatestOptimizedP
                 "SerialNo": "0820534734", 
                 "AppName": "PAXSTORE SDK Demo", 
                 "VersionName": "8.1.3-SNAPSHOT", 
+                "ParameterTemplateName": "parameter.xml",
                 "PushStartTime": 1624850040000, 
                 "AppPushTime": 1624850127000, 
                 "AppPushStatus": "Success", 
@@ -419,6 +427,7 @@ The type in dataSet of is OptimizedParameterPushHistoryDTO. And the structure sh
 |AppPushTime	|long	|app push time|
 |AppPushStatus	|string	|the push result status, value can be Success and Fail|
 |AppPushError	|string	|the reason of app push fail|
+|ParameterTemplateName	|string	|the pushed parameter template name|
 |ParameterPushTime|long	|parameter push time|
 |ParameterPushStatus|string|the parameter push result status, value can be Success and Fail|
 |ParameterPushError|string|the reason of parameter push failed|

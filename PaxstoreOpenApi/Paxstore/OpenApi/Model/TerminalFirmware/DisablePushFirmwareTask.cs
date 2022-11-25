@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Paxstore.OpenApi.Model
 {
-    public class PushFirmware2TerminalRequest
+    public class DisablePushFirmwareTask
     {
         [JsonProperty("tid")]
         public string TID { get; set; }
@@ -17,14 +17,5 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("fmName")]
         public string FirmwareName { get; set; }
-
-        [JsonProperty("wifiOnly")]
-        public bool WifiOnly { get; set; }
-
-        [JsonProperty("effectiveTime")]
-        public DateTime EffectiveTime { get; set; }
-
-        [JsonProperty("expiredTime")]
-        public DateTime ExpiredTime { get; set; }
     }
 }
