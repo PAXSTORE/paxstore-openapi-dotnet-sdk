@@ -12,6 +12,7 @@ namespace Paxstore.OpenApi.Model
         public string RkiKey { get; set; }
         public Nullable<long> ActivatedDate { get; set; }
         public Nullable<long> EffectiveTime { get; set; }
+        public Nullable<long> ExpiredTime { get; set; }
         public string Status { get; set; }
         public int ActionStatus { get; set; }
         public int ErrorCode { get; set; }

@@ -12,6 +12,8 @@ namespace Paxstore.OpenApi.Model
         public string ApkPackageName { get; set; }
         public Nullable<long> ApkVersionCode { get; set; }
         public string ApkVersionName { get; set; }
+        public Boolean ForceUpdate { get; set; }
+        public Boolean WifiOnly { get; set; }
         public Nullable<long> EffectiveTime { get; set; }
         public Nullable<long> ExpiredTime { get; set; }
         public Nullable<long> UpdatedDate { get; set; }

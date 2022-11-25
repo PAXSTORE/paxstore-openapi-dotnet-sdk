@@ -33,5 +33,17 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("inheritPushHistory")]
         public Nullable<bool> InheritPushHistory { get; set; }
+
+        [JsonProperty("forceUpdate")]
+        public Nullable<bool> ForceUpdate { get; set; }
+
+        [JsonProperty("wifiOnly")]
+        public Nullable<bool> WifiOnly { get; set; }
+
+        [JsonProperty("effectiveTime")]
+        public Nullable<DateTime> EffectiveTime { get; set; }
+
+        [JsonProperty("expiredTime")]
+        public Nullable<DateTime> ExpiredTime { get; set; }
     }
 }

@@ -48,6 +48,10 @@ Structure of class TerminalCreateRequest
 |Base64FileParameters|List\<FileParameter\>		|true	|The file type parameters, the max number of file type parameters is 10, and the max size of each parameter file is 500kb|
 |PushTemplateName|string|true|The push template name|
 |InheritPushHistory|Nullable\<bool\>|true|Whether to inherit the latest success push history parameters, inherited parameter values have lower priority than passed-in parameter values|
+| ForceUpdate          | Nullable\<bool\>| true     | Whether to force the app to update|
+| WifiOnly             | Nullable\<bool\>               | true     | Whether to download over Wi-Fi or Cable network only, don’t allow to download over the cellular network|
+| EffectiveTime        | Nullable\<DateTime\>                  | true     | The time when to start the push task|
+| ExpiredTime          | Nullable\<DateTime\>                  | true     | The time when to stop the push task|
 
 Note: TID and serialNo cannot be empty at same time.
 

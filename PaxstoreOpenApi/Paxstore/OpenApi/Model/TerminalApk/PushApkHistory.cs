@@ -27,8 +27,17 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("activatedDate")]
         public Nullable<long> ActivatedDate { get; set; }
 
+        [JsonProperty("forceUpdate")]
+        public Boolean ForceUpdate { get; set; }
+
+        [JsonProperty("wifiOnly")]
+        public Boolean WifiOnly { get; set; }
+
         [JsonProperty("effectiveTime")]
         public Nullable<long> EffectiveTime { get; set; }
+
+        [JsonProperty("expiredTime")]
+        public Nullable<long> ExpiredTime { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -36,8 +45,8 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("actionStatus")]
         public int ActionStatus { get; set; }
 
-        //[JsonProperty("actionTime")]
-        //public Nullable<long> ActionTime { get; set; }
+        [JsonProperty("actionTime")]
+        public Nullable<long> ActionTime { get; set; }
 
         [JsonProperty("errorCode")]
         public int ErrorCode { get; set; }

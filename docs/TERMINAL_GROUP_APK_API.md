@@ -246,6 +246,10 @@ Structure of class CreateTerminalGroupApkRequest.
 | Parameters           | Dictionary\<string, string\> | true     | The parameter key and value, the key the PID in template     |
 | Base64FileParameters | List\<FileParameter\> | true     | The parameter of file type, the max counter of file type parameter is 10, and the max size of each parameter file is 500kb |
 | InheritPushHistory | bool | true | Whether to inherit the latest success push history parameters, inherited parameter values have lower priority than passed-in parameter values |
+| ForceUpdate          | Nullable\<bool\>      | true     | Whether to force the app to update|
+| WifiOnly             | Nullable\<bool\>      | true     | Whether to download over Wi-Fi or Cable network only, don’t allow to download over the cellular network|
+| EffectiveTime        | Nullable\<DateTime\>  | true     | The time when to start the push task|
+| ExpiredTime          | Nullable\<DateTime\>  | true     | The time when to stop the push task|
 
 
 Structure of class FileParameter

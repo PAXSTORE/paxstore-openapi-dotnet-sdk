@@ -21,8 +21,14 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("activatedDate")]
         public long ActivatedDate { get; set; }
 
+        [JsonProperty("wifiOnly")]
+        public Boolean WifiOnly { get; set; }
+
         [JsonProperty("effectiveTime")]
         public long EffectiveTime { get; set; }
+
+        [JsonProperty("expiredTime")]
+        public long ExpiredTime { get; set; }
 
         [JsonProperty("status")]
         public String Status { get; set; }

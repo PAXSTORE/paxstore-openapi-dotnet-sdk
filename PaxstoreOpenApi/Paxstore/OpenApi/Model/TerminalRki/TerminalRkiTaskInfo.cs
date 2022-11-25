@@ -18,6 +18,8 @@ namespace Paxstore.OpenApi.Model
 
         public long EffectiveTime { get; set; }
 
+        public Nullable<long> ExpiredTime { get; set; }
+
         public string Status { get; set; }
 
         public int ActionStatus { get; set; }

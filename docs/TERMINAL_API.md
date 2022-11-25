@@ -210,7 +210,6 @@ public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchO
 |includeInstalledApks|boolean|true|whether to include install applications in search result|
 |includeInstalledFirmware|boolean|true|whether to include the firmware version of the terminal in search result|
 
-
 **Sample codes**
 
 ```
@@ -289,6 +288,43 @@ The type in dataSet of result is Terminal.
 > <font color=red>pageSize:must be greater than or equal to 1</font>   
 > <font color=red>pageNo:must be greater than or equal to 1</font>   
 > <font color=red>pageSize:must be less than or equal to 100</font>  
+
+
+
+### Search terminals filter by reseller and merchant  
+
+This API is similar to the search terminals API, it has additional 3 parameters, the details please refer to the Input parameter(s) description
+
+**API**  
+
+```
+public Result<Terminal> SearchTerminal(int pageNo, int pageSize, TerminalSearchOrderBy orderBy, string resellerName, string merchantName, TerminalStatus status, string snNameTID, bool includeGeoLocation, bool includeInstalledApks, bool includeInstalledFirmware)
+```
+
+**Input parameter(s) description**
+
+| Name                     | Type                  | Nullable | Description                                                  |
+| :----------------------- | :-------------------- | :------- | :----------------------------------------------------------- |
+| pageNo                   | int                   | false    | page number, value must >=1                                  |
+| pageSize                 | int                   | false    | the record number per page, range is 1 to 100                |
+| orderBy                  | TerminalSearchOrderBy | true     | the sort order by field name, value can be one of TerminalSearchOrderBy.Name, TerminalSearchOrderBy.Tid and TerminalSearchOrderBy.SerialNo. If pass null parameter the search result will order by id by default. |
+| resellerName             |string|true| search terminals under the reseller or it's sub-resellers|
+| merchantName             |string|true| search terminals under the reseller merchant |
+| status                   | TerminalStatus        | true     | the terminal status<br/>the value can be TerminalStatus.Active, TerminalStatus.Inactive, TerminalStatus.Suspend |
+| snNameTID                | String                | true     | search by serial number,name and TID                         |
+| includeGeoLocation       | boolean               | true     | whether to include geo location information in search result |
+| includeInstalledApks     | boolean               | true     | whether to include install applications in search result     |
+| includeInstalledFirmware | boolean               | true     | whether to include the firmware version of the terminal in search result |
+
+**Sample codes**
+
+```
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
+Result<Terminal> result = API.SearchTerminal(1, 10, TerminalSearchOrderBy.SerialNo, "Car seller", "volvo", TerminalStatus.All, null, true, true, true);
+```
+
+The returned result structure is same as the above search API
+
 
 ### Get a terminal
 
