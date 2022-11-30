@@ -244,7 +244,7 @@
     <value>VariableIds cannot be empty!</value>
   </data>
   <data name="variableListMandatory" xml:space="preserve">
-    <value>variableList can not be empty</value>
+    <value>variableList can not be empty!</value>
   </data>
   <data name="packageNameMandatory" xml:space="preserve">
     <value>Parameter packageName is mandatory!</value>
@@ -314,5 +314,11 @@
   </data>
   <data name="parameterCreateTerminalGroupRkiTaskRequestIsNull" xml:space="preserve">
     <value>Parameter createTerminalGroupRkiTaskRequest is mandatory!</value>
+  </data>
+  <data name="parameterTerminalCopyRequestNull" xml:space="preserve">
+    <value>Parameter terminalCopyRequest is mandatory!</value>
+  </data>
+  <data name="batchDeleteMerchantVariableRequestNull" xml:space="preserve">
+    <value>Parameter batchDeleteMerchantVariableRequest is mandatory!</value>
   </data>
 </root>

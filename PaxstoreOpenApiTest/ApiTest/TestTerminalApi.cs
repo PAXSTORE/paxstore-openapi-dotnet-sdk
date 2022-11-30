@@ -221,6 +221,34 @@ namespace Paxstore.Test
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
+        [Test]
+        public void TestCopy() {
+            TerminalCopyRequest copyRequest = new TerminalCopyRequest();
+            copyRequest.TerminalId = 1472214090121357;
+            copyRequest.Name = "tanjiedezhongduan";
+            copyRequest.SerialNo = "s00000001";
+            copyRequest.Tid = "t010101000";
+            copyRequest.Status = "A";
+            Result<Terminal> result = API.CopyTerminal(copyRequest);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.IsTrue(result.BusinessCode == 0);
+        }
+        [Test]
+        public void TestCopy_local_validation_fail() {
+            Result<Terminal> result = API.CopyTerminal(null);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.IsTrue(result.BusinessCode == -1);
+
+            TerminalCopyRequest copyRequest = new TerminalCopyRequest();
+            copyRequest.Name = "fefeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+            copyRequest.Tid = "2";
+            copyRequest.SerialNo = "fefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+            result = API.CopyTerminal(copyRequest);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.IsTrue(result.BusinessCode == -1);
+
+        }
+
     }
 
     

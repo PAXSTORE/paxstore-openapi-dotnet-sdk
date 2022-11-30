@@ -705,6 +705,109 @@ The type of data in result is same as search terminal API.
 Note: The string {0} in the message of business code 1740 will be replaced by the SN in request.
 
 
+
+
+
+## Copy a terminal
+
+Copy terminal API allows the thirdparty system to copy a terminal by  origin terminal id.
+
+**API**
+
+```
+public Result<Terminal> CopyTerminal(TerminalCopyRequest terminalCopyRequest)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name      | Type                | Nullable | Description                                              |
+| :------------------ | :------------------ | :------- | :------------------------------------------------------- |
+| terminalCopyRequest | TerminalCopyRequest | false    | copy terminal request object. The structure shows below. |
+
+Structure of class TerminalCopyRequest
+
+| Property Name | Type   | Nullable | Description                                                  |
+| :------------ | :----- | :------- | :----------------------------------------------------------- |
+| TerminalId    | long   | false    | The id of source terminal                                    |
+| Name          | string | false    | The name of terminal, max length is 64.                      |
+| Tid           | string | true     | The tid of terminal. If it is empty system will generate a tid when creating. And the length range is from 8 to 16. |
+| SerialNo      | string | true     | The serial number of terminal. If the status is active the serial number is mandatory. |
+| Status        | string | false    | Status of terminal, value can be one of A(Active) and P(Pendding) |
+
+**Sample codes**
+
+```
+TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
+TerminalCopyRequest copyRequest = new TerminalCopyRequest();
+copyRequest.TerminalId = 13453434534;
+copyRequest.Name = "COPY_FROM_13453434534";
+copyRequest.SerialNo = "TJ0000002";
+copyRequest.Status = "A";
+Result<Terminal> copyResult = api.CopyTerminal(copyRequest);
+```
+
+**Client validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter terminalCopyRequest is mandatory!""]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1800,
+	"Message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+	"Data": {
+    "Id": 1510297435111460,
+    "Name": "COPY_FROM_909822",
+    "Tid": "HSZG4FTS",
+    "SerialNo": "TJ00001002",
+    "Status": "A",
+    "MerchantName": "TESTpukMerchant",
+    "ModelName": "A930",
+    "ResellerName": "shifan",
+    "Location": "",
+    "Remark": "324324223",
+    "CreatedDate": 1666850737890,
+    "LastActiveTime": 1666850736044
+	}
+}
+```
+
+**Possible client validation errors**
+
+> <font color=red>Parameter terminalCopyRequest is mandatory!</font>  
+> <font color=red>'Name' should not be empty.</font>
+> <font color=red>'Status' should not be empty.</font>
+> <font color=red>'Name' must be 64 characters or fewer. You entered 156 characters.</font>
+> <font color=red>The length of 'Tid' must be at least 8 characters. You entered 1 characters.</font>
+> <font color=red>The length of 'Serial No' must be 32 characters or fewer. You entered 81 characters.</font>
+
+
+
+**Possible business codes**
+
+| Business Code | Message                    | Description |
+| :------------ | :------------------------- | :---------- |
+| 1800          | Terminal not found         |             |
+| 1817          | Terminal name is mandatory |             |
+| 1818          | Terminal name is too long  |             |
+| 1828          | TID already used           |             |
+
+
+
 ### Activate a terminal
 
 Activate terminal API allows the thirdparty system to activate a terminal by terminal id.
@@ -727,7 +830,7 @@ public Result<string> ActivateTerminal(long terminalId)
 
 ```
 TerminalApi api = new TerminalApi(API_BASE_URL, API_KEY, API_SECRET);
-Result<string> result = terminalApi.ActivateTerminal(907560L);
+Result<string> result = terminalApi.ActivateTerminal(907560);
 ```
 
 **Client validation failed sample result(JSON formatted)**
@@ -735,10 +838,7 @@ Result<string> result = terminalApi.ActivateTerminal(907560L);
 ```
 {
 	"BusinessCode": -1,
-	"Message": null,
 	"ValidationErrors": ["Parameter terminalId cannot be null and cannot be less than 1!"],
-	"Data": null,
-	"PageInfo": null
 }
 ```
 

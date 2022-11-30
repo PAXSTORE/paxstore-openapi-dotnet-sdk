@@ -273,8 +273,7 @@ namespace Paxstore.OpenApi.Base
             if(updateReq== null) {
                 validationErrs.Add(GetMsgByKey(objNullMsg));
                 return validationErrs;
-            }else {
-               
+            }else if(validator != null){
                 ValidationResult results = validator.Validate(updateReq);
                 if (!results.IsValid)
                 {
@@ -286,6 +285,7 @@ namespace Paxstore.OpenApi.Base
                 }
                 return validationErrs;
             }
+            return validationErrs;
         }
 
         protected string GetMsgByKey(string key)

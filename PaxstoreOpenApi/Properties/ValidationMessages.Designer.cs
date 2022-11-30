@@ -61,6 +61,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter batchDeleteMerchantVariableRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string batchDeleteMerchantVariableRequestNull {
+            get {
+                return ResourceManager.GetString("batchDeleteMerchantVariableRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter groupRkiPushTaskId must grate than 0! 的本地化字符串。
         /// </summary>
         internal static string groupRkiPushTaskIdInvalid {
@@ -457,6 +466,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter terminalCopyRequest is mandatory! 的本地化字符串。
+        /// </summary>
+        internal static string parameterTerminalCopyRequestNull {
+            get {
+                return ResourceManager.GetString("parameterTerminalCopyRequestNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Parameter terminalIds is mandatory! 的本地化字符串。
         /// </summary>
         internal static string parameterTerminalIdsMandatory {
@@ -646,7 +664,7 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
-        ///   查找类似 variableList can not be empty 的本地化字符串。
+        ///   查找类似 variableList can not be empty! 的本地化字符串。
         /// </summary>
         internal static string variableListMandatory {
             get {

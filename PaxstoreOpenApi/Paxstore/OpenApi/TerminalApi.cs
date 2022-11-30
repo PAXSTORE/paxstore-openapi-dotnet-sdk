@@ -24,6 +24,7 @@ namespace Paxstore.OpenApi
         private const string UPDATE_TERMINAL_REMOTE_CONFIG_URL = "/v1/3rdsys/terminals/{terminalId}/config";
         private const string GET_TERMINAL_REMOTE_CONFIG_URL = "/v1/3rdsys/terminals/{terminalId}/config";
         private const string PUSH_TERMINAL_ACTION_URL = "/v1/3rdsys/terminals/{terminalId}/operation";
+        private const string COPY_TERMINAL_URL = "/v1/3rdsys/terminals/copy";
 
         private const string URL_SEGMENT_TERMINAL_ID = "terminalId";
 
@@ -248,6 +249,21 @@ namespace Paxstore.OpenApi
             return result;
         }
 
+        public Result<Terminal> CopyTerminal(TerminalCopyRequest terminalCopyRequest)
+        {
+            List<String> validationErrs = ValidateCreate(terminalCopyRequest, new TerminalCopyRequestValidator(),  "parameterTerminalCopyRequestNull");
+            if (validationErrs.Count > 0)
+            {
+                return new Result<Terminal>(validationErrs);
+            }
+            RestRequest request = new RestRequest(COPY_TERMINAL_URL, Method.POST);
+            var requestJson = JsonConvert.SerializeObject(terminalCopyRequest);
+            request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
+            var responseContent = Execute(request);
+            TerminalResponse terminalResponse = JsonConvert.DeserializeObject<TerminalResponse>(responseContent);
+            Result<Terminal> result = new Result<Terminal>(terminalResponse);
+            return result;
+        }
 
 
     string GetStatusValue(TerminalStatus status)
