@@ -37,6 +37,20 @@ namespace Paxstore.Test
         }
 
         [Test]
+        public void TestCreate() {
+            CreateTerminalGroupApkRequest request = new CreateTerminalGroupApkRequest();
+            request.GroupId = 1001549872;
+            request.PackageName = "com.pax.vas.stacklytics.sale";
+          
+            request.EffectiveTime = DateTime.Now.AddHours(1);
+            request.ExpiredTime = DateTime.Now.AddDays(1);
+           
+            Result<TerminalGroupApkInfo> result = API.CreateAndActiveGroupApk(request);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
         public void CreateAndActiveGroupApk()
         {
             CreateTerminalGroupApkRequest request = new CreateTerminalGroupApkRequest();

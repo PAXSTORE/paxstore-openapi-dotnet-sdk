@@ -81,6 +81,12 @@ namespace Paxstore.OpenApi
             if (validationErrs.Count > 0) {
                 return new Result<string>(validationErrs);
             }
+            for (int i = 0; i < terminalParameterVariableCreateRequest.VariableList.Count; i++) {
+                ParameterVariable temp = terminalParameterVariableCreateRequest.VariableList[i];
+                if ("P".Equals(temp.Type) && !string.IsNullOrEmpty(temp.Value)) {
+                    temp.Value = SecurityHelper.EncryptPasswordParameter(temp.Value, ApiSecret);
+                }
+            }
             RestRequest request = new RestRequest(CREATE_TERMINAL_VARIABLE_URL, Method.POST);
             var requestJson = JsonConvert.SerializeObject(terminalParameterVariableCreateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
@@ -102,6 +108,9 @@ namespace Paxstore.OpenApi
             {
                 return new Result<string>(validationErrs);
             }
+            if ("P".Equals(terminalVariableUpdateRequest.Type) && !string.IsNullOrEmpty(terminalVariableUpdateRequest.Value)) {
+                terminalVariableUpdateRequest.Value = SecurityHelper.EncryptPasswordParameter(terminalVariableUpdateRequest.Value, ApiSecret);
+            }
             RestRequest request = new RestRequest(UPDATE_TERMINAL_VARIABLE_URL, Method.PUT);
             var requestJson = JsonConvert.SerializeObject(terminalVariableUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
@@ -119,7 +128,6 @@ namespace Paxstore.OpenApi
             {
                 return new Result<string>(validationErrs);
             }
-
             RestRequest request = new RestRequest(DELETE_TERMINAL_VARIABLE_URL, Method.DELETE);
             request.AddUrlSegment("terminalVariableId", terminalVariableId.ToString());
             var responseContent = Execute(request);
