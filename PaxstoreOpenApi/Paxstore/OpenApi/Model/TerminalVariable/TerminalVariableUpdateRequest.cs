@@ -23,5 +23,8 @@ namespace Paxstore.OpenApi.Model
 
         [JsonProperty("remarks")]
         public string Remarks { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
     }
 }

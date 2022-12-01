@@ -1,5 +1,11 @@
 # Changelog  
 
+## 8.6.0
+### Improvement
+* The fields such as effectiveTime and expiredTime are added respectively for terminal and group push related tasks.
+* Search terminals API is updated, add resellerName and merchantName parameters.
+
+
 ## 8.5.0  
 ### Improvement  
 * Updated get terminal details API to support return accessory list  

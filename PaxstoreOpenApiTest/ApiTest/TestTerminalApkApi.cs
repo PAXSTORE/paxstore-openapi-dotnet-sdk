@@ -52,7 +52,7 @@ namespace Paxstore.Test
 
         [Test]
         public void TestSearchApkPushHistory() {
-            Result<PushApkHistory> result = API.SearchPushApkHistory(1, 10, SearchOrderBy.CreatedDate_desc, "7L03HWP9", "com.pax.android.demoapp", PushStatus.All);
+            Result<PushApkHistory> result = API.SearchPushApkHistory(1, 10, SearchOrderBy.CreatedDate_desc, "1DDZT0IP", "com.pax.android.v2tester", PushStatus.All);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
@@ -70,6 +70,18 @@ namespace Paxstore.Test
             Result<PushApkHistory> result = API.GetPushApkHistory(1000062204);
             _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
+        }
+
+        [Test]
+        public void TestPushApkSpecifyEffectiveTime() {
+            CreateTerminalApkRequest request = new CreateTerminalApkRequest();
+            request.SerialNo = "1850000874";
+            request.PackageName = "com.pax.android.v2tester";
+            request.WifiOnly = true;
+            request.EffectiveTime = DateTime.Now.AddMinutes(5);
+            request.ExpiredTime = DateTime.Now.AddHours(2);
+            Result<string> result = API.CreateTerminalApk(request);
+            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
         }
 
         [Test]
