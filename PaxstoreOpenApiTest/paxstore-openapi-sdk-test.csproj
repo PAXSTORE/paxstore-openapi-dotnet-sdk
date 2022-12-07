@@ -30,7 +30,7 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.0.100" />
     <!-- <PackageReference Include="log4net" Version="2.0.7" /> -->
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <!-- <PackageReference Include="RestSharp" Version="105.2.2" /> -->
