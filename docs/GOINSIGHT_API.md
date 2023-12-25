@@ -7,8 +7,10 @@ GoInsight APIs allow third party system search app bizData form goInsight.
 **Constructors of GoInsightApi**
 
 ```
-public GoInsightApi(string baseUrl, string apiKey, String apiSecret);
+public GoInsightApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
 public GoInsightApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public GoInsightApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public GoInsightApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

@@ -1,20 +1,16 @@
-﻿using log4net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Paxstore.Test
 {
     [TestFixture()]
-    class TestTerminalVariableApi
+    class TestTerminalVariableApi : BaseTest
     {
-        private static ILog _logger = LogManager.GetLogger(typeof(TestTerminalVariableApi));
         public static TerminalVariableApi API = new TerminalVariableApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
         [Test]
@@ -23,7 +19,7 @@ namespace Paxstore.Test
             Result<TerminalParameterVariable> result = API.GetTerminalVariable(1, 10, VariableSearchOrderBy.Variable_asc, "JDEW5LCP", null, "com.pax.android.demoapp", "testCreateVariable1Api4", null);
             //Result<TerminalParameterVariable> result = API.GetTerminalVariable("JDEW5LCP", null, "cn.ycmedia.youpin", "V1", null);
             //Result<TerminalParameterVariable> result = API.GetTerminalVariable("JDEW5LCP", null, "air.tv.douyu.android", "app1", null);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
@@ -48,7 +44,7 @@ namespace Paxstore.Test
             createRequest.TID= "JDEW5LCP";
             createRequest.VariableList = variableList;
             Result<String> createResult = API.CreateTerminalVariable(createRequest);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(createResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(createResult));
             Assert.AreEqual(createResult.BusinessCode, 0);
         }
 
@@ -64,7 +60,7 @@ namespace Paxstore.Test
             updateRequest.PackageName= "com.pax.android.demoapp";
 
             Result<string> updateResult = API.UpdateTerminalVariable(terminalVariableId, updateRequest);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(updateResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(updateResult));
             Assert.AreEqual(updateResult.BusinessCode, 0);
         }
 
@@ -72,7 +68,7 @@ namespace Paxstore.Test
         public void testDeleteTerminalVariable(){
             long terminalVariableId = 1001464170;
             Result<string> deleteResult = API.DeleteTerminalVariable(terminalVariableId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(deleteResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(deleteResult));
             Assert.AreEqual(deleteResult.BusinessCode, 0);
         }
 
@@ -84,7 +80,7 @@ namespace Paxstore.Test
             variableIds.Add(1001464142);
             batchDeletionRequest.VariableIds = variableIds;
             Result<string> batchDeletionResult = API.BatchDeletionTerminalVariable(batchDeletionRequest);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(batchDeletionResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(batchDeletionResult));
             Assert.AreEqual(batchDeletionResult.BusinessCode, 0);
         }
 

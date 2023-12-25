@@ -5,7 +5,10 @@ All the terminalFirmware related APIs are encapsulated in the class *Paxstore.Op
 **Constructors of TerminalFirmwareApi**
 
 ```
-public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret);
+public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

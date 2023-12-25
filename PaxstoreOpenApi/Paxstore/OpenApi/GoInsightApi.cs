@@ -6,6 +6,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,15 +19,27 @@ namespace Paxstore.OpenApi
 
         private const string SEARCH_GO_INSIGHT_DATA_URL = "/v1/3rdsys/goInsight/data/app-biz";
 
-        public GoInsightApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo)
+        public GoInsightApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
         {
 
         }
 
-        public GoInsightApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public GoInsightApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
         {
 
         }
+
+        public GoInsightApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public GoInsightApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
+
+        }
+
 
         public Result<DataQueryResult> FindDataFromInsight(string queryCode)
         {
@@ -54,12 +67,12 @@ namespace Paxstore.OpenApi
             {
                 return new Result<DataQueryResult>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_GO_INSIGHT_DATA_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_GO_INSIGHT_DATA_URL, Method.Get);
             request.AddParameter("queryCode", queryCode);
             if (pageNo != null && pageNo > 0 && pageSize != null && pageSize > 0)
             {
-                request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
-                request.AddParameter("pageSize", pageSize);
+                request.AddQueryParameter(Constants.PAGINATION_PAGE_NO, pageNo.Value);
+                request.AddQueryParameter("pageSize", pageSize.Value);
             }
             if (timeRange != null)
             {

@@ -7,6 +7,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,23 @@ namespace Paxstore.OpenApi
         private const string DELETE_TERMINAL_VARIABLE_URL = "/v1/3rdsys/terminalVariables/{terminalVariableId}";
         private const string BATCH_DELETION_TERMINAL_VARIABLE_URL = "/v1/3rdsys/terminalVariables/batch/deletion";
 
-        public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
         {
 
         }
@@ -35,7 +52,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalParameterVariable>(validationErrs);
             }
-            RestRequest request = new RestRequest(GET_TERMINAL_VARIABLE_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_VARIABLE_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             if (orderBy != null) {
@@ -87,7 +104,7 @@ namespace Paxstore.OpenApi
                     temp.Value = SecurityHelper.EncryptPasswordParameter(temp.Value, ApiSecret);
                 }
             }
-            RestRequest request = new RestRequest(CREATE_TERMINAL_VARIABLE_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_VARIABLE_URL, Method.Post);
             var requestJson = JsonConvert.SerializeObject(terminalParameterVariableCreateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
@@ -111,7 +128,7 @@ namespace Paxstore.OpenApi
             if ("P".Equals(terminalVariableUpdateRequest.Type) && !string.IsNullOrEmpty(terminalVariableUpdateRequest.Value)) {
                 terminalVariableUpdateRequest.Value = SecurityHelper.EncryptPasswordParameter(terminalVariableUpdateRequest.Value, ApiSecret);
             }
-            RestRequest request = new RestRequest(UPDATE_TERMINAL_VARIABLE_URL, Method.PUT);
+            RestRequest request = new RestRequest(UPDATE_TERMINAL_VARIABLE_URL, Method.Put);
             var requestJson = JsonConvert.SerializeObject(terminalVariableUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             request.AddUrlSegment("terminalVariableId",terminalVariableId.ToString());
@@ -128,7 +145,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(DELETE_TERMINAL_VARIABLE_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_TERMINAL_VARIABLE_URL, Method.Delete);
             request.AddUrlSegment("terminalVariableId", terminalVariableId.ToString());
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -151,7 +168,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(BATCH_DELETION_TERMINAL_VARIABLE_URL, Method.POST);
+            RestRequest request = new RestRequest(BATCH_DELETION_TERMINAL_VARIABLE_URL, Method.Post);
             var requestJson = JsonConvert.SerializeObject(batchDeletionRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);

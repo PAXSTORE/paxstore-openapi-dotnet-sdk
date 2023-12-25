@@ -5,7 +5,10 @@ All the push terminal group apk to terminal related APIs are encapsulated in the
 **Constructors of TerminalGroupApkApi**
 
 ```
-public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret)
+public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**
@@ -72,6 +75,7 @@ Result<TerminalGroupApkInfo> result = api.GetTerminalGroupApk(17850, pidList);
 		},
 		"ApkVersionName": "10.3.8.30",
 		"FailedCount": 0,
+		"FilteredCount": 0,
 		"ActionStatus": 1,
 		"ApkPackageName": "com.baidu.tieba",
 		"PendingCount": 8,
@@ -101,18 +105,20 @@ The type of data is TerminalGroupApkInfo, the structure is like below.
 |PendingCount|Nullable\<int\>||
 |SuccessCount|Nullable\<int\>||
 |FailedCount|Nullable\<int\>||
+|FilteredCount|Nullable\<int\>||
 |GroupApkParam|TerminalGroupApkParamInfo|the structure like below|
 
 
 The structure of TerminalGroupApkParamInfo.
 
 | Name                 | Type               | Description                       |
-| :------------------- | :----------------- | :-------------------------------- |
+|:---------------------| :----------------- | :-------------------------------- |
 | ParamTemplateName    | string             |                                   |
 | ConfiguredParameters | Dictionary<string, string> | Configuration parameters in param |
 | PendingCount         | Nullable\<int\>                |                                   |
 | SuccessCount         | Nullable\<int\>                |                                   |
 | FailedCount          | Nullable\<int\>                |                                   |
+| FilteredCount        | Nullable\<int\>                |                                   |
 
 
 
@@ -183,12 +189,14 @@ Result<TerminalGroupApkInfo> result = api.SearchTerminalGroupApk(1,1, TerminalGr
 		"DataSet": [{
 		"GroupApkParam": {
 			"FailedCount": 0,
+			"FilteredCount": 0,
 			"PendingCount": 0,
 			"ParamTemplateName": "paramTemplate.xml",
 			"SuccessCount": 0
 		},
 		"ApkVersionName": "5.01.07",
 		"FailedCount": 0,
+		"FilteredCount": 0,
 		"ActionStatus": 0,
 		"ApkPackageName": "com.pax.android.demoapp",
 		"PendingCount": 0,
@@ -299,12 +307,14 @@ Result<TerminalGroupApkInfo> result = api.CreateAndActiveGroupApk(createRequest)
 	"Data": {
 		"GroupApkParam": {
 			"FailedCount": 0,
+			"FilteredCount": 0,
 			"PendingCount": 0,
 			"ParamTemplateName": "123 (3).xml",
 			"SuccessCount": 0
 		},
 		"ApkVersionName": "10.3.8.30",
 		"FailedCount": 0,
+		"FilteredCount": 0,
 		"ActionStatus": 0,
 		"ApkPackageName": "com.baidu.tieba",
 		"PendingCount": 0,
@@ -387,12 +397,14 @@ Result<TerminalGroupApkInfo> result = api.SuspendTerminalGroupApk(1743);
 	"Data": {
 		"GroupApkParam": {
 			"FailedCount": 0,
+			"FilteredCount": 0,
 			"PendingCount": 0,
 			"ParamTemplateName": "123 (3).xml",
 			"SuccessCount": 0
 		},
 		"ApkVersionName": "10.3.8.30",
 		"FailedCount": 0,
+		"FilteredCount": 0,
 		"ActionStatus": 0,
 		"ApkPackageName": "com.baidu.tieba",
 		"PendingCount": 0,

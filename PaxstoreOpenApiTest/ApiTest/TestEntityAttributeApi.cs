@@ -1,34 +1,31 @@
-﻿using log4net;
+﻿
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Model;
-using System;
+using Serilog;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Paxstore.OpenApi.EntityAttributeApi;
 
 namespace Paxstore.Test
 {
     [TestFixture()]
-    class TestEntityAttributeApi
+    class TestEntityAttributeApi : BaseTest
     {
-        private static ILog _logger = LogManager.GetLogger(typeof(TestTerminalApi));
+
         public static EntityAttributeApi API = new EntityAttributeApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
         [Test]
         public void TestGetEntityAttributeById() {
             Result<EntityAttribute> result = API.GetEntityAttribute(1);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
         public void TestSearchEntityAttribute() {
             Result<EntityAttribute> result = API.SearchEntityAttributes(1, 10, EntityAttributeSearchOrderBy.EntityType_asc, null, null);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
@@ -44,7 +41,7 @@ namespace Paxstore.Test
             request.DefaultLabel = "test";
 
             Result<EntityAttribute> result = API.CreateEntityAttribute(request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
@@ -56,7 +53,7 @@ namespace Paxstore.Test
             request.MinLength = 10;
             request.DefaultLabel = "ccdd";
             Result<EntityAttribute> result = API.UpdateEntityAttribute(4, request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
@@ -75,7 +72,7 @@ namespace Paxstore.Test
             labels.Add(label2);
             request.EntityAttributeLabelList = labels;
             Result<string>  result = API.UpdateEntityAttributeLabel(4, request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
 
         }
@@ -83,7 +80,7 @@ namespace Paxstore.Test
         [Test]
         public void TestDeleteEntityAttribute() {
             Result<string>  result = API.DeleteEntityAttribute(4);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 

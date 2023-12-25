@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using FluentValidation;
 using FluentValidation.Results;
@@ -27,7 +28,23 @@ namespace Paxstore.OpenApi {
 	    private const string TEMPLATE_NAME_DELIMITER = "|";
 	    private const int MAX_TEMPLATE_SIZE = 10;
 
-        public TerminalApkApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
         {
 
         }
@@ -39,7 +56,7 @@ namespace Paxstore.OpenApi {
                 return new Result<String>(validationErrs);
             }
 
-            RestRequest request = new RestRequest(CREATE_TERMINAL_APK_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_APK_URL, Method.Post);
 
             var terminalApkJson = JsonConvert.SerializeObject(createTerminalApkRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalApkJson, ParameterType.RequestBody);
@@ -59,7 +76,7 @@ namespace Paxstore.OpenApi {
             {
                 return new Result<PushApkHistory>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_APK_LIST_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_APK_LIST_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddParameter("terminalTid", terminalTid);
@@ -79,7 +96,7 @@ namespace Paxstore.OpenApi {
             {
                 return new Result<PushApkHistory>(validationErrs);
             }
-            RestRequest request = new RestRequest(GET_TERMINAL_APK_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_APK_URL, Method.Get);
             request.AddUrlSegment("terminalApkId", pushApkId);
             var responseContent = Execute(request);
             PushApkHistoryResponse apkPushHistoryResponse = JsonConvert.DeserializeObject<PushApkHistoryResponse>(responseContent);
@@ -124,7 +141,7 @@ namespace Paxstore.OpenApi {
         }
 
         private Result<string> SuspendApklPush(ApkPushInfo suspendApkPushRequest){
-            RestRequest request = new RestRequest(SUSPEND_TERMINAL_APK_URL, Method.POST);
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_APK_URL, Method.Post);
             var suspendApkPushRequestJson = JsonConvert.SerializeObject(suspendApkPushRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, suspendApkPushRequestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
@@ -170,7 +187,7 @@ namespace Paxstore.OpenApi {
         }
 
         private Result<string> UninstallTerminalApk(ApkPushInfo uninstallTerminalApkRequest){
-            RestRequest request = new RestRequest(UNINSTALL_TERMINAL_APK_URL, Method.POST);
+            RestRequest request = new RestRequest(UNINSTALL_TERMINAL_APK_URL, Method.Post);
             var uninstallApkRequestJson = JsonConvert.SerializeObject(uninstallTerminalApkRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, uninstallApkRequestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
@@ -184,7 +201,7 @@ namespace Paxstore.OpenApi {
             if(createTerminalApkRequest == null) {
                 validationErrs.Add(GetMsgByKey("parameterCreateTerminalApkRequestNull"));
             }else {
-                IValidator validator = new TerminalApkCreateValidator();
+                IValidator<CreateTerminalApkRequest> validator = new TerminalApkCreateValidator();
 
                 ValidationResult results = validator.Validate(createTerminalApkRequest);
                 if (!results.IsValid)

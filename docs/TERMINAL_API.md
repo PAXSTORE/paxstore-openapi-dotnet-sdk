@@ -7,7 +7,10 @@ All the terminal APIs are in the class *Paxstore.OpenApi.TerminalApi*.
 **Constructors of TerminalApi**
 
 ```
-public TerminalApi(string baseUrl, string apiKey, string apiSecret)
+public TerminalApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**
@@ -1312,3 +1315,180 @@ Result<string> result = terminalApi.PushCmdToTerminal(terminalId, TerminalPushCm
 | 15096         | The terminal is being locked or unlocked |             |
 | 15099         | Terminal restart in progress             |             |
 
+
+## Copy a terminal
+
+Copy terminal API allows the thirdparty system to copy a terminal by origin terminal id.
+
+**API**
+
+```
+public Result<Terminal> CopyTerminal(TerminalCopyRequest terminalCopyRequest)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name      | Type                | Nullable | Description                                              |
+| :------------------ | :------------------ | :------- | :------------------------------------------------------- |
+| terminalCopyRequest | TerminalCopyRequest | false    | copy terminal request object. The structure shows below. |
+
+Structure of class TerminalCopyRequest
+
+| Property Name | Type   | Nullable | Description                                                  |
+| :------------ | :----- | :------- | :----------------------------------------------------------- |
+| TerminalId    | long   | false    | The  id of terminal                                          |
+| Name          | string | false    | The name of terminal, max length is 64.                      |
+| TID           | string | true     | The tid of terminal. If it is empty system will generate a tid when creating. And the length range is from 8 to 16. |
+| SerialNo      | string | true     | The serial number of terminal. If the status is active the serial number is mandatory. |
+| Status        | string | false    | Status of terminal, value can be one of A and P(Pendding). A is for active and P is for Pendding |
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+TerminalCopyRequest copyRequest = new TerminalCopyRequest();
+copyRequest.TerminalId = 13453434534;
+copyRequest.Name = "COPY_FROM_13453434534";
+copyRequest.SerialNo = "TJ0000002";
+copyRequest.Status = "A";
+Result<Terminal> copyResult = terminalApi.CopyTerminal(copyRequest);
+```
+
+**Client validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": -1,
+	"validationErrors": ["Parameter terminalCopyRequest cannot be null!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 1800,
+	"message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+	"Data": {
+	    "ID": 1510297435111460,
+	    "Name": "COPY_FROM_909822",
+	    "TID": "HSZG4FTS",
+	    "SerialNo": "TJ00001002",
+	    "Status": "A",
+	    "MerchantName": "TESTpukMerchant",
+	    "ModelName": "A930",
+	    "ResellerName": "shifan",
+	    "Location": "",
+	    "Remark": "324324223",
+	    "CreatedDate": 1666850737890,
+	    "LastActiveTime": 1666850736044
+	}
+}
+```
+
+**Possible client validation errors**
+
+> <font color=red>Parameter terminalCopyRequest cannot be null!</font>
+
+**Possible business codes**
+
+| Business Code | Message                    | Description |
+| :------------ | :------------------------- | :---------- |
+| 1800          | Terminal not found         |             |
+| 1817          | Terminal name is mandatory |             |
+| 1818          | Terminal name is too long  |             |
+| 1828          | TID already used           |             |
+
+
+
+### Get terminal network information
+
+Get terminal network information, SDK provides 2 APIs to get terminal network information. 
+APIs like below.
+
+**API**
+
+```
+public Result<TerminalNetworkInfo> GetTerminalNetowrkInfoBySN(string serialNo)  
+public Result<TerminalNetworkInfo> GetTerminalNetworkInfoByTid(string tid)
+```
+
+
+**Sample codes**
+
+```
+TerminalApi terminalApi = new TerminalApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+Result<TerminalNetworkInfo> result = terminalApi.GetTerminalNetowrkInfoBySN("TEST8000999");
+```
+
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"businessCode": 2028,
+	"message": "Terminal not found"
+}
+```
+
+**Successful sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 0,
+	"Message": null,
+	"ValidationErrors": null,
+	"Data": {
+		"TID": "PAX4647985529591",
+		"SerialNo": "TEST8000999",
+		"Status": "A",
+		"Battery": 60.0,
+		"OnlineStatus": 2,
+		"Network": "NETWORK_WIFI",
+		"macAddress": "F4:02:23:E6:D1:E2",
+		"ID": 1584958372053029
+	},
+	"PageInfo": null,
+	"RateLimit": "3000",
+	"RateLimitRemain": "2999",
+	"RateLimitReset": "1702867114749"
+}
+```
+
+The type in dataSet of result is TerminalDTO. The structure shows below.
+
+Structure of class TerminalNetworkDTO
+
+| Property Name | Type    | Description                                                  |
+| :------------ | :------ | :----------------------------------------------------------- |
+| id            | Long    | Terminal's id.                                               |
+| tid           | String  | Terminal's tid.                                              |
+| serialNo      | String  | Terminal's serialNo.                                         |
+| status        | String  | Terminal's status.<br/> the value can be TerminalStatus.Active, TerminalStatus.Inactive, TerminalStatus.Suspend |
+| battery       | Float   | Terminal's battery.                                          |
+| onlineStatus  | Integer | Terminal's online status.<br/> the value can be 0,1,2.<br/>0 represents unknown, 1 represents offline, and 2 represents online |
+| network       | String  | Terminal's network status.<br/>the value can be NETWORK_WIFI, NETWORK_5G,NETWORK_4G,NETWORK_3G,NETWORK_2G,<br/>NETWORK_ETHERNET,NETWORK_UNKNOWN |
+| macAddress    | String  | Terminal's MAC address info.                                 |
+
+
+
+**Possible client validation errors**
+
+> <font color=red>The property serialNo and tid in request cannot be blank at same time! !</font>
+
+**Possible business codes**
+
+| Business Code | Message                    | Description |
+| :------------ | :------------------------- | :---------- |
+| 2028          | Terminal not found         |             |
+| 2039          | Tid mismatch with serialNo |             |
+
+### 

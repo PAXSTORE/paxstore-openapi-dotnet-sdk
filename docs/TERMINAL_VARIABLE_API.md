@@ -7,7 +7,10 @@ All the related Variable APIs are encapsulated in the class *Paxstore.OpenApi.Te
 **Constructors of TerminalApkParameter**
 
 ```
-public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret);
+public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalVariableApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**
@@ -144,13 +147,13 @@ Structure of class TerminalParameterVariableCreateRequest
 
 Structure of class ParameterVariable
 
-| Property Name | Type   | Nullable | Description             |
-| :------------ | :----- | :------- | :---------------------- |
-| PackageName   | string | false    | The app package name    |
-| Type          | string | true     | Terminal variable type, T(text) or P(password) |
-| Key           | string | false     | Terminal variable key   |
-| Value         | string | true     | Terminal variable value |
-| Remarks       | string | false    | Comment                 |
+| Property Name | Type   | Nullable | Description                                                                                |
+| :------------ | :----- | :------- |:-------------------------------------------------------------------------------------------|
+| PackageName   | string | false    | The app package name                                                                       |
+| Type          | string | true     | Terminal variable type, T(text) or P(password), when it is empty, the default value is "T" |
+| Key           | string | false     | Terminal variable key                                                                      |
+| Value         | string | true     | Terminal variable value                                                                    |
+| Remarks       | string | false    | Comment                                                                                    |
 
 **Sample codes**
 
@@ -243,13 +246,13 @@ public Result<string> UpdateTerminalVariable(long terminalVariableId, TerminalVa
 
 Structure of class ParameterVariable
 
-| Property Name | Type                | Nullable | Description                                              |
-| :------------ | :------------------ | :------- | :------------------------------------------------------- |
-| PackageName   | string              | false    | The name of param template                               |
-| Type          | string              | true     | Terminal variable type, T(text) or P(password) |
-| Key           | string              | false    | Terminal variable key                                    |
-| Value         | string              | true     | Terminal variable value                                  |
-| Remarks       | string              | true     | Comment                                                  |
+| Property Name | Type                | Nullable | Description                                                                                |
+| :------------ | :------------------ | :------- |:-------------------------------------------------------------------------------------------|
+| PackageName   | string              | false    | The name of param template                                                                 |
+| Type          | string              | true     | Terminal variable type, T(text) or P(password), when it is empty, the default value is "T" |
+| Key           | string              | false    | Terminal variable key                                                                      |
+| Value         | string              | true     | Terminal variable value                                                                    |
+| Remarks       | string              | true     | Comment                                                                                    |
 
 Note: parameterVariable cannot be empty
 

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -25,14 +26,13 @@ namespace Paxstore.OpenApi.Help
         public static byte[] GetMD5(string str)
         {
 
-            MD5 md5 = new MD5CryptoServiceProvider();
+            MD5 md5 = MD5.Create();
             byte[] result = md5.ComputeHash(System.Text.Encoding.Default.GetBytes(str));
             byte[] result2 = new byte[result.Length];
             for (int i = 0; i < result.Length; i++)
             {
                 if (result[i] > 128)
                 {
-                    int a = result[i] - 256;
                     result2[i] = (byte)(result[i] - 256);
                 }
                 else

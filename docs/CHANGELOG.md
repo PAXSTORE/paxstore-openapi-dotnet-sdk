@@ -1,5 +1,22 @@
 # Changelog  
 
+## 9.2.0  
+### New Feature  
+* TerminalApi supports get terminal network information
+* TerminalApi supports copy a exist terminal
+* Support specify model name as filter when search application
+* Add MerchantVariableApi which includes merchant variable related opertions
+* Thirdparty dependencies are updated, netlog was changed to Serilog 3.1.1. FluentValidation was updated to 11.8.0. Newtonsoft.Json was updated to 13.0.3. RestSharp was updated to 110.2.0
+
+### Bug Fix
+* Some errors in the document were updated.
+
+### Breaking Changes
+* TargetFrameworks was updated to netstandard2.0;netstandard2.1;net6.0;net462;net471. Please check the compatibility before update SDK.
+* Proxy setting was add to the constructor parameters instead of separate method.
+* Separate methods to set connectionTimeoutTime and readWriteTimeoutTime were removed. Please use constructor parameter 'timeout' to set the request timeout value. The default value is 5000 miliseconds. 
+
+
 ## 8.6.0
 ### Improvement
 * The fields such as effectiveTime and expiredTime are added respectively for terminal and group push related tasks.

@@ -8,7 +8,10 @@ User can customize the additional attributes for reseller. To add/delete/update 
 **Constructors of ResellerApi**
 
 ```
-public ResellerApi(string baseUrl, string apiKey, string apiSecret)
+public ResellerApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public ResellerApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public ResellerApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public ResellerApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

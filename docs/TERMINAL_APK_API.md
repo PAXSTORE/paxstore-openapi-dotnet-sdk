@@ -5,7 +5,10 @@ All the terminalApk related APIs are encapsulated in the class *Paxstore.OpenApi
 **Constructors of TerminalApkApi**
 
 ```
-public TerminalApkApi(string baseUrl, string apiKey, string apiSecret)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

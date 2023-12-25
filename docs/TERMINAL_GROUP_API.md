@@ -5,7 +5,10 @@ All APIs related to terminal grouping operations are encapsulated in the class *
 **Constructors of TerminalGroupApi**
 
 ```
-public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret)
+public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

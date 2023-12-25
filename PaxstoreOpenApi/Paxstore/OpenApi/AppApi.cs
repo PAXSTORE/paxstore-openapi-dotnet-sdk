@@ -5,10 +5,7 @@ using Paxstore.OpenApi.Model;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace Paxstore.OpenApi
 {
@@ -16,52 +13,39 @@ namespace Paxstore.OpenApi
     {
         private const string SEARCH_APP_URL = "/v1/3rdsys/apps";
 
-        public AppApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret){
-
-        }
-
-
-        public Result<PagedApp> SearchApp(
-            int pageNo, int pageSize, Nullable<AppSearchOrderBy> orderBy,
-            String name,
-            Nullable<AppOsType> osType,
-            Nullable<AppChargeType> chargeType,
-            Nullable<AppBaseType> baseType,
-            Nullable<AppStatus> appStatus,
-            Nullable<ApkStatus> apkStatus,
-            Nullable<bool> specificReseller,
-            Nullable<bool> specificMerchantCategory)
+        public AppApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
         {
-            return SearchApp(pageNo, pageSize, orderBy, name, osType, chargeType, baseType, appStatus, apkStatus, specificReseller, specificMerchantCategory, false);
+
         }
 
-        public Result<PagedApp> SearchApp(
-            int pageNo, int pageSize, Nullable<AppSearchOrderBy> orderBy,
-            String name,
-            Nullable<AppOsType> osType,
-            Nullable<AppChargeType> chargeType,
-            Nullable<AppBaseType> baseType,
-            Nullable<AppStatus> appStatus,
-            Nullable<ApkStatus> apkStatus,
-            Nullable<bool> specificReseller,
-            Nullable<bool> specificMerchantCategory,
-            bool includeSubscribedApp) 
-            {
-                return SearchApp(pageNo, pageSize, orderBy, name, osType, chargeType, baseType, appStatus, apkStatus, specificReseller, specificMerchantCategory, includeSubscribedApp, null);
-            }
+        public AppApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
 
+        }
+
+        public AppApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public AppApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
+
+        }
+        
         public Result<PagedApp> SearchApp(
             int pageNo, int pageSize, Nullable<AppSearchOrderBy> orderBy,
-                String name,
-                Nullable<AppOsType> osType,
-                Nullable<AppChargeType> chargeType,
-                Nullable<AppBaseType> baseType,
-                Nullable<AppStatus> appStatus,
-                Nullable<ApkStatus> apkStatus,
-                Nullable<bool> specificReseller,
-                Nullable<bool> specificMerchantCategory,
-                bool includeSubscribedApp,
-                String resellerName)
+                string name,
+                AppOsType? osType,
+                AppChargeType? chargeType,
+                AppBaseType? baseType,
+                AppStatus? appStatus,
+                ApkStatus? apkStatus,
+                bool? specificReseller = false,
+                bool? specificMerchantCategory = false,
+                bool? includeSubscribedApp = false,
+                string resellerName = null,
+                string modelName = null)
         {
 
             IList<string> validationErrs = ValidatePageSizeAndPageNo(pageSize, pageNo);
@@ -69,7 +53,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<PagedApp>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_APP_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_APP_URL, Method.Get);
 
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
@@ -111,10 +95,17 @@ namespace Paxstore.OpenApi
             {
                 request.AddParameter("specificMerchantCategory", specificMerchantCategory.ToString());
             }
-            request.AddParameter("includeSubscribedApp", includeSubscribedApp.ToString());
+            if(includeSubscribedApp != null) {
+                request.AddParameter("includeSubscribedApp", includeSubscribedApp.ToString());
+            }
+
             if (!string.IsNullOrWhiteSpace(resellerName))
             {
                 request.AddParameter("resellerName", resellerName.Trim());
+            }
+            if (!string.IsNullOrWhiteSpace(modelName))
+            {
+                request.AddParameter("modelName", modelName.Trim());
             }
 
             var responseContent = Execute(request);

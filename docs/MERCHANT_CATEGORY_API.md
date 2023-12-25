@@ -8,7 +8,10 @@ All the merchant APIs are in the class *Paxstore.OpenApi.MerchantCategoryApi*.
 **Constructors of MerchantCategoryApi**
 
 ```
-public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret)
+public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 Constructor parameters description   
