@@ -257,6 +257,16 @@ namespace Paxstore.Test
             Result<Terminal> copyResult = terminalApi.CopyTerminal(copyRequest);
         }
 
+        [Test]
+        public void testgetterminal() {
+            for (int i = 0; i < 3; i++) {
+                Result<Terminal> result = API.GetTerminal(111);
+                Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
+            }
+           
+
+        }
+
     }
 
     

@@ -111,12 +111,24 @@ namespace Paxstore.OpenApi.Base
             Log.Debug("Response Content=\n{0}", response.Content);
             IEnumerable<HeaderParameter> headers = response.Headers;
             HttpStatusCode responseStatus = response.StatusCode;
-
-            if (((HttpStatusCode.OK.Equals(responseStatus) || HttpStatusCode.Created.Equals(responseStatus) ||
-                 HttpStatusCode.BadRequest.Equals(responseStatus) ||
-                    HttpStatusCode.InternalServerError.Equals(responseStatus) || HttpStatusCode.Forbidden.Equals(responseStatus)) ) || HttpStatusCode.NoContent.Equals(responseStatus))
+            if (HttpStatusCode.BadGateway.Equals(responseStatus)) {
+                JObject result = new JObject();
+                result.Add("BusinessCode", 502);
+                result.Add("Message", "Bad gateway!");
+                return result.ToString();
+            } else if(HttpStatusCode.GatewayTimeout.Equals(responseStatus)) {
+                JObject result = new JObject();
+                result.Add("BusinessCode", 502);
+                result.Add("Message", "Gateway timeout!");
+                return result.ToString();
+            } else if (HttpStatusCode.OK.Equals(responseStatus) 
+                || HttpStatusCode.Created.Equals(responseStatus) 
+                || HttpStatusCode.BadRequest.Equals(responseStatus)
+                || HttpStatusCode.InternalServerError.Equals(responseStatus)
+                || HttpStatusCode.Forbidden.Equals(responseStatus)
+                || HttpStatusCode.NoContent.Equals(responseStatus)
+                || "429".Equals(responseStatus.ToString()))
             {
-                
                 return HandleRateLimitHeader(headers, response.Content, response.ContentType);
             }
             else
@@ -158,19 +170,18 @@ namespace Paxstore.OpenApi.Base
             HttpStatusCode responseStatus = response.StatusCode;
             if (HttpStatusCode.NotFound.Equals(responseStatus))
             {
-                if (!string.IsNullOrEmpty(response.Content) && response.Content.Contains("businessCode")) {
+                if (!string.IsNullOrEmpty(response.Content) && response.Content.Contains("businessCode"))
+                {
                     return response.Content;
                 }
-                else {
+                else
+                {
                     return GenSdkRequestErrorJson(-2, GetMsgByKey("msg_16111"));
                 }
-                
-            }
-            else if (HttpStatusCode.RequestTimeout.Equals(responseStatus))
-            {
+
+            } else if (HttpStatusCode.RequestTimeout.Equals(responseStatus)) {
                 return GenSdkRequestErrorJson(-3, GetMsgByKey("msg_16104"));
-            }
-            else
+            } else
             {
                 return GenSdkRequestErrorJson(-4, string.IsNullOrWhiteSpace(response.ErrorMessage) ? GetMsgByKey("msg_16000") : response.ErrorMessage);
             }

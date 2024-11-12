@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net462;net471</TargetFrameworks>
 
     <PackageId>Paxstore.OpenApi</PackageId>
-    <Version>8.6.0</Version>
+    <Version>9.2.0</Version>
 	<RootNamespace>Paxstore.OpenApi</RootNamespace>
     <Authors>Pax</Authors>
     <Company>Pax</Company>
