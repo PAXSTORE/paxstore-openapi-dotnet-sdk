@@ -22,6 +22,9 @@
 * The fields such as effectiveTime and expiredTime are added respectively for terminal and group push related tasks.
 * Search terminals API is updated, add resellerName and merchantName parameters.
 
+### Breaking Changes
+* The original methods of timeout setting and proxy setting are not supported. Both timeout and proxy setting are moved to the API constructor. Please refer to the API document.
+
 
 ## 8.5.0  
 ### Improvement  
