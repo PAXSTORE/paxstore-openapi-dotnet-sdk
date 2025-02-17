@@ -51,5 +51,8 @@ namespace Paxstore.OpenApi.Model
         [JsonProperty("errorCode")]
         public int ErrorCode { get; set; }
 
+        [JsonProperty("terminalApkParam")]
+        public TerminalApkParamPushInfo TerminalApkParam { get; set; }
+
     }
 }
