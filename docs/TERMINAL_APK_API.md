@@ -236,7 +236,7 @@ The type in dataSet is PushApkHistory. And the structure like below.
 |activatedDate|long||
 |forceUpdate|Boolean|whether to force the apk to update|
 |wifiOnly|Boolean|whether the APK is push only when the terminal is connected to the WIFI network|
-|effectiveTime|long|the serialNo of terminal|
+|effectiveTime|long||
 |expiredTime|long||
 |actionTime|long||
 |status|string|the status of this push, for the possible values please refer to table Possible action status|
