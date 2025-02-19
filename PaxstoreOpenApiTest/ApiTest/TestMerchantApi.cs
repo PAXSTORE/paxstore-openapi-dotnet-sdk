@@ -1,47 +1,42 @@
-﻿using log4net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
+
 
 namespace Paxstore.Test
 {
     [TestFixture()]
-    class TestMerchantApi
+    class TestMerchantApi : BaseTest
     {
-        private static ILog _logger = LogManager.GetLogger(typeof(TestMerchantApi));
         public static MerchantApi API = new MerchantApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
         [Test]
         public void TestSearchMerchantAll() {
             Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.Name, "haoxy_test", MerchantStatus.All);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
         public void TestGetMerchantInvalidId() {
             Result<Merchant> result = API.GetMerchant(0);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
         }
 
         [Test]
         public void TestGetMerchantNotExist() {
             Result<Merchant> result = API.GetMerchant(1);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 1720);
         }
 
         [Test]
         public void TestCreateMerchantNull() {
             Result<Merchant> result = API.CreateMerchant(null);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
         }
 
@@ -49,7 +44,7 @@ namespace Paxstore.Test
         public void TestCreateMerchantInvalid() {
             MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
             Result<Merchant> result = API.CreateMerchant(merchantCreateRequest);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
         }
 
@@ -69,7 +64,7 @@ namespace Paxstore.Test
             merchantCreateRequest.Description = "商户好人民间";
             merchantCreateRequest.Phone = "0512-59564515";
             Result<Merchant> result = API.CreateMerchant(merchantCreateRequest);
-            _logger.DebugFormat("Create Merchant Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Create Merchant Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
             long merchantId = result.Data.ID;
 
@@ -82,7 +77,7 @@ namespace Paxstore.Test
             merchantUpdateRequest.Description = "商户好人民间";
             merchantUpdateRequest.Phone = "0512-88889999";
             Result<Merchant> updateResult = API.UpdateMerchant(merchantId, merchantUpdateRequest);
-            _logger.DebugFormat("Update Merchant Result=\n{0}", JsonConvert.SerializeObject(updateResult));
+            Log.Debug("Update Merchant Result=\n{0}", JsonConvert.SerializeObject(updateResult));
             Assert.AreEqual(updateResult.BusinessCode, 0);
 
             //Assert.AreEqual(updateResult.Data.Contact, "haoren2");
@@ -117,7 +112,7 @@ namespace Paxstore.Test
             merchantUpdateRequest.Description = "商户好人民间";
             merchantUpdateRequest.Phone = "0512-88889999";
             Result<Merchant> updateResult = API.UpdateMerchant(1000000, merchantUpdateRequest);
-            _logger.DebugFormat("Update Merchant Result=\n{0}", JsonConvert.SerializeObject(updateResult));
+            Log.Debug("Update Merchant Result=\n{0}", JsonConvert.SerializeObject(updateResult));
             Assert.AreEqual(updateResult.BusinessCode, -1);
         }
 

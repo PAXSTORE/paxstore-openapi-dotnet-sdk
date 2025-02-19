@@ -35,5 +35,7 @@ namespace Paxstore.OpenApi.Model
         public List<TerminalAccessory> TerminalAccessoryList { get; set; }
 
         public Nullable<long> CreatedDate { get; set; }
+
+        public Nullable<long> LastActiveTime { get; set; }
     }
 }

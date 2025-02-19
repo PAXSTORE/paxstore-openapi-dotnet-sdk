@@ -6,6 +6,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,23 @@ namespace Paxstore.OpenApi
         private const string GET_TERMINAL_RKI_KEY_URL = "/v1/3rdsys/terminalRkis/{terminalRkiId}";
         private const string SUSPEND_TERMINAL_RKI_KEY_URL = "/v1/3rdsys/terminalRkis/suspend";
 
-        public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
         {
 
         }
@@ -30,7 +47,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalRkiTaskInfo>(validationErrs);
             }
-            RestRequest request = new RestRequest(CREATE_TERMINAL_RKI_KEY_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_RKI_KEY_URL, Method.Post);
             var requestBodyJson = JsonConvert.SerializeObject(pushRki2TerminalRequest);
 
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyJson, ParameterType.RequestBody);
@@ -64,7 +81,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalRkiTaskInfo>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_RKI_KEY_LIST_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_RKI_KEY_LIST_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             if (orderBy != null) {
@@ -83,7 +100,7 @@ namespace Paxstore.OpenApi
         }
 
         public Result<TerminalRkiTaskInfo> GetPushRkiTask(long pushRkiTaskId){
-            RestRequest request = new RestRequest(GET_TERMINAL_RKI_KEY_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_RKI_KEY_URL, Method.Get);
             request.AddUrlSegment("terminalRkiId", pushRkiTaskId.ToString());
             var responseContent = Execute(request);
             PushRkiKey2TerminalResponse response = JsonConvert.DeserializeObject<PushRkiKey2TerminalResponse>(responseContent);
@@ -99,7 +116,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(SUSPEND_TERMINAL_RKI_KEY_URL, Method.POST);
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_RKI_KEY_URL, Method.Post);
             var requestBodyJson = JsonConvert.SerializeObject(disablePushRkiTaskRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestBodyJson, ParameterType.RequestBody);
             var responseContent = Execute(request);

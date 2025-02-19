@@ -14,10 +14,10 @@ namespace Paxstore.OpenApi{
 
         public const int MAX_PAGE_SIZE = 100;
 
-        public const string CONTENT_TYPE_JSON = "application/json; charset=utf-8";
+        public const string CONTENT_TYPE_JSON = "application/json";
 
         public const string THIRD_PARTY_API_SDK_LANGUAGE = "DOTNET";
-        public const string THIRD_PARTY_API_SDK_VERSION = "8.6.0";
+        public const string THIRD_PARTY_API_SDK_VERSION = "9.2.1";
         public const string REQ_HEADER_SDK_LANG = "SDK-Language";
         public const string REQ_HEADER_SDK_VERSION = "SDK-Version";
         public const string TIME_ZONE = "Time-Zone";

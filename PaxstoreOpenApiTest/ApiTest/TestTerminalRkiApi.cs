@@ -1,43 +1,46 @@
-﻿using log4net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Model;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Paxstore.Test
 {
 
     [TestFixture()]
-    class TestTerminalRkiApi
+    class TestTerminalRkiApi : BaseTest
     {
-        private static ILog _logger = LogManager.GetLogger(typeof(TestResellerApi));
         public static TerminalRkiApi API = new TerminalRkiApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
+        public static TerminalApi TerminalAPI = new TerminalApi(TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
         [Test]
         public void TestPushRkiKey() {
+            Result<Terminal> terminals = TerminalAPI.SearchTerminal(1, 1, TerminalSearchOrderBy.SerialNo, TerminalStatus.Active, null);
+            Assert.AreEqual(terminals.BusinessCode, 0);
+            Assert.IsTrue(terminals.PageInfo.TotalCount > 1);
+            string sn = terminals.PageInfo.DataSet[0].SerialNo;
             PushRki2TerminalRequest request = new PushRki2TerminalRequest();
-            request.SerialNo = "TEST999";
+            request.SerialNo = sn;
             request.RkiKey = "acd";
+            request.EffectiveTime = DateTime.Now.AddDays(1);
             Result<TerminalRkiTaskInfo> result = API.PushRkiKey2Terminal(request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Assert.AreEqual(result.BusinessCode, 0);
         }
 
         [Test]
         public void TestSearchTask() {
             Result<TerminalRkiTaskInfo>  result = API.SearchPushRkiTasks(1, 10, SearchOrderBy.CreatedDate_asc,
                                                                    "ddd", null, PushStatus.All);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
         }
 
         [Test]
         public void TestGetPushRkiTask() {
             Result<TerminalRkiTaskInfo>  result = API.GetPushRkiTask(100);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
         }
 
         [Test]
@@ -46,7 +49,7 @@ namespace Paxstore.Test
             request.RkiKey = "acd";
             request.SerialNo = "232320";
             Result<string> result = API.DisablePushRkiTask(request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
         }
     }
 }

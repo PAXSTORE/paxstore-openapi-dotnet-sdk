@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Net;
 using Newtonsoft.Json;
 using Paxstore.OpenApi.Base;
 using Paxstore.OpenApi.Model;
@@ -16,13 +18,29 @@ namespace Paxstore.OpenApi
 	    private const string BATCH_CREATE_CATEGORY_URL = "/v1/3rdsys/merchantCategories/batch";
 	    private const int MAX_LENGTH_CATEGORY_NAME = 128;
 	    private const int MAX_LENGTH_CATEGORY_REMARKS = 255;
-        public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public MerchantCategoryApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
         {
 
         }
 
         public Result<List<MerchantCategory>> GetMerchantCategories(string name) {
-            RestRequest request = new RestRequest(GET_CATEGORIES_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_CATEGORIES_URL, Method.Get);
             request.AddParameter("name", name);
             var responseContent = Execute(request);
             MerchantCategoryListResponse categoryList = JsonConvert.DeserializeObject<MerchantCategoryListResponse>(responseContent);
@@ -35,7 +53,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0){
                 return new Result<MerchantCategory>(validationErrs);
             }
-            RestRequest request = new RestRequest(CREATE_CATEGORY_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_CATEGORY_URL, Method.Post);
             var merchantCategoryJson = JsonConvert.SerializeObject(merchantCategoryCreateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantCategoryJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
@@ -49,7 +67,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0){
                 return new Result<MerchantCategory>(validationErrs);
             }
-            RestRequest request = new RestRequest(UPDATE_CATEGORY_URL, Method.PUT);
+            RestRequest request = new RestRequest(UPDATE_CATEGORY_URL, Method.Put);
             var merchantCategoryJson = JsonConvert.SerializeObject(merchantCategoryUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantCategoryJson, ParameterType.RequestBody);
             request.AddUrlSegment("merchantCategoryId",merchantCategoryId);
@@ -64,7 +82,7 @@ namespace Paxstore.OpenApi
             if (validationErrs.Count > 0){
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(DELETE_CATEGORY_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_CATEGORY_URL, Method.Delete);
             request.AddUrlSegment("merchantCategoryId",merchantCategoryId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -77,7 +95,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0) {
                 return new Result<List<MerchantCategory>>(validationErrs);
             }
-            RestRequest request = new RestRequest(BATCH_CREATE_CATEGORY_URL, Method.POST);
+            RestRequest request = new RestRequest(BATCH_CREATE_CATEGORY_URL, Method.Post);
             request.AddParameter("skipExist",skipExist, ParameterType.QueryString);
 
             var merchantCategoryJson = JsonConvert.SerializeObject(merchantCategoryBatchCreateRequest);

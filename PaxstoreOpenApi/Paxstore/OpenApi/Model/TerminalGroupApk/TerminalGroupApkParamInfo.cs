@@ -13,5 +13,6 @@ namespace Paxstore.OpenApi.Model
         public Nullable<int> PendingCount { get; set; }
         public Nullable<int> SuccessCount { get; set; }
         public Nullable<int> FailedCount { get; set; }
+        public Nullable<int> FilteredCount {get; set; }
     }
 }

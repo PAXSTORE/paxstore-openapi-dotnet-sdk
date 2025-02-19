@@ -7,6 +7,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,14 +23,31 @@ namespace Paxstore.OpenApi
 
         
 
-        public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
         {
 
         }
 
+        public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalGroupApkApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
+
+        }
+
+
         public Result<TerminalGroupApkInfo> GetTerminalGroupApk(long groupApkId, List<string> pidList)
         {
-            RestRequest request = new RestRequest(GET_TERMINAL_GROUP_APK_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_GROUP_APK_URL, Method.Get);
             request.AddUrlSegment("groupApkId", groupApkId.ToString());
             if (pidList != null && pidList.Count > 0) {
                 string pids = string.Join(",", pidList);
@@ -48,7 +66,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalGroupApkInfo>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_GROUP_APK_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_GROUP_APK_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             if (orderBy != null) {
@@ -79,7 +97,7 @@ namespace Paxstore.OpenApi
                 return new Result<TerminalGroupApkInfo>(validationErrs);
             }
 
-            RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_APK_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_APK_URL, Method.Post);
             var requestJson = JsonConvert.SerializeObject(createTerminalGroupApkRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             string responseContent = Execute(request);
@@ -93,7 +111,7 @@ namespace Paxstore.OpenApi
 
         public Result<TerminalGroupApkInfo> SuspendTerminalGroupApk(long groupApkId)
         {
-            RestRequest request = new RestRequest(SUSPEND_TERMINAL_GROUP_APK_URL, Method.POST);
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_GROUP_APK_URL, Method.Post);
             request.AddUrlSegment("groupApkId", groupApkId.ToString());
             string responseContent = Execute(request);
             TerminalGroupApkResponse terminalGroupApkResponse = JsonConvert.DeserializeObject<TerminalGroupApkResponse>(responseContent);
@@ -103,7 +121,7 @@ namespace Paxstore.OpenApi
 
         public Result<string> DeleteTerminalGroupApk(long groupApkId)
         {
-            RestRequest request = new RestRequest(DELETE_TERMINAL_GROUP_APK_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_TERMINAL_GROUP_APK_URL, Method.Delete);
             request.AddUrlSegment("groupApkId",groupApkId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);

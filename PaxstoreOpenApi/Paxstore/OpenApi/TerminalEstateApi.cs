@@ -5,6 +5,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,23 @@ namespace Paxstore.OpenApi
     {
         private const string VERIFY_ESTATE_URL = "/v1/3rdsys/estates/verify/{serialNo}";
 
-        public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
         {
 
         }
@@ -29,7 +46,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(VERIFY_ESTATE_URL, Method.GET);
+            RestRequest request = new RestRequest(VERIFY_ESTATE_URL, Method.Get);
             request.AddUrlSegment("serialNo", serialNo);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);

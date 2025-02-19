@@ -6,6 +6,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +28,24 @@ namespace Paxstore.OpenApi
         private const string ADD_TERMINAL_IN_GROUP_URL = "/v1/3rdsys/terminalGroups/{groupId}/terminals";
         private const string REMOVE_TERMINAL_OUT_GROUP_URL = "/v1/3rdsys/terminalGroups/{groupId}/terminals";
 
-        public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret){
+        public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalGroupApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
 
         }
 
@@ -38,7 +56,7 @@ namespace Paxstore.OpenApi
             if (validationErrs.Count > 0){
                 return new Result<TerminalGroup>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_GROUP_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_GROUP_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             if (orderBy != null) {
@@ -60,7 +78,7 @@ namespace Paxstore.OpenApi
             }
             if (isDynamic != null)
             {
-                request.AddParameter("isDynamic", isDynamic);
+                request.AddQueryParameter("isDynamic", isDynamic.Value);
             }
             string responseContent = Execute(request);
             TerminalGroupPageResponse terminalGroupPageResponse = JsonConvert.DeserializeObject<TerminalGroupPageResponse>(responseContent);
@@ -70,7 +88,7 @@ namespace Paxstore.OpenApi
 
         public Result<TerminalGroup> GetTerminalGroup(long groupId)
         {
-            RestRequest request = new RestRequest(GET_TERMINAL_GROUP_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_GROUP_URL, Method.Get);
             request.AddUrlSegment("groupId", groupId.ToString());
             string responseContent = Execute(request);
             TerminalGroupResponse resp = JsonConvert.DeserializeObject<TerminalGroupResponse>(responseContent);
@@ -85,7 +103,7 @@ namespace Paxstore.OpenApi
                 validationErrs.Add(GetMsgByKey("parameterCreateTerminalGroupRequestNull"));
                 return new Result<TerminalGroup>(validationErrs);
             }
-            RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_URL, Method.Post);
             var requestJson = JsonConvert.SerializeObject(createTerminalGroupRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             string responseContent = Execute(request);
@@ -102,7 +120,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<Terminal>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             if (orderBy != null)
@@ -130,7 +148,7 @@ namespace Paxstore.OpenApi
             }
             if (excludeGroupId != null)
             {
-                request.AddParameter("excludeGroupId", excludeGroupId);
+                request.AddQueryParameter("excludeGroupId", excludeGroupId.Value);
             }
             string responseContent = Execute(request);
             TerminalPageResponse terminalPageResponse = JsonConvert.DeserializeObject<TerminalPageResponse>(responseContent);
@@ -147,7 +165,7 @@ namespace Paxstore.OpenApi
                 validationErrs.Add(GetMsgByKey("parameterUpdateTerminalGroupRequestNull"));
                 return new Result<TerminalGroup>(validationErrs);
             }
-            RestRequest request = new RestRequest(UPDATE_TERMINAL_GROUP_URL, Method.PUT);
+            RestRequest request = new RestRequest(UPDATE_TERMINAL_GROUP_URL, Method.Put);
             request.AddUrlSegment("groupId", groupId.ToString());
             var requestJson = JsonConvert.SerializeObject(updateTerminalGroupRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
@@ -159,7 +177,7 @@ namespace Paxstore.OpenApi
 
         public Result<string> ActiveGroup(long groupId)
         {
-            RestRequest request = new RestRequest(ACTIVE_TERMINAL_GROUP_URL, Method.PUT);
+            RestRequest request = new RestRequest(ACTIVE_TERMINAL_GROUP_URL, Method.Put);
             request.AddUrlSegment("groupId", groupId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -168,7 +186,7 @@ namespace Paxstore.OpenApi
         }
 
         public Result<string> DisableGroup(long groupId){
-            RestRequest request = new RestRequest(DISABLE_TERMINAL_GROUP_URL, Method.PUT);
+            RestRequest request = new RestRequest(DISABLE_TERMINAL_GROUP_URL, Method.Put);
             request.AddUrlSegment("groupId", groupId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -178,7 +196,7 @@ namespace Paxstore.OpenApi
 
         public Result<String> DeleteGroup(long groupId)
         {
-            RestRequest request = new RestRequest(DELETE_TERMINAL_GROUP_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_TERMINAL_GROUP_URL, Method.Delete);
             request.AddUrlSegment("groupId", groupId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -196,7 +214,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<Terminal>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_IN_GROUP_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_IN_GROUP_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddUrlSegment("groupId", groupId);
@@ -236,7 +254,7 @@ namespace Paxstore.OpenApi
                 validationErrs.Add(GetMsgByKey("parameterTerminalIdsMandatory"));
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(ADD_TERMINAL_IN_GROUP_URL, Method.POST);
+            RestRequest request = new RestRequest(ADD_TERMINAL_IN_GROUP_URL, Method.Post);
             request.AddUrlSegment("groupId", groupId.ToString());
             var requestJson = JsonConvert.SerializeObject(terminalIds);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
@@ -254,7 +272,7 @@ namespace Paxstore.OpenApi
                 validationErrs.Add(GetMsgByKey("parameterTerminalIdsMandatory"));
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(REMOVE_TERMINAL_OUT_GROUP_URL, Method.PUT);
+            RestRequest request = new RestRequest(REMOVE_TERMINAL_OUT_GROUP_URL, Method.Put);
             request.AddUrlSegment("groupId", groupId.ToString());
             var requestJson = JsonConvert.SerializeObject(terminalIds);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);

@@ -7,7 +7,10 @@ APIs are encapsulated in classes *Paxstore.OpenApi.TerminalApkParameterApi*.
 **Constructors of TerminalApkParameter**
 
 ```
-public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret);
+public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalApkParameterApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

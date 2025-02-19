@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using Paxstore.OpenApi.Base;
@@ -17,8 +18,24 @@ namespace Paxstore.OpenApi
         private const string CREATE_TERMINAL_GROUP_RKI_URL = "/v1/3rdsys/terminalGroupRki";
         private const string SUSPEND_TERMINAL_GROUP_RKI_URL = "/v1/3rdsys/terminalGroupRki/{groupRkiId}/suspend";
 
-        public TerminalGroupRkiApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public TerminalGroupRkiApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
         { }
+
+        public TerminalGroupRkiApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalGroupRkiApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalGroupRkiApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
+
+        }
 
         public Result<TerminalGroupRkiTask> SearchGroupPushRkiTask(int pageNo, int pageSize, SearchOrderBy orderBy,
             long groupId, Nullable<bool> pendingOnly, Nullable<bool> historyOnly, string keyWords) {
@@ -27,7 +44,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalGroupRkiTask>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_GROUP_RKI_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_GROUP_RKI_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo);
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddParameter("orderBy", GetOrderValue(orderBy));
@@ -53,7 +70,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalGroupRkiTask>(validationErrs);
             }
-            RestRequest request = new RestRequest(GET_TERMINAL_GROUP_RKI_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_GROUP_RKI_URL, Method.Get);
             request.AddUrlSegment("groupRkiId", groupRkiPushTaskId);
             var responseContent = Execute(request);
             TerminalGroupRkiTaskResponse response = JsonConvert.DeserializeObject<TerminalGroupRkiTaskResponse>(responseContent);
@@ -67,7 +84,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalGroupRkiTask>(validationErrs);
             }
-            RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_RKI_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_GROUP_RKI_URL, Method.Post);
             var requestJson = JsonConvert.SerializeObject(createTerminalGroupRkiTaskRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
@@ -82,7 +99,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<TerminalGroupRkiTask>(validationErrs);
             }
-            RestRequest request = new RestRequest(SUSPEND_TERMINAL_GROUP_RKI_URL, Method.POST);
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_GROUP_RKI_URL, Method.Post);
             request.AddUrlSegment("groupRkiId", groupRkiPushTaskId);
             var responseContent = Execute(request);
             TerminalGroupRkiTaskResponse response = JsonConvert.DeserializeObject<TerminalGroupRkiTaskResponse>(responseContent);

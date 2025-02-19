@@ -8,7 +8,10 @@ User can customize the additional attributes for merchant. To add/delete/update 
 **Constructors of MerchantApi**
 
 ```
-public MerchantApi(string baseUrl, string apiKey, string apiSecret)
+public MerchantApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public MerchantApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public MerchantApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public MerchantApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 Constructor parameters description   
@@ -80,8 +83,10 @@ Result<PagedMerchant> result = API.SearchMerchant(1, 10, MerchantSearchOrderBy.N
 				"Name": "reseller_002"
 			},
 			"Country": "CN",
-			"Postcode": null,
-			"Address": null,
+			"Province":"JiangSu",
+            "City":"Suzhou",
+            "Postcode":"215000",
+            "Address":"Room 501, Building B2, Genwayl-Park, No.88, Dongchang Road, Suzhou Industrial Park, Jiangsu",
 			"Contact": "tan",
 			"Email": "abc@163.com",
 			"Phone": "23231515",
@@ -100,10 +105,16 @@ The type in dataSet is PagedMerchant. And the structure like below.
 |Name|string|The name of merchant.|
 |Reseller|SimpleReseller|The reseller of the merchant belongs to.|
 |Country|string|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
+|Province|string|province|
+|City|string|the city|
+|Postcode|string|the postcode|
+|Address|string|the address of the merchant|
 |Contact|string|Contact of merchant.|
 |Email|string|Email of merchant.|
 |Phone|string|Phone number of merchant.|
 |Status|string|Status of merchant. Value can be one of A(Active), P(Pendding) and S(Suspend)|
+|Description|String|The description of the merchant|
+
 
 The structure of class SimpleReseller
 
@@ -185,6 +196,8 @@ Result<Merchant> result = api.GetMerchant(72590);
 			"Name": "reseller_002"
 		},
 		"Country": "CN",
+		"Province":"JiangSu",
+        "City":"Suzhou",
 		"Postcode": null,
 		"Address": null,
 		"Contact": "tan",
@@ -205,12 +218,17 @@ The type of data in result is Merchant, and the structure shows below.
 |Name|string|The name of merchant.|
 |Reseller|SimpleReseller|The reseller of the merchant belongs to.|
 |Country|string|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
+|Province|string|province|
+|City|string|the city|
+|Postcode|string|the postcode|
+|Address|string|the address of the merchant|
 |Contact|string|Contact of merchant.|
 |Email|string|Email of merchant.|
 |Phone|string|Phone number of merchant.|
 |Status|string|Status of merchant. Value can be one of A(Active), P(Pendding) and S(Suspend)|
 |EntityAttributeValues|Dictionary&lt;string, string&gt;|Dynamic attributes of merchant.|
 |MerchantCategory|List&lt;MerchantCategory&gt;|Categories of merchant belongs to.|
+|Description|string|The description of the merchant|
 
 The structure of SimpleReseller already described in Search Merchants chapter.
 
@@ -250,6 +268,8 @@ Structure of class MerchantCreateRequest
 |ResellerName|string|false|Reseller name of merchant, max length is 64. Make sure the reseller exist.|
 |Contact|string|true|Contact of merchant, max length is 64.|
 |Country|string|true|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
+|Province|string|true|Max length is 64.|
+|City|String|true|Max length is 32.|
 |Phone|string|true|Phone number of merchant, max length is 32.|
 |Postcode|string|true|Postcode of merchant, max length is 16.|
 |Address|string|true|Address of merchant, max length is 255.|
@@ -399,11 +419,13 @@ Structure of class MerchantUpdateRequest
 |:--|:--|:--|:--|
 |Name|string|false|Merchant name, max length is 64.|
 |Email|string|true|Email of merchant, max length is 255. If email is empty the API won't change the email.|
-|ResellerName|string|true|Reseller name of merchant, max length is 64. Make sure the reseller exist. If resellerName is empty the API won't update the reseller of the merchant|
+|ResellerName|string|false|Reseller name of merchant, max length is 64. Make sure the reseller exist. If resellerName is empty the API won't update the reseller of the merchant|
 |Contact|string|true|Contact of merchant, max length is 64.|
 |Country|string|true|the country code, please refer to [Country Codes](APPENDIX.md#user-content-country-codes)|
+|Province|string|true|Max length is 64.|
 |Phone|string|true|Phone number of merchant, max length is 32.|
 |Postcode|string|true|Postcode of merchant, max length is 16.|
+|City|string|true|Max length is 255.|
 |Address|string|true|Address of merchant, max length is 255.|
 |Description|string|true|Description of merchant, max length is 3000.|
 |CreateUserFlag|bool|true|Indicate whether to create user when activate the merchant, won't create user if this value is empty|

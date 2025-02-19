@@ -7,7 +7,10 @@ The related API(s) is in the class *Paxstore.OpenApi.TerminalEstateApi*.
 **Constructors of TerminalEstateApi**
 
 ```
-public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret);
+public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalEstateApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

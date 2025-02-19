@@ -5,6 +5,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +18,24 @@ namespace Paxstore.OpenApi
         private const string GET_TERMINAL_FIRMWARE_URL = "/v1/3rdsys/terminalFirmwares/{terminalFirmwareId}";
         private const string SUSPEND_TERMINAL_FIRMWARE_URL = "/v1/3rdsys/terminalFirmwares/suspend";
 
-        public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret) {
+        public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public TerminalFirmwareApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
 
         }
 
@@ -95,7 +113,7 @@ namespace Paxstore.OpenApi
                 return new Result<PushFirmwareTaskInfo>(validationErrs);
             }
 
-            RestRequest request = new RestRequest(CREATE_TERMINAL_FIRMWARE_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_TERMINAL_FIRMWARE_URL, Method.Post);
 
             var terminalFirmwareJson = JsonConvert.SerializeObject(pushFirmware2TerminalRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, terminalFirmwareJson, ParameterType.RequestBody);
@@ -122,7 +140,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<PushFirmwareTaskInfo>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_TERMINAL_FIRMWARE_LIST_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_TERMINAL_FIRMWARE_LIST_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddParameter("terminalTid", terminalTid);
@@ -140,7 +158,7 @@ namespace Paxstore.OpenApi
 
 
         public Result<PushFirmwareTaskInfo> GetPushFirmwareTask(long pushFirmwareTaskId){
-            RestRequest request = new RestRequest(GET_TERMINAL_FIRMWARE_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_TERMINAL_FIRMWARE_URL, Method.Get);
             request.AddUrlSegment("terminalFirmwareId", pushFirmwareTaskId.ToString());
             var responseContent = Execute(request);
             PushFirmwareTaskResponse response = JsonConvert.DeserializeObject<PushFirmwareTaskResponse>(responseContent);
@@ -179,7 +197,7 @@ namespace Paxstore.OpenApi
 }
 
         private Result<string> DisablePushFirmwareTask(PushFirmware2TerminalRequest disablePushFirmwareTaskRequest){
-            RestRequest request = new RestRequest(SUSPEND_TERMINAL_FIRMWARE_URL, Method.POST);
+            RestRequest request = new RestRequest(SUSPEND_TERMINAL_FIRMWARE_URL, Method.Post);
             var disablePushFirmwareTaskRequestJson = JsonConvert.SerializeObject(disablePushFirmwareTaskRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, disablePushFirmwareTaskRequestJson, ParameterType.RequestBody);
             var responseContent = Execute(request);

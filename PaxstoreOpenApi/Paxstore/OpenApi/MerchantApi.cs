@@ -27,6 +27,7 @@ using Paxstore.OpenApi.Model;
 using Paxstore.OpenApi.Validator.Merchant;
 using FluentValidation;
 using FluentValidation.Results;
+using System.Net;
 
 namespace Paxstore.OpenApi
 {
@@ -41,7 +42,24 @@ namespace Paxstore.OpenApi
 	    private const string DELETE_MERCHANT_URL = "/v1/3rdsys/merchants/{merchantId}";
         private const string REPLACE_MERCHANT_EMAIL_URL = "/v1/3rdsys/merchants/{merchantId}/replaceEmail";
 
-        public MerchantApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret){
+        public MerchantApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public MerchantApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public MerchantApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public MerchantApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
+        {
 
         }
 
@@ -51,7 +69,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<PagedMerchant>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_MERCHANT_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_MERCHANT_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             request.AddParameter("orderBy", GetOrderValue(orderBy));
@@ -68,7 +86,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0) {
                 return new Result<Merchant>(validationErrs);
             }
-            RestRequest request = new RestRequest(GET_MERCHANT_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_MERCHANT_URL, Method.Get);
             request.AddUrlSegment("merchantId", merchantId);
             var responseContent = Execute(request);
             MerchantResponse merchantResponse = JsonConvert.DeserializeObject<MerchantResponse>(responseContent);
@@ -81,7 +99,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0){
                 return new Result<Merchant>(validationErrs);
             }
-            RestRequest request = new RestRequest(CREATE_MERCHANT_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_MERCHANT_URL, Method.Post);
             var merchantJson = JsonConvert.SerializeObject(merchantCreateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantJson, ParameterType.RequestBody);
             var responseContent = Execute(request);
@@ -95,7 +113,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0){
                 return new Result<Merchant>(validationErrs);
             }
-            RestRequest request = new RestRequest(UPDATE_MERCHANT_URL, Method.PUT);
+            RestRequest request = new RestRequest(UPDATE_MERCHANT_URL, Method.Put);
             var merchantJson = JsonConvert.SerializeObject(merchantUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, merchantJson, ParameterType.RequestBody);
             request.AddUrlSegment("merchantId",merchantId);
@@ -111,7 +129,7 @@ namespace Paxstore.OpenApi
             if (validationErrs.Count > 0){
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(ACTIVATE_MERCHANT_URL, Method.PUT);
+            RestRequest request = new RestRequest(ACTIVATE_MERCHANT_URL, Method.Put);
             request.AddUrlSegment("merchantId",merchantId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -124,7 +142,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0) {
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(DISABLE_MERCHANT_URL, Method.PUT);
+            RestRequest request = new RestRequest(DISABLE_MERCHANT_URL, Method.Put);
             request.AddUrlSegment("merchantId",merchantId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -137,7 +155,7 @@ namespace Paxstore.OpenApi
             if(validationErrs.Count>0) {
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(DELETE_MERCHANT_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_MERCHANT_URL, Method.Delete);
             request.AddUrlSegment("merchantId",merchantId);
             var responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);
@@ -148,7 +166,7 @@ namespace Paxstore.OpenApi
         private List<string> ValidateReplaceEmail(string email, bool createUser) {
             List<string> validationErrs = new List<string>();
             ReplaceMerchantEmailModel model = new ReplaceMerchantEmailModel(email, createUser);
-            IValidator validator = new ReplaceMerchantEamilValidator();
+            IValidator<ReplaceMerchantEmailModel> validator = new ReplaceMerchantEamilValidator();
             ValidationResult results = validator.Validate(model);
             if (!results.IsValid)
             {
@@ -167,7 +185,7 @@ namespace Paxstore.OpenApi
             if (validationErrs.Count > 0){
                 return new Result<string>(validationErrs);
             }
-            RestRequest request = new RestRequest(REPLACE_MERCHANT_EMAIL_URL, Method.POST);
+            RestRequest request = new RestRequest(REPLACE_MERCHANT_EMAIL_URL, Method.Post);
             request.AddUrlSegment("merchantId", merchantId);
             Dictionary<string, object> requestBodyObj = new Dictionary<string, object>();
             requestBodyObj.Add("email", email);

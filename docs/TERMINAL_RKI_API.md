@@ -10,7 +10,10 @@ With the growing maturity of the PAX RKI solution. PAX already provides customer
 **Constructors of TerminalRkiApi**
 
 ```
-public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret);
+public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalRkiApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

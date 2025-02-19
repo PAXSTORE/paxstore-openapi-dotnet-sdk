@@ -5,7 +5,10 @@ All the entity attribute related APIs are encapsulated in the class *Paxstore.Op
 **Constructors of EntityAttribute**
 
 ```
-public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret) 
+public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

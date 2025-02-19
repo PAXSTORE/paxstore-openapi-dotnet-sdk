@@ -6,6 +6,7 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,23 @@ namespace Paxstore.OpenApi
         private const string UPDATE_ENTITY_ATTRIBUTES_LABEL_URL = "/v1/3rdsys/attributes/{attributeId}/label";
         private const string DELETE_ENTITY_ATTRIBUTES_URL = "/v1/3rdsys/attributes/{attributeId}";
 
-        public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret) : base(baseUrl, apiKey, apiSecret)
+        public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null) 
+            : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
+        {
+
+        }
+
+        public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, DEFAULT_TIMEOUT, null)
+        {
+
+        }
+
+        public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy) : base(baseUrl, apiKey, apiSecret, null, DEFAULT_TIMEOUT, proxy)
+        {
+
+        }
+
+        public EntityAttributeApi(string baseUrl, string apiKey, string apiSecret, int timeout) : base(baseUrl, apiKey, apiSecret, null, timeout, null)
         {
 
         }
@@ -32,7 +49,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<EntityAttribute>(validationErrs);
             }
-            RestRequest request = new RestRequest(GET_ENTITY_ATTRIBUTES_URL, Method.GET);
+            RestRequest request = new RestRequest(GET_ENTITY_ATTRIBUTES_URL, Method.Get);
             request.AddUrlSegment("attributeId", attributeId);
             var responseContent = Execute(request);
              EntityAttributeResponse entityAttributeResponse = JsonConvert.DeserializeObject<EntityAttributeResponse>(responseContent);
@@ -47,7 +64,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<EntityAttribute>(validationErrs);
             }
-            RestRequest request = new RestRequest(SEARCH_ENTITY_ATTRIBUTES_URL, Method.GET);
+            RestRequest request = new RestRequest(SEARCH_ENTITY_ATTRIBUTES_URL, Method.Get);
             request.AddParameter(Constants.PAGINATION_PAGE_NO, pageNo.ToString());
             request.AddParameter(Constants.PAGINATION_PAGE_LIMIT, pageSize.ToString());
             if (orderBy != null) {
@@ -76,7 +93,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<EntityAttribute>(validationErrs);
             }
-            RestRequest request = new RestRequest(CREATE_ENTITY_ATTRIBUTES_URL, Method.POST);
+            RestRequest request = new RestRequest(CREATE_ENTITY_ATTRIBUTES_URL, Method.Post);
             var requestJson = JsonConvert.SerializeObject(entityAttributeCreateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             string responseContent = Execute(request);
@@ -95,7 +112,7 @@ namespace Paxstore.OpenApi
             {
                 return new Result<EntityAttribute>(validationErrs);
             }
-            RestRequest request = new RestRequest(UPDATE_ENTITY_ATTRIBUTES_URL, Method.PUT);
+            RestRequest request = new RestRequest(UPDATE_ENTITY_ATTRIBUTES_URL, Method.Put);
             var requestJson = JsonConvert.SerializeObject(entityAttributeUpdateRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
             request.AddUrlSegment("attributeId", attributeId.ToString());
@@ -111,7 +128,7 @@ namespace Paxstore.OpenApi
                 List<string> validationErrs = new List<string>();
                 validationErrs.Add(GetMsgByKey("parameterUpdateLabelRequestNull"));
             }
-            RestRequest request = new RestRequest(UPDATE_ENTITY_ATTRIBUTES_LABEL_URL, Method.PUT);
+            RestRequest request = new RestRequest(UPDATE_ENTITY_ATTRIBUTES_LABEL_URL, Method.Put);
             request.AddUrlSegment("attributeId", attributeId.ToString());
             var requestJson = JsonConvert.SerializeObject(updateLabelRequest);
             request.AddParameter(Constants.CONTENT_TYPE_JSON, requestJson, ParameterType.RequestBody);
@@ -122,7 +139,7 @@ namespace Paxstore.OpenApi
         }
 
         public Result<string> DeleteEntityAttribute(long attributeId){
-            RestRequest request = new RestRequest(DELETE_ENTITY_ATTRIBUTES_URL, Method.DELETE);
+            RestRequest request = new RestRequest(DELETE_ENTITY_ATTRIBUTES_URL, Method.Delete);
             request.AddUrlSegment("attributeId", attributeId.ToString());
             string responseContent = Execute(request);
             EmptyResponse emptyResponse = JsonConvert.DeserializeObject<EmptyResponse>(responseContent);

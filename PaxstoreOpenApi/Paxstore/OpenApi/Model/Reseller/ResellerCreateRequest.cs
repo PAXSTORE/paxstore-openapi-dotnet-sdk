@@ -5,8 +5,8 @@ namespace Paxstore.OpenApi.Model
 {
     public class ResellerCreateRequest: ResellerUpdateRequest
     {
-//        [JsonProperty("parentResellerName")]
-//        public string ParentResellerName { get; set; }
+        //        [JsonProperty("parentResellerName")]
+        //        public string ParentResellerName { get; set; }
 
         [JsonProperty("status")]
         private string Status;

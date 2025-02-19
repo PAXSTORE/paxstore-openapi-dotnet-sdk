@@ -5,7 +5,10 @@ All the terminalApk related APIs are encapsulated in the class *Paxstore.OpenApi
 **Constructors of TerminalApkApi**
 
 ```
-public TerminalApkApi(string baseUrl, string apiKey, string apiSecret)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public TerminalApkApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**
@@ -198,8 +201,24 @@ Result<PushApkHistory> result = api.SearchPushApkHistory(1, 10, SearchOrderBy.Cr
             "apkVersionName": "7.5.0",
             "apkVersionCode": "75",
             "terminalSN": "87879696",
+            "activatedDate": 23222,
+            "forceUpdate": true,
+            "wifiOnly": false,
+            "effectiveTime": 222,
+            "expiredTime": 222,
+            "actionTime": 222,
             "status": "A",
-            "actionStatus": 2
+            "actionStatus": 2,
+            "errorCode": 0,
+            "terminalApkParam": {
+                "paramTemplateName": "",
+                "actionStatus": 0,
+                "errorCode": 0,
+                "configuredParameters": {
+                    "param1": "value1",
+                    "param2": "value2"
+                }
+            }
 		}]
 	}
 }
@@ -214,8 +233,27 @@ The type in dataSet is PushApkHistory. And the structure like below.
 |apkVersionName|string|the version name of apk|
 |apkVersionCode|long|the version code of apk|
 |terminalSN|string|the serialNo of terminal|
-|status|string|the status of this push, for the possible valus please refer to table Possible action status|
+|activatedDate|long||
+|forceUpdate|Boolean|whether to force the apk to update|
+|wifiOnly|Boolean|whether the APK is push only when the terminal is connected to the WIFI network|
+|effectiveTime|long||
+|expiredTime|long||
+|actionTime|long||
+|status|string|the status of this push, for the possible values please refer to table Possible action status|
 |actionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
+|terminalApkParam|TerminalApkParamPushInfo|terminal apk parameter push information|
+|errorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
+
+The structure of type TerminalApkParamPushInfo  
+
+|Name|Type|Description|
+|:---|:---|:---|
+|paramTemplateName|string|the name of the parameter template|
+|configuredParameters|Dictionary|the configured parameters of the APK|
+|actionStatus|string|the action status, please refer to [Action Status](APPENDIX.md#user-content-action-status)|
+|errorCode|string|the error code, please refer to [Action Error Codes](APPENDIX.md#user-content-action-error-codes)|
+
+
 
 **Possible client validation errors**  
 

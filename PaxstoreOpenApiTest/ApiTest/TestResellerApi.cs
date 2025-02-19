@@ -1,19 +1,15 @@
-
-using log4net;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Paxstore.OpenApi;
 using Paxstore.OpenApi.Model;
+using Serilog;
 using System;
-using System.Globalization;
-using System.Threading;
 
 namespace Paxstore.Test
 {
     [TestFixture()]
-    public class TestResellerApi
+    public class TestResellerApi : BaseTest
     {
-        private static ILog _logger = LogManager.GetLogger(typeof(TestResellerApi));
         public static ResellerApi API = new ResellerApi (TestConst.API_BASE_URL, TestConst.API_KEY, TestConst.API_SECRET);
 
 
@@ -22,14 +18,14 @@ namespace Paxstore.Test
         public void TestSearchResellerInvalidPageNo()
         {
             Result<PagedReseller> result = API.SearchReseller(-1, 3000, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.IsTrue(result.BusinessCode == -1);
         }
 
         [Test()]
         public void TestSearchReseller(){
             Result<PagedReseller> result = API.SearchReseller(1, 10, ResellerSearchOrderBy.Name, null, ResellerStatus.All);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.IsTrue(result.BusinessCode == 0);
             Assert.IsTrue(result.PageInfo.TotalCount > 0);
         }
@@ -37,7 +33,7 @@ namespace Paxstore.Test
         [Test()]
         public void TestGetResellerInvalidId(){
             Result<Reseller> result = API.GetReseller(-1);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(-1, result.BusinessCode);
         }
 
@@ -45,7 +41,7 @@ namespace Paxstore.Test
         [Test()]
         public void TestGetResellerNotExist() {
             Result<Reseller> result = API.GetReseller(1000);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(1759, result.BusinessCode);
         }
 
@@ -68,7 +64,7 @@ namespace Paxstore.Test
             request.Email = "suzhou";
             request.ParentResellerName = "reseller test";
             Result<Reseller> result = API.CreateReseller(request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, -1);
         }
 
@@ -85,7 +81,7 @@ namespace Paxstore.Test
             request.ParentResellerName = "reseller test";
             request.setActivateWhenCreate(false);
             Result<Reseller> result = API.CreateReseller(request);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 0);
 
 
@@ -102,7 +98,7 @@ namespace Paxstore.Test
             updateRequest.Phone = "44445555";
             updateRequest.ParentResellerName = "reseller test";
             Result<Reseller> updateResult = API.UpdateReseller(resellerId, updateRequest);
-            _logger.DebugFormat("Update Result=\n{0}", JsonConvert.SerializeObject(updateResult));
+            Log.Debug("Update Result=\n{0}", JsonConvert.SerializeObject(updateResult));
             Assert.AreEqual(updateResult.BusinessCode, 0);
             Assert.AreEqual("suzhou2", updateResult.Data.Address);
             Assert.AreEqual("ZhangSan2", updateResult.Data.Contact);
@@ -111,33 +107,33 @@ namespace Paxstore.Test
 
 
             Result<Reseller> getResellerResult = API.GetReseller(resellerId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(getResellerResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(getResellerResult));
             Assert.AreEqual(0, getResellerResult.BusinessCode);
 
             //Test activate reseller
             Result<string> activateResellerResult = API.ActivateReseller(resellerId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(activateResellerResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(activateResellerResult));
             Assert.AreEqual(activateResellerResult.BusinessCode, 0);
 
 
             Result<string> replaceEmailResult = API.ReplaceResellerEmail(resellerId, "zhangsan@pax.com");
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(replaceEmailResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(replaceEmailResult));
             Assert.AreEqual(replaceEmailResult.BusinessCode, 0);
 
             //Test activate reseller already active
             Result<string> activateResellerResult2 = API.ActivateReseller(resellerId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(activateResellerResult2));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(activateResellerResult2));
             Assert.AreEqual(activateResellerResult2.BusinessCode, 1891);
 
 
             //Test disable reseller
             Result<string> disableResellerResult = API.DisableReseller(resellerId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(disableResellerResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(disableResellerResult));
             Assert.AreEqual(disableResellerResult.BusinessCode, 0);
 
             //Test delete
             Result<string> deleteResellerResult = API.DeleteReseller(resellerId);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(deleteResellerResult));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(deleteResellerResult));
             Assert.AreEqual(deleteResellerResult.BusinessCode, 0);
 
         }
@@ -145,14 +141,14 @@ namespace Paxstore.Test
         [Test]
         public void TestActivateResellerNotExist() {
             Result<string> result = API.ActivateReseller(1000);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
             Assert.AreEqual(result.BusinessCode, 1759);
         }
 
         [Test]
         public void TestSearchResellerRkiKeyList() {
             Result<ResellerRkiKeyInfo> result = API.SearchResellerRkiKeyList(1, 1, 20, null);
-            _logger.DebugFormat("Result=\n{0}", JsonConvert.SerializeObject(result));
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
         }
 
     }

@@ -6,7 +6,10 @@ PushHistoryApi is used to search the push result. All the terminal APIs are in t
 **Constructors of TerminalApkApi**
 
 ```
-public PushHistoryApi(string baseUrl, string apiKey, string apiSecret);
+public PushHistoryApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null)
+public PushHistoryApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo)
+public PushHistoryApi(string baseUrl, string apiKey, string apiSecret, IWebProxy proxy)
+public PushHistoryApi(string baseUrl, string apiKey, string apiSecret, int timeout)
 ```
 
 **Constructor parameters description**

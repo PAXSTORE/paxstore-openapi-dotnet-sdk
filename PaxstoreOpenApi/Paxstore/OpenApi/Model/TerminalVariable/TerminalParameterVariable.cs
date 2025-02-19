@@ -9,7 +9,6 @@ namespace Paxstore.OpenApi.Model
     public class TerminalParameterVariable
     {
         public long ID { get; set; }
-        public Nullable<long> AppId { get; set; }
         public string AppPackageName { get; set; }
         public string Type { get; set; }
         public string AppName { get; set; }
