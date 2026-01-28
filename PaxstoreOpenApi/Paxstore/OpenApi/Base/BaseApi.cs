@@ -74,7 +74,7 @@ namespace Paxstore.OpenApi.Base
             ApiKey = apiKey;
             ApiSecret = apiSecret;
             RestClientOptions clientOptions = new RestClientOptions { BaseUrl = new Uri(BaseUrl) };
-            clientOptions.MaxTimeout = timeout;
+            clientOptions.Timeout = TimeSpan.FromMilliseconds(timeout);
             if (proxy != null)
             {
                 clientOptions.Proxy = proxy;
