@@ -12,6 +12,7 @@ namespace Paxstore.OpenApi
     public class AppApi : BaseApi
     {
         private const string SEARCH_APP_URL = "/v1/3rdsys/apps";
+        private const string SEARCH_APK_MODEL_LIST_URL = "/v1/3rdsys/apps/apk/model/list";
 
         public AppApi(string baseUrl, string apiKey, string apiSecret, TimeZoneInfo timeZoneInfo = null, int timeout = 5000, IWebProxy proxy = null) : base(baseUrl, apiKey, apiSecret, timeZoneInfo, timeout, proxy)
         {
@@ -113,7 +114,36 @@ namespace Paxstore.OpenApi
             Result<PagedApp> result = new Result<PagedApp>(appPageDTO);
             return result;
         }
+
+        public Result<ApkModel> SearchApkSupportedModels(string packageName, string versionName)
+        {
+
+            List<string> validationErrs = new List<string>();
+            if (string.IsNullOrWhiteSpace(packageName))
+            {
+                validationErrs.Add(GetMsgByKey("packageNameNull"));
+            }
+            if (string.IsNullOrWhiteSpace(versionName))
+            {
+                validationErrs.Add(GetMsgByKey("versionNameNull"));
+            }
+            if(validationErrs.Count > 0)
+            {
+                return new Result<ApkModel>(validationErrs);
+            }
+
+            RestRequest request = new RestRequest(SEARCH_APK_MODEL_LIST_URL, Method.Get);
+
+            request.AddParameter("packageName", packageName.Trim());
+            request.AddParameter("versionName", versionName.Trim());
+            var responseContent = Execute(request);
+            ApkModelResponse apkModelResponse = JsonConvert.DeserializeObject<ApkModelResponse>(responseContent);
+            Result<ApkModel> result = new Result<ApkModel>(apkModelResponse);
+            return result;
+        }
     }
+
+    
     
     public enum AppStatus{
         [EnumValue("A")]

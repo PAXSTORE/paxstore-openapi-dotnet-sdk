@@ -26,6 +26,12 @@ namespace Paxstore.Test
             Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
         }
 
+        [Test]
+        public void TestSearchApkModels() {
+            Result<ApkModel> result = API.SearchApkSupportedModels("com.pax.android.demaaopp", "9.3.0");
+            Log.Debug("Result=\n{0}", JsonConvert.SerializeObject(result));
+        }
+
 
     }
 }

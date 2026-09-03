@@ -70,7 +70,7 @@ public Result<PagedApp> SearchApp(
 **Sample codes**
 
 ```
-AppApi AppApi = new  AppApi("https://api.whatspos.com/p-market-api", "RCA9MDH6YN3WSSGPW6TJ", "TUNLDZVZECHNKZ4FW07XFCKN2W0N8ZDEA5ENKZYN");
+AppApi AppApi = new  AppApi("https://api.whatspos.com/p-market-api", "XXXXXXXX", "XXXXXXXX");
 Result<PagedApp> result = AppApi.SearchApp(1, 10, AppSearchOrderBy.UpdatedDate_desc,
                                                  "", AppOsType.Android, AppChargeType.Free, AppBaseType.Normal, 
                                                  AppStatus.Active, ApkStatus.Online, false, false);
@@ -182,3 +182,117 @@ The structure of class Developer
 > <font color=red>pageNo:must be greater than or equal to 1</font>   
 > <font color=red>pageSize:must be greater than or equal to 1</font>   
 > <font color=red>pageSize:must be less than or equal to 100</font>  
+
+
+### Search Apk Supported Models  
+
+```
+public Result<ApkModel> SearchApkSupportedModels(string packageName, string versionName)
+```
+
+**Input parameter(s) description**
+
+| Parameter Name | Type   | Nullable | Description                               |
+| :------------- | :----- | :------- | :---------------------------------------- |
+| packageName    | string | false    | Apk packageName, example: com.app.package |
+| versionName    | string | false    | Apk versionName, example: 1.0             |
+
+**Sample codes**
+
+```
+AppApi appApi = new AppApi("https://api.whatspos.com/p-market-api", "XXXXXXXX", "XXXXXXXX");
+string packageName = "com.zolon.signrotatetest1";
+string versionName = "1.0.13";
+Result<ApkModel> result = appApi.SearchApkSupportedModels("com.zolon.signrotatetest1", "1.0.13");
+```
+
+**Client side validation failed sample result(JSON formatted)**  
+
+```
+{
+	"BusinessCode": -1,
+	"ValidationErrors": ["Parameter packageName cannot be null!"]
+}
+```
+
+**Server side validation failed sample result(JSON formatted)**
+
+```
+{
+	"BusinessCode": 1002,
+	"Message": "APK not found"
+}
+```
+
+**Successful sample result**
+
+```
+{
+    "BusinessCode": 0,
+    "Data": {
+        "ModelList": [
+            {
+                "Factory": {
+                    "Id": 1,
+                    "Name": "PAX"
+                },
+                "Id": 7833,
+                "Name": "A77"
+            },
+            {
+                "Factory": {
+                    "Id": 1,
+                    "Name": "PAX"
+                },
+                "Id": 1554,
+                "Name": "A80"
+            },
+            {
+                "Factory": {
+                    "Id": 1,
+                    "Name": "PAX"
+                },
+                "Id": 7808,
+                "Name": "A9000"
+            }
+        ]
+    },
+    "RateLimit": "1",
+    "RateLimitRemain": "0",
+    "RateLimitReset": "1776151018657"
+}
+```
+
+The type in dataSet is ApkModel. And the structure like below.
+
+| Property Name | Type           | Description   |
+| ------------- | -------------- | ------------- |
+| ModelList     | IList<Model> | The modelList |
+
+The type in dataSet is Model. And the structure like below.
+
+| Property Name | Type       | Description |
+| ------------- | ---------- | ----------- |
+| Id            | long       |             |
+| Name          | string     |             |
+| Factory       | Factory |             |  
+
+The type in dataSet is Factory. And the structure like below.
+
+| Property Name | Type   | Description |
+| ------------- | ------ | ----------- |
+| Id            | long   |             |
+| Name          | string |             |  
+
+
+**Possible client validation errors**  
+
+> <font color=red>Parameter packageName cannot be null!</font>   
+> <font color=red>Parameter versionName cannot be null!</font>   
+
+
+**Possible business codes**  
+
+| Business Code | Message       | Description |
+| :------------ | :------------ | :---------- |
+| 1002          | APK not found |             |

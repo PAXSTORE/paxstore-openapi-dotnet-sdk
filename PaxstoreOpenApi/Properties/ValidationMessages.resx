@@ -327,4 +327,10 @@
   <data name="terminalCopyRequestNull" xml:space="preserve">
     <value>Parameter terminalCopyRequest cannot be null!</value>
   </data>
+  <data name="packageNameNull" xml:space="preserve">
+    <value>Parameter packageName cannot be null!</value>
+  </data>
+  <data name="versionNameNull" xml:space="preserve">
+    <value>Parameter versionName cannot be null!</value>
+  </data>
 </root>
