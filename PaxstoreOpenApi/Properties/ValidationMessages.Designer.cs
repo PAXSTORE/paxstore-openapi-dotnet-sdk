@@ -214,6 +214,15 @@ namespace Paxstore.OpenApi.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Parameter packageName cannot be null! 的本地化字符串。
+        /// </summary>
+        internal static string packageNameNull {
+            get {
+                return ResourceManager.GetString("packageNameNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 parameters and base64FileParameters cannot be null at same time! 的本地化字符串。
         /// </summary>
         internal static string paramAndFileParamEmptySameTime {
@@ -687,6 +696,15 @@ namespace Paxstore.OpenApi.Properties {
         internal static string variableListMandatory {
             get {
                 return ResourceManager.GetString("variableListMandatory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parameter versionName cannot be null! 的本地化字符串。
+        /// </summary>
+        internal static string versionNameNull {
+            get {
+                return ResourceManager.GetString("versionNameNull", resourceCulture);
             }
         }
     }

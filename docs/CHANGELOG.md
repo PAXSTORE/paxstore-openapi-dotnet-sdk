@@ -1,5 +1,11 @@
 # Changelog  
 
+
+## 9.3.0  
+### New Feature  
+* Add new API in AppApi to support get APK supported models    
+
+
 ## 9.2.0  
 ### New Feature  
 * TerminalApi supports get terminal network information
